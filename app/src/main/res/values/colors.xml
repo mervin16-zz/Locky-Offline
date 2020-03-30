@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Default Colors -->
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">@android:color/white</color>
+    <color name="colorAccent">@color/blue_300</color>
+
+    <!-- Icon Colors -->
+    <color name="colorIcon">@color/grey_300</color>
+    <color name="colorIconButtonNormal">@android:color/white</color>
+    <color name="colorIconButtonMini">@android:color/black</color>
+
+    <!-- Button Colors -->
+    <color name="colorFABNormal">@color/colorAccent</color>
+    <color name="colorFABMini">@android:color/white</color>
+
+    <!-- Typography Colors -->
+    <color name="colorTextHeader">@color/blue_600</color>
+    <color name="colorTextSubtitle">@color/grey_200</color>
+    <color name="colorTextPrimary">@color/grey_400</color>
+
+    <!-- Color Palette -->
+    <color name="blue_600">#023F7A</color>
+    <color name="blue_300">#268BEE</color>
+    <color name="blue_200">#90CAF9</color>
+
+    <color name="grey_400">#4F4F4F</color>
+    <color name="grey_300">#808080</color>
+    <color name="grey_200">#959595</color>
+    <color name="grey_100">#D3D3D3</color>
+
+    <color name="grey_dark_200">#272727</color>
+
+    <color name="white_87">#87FFFFFF</color>
+    <color name="white_60">#60FFFFFF</color>
 </resources>

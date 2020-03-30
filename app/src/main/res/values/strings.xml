@@ -1,5 +1,28 @@
 <resources>
+
+    <!--
+    ****************** Application Specific ******************
+    -->
     <string name="app_name">Locky</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+
+
+    <!--
+   ****************** Menu ******************
+   -->
+    <string name="menu_actionbar_main_search">Search</string>
+    <string name="menu_actionbar_main_profile">Profile</string>
+    <string name="menu_actionbar_main_about">About</string>
+    <string name="menu_actionbar_main_logout">Logout</string>
+
+
+    <!--
+        ****************** Error Messages ******************
+        -->
+    <string name="error_internal_code_1">Error code 1: An internal error occurred. Please contact your IT support.</string>
+
+    <!--
+   ****************** Dev ******************
+   -->
+    <string name="dev_feature_implementation_unknown">The feature "%1$s" has not been implemented yet.</string>
+
 </resources>

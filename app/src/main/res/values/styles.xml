@@ -1,11 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="actionOverflowButtonStyle">@style/actionButtonOverflow</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +15,50 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="actionButtonOverflow"   parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/colorIcon</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <!--
+         *********************** Buttons ***********************
+     -->
+    <style name="Locky.FloatingActionButton.Normal" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="borderWidth">0dp</item>
+        <item name="tint">@color/colorIconButtonNormal</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="fabSize">normal</item>
+        <item name="android:backgroundTint">@color/colorFABNormal</item>
+    </style>
+
+    <style name="Locky.FloatingActionButton.Mini" parent="Locky.FloatingActionButton.Normal">
+        <item name="tint">@color/colorIconButtonMini</item>
+        <item name="android:backgroundTint">@color/colorFABMini</item>
+        <item name="elevation">8dp</item>
+    </style>
+
+    <!--
+     *********************** Typography ***********************
+     -->
+
+    <style name="Locky.Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/musket_bold</item>
+        <item name="fontFamily">@font/musket_bold</item>
+    </style>
+
+    <style name="Locky.TextAppearance.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/colorTextHeader</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Locky.TextAppearance.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/colorTextSubtitle</item>
+    </style>
+
+    <style name="Locky.TextAppearance.Body" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
 </resources>

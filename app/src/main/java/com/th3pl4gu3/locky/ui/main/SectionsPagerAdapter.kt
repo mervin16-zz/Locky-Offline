@@ -1,35 +1,19 @@
 package com.th3pl4gu3.locky.ui.main
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.th3pl4gu3.locky.R
 
-private val TAB_TITLES = arrayOf(
-        R.string.tab_text_1,
-        R.string.tab_text_2
-)
+class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
-    : FragmentPagerAdapter(fm) {
+    private var fragmentList = ArrayList<Fragment>()
 
-    override fun getItem(position: Int): Fragment {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1)
-    }
+    override fun getItem(position: Int): Fragment = fragmentList[position]
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
-    }
+    override fun getPageTitle(position: Int): CharSequence? = null
 
-    override fun getCount(): Int {
-        // Show 2 total pages.
-        return 2
-    }
+    override fun getCount(): Int = fragmentList.size
+
+    internal fun addFragment(fragment: Fragment) = fragmentList.add(fragment)
+
 }

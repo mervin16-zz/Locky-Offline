@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -23,6 +24,13 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -39,6 +47,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
     /** Android Test Suite **/
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "org.junit.jupiter:junit-jupiter:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
