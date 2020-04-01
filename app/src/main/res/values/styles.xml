@@ -61,4 +61,15 @@
     <style name="Locky.TextAppearance.Body" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
+
+
+    <style name="Locky.TextAppearance.List.Title" parent="Locky.TextAppearance.Title">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="Locky.TextAppearance.List.Subtitle" parent="Locky.TextAppearance.Subtitle">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

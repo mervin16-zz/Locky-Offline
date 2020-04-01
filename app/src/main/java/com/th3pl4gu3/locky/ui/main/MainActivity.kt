@@ -7,8 +7,12 @@ import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager.widget.ViewPager
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
+import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
+import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
+import com.th3pl4gu3.locky.ui.main.utils.toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +47,17 @@ class MainActivity : AppCompatActivity() {
         _binding.ViewPagerMain.adapter = sectionsPagerAdapter
         _binding.TabLayoutMain.setupWithViewPager(_binding.ViewPagerMain)
         setupTabIcons()
+
+        _binding.ViewPagerMain.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                when(position){
+                    0 -> _binding.FABAdd.show()
+                    1 -> _binding.FABAdd.show()
+                    2 -> _binding.FABAdd.show()
+                    3 -> _binding.FABAdd.hide()
+                }
+            }
+        })
 
         //Load expandable FABs and animations
         loadFABs()
