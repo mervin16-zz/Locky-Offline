@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky.ui.main
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewAccountBinding
 
-class AccountAdapter(val clickListener: AccountClickListener) : ListAdapter<Account, AccountAdapter.ViewHolder>(AccountDiffCallback()) {
+class AccountAdapter(
+    private val accountClickListener: AccountClickListener,
+    private val accountOptionsClickListener: AccountOptionsClickListener
+    ) : ListAdapter<Account, AccountAdapter.ViewHolder>(AccountDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(clickListener, getItem(position))
+        holder.bind(accountClickListener, accountOptionsClickListener, getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,9 +23,10 @@ class AccountAdapter(val clickListener: AccountClickListener) : ListAdapter<Acco
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewAccountBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: AccountClickListener, Account: Account) {
+        fun bind(clickListener: AccountClickListener, optionsClickListener: AccountOptionsClickListener, Account: Account) {
             binding.account = Account
             binding.clickListener = clickListener
+            binding.optionsClickListener = optionsClickListener
             binding.executePendingBindings()
         }
 
@@ -49,4 +54,8 @@ class AccountDiffCallback: DiffUtil.ItemCallback<Account>() {
 
 class AccountClickListener(val clickListener: (account: Account) -> Unit){
     fun onClick(account:  Account) = clickListener(account)
+}
+
+class AccountOptionsClickListener(val clickListener: (view: View, account: Account) -> Unit){
+    fun onClick(view: View, account:  Account) = clickListener(view, account)
 }

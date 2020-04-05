@@ -5,20 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
-import com.th3pl4gu3.locky.ui.main.utils.toast
+import com.th3pl4gu3.locky.ui.main.utils.*
 
 class CardFragment : Fragment() {
 
     private var _binding: FragmentCardBinding? = null
+    private lateinit var _viewModel: CardViewModel
 
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentCardBinding.inflate(inflater, container, false)
+        _viewModel = ViewModelProvider(this).get(CardViewModel::class.java)
 
-        initiateCardList().submitList(generateDummyCards())
+        binding.viewModel = _viewModel
+        binding.lifecycleOwner = this
+
+        _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                binding.LayoutFragmentCard.snackbar(it) {
+                    action("Close") { dismiss() }
+                }
+
+                _viewModel.doneShowingSnackbar()
+            }
+        })
+
+        initiateCardList().submitList(_viewModel.generateDummyCards())
 
         return binding.root
     }
@@ -28,9 +51,12 @@ class CardFragment : Fragment() {
         _binding = null
     }
 
-    private fun initiateCardList(): CardAdapter{
+    private fun initiateCardList(): CardAdapter {
         val cardAdapter = CardAdapter(CardClickListener { card ->
             context!!.toast("Card number ${card.number} was clicked. ID: ${card.id}")
+        }, CardOptionsClickListener { view, card ->
+            //displaying the popup
+            createPopupMenu(view, card)
         })
 
         _binding!!.RecyclerViewCard.adapter = cardAdapter
@@ -38,41 +64,26 @@ class CardFragment : Fragment() {
         return cardAdapter
     }
 
-    private fun generateDummyCards(): ArrayList<Card>{
-        val card1 = Card("1")
-        card1.number = 4850508089006089
+    private fun createPopupMenu(view: View, card: Card) {
+        context?.createPopUpMenu(
+            view,
+            R.menu.menu_moreoptions_card,
+            PopupMenu.OnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
+                    R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin.toString())
+                    R.id.Menu_ShowPin -> {
+                        _viewModel.setSnackBarMessage(card.pin.toString())
+                        true
+                    }
+                    else -> false
+                }
+            })
+    }
 
-        val card2 = Card("2")
-        card2.number = 5150508089006089
-
-        val card3 = Card("3")
-        card3.number = 5450508089006089
-
-        val card4 = Card("4")
-        card4.number = 3550508089006089
-
-        val card5 = Card("5")
-        card5.number = 3000508089006089
-
-        val card6 = Card("6")
-        card6.number = 6011508089006089
-
-        val card7 = Card("7")
-        card7.number = 2130508089006089
-
-        val card8 = Card("8")
-        card8.number = 1800508089006089
-
-        val cards = java.util.ArrayList<Card>()
-        cards.add(card1)
-        cards.add(card2)
-        cards.add(card3)
-        cards.add(card4)
-        cards.add(card5)
-        cards.add(card6)
-        cards.add(card7)
-        cards.add(card8)
-
-        return cards
+    private fun copyToClipboardAndToast(message: String): Boolean {
+        context?.copyToClipboard(message)
+        context?.toast("Copied successfully")
+        return true
     }
 }

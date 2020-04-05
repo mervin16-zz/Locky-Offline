@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky.ui.main
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewCardBinding
 
-class CardAdapter(val clickListener: CardClickListener) : ListAdapter<Card, CardAdapter.ViewHolder>(CardDiffCallback()) {
+class CardAdapter(
+    private val cardClickListener: CardClickListener,
+    private val cardOptionsClickListener: CardOptionsClickListener
+) : ListAdapter<Card, CardAdapter.ViewHolder>(CardDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(clickListener, getItem(position))
+        holder.bind(cardClickListener, cardOptionsClickListener, getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,9 +23,10 @@ class CardAdapter(val clickListener: CardClickListener) : ListAdapter<Card, Card
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewCardBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: CardClickListener, card: Card) {
+        fun bind(clickListener: CardClickListener, cardOptionsClickListener:CardOptionsClickListener, card: Card) {
             binding.card = card
             binding.clickListener = clickListener
+            binding.clickOptionsListener = cardOptionsClickListener
             binding.executePendingBindings()
         }
 
@@ -50,4 +55,8 @@ class CardDiffCallback: DiffUtil.ItemCallback<Card>() {
 
 class CardClickListener(val clickListener: (card: Card) -> Unit){
     fun onClick(card: Card) = clickListener(card)
+}
+
+class CardOptionsClickListener(val clickListener: (view: View, card: Card) -> Unit){
+    fun onClick(view: View, card: Card) = clickListener(view, card)
 }

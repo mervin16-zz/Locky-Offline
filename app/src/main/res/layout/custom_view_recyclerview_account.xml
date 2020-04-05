@@ -11,6 +11,9 @@
 
         <variable
             name="ClickListener" type="com.th3pl4gu3.locky.ui.main.AccountClickListener"/>
+
+        <variable
+            name="OptionsClickListener" type="com.th3pl4gu3.locky.ui.main.AccountOptionsClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,18 +25,67 @@
         android:onClick="@{() -> ClickListener.onClick(Account)}">
 
         <ImageView
-            android:id="@+id/Card_Logo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="8dp"
+            android:id="@+id/Account_Logo"
+            bindLogoImage="@{Account.website}"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            imageUrl="@{Account.website}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Entry_Name"
+            style="@style/Locky.TextAppearance.List.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="7dp"
+            android:text="@{Account.name}"
+            app:layout_constraintBottom_toTopOf="@+id/Account_Website"
+            app:layout_constraintStart_toEndOf="@+id/Account_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Account_Logo"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/Account_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            accountLogin="@{Account}"
+            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
+            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
+            app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
+            style="@style/Locky.TextAppearance.List.Subtitle"
+            tools:text="username"/>
+
+        <TextView
+            android:id="@+id/Account_Website"
+            style="@style/Locky.TextAppearance.List.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{Account.website}"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/Account_Login"
+            app:layout_constraintStart_toEndOf="@+id/Account_Login"
+            app:layout_constraintTop_toTopOf="@+id/Account_Login"
+            tools:text="www.domain.com" />
+
+        <ImageButton
+            android:id="@+id/Account_More_Options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_more_options"
+            android:onClick="@{(view) -> OptionsClickListener.onClick(view, Account)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

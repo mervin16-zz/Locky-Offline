@@ -5,9 +5,11 @@ import javax.crypto.spec.SecretKeySpec
 
 abstract class Credentials {
 
-    abstract val id: String
+    internal abstract val id: String
+    var name: String = ""
+        internal set
 
-    var secretKeySpec: SecretKeySpec? = null
-    var ivParameterSpec: IvParameterSpec? = null
-    var additionalInfo: String? = null
+    internal var secretKeySpec: SecretKeySpec? = null
+    internal var ivParameterSpec: IvParameterSpec? = null
+    internal var additionalInfo: String? = null
 }

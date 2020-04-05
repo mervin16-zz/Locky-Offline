@@ -17,8 +17,9 @@
 
     <!--
         ****************** Error Messages ******************
-        -->
+    -->
     <string name="error_internal_code_1">Error code 1: An internal error occurred. Please contact your IT support.</string>
+
 
     <!--
    ****************** Dev ******************

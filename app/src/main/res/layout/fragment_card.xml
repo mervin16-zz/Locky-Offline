@@ -5,7 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <data>
+        <variable
+            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.CardViewModel"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout_Fragment_Card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"

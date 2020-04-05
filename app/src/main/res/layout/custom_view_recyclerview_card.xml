@@ -11,6 +11,9 @@
 
         <variable
             name="ClickListener" type="com.th3pl4gu3.locky.ui.main.CardClickListener"/>
+
+        <variable
+            name="ClickOptionsListener" type="com.th3pl4gu3.locky.ui.main.CardOptionsClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,12 +38,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Card_Number"
+            android:id="@+id/Entry_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            cardNumber="@{Card.number}"
-            app:layout_constraintBottom_toTopOf="@id/Card_ExpirateDate"
+            android:layout_marginStart="24dp"
+            android:text="@{Card.name}"
+            app:layout_constraintBottom_toTopOf="@id/Card_Number"
             app:layout_constraintStart_toEndOf="@+id/Card_Logo"
             app:layout_constraintTop_toTopOf="@+id/Card_Logo"
             app:layout_constraintVertical_chainStyle="spread"
@@ -48,15 +51,28 @@
             tools:text="4850 XXXX XXXX XXXX" />
 
         <TextView
-            android:id="@+id/Card_ExpirateDate"
+            android:id="@+id/Card_Number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="expiration date: 12/20"
+            cardNumber="@{Card.number}"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
-            app:layout_constraintStart_toStartOf="@+id/Card_Number"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
+            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
+            app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
             style="@style/Locky.TextAppearance.List.Subtitle"
             tools:text="MM/YY" />
+
+        <ImageButton
+            android:id="@+id/Card_More_Options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_more_options"
+            android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
