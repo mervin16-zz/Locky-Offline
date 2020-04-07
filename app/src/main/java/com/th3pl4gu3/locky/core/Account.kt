@@ -1,18 +1,16 @@
 package com.th3pl4gu3.locky.core
 
-data class Account(override val id: String) : Credentials(){
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-   var username: String? = null
-      internal set
-   var email: String? = null
-      internal set
-   var password: String = ""
-      internal set
-   var website: String? = null
-      internal set
-   var isTwoFA: Boolean = false
-      internal set
+@Parcelize
+data class Account(
+   override val id: String,
+   override var name: String = "",
+   var username: String? = null,
+   var email: String? = null,
+   var password: String = "",
+   var website: String? = null,
+   var isTwoFA: Boolean = false,
    var twoFASecretKeys: String? = null
-      internal set
-
-}
+) : Credentials(), Parcelable

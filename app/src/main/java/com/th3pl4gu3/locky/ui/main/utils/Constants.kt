@@ -3,6 +3,12 @@ package com.th3pl4gu3.locky.ui.main.utils
 class Constants {
     companion object {
 
+
+        /*
+            ****    Values    ****
+         */
+        const val VALUE_EMPTY = ""
+
         /*
             ****    Regexes    ****
          */

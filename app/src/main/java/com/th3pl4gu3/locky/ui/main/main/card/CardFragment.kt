@@ -1,5 +1,6 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.card
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.view.ViewCardActivity
 
 class CardFragment : Fragment() {
 
@@ -52,12 +54,16 @@ class CardFragment : Fragment() {
     }
 
     private fun initiateCardList(): CardAdapter {
-        val cardAdapter = CardAdapter(CardClickListener { card ->
-            context!!.toast("Card number ${card.number} was clicked. ID: ${card.id}")
-        }, CardOptionsClickListener { view, card ->
-            //displaying the popup
-            createPopupMenu(view, card)
-        })
+        val cardAdapter = CardAdapter(
+            CardClickListener {
+                startActivity(Intent(context, ViewCardActivity::class.java).apply {
+                    putExtra("Card", it)
+                })
+            },
+            CardOptionsClickListener { view, card ->
+                //displaying the popup
+                createPopupMenu(view, card)
+            })
 
         _binding!!.RecyclerViewCard.adapter = cardAdapter
 

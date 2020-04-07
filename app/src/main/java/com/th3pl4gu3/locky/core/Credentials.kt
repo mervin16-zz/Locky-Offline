@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec
 abstract class Credentials {
 
     internal abstract val id: String
-    var name: String = ""
+    open var name: String = ""
         internal set
 
     internal var secretKeySpec: SecretKeySpec? = null

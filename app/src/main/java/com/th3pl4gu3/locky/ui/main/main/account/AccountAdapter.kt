@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.account
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +12,18 @@ import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewAccountBinding
 class AccountAdapter(
     private val accountClickListener: AccountClickListener,
     private val accountOptionsClickListener: AccountOptionsClickListener
-    ) : ListAdapter<Account, AccountAdapter.ViewHolder>(AccountDiffCallback()) {
+    ) : ListAdapter<Account, AccountAdapter.ViewHolder>(
+    AccountDiffCallback()
+) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(accountClickListener, accountOptionsClickListener, getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewAccountBinding): RecyclerView.ViewHolder(binding.root) {
@@ -34,7 +38,9 @@ class AccountAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CustomViewRecyclerviewAccountBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }

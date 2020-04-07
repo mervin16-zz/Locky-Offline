@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

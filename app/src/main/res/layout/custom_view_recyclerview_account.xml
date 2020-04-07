@@ -10,10 +10,10 @@
             type="com.th3pl4gu3.locky.core.Account" />
 
         <variable
-            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.AccountClickListener"/>
+            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.main.account.AccountClickListener"/>
 
         <variable
-            name="OptionsClickListener" type="com.th3pl4gu3.locky.ui.main.AccountOptionsClickListener"/>
+            name="OptionsClickListener" type="com.th3pl4gu3.locky.ui.main.main.account.AccountOptionsClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,7 +8,7 @@
 
     <data>
         <variable
-            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.CardViewModel"/>
+            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.main.card.CardViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

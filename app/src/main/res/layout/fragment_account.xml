@@ -7,7 +7,7 @@
 
     <data>
         <variable
-            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.AccountViewModel"/>
+            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.main.account.AccountViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

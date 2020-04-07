@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.account
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

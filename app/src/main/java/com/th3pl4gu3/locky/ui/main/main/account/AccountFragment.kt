@@ -1,5 +1,6 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.view.ViewAccountActivity
 
 
 class AccountFragment : Fragment() {
@@ -53,12 +55,17 @@ class AccountFragment : Fragment() {
     }
 
     private fun initiateAccountList(): AccountAdapter {
-        val accountAdapter = AccountAdapter(AccountClickListener { account ->
-            context!!.toast("Account ${account.name} was clicked. ID: ${account.id}")
-        }, AccountOptionsClickListener { view, account ->
-            //displaying the popup
-            createPopupMenu(view, account)
-        })
+        val accountAdapter =
+            AccountAdapter(
+                AccountClickListener {
+                    startActivity(Intent(context, ViewAccountActivity::class.java).apply {
+                        putExtra("Account", it)
+                    })
+                },
+                AccountOptionsClickListener { view, account ->
+                    //displaying the popup
+                    createPopupMenu(view, account)
+                })
 
         _binding!!.RecyclerViewAccount.adapter = accountAdapter
 

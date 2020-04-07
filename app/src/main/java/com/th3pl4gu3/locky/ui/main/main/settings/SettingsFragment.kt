@@ -1,21 +1,21 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.databinding.FragmentHomeBinding
+import com.th3pl4gu3.locky.databinding.FragmentSettingsBinding
 
-class HomeFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentSettingsBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 

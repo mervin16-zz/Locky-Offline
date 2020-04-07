@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,18 +12,22 @@ import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewCardBinding
 class CardAdapter(
     private val cardClickListener: CardClickListener,
     private val cardOptionsClickListener: CardOptionsClickListener
-) : ListAdapter<Card, CardAdapter.ViewHolder>(CardDiffCallback()) {
+) : ListAdapter<Card, CardAdapter.ViewHolder>(
+    CardDiffCallback()
+) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(cardClickListener, cardOptionsClickListener, getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewCardBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: CardClickListener, cardOptionsClickListener:CardOptionsClickListener, card: Card) {
+        fun bind(clickListener: CardClickListener, cardOptionsClickListener: CardOptionsClickListener, card: Card) {
             binding.card = card
             binding.clickListener = clickListener
             binding.clickOptionsListener = cardOptionsClickListener
@@ -34,7 +38,9 @@ class CardAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CustomViewRecyclerviewCardBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }

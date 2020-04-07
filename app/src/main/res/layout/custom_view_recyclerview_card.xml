@@ -10,10 +10,10 @@
             type="com.th3pl4gu3.locky.core.Card" />
 
         <variable
-            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.CardClickListener"/>
+            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.main.card.CardClickListener"/>
 
         <variable
-            name="ClickOptionsListener" type="com.th3pl4gu3.locky.ui.main.CardOptionsClickListener"/>
+            name="ClickOptionsListener" type="com.th3pl4gu3.locky.ui.main.main.card.CardOptionsClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

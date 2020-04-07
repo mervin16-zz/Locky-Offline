@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main
+package com.th3pl4gu3.locky.ui.main.main
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -6,12 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
+import com.th3pl4gu3.locky.ui.main.main.account.AccountFragment
+import com.th3pl4gu3.locky.ui.main.main.card.CardFragment
+import com.th3pl4gu3.locky.ui.main.main.home.HomeFragment
+import com.th3pl4gu3.locky.ui.main.main.settings.SettingsFragment
 import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.toast
@@ -43,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         /**
          * Setup for Tab layout, View Pager Adapter and Tab components
          **/
-        val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(
+                supportFragmentManager
+            )
         setupViewPagerFragments(sectionsPagerAdapter)
 
         _binding.ViewPagerMain.adapter = sectionsPagerAdapter

@@ -1,10 +1,22 @@
 package com.th3pl4gu3.locky.core
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-data class Card(override val id: String) : Credentials(){
+@Parcelize
+data class Card(
+    override val id: String,
+    override var name: String = "",
+    var number: Long = 0,
+    var pin: Int? = null,
+    var bank: String? = null,
+    var cardHolderName: String = "",
+    var issuedDate: Calendar = Calendar.getInstance(),
+    var expiryDate: Calendar = Calendar.getInstance()
+) : Credentials(), Parcelable {
 
-    enum class CardType{
+    enum class CardType {
         VISA,
         MASTERCARD,
         AMERICAN_EXPRESS,
@@ -14,10 +26,4 @@ data class Card(override val id: String) : Credentials(){
         DEFAULT
     }
 
-    var number: Long = 0
-    var cardHolderName: String = ""
-    var issuedDate: Calendar = Calendar.getInstance()
-    var expiryDate = Calendar.getInstance()
-    var pin: Int? = null
-    var bank: String? = null
 }
