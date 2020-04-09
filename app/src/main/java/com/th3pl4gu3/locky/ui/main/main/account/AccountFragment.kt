@@ -13,6 +13,7 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.view.ViewAccountActivity
 
 
@@ -37,7 +38,7 @@ class AccountFragment : Fragment() {
         _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.LayoutFragmentAccount.snackbar(it) {
-                    action("Close") { dismiss() }
+                    action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
 
                 _viewModel.doneShowingSnackbar()
@@ -59,7 +60,7 @@ class AccountFragment : Fragment() {
             AccountAdapter(
                 AccountClickListener {
                     startActivity(Intent(context, ViewAccountActivity::class.java).apply {
-                        putExtra("Account", it)
+                        putExtra(VALUE_PARCELS_ACCOUNT, it)
                     })
                 },
                 AccountOptionsClickListener { view, account ->
@@ -78,7 +79,7 @@ class AccountFragment : Fragment() {
             R.menu.menu_moreoptions_account,
             PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.Menu_CopyUsername -> copyToClipboardAndToast(if (account.username != null) account.username!! else account.email!!)
+                    R.id.Menu_CopyUsername -> copyToClipboardAndToast(account.username)
                     R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
                     R.id.Menu_ShowPass -> {
                         _viewModel.setSnackBarMessage(account.password)
@@ -91,7 +92,7 @@ class AccountFragment : Fragment() {
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         context?.copyToClipboard(message)
-        context?.toast("Copied successfully")
+        context?.toast(getString(R.string.message_copy_successful))
         return true
     }
 

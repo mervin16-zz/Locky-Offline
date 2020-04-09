@@ -9,6 +9,8 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.ActivityViewCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_CARD
 
 class ViewCardActivity : AppCompatActivity() {
 
@@ -20,7 +22,7 @@ class ViewCardActivity : AppCompatActivity() {
 
         darkModeVerification()
 
-        val card = (intent.extras!!["Card"]) as Card
+        val card = (intent.extras!![VALUE_PARCELS_CARD]) as Card
 
         _binding.card = card
 
@@ -46,7 +48,7 @@ class ViewCardActivity : AppCompatActivity() {
             },
             ViewClickListener { data ->
                 _binding.LayoutCredentialView.snackbar(data) {
-                    action("Close") { dismiss() }
+                    action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
             })
 
@@ -57,14 +59,17 @@ class ViewCardActivity : AppCompatActivity() {
 
     private fun fieldList(card: Card): ArrayList<CredentialsField> =
         ArrayList<CredentialsField>().apply {
-            add(CredentialsField("Name on Card", card.cardHolderName, isCopyable = View.VISIBLE))
-            add(CredentialsField("Bank", if(card.bank==null) "none" else card.bank!!, isCopyable = View.VISIBLE))
-            add(CredentialsField("Pin", card.pin.toString(), View.VISIBLE, View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_name), if(card.name.isEmpty()) PLACEHOLDER_DATA_NONE else card.name, isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_bank), if(card.bank.isEmpty()) PLACEHOLDER_DATA_NONE else card.bank, isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_pin), card.pin.toString(), View.VISIBLE, View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_date_issued), card.issuedDate.toFormattedString(), isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_date_expiry), card.expiryDate.toFormattedString(), isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_card_additional), if(card.additionalInfo.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else card.additionalInfo!!))
         }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         copyToClipboard(message)
-        toast("Copied successfully")
+        toast(getString(R.string.message_copy_successful))
         return true
     }
 }

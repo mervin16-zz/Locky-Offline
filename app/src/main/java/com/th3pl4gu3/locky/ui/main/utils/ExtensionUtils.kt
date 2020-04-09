@@ -17,6 +17,9 @@ import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_D
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_JCB
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_MASTERCARD
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_VISA
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 //TODO: Need to test all functions properly in ExtensionUtils.kt
 
@@ -97,3 +100,5 @@ fun Context.createPopUpMenu(view: View, menu: Int, listener: PopupMenu.OnMenuIte
     popup.setOnMenuItemClickListener(listener)
     popup.show()
 }
+
+fun Calendar.toFormattedString(): String = SimpleDateFormat("MM/yy", Locale.ENGLISH).format(this.timeInMillis)

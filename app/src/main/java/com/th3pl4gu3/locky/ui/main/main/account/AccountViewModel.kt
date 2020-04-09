@@ -35,82 +35,38 @@ class AccountViewModel : ViewModel(){
     }
 
     internal fun generateDummyAccounts(): ArrayList<Account>{
-        val account1 = Account("1")
-        account1.name = "Facebook"
-        account1.username = "mervin16"
-        account1.email = "mervin@gmail.com"
-        account1.website = "facebook.com"
+        val account1 = Account("1", name = "Facebook", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "facebook.com")
+        val account2 = Account("1", name = "Google", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "google.com")
+        val account3 = Account("1", name = "Instagram", username = "mervin16", password = "thisisapassword", website = "instagram.com")
+        val account4 = Account("1", name = "Spotify", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "spotify.com")
+        val account5 = Account("1", name = "Netflix", email = "mervin@gmail.com", password = "thisisapassword", website = "netflixinvestor.com")
+        val account6 = Account("1", name = "Udemy", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "udemy.com")
+        val account7 = Account("1", name = "Android", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "android.com")
+        val account8 = Account("1", name = "Apple", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "apple.com")
+        val account9 = Account("1", name = "LG", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "lg.com")
+        val account10 = Account("1", name = "Huawei", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "huawei.com")
+        val account11 = Account("1", name = "Sony", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "sony.net")
+        val account12 = Account("1", name = "MCB", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "mcb.mu")
+        val account13 = Account("1", name = "Microsoft", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "microsoft.com")
+        val account14 = Account("1", name = "Github", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "github.com")
+        val account15 = Account("1", name = "Air Mauritius", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "airmauritius.com")
 
-        val account2 = Account("2")
-        account2.name = "Google"
-        account2.username = "mervin16"
-        account2.email = "mervin@gmail.com"
-        account2.website = "google.com"
-
-        val account3 = Account("3")
-        account3.name = "Youtube"
-        account3.username = "mervin16"
-        account3.website = "youtube.com"
-
-        val account4 = Account("4")
-        account4.name = "Android"
-        account4.email = "mervin@gmail.com"
-        account4.website = "android.com"
-
-        val account5 = Account("5")
-        account5.name = "Apple"
-        account5.email = "mervin@gmail.com"
-        account5.website = "apple.com"
-
-        val account6 = Account("6")
-        account6.name = "Spotify"
-        account6.username = "mervin16"
-        account6.website = "spotify.com"
-
-        val account7 = Account("7")
-        account7.name = "MCB"
-        account7.username = "mervin16"
-        account7.website = "mcb.mu"
-
-        val account8 = Account("8")
-        account8.name = "Tinder"
-        account8.username = "mervin16"
-        account8.website = "tinder.com"
-
-        val account9 = Account("9")
-        account9.name = "Udacity"
-        account9.username = "mervin16"
-        account9.website = "udacity.com"
-
-        val account10 = Account("10")
-        account10.name = "udemy"
-        account10.email = "mervin@gmail.com"
-        account10.website = "udemy.com"
-
-        val account11 = Account("11")
-        account11.name = "Whatsapp"
-        account11.username = "mervin16"
-        account11.website = "whatsappbrand.com"
-
-        val account12 = Account("12")
-        account12.name = "netflix"
-        account12.username = "mervin16"
-        account12.website = "netflixinvestor.com"
-
-        val accounts = java.util.ArrayList<Account>()
-        accounts.add(account1)
-        accounts.add(account2)
-        accounts.add(account3)
-        accounts.add(account4)
-        accounts.add(account5)
-        accounts.add(account6)
-        accounts.add(account7)
-        accounts.add(account8)
-        accounts.add(account9)
-        accounts.add(account10)
-        accounts.add(account11)
-        accounts.add(account12)
-
-        return accounts
+        return ArrayList<Account>().apply {
+            add(account1)
+            add(account2)
+            add(account3)
+            add(account4)
+            add(account5)
+            add(account6)
+            add(account7)
+            add(account8)
+            add(account9)
+            add(account10)
+            add(account11)
+            add(account12)
+            add(account13)
+            add(account14)
+            add(account15)
+        }
     }
 }

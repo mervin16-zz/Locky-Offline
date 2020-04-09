@@ -9,8 +9,8 @@ data class Card(
     override val id: String,
     override var name: String = "",
     var number: Long = 0,
-    var pin: Int? = null,
-    var bank: String? = null,
+    var pin: Int = 0,
+    var bank: String = "",
     var cardHolderName: String = "",
     var issuedDate: Calendar = Calendar.getInstance(),
     var expiryDate: Calendar = Calendar.getInstance()

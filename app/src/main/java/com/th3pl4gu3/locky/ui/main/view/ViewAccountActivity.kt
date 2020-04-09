@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.ActivityViewAccountBinding
-import com.th3pl4gu3.locky.ui.main.main.card.CardOptionsClickListener
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_ACCOUNT
 
 class ViewAccountActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class ViewAccountActivity : AppCompatActivity() {
 
         darkModeVerification()
 
-        val account = (intent.extras!!["Account"]) as Account
+        val account = (intent.extras!![VALUE_PARCELS_ACCOUNT]) as Account
 
         _binding.account = account
 
@@ -47,7 +48,7 @@ class ViewAccountActivity : AppCompatActivity() {
             },
             ViewClickListener { data ->
                 _binding.LayoutCredentialView.snackbar(data) {
-                    action("Close") { dismiss() }
+                    action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
             })
 
@@ -58,18 +59,18 @@ class ViewAccountActivity : AppCompatActivity() {
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         copyToClipboard(message)
-        toast("Copied successfully")
+        toast(getString(R.string.message_copy_successful))
         return true
     }
 
     private fun fieldList(account: Account): ArrayList<CredentialsField> =
         ArrayList<CredentialsField>().apply {
-            add(CredentialsField("Username", if(account.username==null) "none" else account.username!!, isCopyable = View.VISIBLE))
-            add(CredentialsField("Email", if(account.email==null) "none" else account.email!!, isCopyable = View.VISIBLE))
-            add(CredentialsField("Password", account.password, View.VISIBLE, View.VISIBLE))
-            add(CredentialsField("Website", if(account.website==null) "none" else account.website!!, isCopyable = View.VISIBLE))
-            add(CredentialsField("Is 2FA Authentication (Optional)", account.isTwoFA.toString()))
-            add(CredentialsField("2FA Secret Keys (Optional)", if(account.twoFASecretKeys==null) "none" else account.twoFASecretKeys!!))
-            add(CredentialsField("Additional Comments (Optional)", if(account.additionalInfo==null) "none" else account.additionalInfo!!))
+            add(CredentialsField(getString(R.string.field_account_username), if(account.username.isEmpty()) PLACEHOLDER_DATA_NONE else account.username, isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_account_email), if(account.email.isEmpty()) PLACEHOLDER_DATA_NONE else account.email, isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_account_password), account.password, View.VISIBLE, View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_account_website), if(account.website.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else account.website!!, isCopyable = View.VISIBLE))
+            add(CredentialsField(getString(R.string.field_account_2faauth), if(account.twoFA.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else account.twoFA!!))
+            add(CredentialsField(getString(R.string.field_account_2fakeys), if(account.twoFASecretKeys.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else account.twoFASecretKeys!!))
+            add(CredentialsField(getString(R.string.field_account_additional), if(account.additionalInfo.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else account.additionalInfo!!))
         }
 }

@@ -24,34 +24,34 @@
             <ImageButton
                 android:id="@+id/Button_Close"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/custom_states_background_button_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_close" />
 
             <ImageButton
-                android:id="@+id/imageView2"
+                android:id="@+id/Button_Account_Edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/custom_states_background_button_image"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintBottom_toBottomOf="@+id/Button_Account_Delete"
+                app:layout_constraintEnd_toStartOf="@+id/Button_Account_Delete"
+                app:layout_constraintTop_toTopOf="@+id/Button_Account_Delete"
                 app:srcCompat="@drawable/ic_edit" />
 
             <ImageButton
-                android:id="@+id/imageView3"
+                android:id="@+id/Button_Account_Delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/custom_states_background_button_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

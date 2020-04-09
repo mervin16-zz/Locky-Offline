@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
+import java.util.*
 
 internal class ExtensionUtilsTest{
     @ParameterizedTest
@@ -262,5 +263,31 @@ internal class ExtensionUtilsTest{
 
         //Assert
         assertTrue(result == expectedResult)
+    }
+
+
+    @ParameterizedTest
+    @CsvSource(
+        "0,03/16",
+        "1,03/16",
+        "40,04/16",
+        "-40,02/16",
+        "400,04/17",
+        "-400,02/15"
+    )
+    fun calendarToSimpleDateString(number: Int, expectedResult: String?) {
+        //Arrange
+        val date = Calendar.getInstance()
+        val result: String?
+
+        //Act
+        date.set(Calendar.DAY_OF_MONTH, 16)
+        date.set(Calendar.MONTH, 2)
+        date.set(Calendar.YEAR, 2016)
+        date.add(Calendar.DAY_OF_MONTH, number)
+        result = date.toFormattedString()
+
+        //Assert
+        assertEquals(expectedResult, result)
     }
 }

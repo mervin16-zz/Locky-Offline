@@ -13,6 +13,7 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_CARD
 import com.th3pl4gu3.locky.ui.main.view.ViewCardActivity
 
 class CardFragment : Fragment() {
@@ -36,7 +37,7 @@ class CardFragment : Fragment() {
         _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.LayoutFragmentCard.snackbar(it) {
-                    action("Close") { dismiss() }
+                    action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
 
                 _viewModel.doneShowingSnackbar()
@@ -57,7 +58,7 @@ class CardFragment : Fragment() {
         val cardAdapter = CardAdapter(
             CardClickListener {
                 startActivity(Intent(context, ViewCardActivity::class.java).apply {
-                    putExtra("Card", it)
+                    putExtra(VALUE_PARCELS_CARD, it)
                 })
             },
             CardOptionsClickListener { view, card ->
@@ -89,7 +90,7 @@ class CardFragment : Fragment() {
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         context?.copyToClipboard(message)
-        context?.toast("Copied successfully")
+        context?.toast(getString(R.string.message_copy_successful))
         return true
     }
 }
