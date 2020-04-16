@@ -1,6 +1,8 @@
 package com.th3pl4gu3.locky.ui.main.utils
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -8,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.networking.LoadingStatus
 
 
 //TODO: Need to test all functions properly in BindingUtils.kt
@@ -36,7 +39,7 @@ fun ImageView.setCardLogo(number: Long) {
 
 @BindingAdapter("accountLogin")
 fun TextView.accountLogin(account: Account){
-    text = if(account.username != null) account.username else account.email
+    text = if(account.username.isNotEmpty()) account.username else account.email
 }
 
 @BindingAdapter("bindLogoImage")
@@ -49,5 +52,13 @@ fun ImageView.bindLogoImage(imgUrl: String?){
             .circleCrop()
             .placeholder(R.drawable.image_placeholder_logo)
             .into(this)
+    }
+}
+
+@BindingAdapter("loadingStatusVisibility")
+fun ProgressBar.setLoadingStatusVisibility(status: LoadingStatus) {
+    visibility = when(status) {
+        LoadingStatus.LOADING -> View.VISIBLE
+        LoadingStatus.DONE, LoadingStatus.ERROR -> View.GONE
     }
 }

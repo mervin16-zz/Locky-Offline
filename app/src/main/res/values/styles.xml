@@ -23,9 +23,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+
     <!--
          *********************** Buttons ***********************
      -->
+    <style name="Locky.Button.Default" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="strokeColor">@color/colorAccent</item>
+        <item name="iconTint">@color/colorAccent</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="iconPadding">12dp</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
     <style name="Locky.FloatingActionButton.Normal" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="borderWidth">0dp</item>
         <item name="tint">@color/colorIconButtonNormal</item>
@@ -39,6 +49,20 @@
         <item name="android:backgroundTint">@color/colorFABMini</item>
         <item name="elevation">8dp</item>
     </style>
+
+
+    <!--
+         *********************** Text Box ***********************
+     -->
+    <style name="Locky.TextBox.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorAccent</item>
+        <item name="hintTextColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.TextAppearance.TextBox.Hint" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 
     <!--
      *********************** Typography ***********************

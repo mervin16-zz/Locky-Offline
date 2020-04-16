@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky.ui.main.add.AddAccountViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/Account_Scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            tools:context=".ui.main.add.AddAccountActivity">
+
+            <!--****************************** LOGO ****************************** -->
+            <ImageView
+                android:id="@+id/Account_Logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/image_placeholder_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/image_placeholder_logo" />
+
+
+            <!--****************************** Required Label ****************************** -->
+            <TextView
+                android:id="@+id/Label_Required"
+                style="@style/Locky.TextAppearance.Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="* Required Fields"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Account_Logo" />
+
+            <!--****************************** Name Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Name"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Name"
+                app:layout_constraintEnd_toEndOf="@id/Account_Logo"
+                app:layout_constraintStart_toStartOf="@id/Account_Logo"
+                app:layout_constraintTop_toBottomOf="@id/Label_Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{ViewModel.name}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Username Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Username"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Username"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{ViewModel.username}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Email Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Email"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Email"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Username">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="@{ViewModel.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Password Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Password"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Email"
+                tools:layout_editor_absoluteX="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@{ViewModel.password}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--****************************** Website Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Website"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Website"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebEditText" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Optional Label ****************************** -->
+            <TextView
+                android:id="@+id/Label_Optional"
+                style="@style/Locky.TextAppearance.Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Optional Fields"
+                app:layout_constraintStart_toStartOf="@id/Label_Required"
+                app:layout_constraintTop_toBottomOf="@id/Account_Website" />
+
+
+            <!--****************************** 2FA Enabled Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_2FA_Enabled"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Is 2FA Authentication"
+                app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--****************************** 2FA Secret Keys Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_2FA_Keys"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="2FA Secret Keys"
+                app:layout_constraintTop_toBottomOf="@+id/Account_2FA_Enabled">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="15"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Additional Comments Text field ****************************** -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Account_Comments"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Additional Comments"
+                app:layout_constraintTop_toBottomOf="@+id/Account_2FA_Keys">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="15"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--****************************** Save Button ****************************** -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Save"
+                style="@style/Locky.Button.Default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Save"
+                app:icon="@drawable/ic_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Account_Comments" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{ViewModel.websites[0].name}"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/determinateBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/determinateBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                loadingStatusVisibility="@{ViewModel.status}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

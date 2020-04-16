@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.view
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.ActivityViewAccountBinding
+import com.th3pl4gu3.locky.ui.main.add.AddAccountActivity
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_ACCOUNT
@@ -30,6 +32,12 @@ class ViewAccountActivity : AppCompatActivity() {
 
         _binding.ButtonClose.setOnClickListener {
             finish()
+        }
+
+        _binding.ButtonAccountEdit.setOnClickListener{
+            startActivity(Intent(this, AddAccountActivity::class.java).apply {
+                putExtra("Account", account)
+            })
         }
     }
 

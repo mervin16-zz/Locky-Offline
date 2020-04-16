@@ -17,6 +17,7 @@
     <!-- Button Colors -->
     <color name="colorFABNormal">@color/colorAccent</color>
     <color name="colorFABMini">@android:color/white</color>
+    <color name="colorButtonDisabled">@color/grey_300</color>
 
     <!-- Typography Colors -->
     <color name="colorTextHeader">@color/blue_600</color>

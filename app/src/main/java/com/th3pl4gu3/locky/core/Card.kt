@@ -6,15 +6,16 @@ import java.util.*
 
 @Parcelize
 data class Card(
-    override val id: String,
-    override var name: String = "",
+    val id: String,
+    var name: String = "",
     var number: Long = 0,
     var pin: Int = 0,
     var bank: String = "",
     var cardHolderName: String = "",
     var issuedDate: Calendar = Calendar.getInstance(),
-    var expiryDate: Calendar = Calendar.getInstance()
-) : Credentials(), Parcelable {
+    var expiryDate: Calendar = Calendar.getInstance(),
+    var additionalInfo: String? = null
+) : Credentials(id = id, name = name, additionalInfo = additionalInfo), Parcelable {
 
     enum class CardType {
         VISA,

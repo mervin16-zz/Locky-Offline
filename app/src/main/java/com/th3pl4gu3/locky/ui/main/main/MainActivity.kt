@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.main
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
+import com.th3pl4gu3.locky.ui.main.add.AddAccountActivity
 import com.th3pl4gu3.locky.ui.main.main.account.AccountFragment
 import com.th3pl4gu3.locky.ui.main.main.card.CardFragment
 import com.th3pl4gu3.locky.ui.main.main.home.HomeFragment
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             _binding.FABAccount.setOnClickListener {
-                toast(getString(R.string.dev_feature_implementation_unknown, "Account Creation"))
+                startActivity(Intent(this, AddAccountActivity::class.java))
             }
 
             _binding.FABCard.setOnClickListener {
