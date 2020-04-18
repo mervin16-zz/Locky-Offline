@@ -12,10 +12,17 @@
 
         <item name="android:listDivider">@android:color/transparent</item>
 
+        <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
+
         <!-- Navigation Drawer -->
         <item name="colorNavigationItem">@color/color_state_drawer_item</item>
         <item name="colorNavigationItemSelected">@android:color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/custom_drawer_background</item>
+
+        <item name="drawerArrowStyle">@style/Locky.Icon.Drawer.Hamburger</item>
+
+        <item name="android:buttonBarPositiveButtonStyle">@style/Locky.Button.Positive</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Locky.Button.Negative</item>
     </style>
 
     <style name="Locky.Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
@@ -26,6 +33,18 @@
 
 
     <!--
+    *********************** App Icons ***********************
+    -->
+    <style name="Locky.Icon.Drawer.Hamburger" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/colorIcon</item>
+    </style>
+
+    <style name="Locky.Icon.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/colorIcon</item>
+    </style>
+
+    <!--
      *********************** Typography ***********************
      -->
     <style name="Locky.Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Headline6">
@@ -33,6 +52,7 @@
         <item name="fontFamily">@font/google_sans_medium</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorTextTitleAccent</item>
     </style>
 
     <style name="Locky.TextAppearance.Screen.Title" parent="TextAppearance.MaterialComponents.Headline6">
@@ -59,9 +79,21 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="Locky.TextAppearance.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/colorTextSubtitle</item>
+    </style>
+
     <style name="Locky.TextAppearance.List.Subtitle" parent="Locky.TextAppearance.Subtitle">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorTextSubtitle</item>
+    </style>
+
+    <style name="Locky.TextAppearance.Label" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.TextAppearance.Body" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/colorTextTitle</item>
     </style>
 
     <!--
@@ -81,13 +113,14 @@
         <item name="elevation">8dp</item>
     </style>
 
+    <style name="Locky.Button.Positive" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 
-    <!-- DEPRECATED STYLES -->
+    <style name="Locky.Button.Negative" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
 
-
-    <!--
-         *********************** Buttons ***********************
-     -->
     <style name="Locky.Button.Default" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="strokeColor">@color/colorAccent</item>
@@ -96,7 +129,6 @@
         <item name="iconPadding">12dp</item>
         <item name="android:padding">12dp</item>
     </style>
-
 
     <!--
          *********************** Text Box ***********************
@@ -109,24 +141,5 @@
     <style name="Locky.TextAppearance.TextBox.Hint" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
-
-
-    <!--
-     *********************** Typography ***********************
-     -->
-
-
-    <style name="Locky.TextAppearance.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textColor">@color/colorTextSubtitle</item>
-    </style>
-
-    <style name="Locky.TextAppearance.Label" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-
-    <style name="Locky.TextAppearance.Body" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">@color/colorTextTitle</item>
-    </style>
-
 
 </resources>

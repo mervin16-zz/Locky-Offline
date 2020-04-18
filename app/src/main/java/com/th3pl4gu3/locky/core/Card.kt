@@ -9,7 +9,7 @@ data class Card(
     val id: String = "",
     var name: String = "",
     var number: Long = 0,
-    var pin: Int = 0,
+    var pin: Short = 0,
     var bank: String = "",
     var cardHolderName: String = "",
     var issuedDate: Calendar = Calendar.getInstance(),

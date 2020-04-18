@@ -5,7 +5,7 @@ import com.th3pl4gu3.locky.core.exceptions.FormException
 import java.lang.Exception
 
 class Validation(private val credentials: Credentials) {
-    enum class ErrorField {NAME, USERNAME, EMAIL, PASSWORD}
+    enum class ErrorField { NAME, USERNAME, EMAIL, PASSWORD, NUMBER, PIN, BANK, CARD_HOLDER, }
 
     var errorList = HashMap<ErrorField, String>()
         private set
@@ -13,10 +13,11 @@ class Validation(private val credentials: Credentials) {
     @Throws(Exception::class)
     fun validateAccountForm(){
         val account = credentials as Account
-        validateName(account.name)
-        validateUsername(account.username)
+        emptyValueCheck(account.name, ErrorField.NAME)
+        emptyValueCheck(account.username, ErrorField.USERNAME)
+        emptyValueCheck(account.email, ErrorField.EMAIL)
         validateEmail(account.email)
-        validatePassword(account.password)
+        emptyValueCheck(account.password, ErrorField.PASSWORD)
 
         if(errorList.isNotEmpty()) throw FormException("Field errors.")
     }
@@ -24,27 +25,21 @@ class Validation(private val credentials: Credentials) {
     @Throws(Exception::class)
     fun validateCardForm(){
         val card = credentials as Card
-        //TODO: Implement card validation method
+        emptyValueCheck(card.name, ErrorField.NAME)
+        emptyValueCheck(card.number.toString(), ErrorField.NUMBER)
+        emptyValueCheck(card.pin.toString(), ErrorField.PIN)
+        emptyValueCheck(card.bank, ErrorField.BANK)
+        emptyValueCheck(card.cardHolderName, ErrorField.CARD_HOLDER)
         if(errorList.isNotEmpty()) throw FormException("Field errors.")
     }
 
-    private fun validateName(name: String){
-        if(name.isEmpty()) errorList[ErrorField.NAME] = "This field cannot be empty."
-    }
-
-    private fun validateUsername(username: String){
-        if(username.isEmpty()) errorList[ErrorField.USERNAME] = "This field cannot be empty."
+    private fun emptyValueCheck(data: String, field: ErrorField) {
+        if (data.isEmpty()) errorList[field] = "This field cannot be empty."
     }
 
     private fun validateEmail(email: String){
         if(email.isEmpty()) errorList[ErrorField.EMAIL] = "This field cannot be empty."
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) errorList[ErrorField.EMAIL] = "Wrong email format."
-    }
-
-    private fun validatePassword(password: String){
-        if(password.isEmpty()) errorList[ErrorField.PASSWORD] = "This field cannot be empty."
-
-        if(password.length < 6) errorList[ErrorField.PASSWORD] = "Password length should be at least 6 characters."
     }
 }

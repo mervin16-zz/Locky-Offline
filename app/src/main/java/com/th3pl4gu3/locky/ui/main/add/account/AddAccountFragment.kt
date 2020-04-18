@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main.add
+package com.th3pl4gu3.locky.ui.main.add.account
 
 import android.os.Bundle
 import android.view.LayoutInflater

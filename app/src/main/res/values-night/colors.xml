@@ -8,8 +8,6 @@
 
     <!-- Icon Colors -->
     <color name="colorIcon">@color/grey_100</color>
-    <color name="colorIconButtonNormal">@color/grey_dark_200</color>
-    <color name="colorIconButtonMini">@color/grey_dark_200</color>
 
     <!--
         Typography Colors

@@ -1,10 +1,8 @@
 package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +40,16 @@ class CardFragment : Fragment() {
         initiateCardList().submitList(_viewModel.generateDummyCards())
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_toolbar_filter, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {

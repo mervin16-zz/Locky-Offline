@@ -33,34 +33,17 @@
     <color name="colorTextSubtitle">@color/grey_200</color>
 
     <!-- Color Palette -->
-    <color name="purple_600">#4A04AF</color>
-    <color name="purple_300">#9C6DEF</color>
+    <color name="purple_600">#3B0273</color>
+    <color name="purple_300">#734EE4</color>
     <color name="purple_200">#B39DDB</color>
     <color name="purple_100">#ece0fd</color>
     <color name="purple_50">#20DB9AFF</color>
 
     <color name="grey_600">#4E4E4E</color>
-    <color name="grey_300">#959595</color>
-
-
-    <!--******************************* OLD COLOR PALETTE *******************************-->
-    <!-- Icon Colors -->
-    <color name="colorIconButtonNormal">@android:color/white</color>
-    <color name="colorIconButtonMini">@android:color/black</color>
-
-    <!-- Button Colors -->
-    <color name="colorButtonDisabled">@color/grey_300</color>
-
-    <!-- Typography Colors -->
-
-    <!-- Color Palette -->
-
     <color name="grey_400">#4F4F4F</color>
+    <color name="grey_300">#959595</color>
     <color name="grey_200">#959595</color>
     <color name="grey_100">#D3D3D3</color>
 
     <color name="grey_dark_200">#272727</color>
-
-    <color name="white_87">#87FFFFFF</color>
-    <color name="white_60">#60FFFFFF</color>
 </resources>

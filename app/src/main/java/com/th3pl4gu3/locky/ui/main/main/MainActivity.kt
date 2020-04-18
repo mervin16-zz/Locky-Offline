@@ -1,12 +1,13 @@
 package com.th3pl4gu3.locky.ui.main.main
 
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +19,7 @@ import com.th3pl4gu3.locky.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.toast
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -93,43 +95,73 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    //TODO: Fix FAB Hiding bug
+                    if (_isOpen) {
+                        closeFabsAnimation()
+                        _isOpen = false
+                    }
                     _binding.FABAdd.hide()
-                    _binding.FABAccount.hide()
-                    _binding.FABCard.hide()
                 }
             }
         }
     }
 
+    private fun getSlideNavOptions(): NavOptions? {
+        return NavOptions.Builder()
+            .setEnterAnim(R.anim.anim_slide_top_from_down)
+            .setExitAnim(R.anim.anim_slide_down_to_top)
+            .setPopEnterAnim(R.anim.anim_slide_down_from_top)
+            .setPopExitAnim(R.anim.anim_slide_top_to_down)
+            .build()
+    }
+
     private fun loadFABs(){
-        val fabOpen = AnimationUtils.loadAnimation(this, R.anim.anim_fab_open)
-        val fabClose = AnimationUtils.loadAnimation(this, R.anim.anim_fab_close)
-        val fabClockwise = AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_clockwise)
-        val fabAnticlockwise = AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_anticlockwise)
-
         _binding.FABAdd.setOnClickListener {
-
-            _isOpen = if (_isOpen) {
-                _binding.FABAdd.startAnimation(fabAnticlockwise)
-                _binding.FABAccount.startAnimation(fabClose)
-                _binding.FABCard.startAnimation(fabClose)
-                false
-            }else{
-                _binding.FABAdd.startAnimation(fabClockwise)
-                _binding.FABAccount.startAnimation(fabOpen)
-                _binding.FABCard.startAnimation(fabOpen)
-
-                true
-            }
-
-            _binding.FABAccount.setOnClickListener {
-                findNavController(R.id.Navigation_Host).navigate(R.id.Fragment_Add_Account)
-            }
-
-            _binding.FABCard.setOnClickListener {
-                toast(getString(R.string.dev_feature_implementation_unknown, "Card Creation"))
-            }
+            fabsActions()
         }
+
+        _binding.FABAccount.setOnClickListener {
+            findNavController(R.id.Navigation_Host).navigate(
+                R.id.Fragment_Add_Account,
+                null,
+                getSlideNavOptions()
+            )
+        }
+
+        _binding.FABCard.setOnClickListener {
+            findNavController(R.id.Navigation_Host).navigate(
+                R.id.Fragment_Add_Card,
+                null,
+                getSlideNavOptions()
+            )
+        }
+    }
+
+    private fun fabsActions() {
+        _isOpen = if (_isOpen) {
+            closeFabsAnimation()
+            false
+        } else {
+            openFabsAnimation()
+            true
+        }
+    }
+
+    private fun openFabsAnimation() {
+        val fabOpen = AnimationUtils.loadAnimation(this, R.anim.anim_fab_open)
+        val fabClockwise = AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_clockwise)
+
+        _binding.FABAdd.startAnimation(fabClockwise)
+        _binding.FABAccount.startAnimation(fabOpen)
+        _binding.FABCard.startAnimation(fabOpen)
+    }
+
+    private fun closeFabsAnimation() {
+        val fabClose = AnimationUtils.loadAnimation(this, R.anim.anim_fab_close)
+        val fabAnticlockwise =
+            AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_anticlockwise)
+
+        _binding.FABAdd.startAnimation(fabAnticlockwise)
+        _binding.FABAccount.startAnimation(fabClose)
+        _binding.FABCard.startAnimation(fabClose)
     }
 }

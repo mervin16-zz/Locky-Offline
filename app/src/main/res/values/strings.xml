@@ -23,6 +23,8 @@
     <string name="menu_credentials_actions_edit">Edit</string>
     <string name="menu_credentials_actions_delete">Delete</string>
 
+    <string name="menu_toolbar_filter">Filter</string>
+
     <!--
         ****************** Button Actions ******************
     -->

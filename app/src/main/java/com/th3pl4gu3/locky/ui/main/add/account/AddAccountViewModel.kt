@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.ui.main.add
+package com.th3pl4gu3.locky.ui.main.add.account
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -83,12 +83,12 @@ class AddAccountViewModel : ViewModel() {
     }
 
     fun setAccount(account: Account){
-        this._account = account
-
-        _name.value = _account.name
-        _username.value = _account.username
-        _email.value = _account.email
-        _password.value = _account.password
+        this._account = account.also {
+            _name.value = it.name
+            _username.value = it.username
+            _email.value = it.email
+            _password.value = it.password
+        }
     }
 
     fun isFormValid(account: Account) {
