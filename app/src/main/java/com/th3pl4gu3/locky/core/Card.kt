@@ -6,7 +6,7 @@ import java.util.*
 
 @Parcelize
 data class Card(
-    val id: String,
+    val id: String = "",
     var name: String = "",
     var number: Long = 0,
     var pin: Int = 0,

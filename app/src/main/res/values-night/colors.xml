@@ -4,16 +4,18 @@
     <!-- Default Colors -->
     <color name="colorPrimary">@color/grey_dark_200</color>
     <color name="colorPrimaryDark">@color/grey_dark_200</color>
-    <color name="colorAccent">@color/blue_200</color>
+    <color name="colorAccent">@color/purple_200</color>
 
     <!-- Icon Colors -->
     <color name="colorIcon">@color/grey_100</color>
     <color name="colorIconButtonNormal">@color/grey_dark_200</color>
     <color name="colorIconButtonMini">@color/grey_dark_200</color>
 
-    <!-- Typography Colors -->
-    <color name="colorTextHeader">@color/colorAccent</color>
-    <color name="colorTextSubtitle">@color/white_87</color>
-    <color name="colorTextPrimary">@color/white_60</color>
+    <!--
+        Typography Colors
+    -->
+    <color name="colorTextTitleAccent">@color/purple_200</color>
+    <color name="colorTextMenu">@color/grey_300</color>
+
 
 </resources>

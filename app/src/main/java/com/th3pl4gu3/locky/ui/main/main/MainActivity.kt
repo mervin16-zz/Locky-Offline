@@ -1,89 +1,105 @@
 package com.th3pl4gu3.locky.ui.main.main
 
-import android.content.Intent
 import android.content.res.Configuration
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.viewpager.widget.ViewPager
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky.ui.main.add.AddAccountActivity
-import com.th3pl4gu3.locky.ui.main.main.account.AccountFragment
-import com.th3pl4gu3.locky.ui.main.main.card.CardFragment
-import com.th3pl4gu3.locky.ui.main.main.home.HomeFragment
-import com.th3pl4gu3.locky.ui.main.main.settings.SettingsFragment
 import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
 import com.th3pl4gu3.locky.ui.main.utils.toast
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
-    private val tabIcons = intArrayOf(
-        R.drawable.ic_home,
-        R.drawable.ic_account,
-        R.drawable.ic_credit_card,
-        R.drawable.ic_settings
+    private lateinit var _appBarConfiguration: AppBarConfiguration
+    private var _isOpen = false
+    private val _navigationFragments = setOf(
+        R.id.Fragment_Home,
+        R.id.Fragment_Card,
+        R.id.Fragment_Account,
+        R.id.Fragment_Device
     )
-
-    private var isOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Bind the activity view.
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        setSupportActionBar(_binding.ToolbarMain)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //Update status bar upon current theme
         darkModeVerification()
 
-        //Set toolbar as acton bar
-        setSupportActionBar(_binding.ToolbarMain)
-
-        /**
-         * Setup for Tab layout, View Pager Adapter and Tab components
-         **/
-        val sectionsPagerAdapter =
-            SectionsPagerAdapter(
-                supportFragmentManager
-            )
-        setupViewPagerFragments(sectionsPagerAdapter)
-
-        _binding.ViewPagerMain.adapter = sectionsPagerAdapter
-        _binding.TabLayoutMain.setupWithViewPager(_binding.ViewPagerMain)
-        setupTabIcons()
-
-        _binding.ViewPagerMain.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                when(position){
-                    0 -> _binding.FABAdd.show()
-                    1 -> _binding.FABAdd.show()
-                    2 -> _binding.FABAdd.show()
-                    3 -> _binding.FABAdd.hide()
-                }
-            }
-        })
+        //NavigationUI
+        navigationUISetup()
 
         //Load expandable FABs and animations
         loadFABs()
+
+        _binding.NestedScroll.setOnScrollChangeListener { view, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > 0) {
+                _binding.ToolbarMain.elevation = 8F
+            } else {
+                _binding.ToolbarMain.elevation = 0F
+            }
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_moreoptions_tab_main, menu)
-        return true
-    }
+    override fun onOptionsItemSelected(item: MenuItem) =
+        item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
+            item
+        )
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.Menu_Search -> {
-            toast(getString(R.string.dev_feature_implementation_unknown, "Search"))
-            true
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
+
+    private fun darkModeVerification() =
+        when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
+            Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
+            else -> toast(getString(R.string.error_internal_code_1))
         }
 
-        else -> super.onOptionsItemSelected(item)
+    private fun navigationUISetup() {
+        val navController = this.findNavController(R.id.Navigation_Host)
+        _appBarConfiguration = AppBarConfiguration(_navigationFragments, _binding.DrawerMain)
+
+        NavigationUI.setupActionBarWithNavController(this, navController, _appBarConfiguration)
+        NavigationUI.setupWithNavController(_binding.NavigationView, navController)
+
+        Navigation.setViewNavController(_binding.FABAccount, navController)
+        Navigation.setViewNavController(_binding.FABCard, navController)
+
+        navController.addOnDestinationChangedListener { nc, nd, _ ->
+            when (nd.id) {
+                nc.graph.startDestination,
+                R.id.Fragment_Account,
+                R.id.Fragment_Card,
+                R.id.Fragment_Device -> {
+                    _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    _binding.FABAdd.show()
+                }
+                else -> {
+                    _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    //TODO: Fix FAB Hiding bug
+                    _binding.FABAdd.hide()
+                    _binding.FABAccount.hide()
+                    _binding.FABCard.hide()
+                }
+            }
+        }
     }
 
     private fun loadFABs(){
@@ -94,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
         _binding.FABAdd.setOnClickListener {
 
-            isOpen = if(isOpen){
+            _isOpen = if (_isOpen) {
                 _binding.FABAdd.startAnimation(fabAnticlockwise)
                 _binding.FABAccount.startAnimation(fabClose)
                 _binding.FABCard.startAnimation(fabClose)
@@ -108,30 +124,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             _binding.FABAccount.setOnClickListener {
-                startActivity(Intent(this, AddAccountActivity::class.java))
+                findNavController(R.id.Navigation_Host).navigate(R.id.Fragment_Add_Account)
             }
 
             _binding.FABCard.setOnClickListener {
                 toast(getString(R.string.dev_feature_implementation_unknown, "Card Creation"))
             }
         }
-    }
-
-    private fun darkModeVerification() = when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
-            Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
-            else -> toast(getString(R.string.error_internal_code_1))
-    }
-
-    private fun setupViewPagerFragments(sectionsPagerAdapter: SectionsPagerAdapter) {
-        sectionsPagerAdapter.addFragment(HomeFragment())
-        sectionsPagerAdapter.addFragment(AccountFragment())
-        sectionsPagerAdapter.addFragment(CardFragment())
-        sectionsPagerAdapter.addFragment(SettingsFragment())
-    }
-
-    private fun setupTabIcons() = tabIcons.indices.forEach { x ->
-        _binding.TabLayoutMain.getTabAt(x)!!.setIcon(tabIcons[x])
     }
 }

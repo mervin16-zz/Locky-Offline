@@ -1,45 +1,50 @@
 package com.th3pl4gu3.locky.ui.main.view
 
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.databinding.DataBindingUtil
+import android.view.*
+import androidx.fragment.app.Fragment
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.databinding.ActivityViewCardBinding
+import com.th3pl4gu3.locky.databinding.FragmentViewCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_CARD
 
-class ViewCardActivity : AppCompatActivity() {
+class ViewCardFragment : Fragment() {
 
-    private lateinit var _binding:ActivityViewCardBinding
+    private var _binding: FragmentViewCardBinding? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_view_card)
+    private val binding get() = _binding!!
 
-        darkModeVerification()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentViewCardBinding.inflate(inflater, container, false)
 
-        val card = (intent.extras!![VALUE_PARCELS_CARD]) as Card
+        val card = ViewCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
 
-        _binding.card = card
+        binding.card = card
 
         initiateCredentialsFieldList().submitList(fieldList(card))
 
-        _binding.ButtonClose.setOnClickListener {
-            finish()
-        }
+        return binding.root
     }
 
-    private fun darkModeVerification() =
-        when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
-            Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
-            else -> toast(getString(R.string.error_internal_code_1))
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_credentials_actions, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     private fun initiateCredentialsFieldList(): CredentialsViewAdapter {
         val credentialsAdapter = CredentialsViewAdapter(
@@ -47,12 +52,12 @@ class ViewCardActivity : AppCompatActivity() {
                 copyToClipboardAndToast(data)
             },
             ViewClickListener { data ->
-                _binding.LayoutCredentialView.snackbar(data) {
+                binding.LayoutCredentialView.snackbar(data) {
                     action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
             })
 
-        _binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
+        binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
 
         return credentialsAdapter
     }
@@ -68,8 +73,8 @@ class ViewCardActivity : AppCompatActivity() {
         }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
+        requireContext().copyToClipboard(message)
+        requireContext().toast(getString(R.string.message_copy_successful))
         return true
     }
 }

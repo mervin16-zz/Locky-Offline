@@ -42,9 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="7dp"
             android:text="@{Account.name}"
-            app:layout_constraintBottom_toTopOf="@+id/Account_Website"
+            app:layout_constraintBottom_toTopOf="@+id/Account_Login"
             app:layout_constraintStart_toEndOf="@+id/Account_Logo"
             app:layout_constraintTop_toTopOf="@+id/Account_Logo"
             app:layout_constraintVertical_chainStyle="spread_inside"
@@ -52,26 +51,26 @@
 
         <TextView
             android:id="@+id/Account_Login"
+            style="@style/Locky.TextAppearance.List.Subtitle"
+            accountLogin="@{Account}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            accountLogin="@{Account}"
-            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
+            app:layout_constraintBottom_toTopOf="@+id/Account_Website"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"
             app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
-            style="@style/Locky.TextAppearance.List.Subtitle"
-            tools:text="username"/>
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="username | email@email.com" />
 
         <TextView
             android:id="@+id/Account_Website"
             style="@style/Locky.TextAppearance.List.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@{Account.website}"
             android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/Account_Login"
-            app:layout_constraintStart_toEndOf="@+id/Account_Login"
-            app:layout_constraintTop_toTopOf="@+id/Account_Login"
+            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
+            app:layout_constraintStart_toStartOf="@+id/Account_Login"
+            app:layout_constraintTop_toBottomOf="@+id/Account_Login"
             tools:text="www.domain.com" />
 
         <ImageButton
@@ -80,9 +79,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:background="@drawable/custom_states_background_button_image"
+            android:onClick="@{(view) -> OptionsClickListener.onClick(view, Account)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
-            android:onClick="@{(view) -> OptionsClickListener.onClick(view, Account)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

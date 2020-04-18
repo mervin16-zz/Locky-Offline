@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="Card"
             type="com.th3pl4gu3.locky.core.Card" />
 
         <variable
-            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.main.card.CardClickListener"/>
+            name="ClickListener"
+            type="com.th3pl4gu3.locky.ui.main.main.card.CardClickListener" />
 
         <variable
-            name="ClickOptionsListener" type="com.th3pl4gu3.locky.ui.main.main.card.CardOptionsClickListener"/>
+            name="ClickOptionsListener"
+            type="com.th3pl4gu3.locky.ui.main.main.card.CardOptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,40 +29,54 @@
 
         <ImageView
             android:id="@+id/Card_Logo"
+            cardLogo="@{Card.number}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            cardLogo="@{Card.number}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/Entry_Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@{Card.name}"
-            app:layout_constraintBottom_toTopOf="@id/Card_Number"
-            app:layout_constraintStart_toEndOf="@+id/Card_Logo"
-            app:layout_constraintTop_toTopOf="@+id/Card_Logo"
-            app:layout_constraintVertical_chainStyle="spread"
-            style="@style/Locky.TextAppearance.List.Title"
-            tools:text="4850 XXXX XXXX XXXX" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/image_card_def" />
 
         <TextView
             android:id="@+id/Card_Number"
+            style="@style/Locky.TextAppearance.List.Title"
+            cardNumber="@{Card.number}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            cardNumber="@{Card.number}"
-            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
-            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
-            app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/Card_Date"
+            app:layout_constraintStart_toEndOf="@+id/Card_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Card_Logo"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="4850 XXXX XXXX XXXX" />
+
+        <TextView
+            android:id="@+id/Entry_Name"
             style="@style/Locky.TextAppearance.List.Subtitle"
-            tools:text="MM/YY" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Card.name}"
+            app:layout_constraintBottom_toTopOf="@+id/Card_Date"
+            app:layout_constraintStart_toStartOf="@+id/Card_Number"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Date"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/Card_Date"
+            style="@style/Locky.TextAppearance.List.Subtitle"
+            expiryCardDate="@{Card.expiryDate}"
+            issuedCardDate="@{Card.issuedDate}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
+            app:layout_constraintBottom_toTopOf="@+id/Entry_Name"
+            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
+            tools:text="Issued: MM/yy | Expiry: MM/yy" />
 
         <ImageButton
             android:id="@+id/Card_More_Options"
@@ -67,13 +84,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:background="@drawable/custom_states_background_button_image"
+            android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
-            android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

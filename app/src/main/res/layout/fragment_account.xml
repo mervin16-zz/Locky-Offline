@@ -2,13 +2,7 @@
 
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="ViewModel" type="com.th3pl4gu3.locky.ui.main.main.account.AccountViewModel"/>
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Layout_Fragment_Account"

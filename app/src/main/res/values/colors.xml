@@ -2,35 +2,60 @@
 
 <resources>
 
-    <!-- Default Colors -->
+    <!--
+        Default App Colors
+    -->
     <color name="colorPrimary">@android:color/white</color>
     <color name="colorPrimaryDark">@android:color/white</color>
-    <color name="colorAccent">@color/blue_300</color>
+    <color name="colorAccent">@color/purple_300</color>
+    <color name="colorAccentDark">@color/purple_600</color>
+    <color name="colorAccentLight">@color/purple_100</color>
+    <color name="colorRipple">@color/purple_50</color>
 
-    <color name="colorRipple">#20268BEE</color>
+    <!-- Button Colors -->
+    <color name="colorFabNormal">@color/colorAccent</color>
+    <color name="colorFabMini">@color/purple_100</color>
 
+    <!--
+        Icon Colors
+    -->
+    <color name="colorIcon">@color/grey_600</color>
+    <color name="colorIconFabNormal">@android:color/white</color>
+    <color name="colorIconFabMini">@color/colorAccentDark</color>
+
+    <!--
+        Typography Colors
+    -->
+    <color name="colorTextTitle">@color/grey_600</color>
+    <color name="colorTextTitleAccent">@color/colorAccentDark</color>
+    <color name="colorTextMenu">@color/grey_600</color>
+
+    <color name="colorTextSubtitle">@color/grey_200</color>
+
+    <!-- Color Palette -->
+    <color name="purple_600">#4A04AF</color>
+    <color name="purple_300">#9C6DEF</color>
+    <color name="purple_200">#B39DDB</color>
+    <color name="purple_100">#ece0fd</color>
+    <color name="purple_50">#20DB9AFF</color>
+
+    <color name="grey_600">#4E4E4E</color>
+    <color name="grey_300">#959595</color>
+
+
+    <!--******************************* OLD COLOR PALETTE *******************************-->
     <!-- Icon Colors -->
-    <color name="colorIcon">@color/grey_300</color>
     <color name="colorIconButtonNormal">@android:color/white</color>
     <color name="colorIconButtonMini">@android:color/black</color>
 
     <!-- Button Colors -->
-    <color name="colorFABNormal">@color/colorAccent</color>
-    <color name="colorFABMini">@android:color/white</color>
     <color name="colorButtonDisabled">@color/grey_300</color>
 
     <!-- Typography Colors -->
-    <color name="colorTextHeader">@color/blue_600</color>
-    <color name="colorTextSubtitle">@color/grey_200</color>
-    <color name="colorTextPrimary">@color/grey_400</color>
 
     <!-- Color Palette -->
-    <color name="blue_600">#023F7A</color>
-    <color name="blue_300">#268BEE</color>
-    <color name="blue_200">#90CAF9</color>
 
     <color name="grey_400">#4F4F4F</color>
-    <color name="grey_300">#808080</color>
     <color name="grey_200">#959595</color>
     <color name="grey_100">#D3D3D3</color>
 

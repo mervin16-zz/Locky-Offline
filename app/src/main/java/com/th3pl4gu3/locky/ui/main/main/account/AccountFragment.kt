@@ -9,12 +9,12 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_ACCOUNT
-import com.th3pl4gu3.locky.ui.main.view.ViewAccountActivity
+import com.th3pl4gu3.locky.ui.main.view.ViewAccountFragment
 
 
 class AccountFragment : Fragment() {
@@ -32,7 +32,6 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
 
-        binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
         _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
@@ -59,22 +58,22 @@ class AccountFragment : Fragment() {
         val accountAdapter =
             AccountAdapter(
                 AccountClickListener {
-                    startActivity(Intent(context, ViewAccountActivity::class.java).apply {
-                        putExtra(VALUE_PARCELS_ACCOUNT, it)
-                    })
+                    requireView().findNavController().navigate(
+                        AccountFragmentDirections.actionFragmentAccountToViewAccountFragment(it)
+                    )
                 },
                 AccountOptionsClickListener { view, account ->
                     //displaying the popup
                     createPopupMenu(view, account)
                 })
 
-        _binding!!.RecyclerViewAccount.adapter = accountAdapter
+        binding.RecyclerViewAccount.adapter = accountAdapter
 
         return accountAdapter
     }
 
     private fun createPopupMenu(view: View, account: Account) {
-        context?.createPopUpMenu(
+        requireContext().createPopUpMenu(
             view,
             R.menu.menu_moreoptions_account,
             PopupMenu.OnMenuItemClickListener {
@@ -91,8 +90,8 @@ class AccountFragment : Fragment() {
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        context?.copyToClipboard(message)
-        context?.toast(getString(R.string.message_copy_successful))
+        requireContext().copyToClipboard(message)
+        requireContext().toast(getString(R.string.message_copy_successful))
         return true
     }
 

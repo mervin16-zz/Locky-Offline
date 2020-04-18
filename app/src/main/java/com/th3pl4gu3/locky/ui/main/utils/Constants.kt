@@ -8,8 +8,6 @@ class Constants {
             ****    Values    ****
          */
         const val VALUE_EMPTY = ""
-        const val VALUE_PARCELS_ACCOUNT = "PARCEL_CRED_ACCOUNT"
-        const val VALUE_PARCELS_CARD = "PARCEL_CRED_CARD"
 
         /*
             ****    Placeholders    ****

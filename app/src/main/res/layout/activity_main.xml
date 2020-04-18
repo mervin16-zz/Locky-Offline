@@ -4,49 +4,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/Drawer_Main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.main.MainActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar_Main"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:text="@string/app_name"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:titleTextAppearance="@style/Locky.Toolbar.TitleText"
-                app:titleTextColor="@color/colorAccent" />
+                android:background="?attr/colorPrimary">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/TabLayout_Main"
-                style="@style/Widget.MaterialComponents.TabLayout"
+                <TextView
+                    android:id="@+id/Toolbar_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                android:text="@string/app_name"
+                    style="@style/Locky.Toolbar.TitleText" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/Nested_Scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:tabMode="fixed"
-                app:tabGravity="fill"
-                app:tabIconTint="@color/state_color_tabitem"
-                app:tabIndicatorColor="@color/colorAccent" />
+                android:layout_marginTop="?attr/actionBarSize"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                <fragment
+                    android:id="@+id/Navigation_Host"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/navigation_drawer_main" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/ViewPager_Main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end|end"
+            android:layout_gravity="bottom|end"
             android:orientation="vertical">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -82,6 +87,20 @@
                 style="@style/Locky.FloatingActionButton.Normal"/>
 
         </LinearLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/Navigation_View"
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:clipToPadding="false"
+            app:itemTextAppearance="@style/Locky.TextAppearance.Drawer.Item"
+            app:menu="@menu/menu_drawer_main"
+            app:headerLayout="@layout/drawer_header"
+            style="@style/Locky.Widget.Custom.NavigationView" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

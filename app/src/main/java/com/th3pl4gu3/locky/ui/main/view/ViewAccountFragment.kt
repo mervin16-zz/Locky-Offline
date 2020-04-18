@@ -1,53 +1,51 @@
 package com.th3pl4gu3.locky.ui.main.view
 
-import android.content.Intent
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import android.view.View
-import androidx.databinding.DataBindingUtil
+import android.view.*
+import androidx.fragment.app.Fragment
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.databinding.ActivityViewAccountBinding
-import com.th3pl4gu3.locky.ui.main.add.AddAccountActivity
+import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_PARCELS_ACCOUNT
 
-class ViewAccountActivity : AppCompatActivity() {
+class ViewAccountFragment : Fragment() {
 
-    private lateinit var _binding: ActivityViewAccountBinding
+    private var _binding: FragmentViewAccountBinding? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_view_account)
+    private val binding get() = _binding!!
 
-        darkModeVerification()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
 
-        val account = (intent.extras!![VALUE_PARCELS_ACCOUNT]) as Account
+        val account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
 
-        _binding.account = account
+        binding.account = account
 
         initiateCredentialsFieldList().submitList(fieldList(account))
 
-        _binding.ButtonClose.setOnClickListener {
-            finish()
-        }
-
-        _binding.ButtonAccountEdit.setOnClickListener{
-            startActivity(Intent(this, AddAccountActivity::class.java).apply {
-                putExtra("Account", account)
-            })
-        }
+        return binding.root
     }
 
-    private fun darkModeVerification() =
-        when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
-            Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
-            else -> toast(getString(R.string.error_internal_code_1))
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_credentials_actions, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     private fun initiateCredentialsFieldList(): CredentialsViewAdapter {
         val credentialsAdapter = CredentialsViewAdapter(
@@ -55,19 +53,19 @@ class ViewAccountActivity : AppCompatActivity() {
                 copyToClipboardAndToast(data)
             },
             ViewClickListener { data ->
-                _binding.LayoutCredentialView.snackbar(data) {
+                binding.LayoutCredentialView.snackbar(data) {
                     action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
             })
 
-        _binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
+        binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
 
         return credentialsAdapter
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
+        requireContext().copyToClipboard(message)
+        requireContext().toast(getString(R.string.message_copy_successful))
         return true
     }
 
