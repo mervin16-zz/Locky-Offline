@@ -10,6 +10,11 @@ class Constants {
         const val VALUE_EMPTY = ""
 
         /*
+            ****    Key & Value Pairs    ****
+         */
+        const val KEY_ACCOUNT_LOGO = "KEY_ACCOUNT_LOGO"
+
+        /*
             ****    Placeholders    ****
          */
         const val PLACEHOLDER_DATA_NONE = "None"

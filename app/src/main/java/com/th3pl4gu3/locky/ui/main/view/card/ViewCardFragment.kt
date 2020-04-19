@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentViewCardBinding
@@ -55,7 +55,7 @@ class ViewCardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Edit -> {
-                requireView().findNavController().navigate(
+                findNavController().navigate(
                     ViewCardFragmentDirections.actionViewCardFragmentToFragmentAddCard()
                         .setPARCELCREDCARD(_card)
                 )
@@ -65,8 +65,7 @@ class ViewCardFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _card.name))
-                requireView().findNavController()
-                    .navigate(ViewCardFragmentDirections.actionViewCardFragmentToFragmentCard())
+                findNavController().navigate(ViewCardFragmentDirections.actionViewCardFragmentToFragmentCard())
                 true
             }
             else -> false

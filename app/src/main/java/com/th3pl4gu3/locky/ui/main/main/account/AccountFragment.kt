@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
@@ -55,6 +56,16 @@ class AccountFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.Toolbar_Filter -> {
+                findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToFilterAccountBottomSheetFragment())
+                true
+            }
+            else -> false
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -64,7 +75,7 @@ class AccountFragment : Fragment() {
         val accountAdapter =
             AccountAdapter(
                 AccountClickListener {
-                    requireView().findNavController().navigate(
+                    findNavController().navigate(
                         AccountFragmentDirections.actionFragmentAccountToViewAccountFragment(it)
                     )
                 },

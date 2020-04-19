@@ -9,9 +9,13 @@
     <!-- Icon Colors -->
     <color name="colorIcon">@color/grey_100</color>
 
+    <!-- Button Colors -->
+    <color name="colorChipDefault">@color/grey_400</color>
+
     <!--
         Typography Colors
     -->
+    <color name="colorTextTitle">@color/grey_50</color>
     <color name="colorTextTitleAccent">@color/purple_200</color>
     <color name="colorTextMenu">@color/grey_300</color>
 

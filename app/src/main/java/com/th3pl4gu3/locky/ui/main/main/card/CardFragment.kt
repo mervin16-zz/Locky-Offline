@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
@@ -52,6 +52,16 @@ class CardFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.Toolbar_Filter -> {
+                findNavController().navigate(CardFragmentDirections.actionFragmentCardToFilterBottomSheetFragment())
+                true
+            }
+            else -> false
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -60,8 +70,11 @@ class CardFragment : Fragment() {
     private fun initiateCardList(): CardAdapter {
         val cardAdapter = CardAdapter(
             CardClickListener {
-                requireView().findNavController()
-                    .navigate(CardFragmentDirections.actionFragmentCardToViewCardFragment(it))
+                findNavController().navigate(
+                    CardFragmentDirections.actionFragmentCardToViewCardFragment(
+                        it
+                    )
+                )
             },
             CardOptionsClickListener { view, card ->
                 //displaying the popup

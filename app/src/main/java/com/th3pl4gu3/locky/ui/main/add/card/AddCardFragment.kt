@@ -5,16 +5,13 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
@@ -108,8 +105,7 @@ class AddCardFragment : Fragment() {
             if (it) {
                 //TODO: Add database code here to insert account
                 toast(getString(R.string.message_credentials_created, _card.name))
-                requireView().findNavController()
-                    .navigate(AddCardFragmentDirections.actionAddCardFragmentToFragmentCard())
+                findNavController().navigate(AddCardFragmentDirections.actionAddCardFragmentToFragmentCard())
             }
         })
 

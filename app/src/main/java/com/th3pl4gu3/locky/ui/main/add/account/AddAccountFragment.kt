@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAddAccountBinding
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky.ui.main.utils.toast
 
 class AddAccountFragment : Fragment() {
@@ -37,7 +40,6 @@ class AddAccountFragment : Fragment() {
         //Fetch account if exists
         _account =
             AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount ?: Account()
-
         _viewModel.setAccount(_account)
 
         binding.ButtonSave.setOnClickListener {
@@ -57,7 +59,7 @@ class AddAccountFragment : Fragment() {
 
         /** Other Observations**/
         _viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
-            if(it != null){
+            if (it != null) {
                 toast(it)
                 _viewModel.doneWithToastEvent()
             }
@@ -84,11 +86,28 @@ class AddAccountFragment : Fragment() {
             if (it) {
                 //TODO: Add _account to database here
                 toast(getString(R.string.message_credentials_created, _account.name))
-
-                requireView().findNavController()
-                    .navigate(AddAccountFragmentDirections.actionAddAccountFragmentToFragmentAccount())
+                findNavController().navigate(AddAccountFragmentDirections.actionAddAccountFragmentToFragmentAccount())
             }
         })
+
+        val navBackStackEntry = findNavController().currentBackStackEntry!!
+        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains(
+                    KEY_ACCOUNT_LOGO
+                )
+            ) {
+                _viewModel.setAccountLogo(
+                    navBackStackEntry.savedStateHandle.get<String>(
+                        KEY_ACCOUNT_LOGO
+                    )!!
+                )
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
+            }
+        })
+
+        binding.AccountLogo.setOnClickListener {
+            findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToLogoBottomSheetFragment())
+        }
 
         return binding.root
     }

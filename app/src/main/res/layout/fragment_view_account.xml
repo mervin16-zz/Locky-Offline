@@ -19,7 +19,7 @@
 
             <ImageView
                 android:id="@+id/Account_Logo"
-                bindLogoImage="@{Account.website}"
+                bindLogoImage="@{Account.logoUrl}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"

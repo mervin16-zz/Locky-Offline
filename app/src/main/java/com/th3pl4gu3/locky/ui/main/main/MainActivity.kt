@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        //Set the support action bar to the toolbar
         setSupportActionBar(_binding.ToolbarMain)
+        //Remove the default actionbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //Update status bar upon current theme
@@ -49,7 +51,8 @@ class MainActivity : AppCompatActivity() {
         //Load expandable FABs and animations
         loadFABs()
 
-        _binding.NestedScroll.setOnScrollChangeListener { view, scrollX, scrollY, oldScrollX, oldScrollY ->
+        //Scroll changes to adjust toolbar elevation accordingly
+        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY > 0) {
                 _binding.ToolbarMain.elevation = 8F
             } else {

@@ -10,9 +10,9 @@ buildscript {
     //Android
     ext.version_lifecycle = "2.2.0"
     ext.version_constraint_layout = "2.0.0-beta4"
-    ext.version_gradle = "3.6.2"
+    ext.version_gradle = '3.6.3'
     ext.version_material_design = "1.2.0-alpha05"
-    ext.version_navigation = "2.2.2"
+    ext.version_navigation = "2.3.0-alpha02"
     //Testing
     ext.version_junit = "5.6.0"
     ext.version_junit_ext = "1.1.1"

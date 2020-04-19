@@ -58,9 +58,8 @@ fun TextView.accountLogin(account: Account) {
 }
 
 @BindingAdapter("bindLogoImage")
-fun ImageView.bindLogoImage(imgUrl: String?){
-    val completeUrl = "https://logo.clearbit.com/$imgUrl"
-    completeUrl.let {
+fun ImageView.bindLogoImage(imgUrl: String) {
+    imgUrl.let {
         val imgUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(this.context)
             .load(imgUri)

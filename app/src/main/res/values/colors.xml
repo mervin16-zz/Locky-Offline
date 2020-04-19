@@ -16,6 +16,8 @@
     <color name="colorFabNormal">@color/colorAccent</color>
     <color name="colorFabMini">@color/purple_100</color>
 
+    <color name="colorChipDefault">@color/grey_50</color>
+
     <!--
         Icon Colors
     -->
@@ -44,6 +46,7 @@
     <color name="grey_300">#959595</color>
     <color name="grey_200">#959595</color>
     <color name="grey_100">#D3D3D3</color>
+    <color name="grey_50">#E8E7E7</color>
 
     <color name="grey_dark_200">#272727</color>
 </resources>

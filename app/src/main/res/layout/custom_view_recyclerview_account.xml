@@ -26,7 +26,7 @@
 
         <ImageView
             android:id="@+id/Account_Logo"
-            bindLogoImage="@{Account.website}"
+            bindLogoImage="@{Account.logoUrl}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="24dp"

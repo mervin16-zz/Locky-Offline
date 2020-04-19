@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
@@ -55,7 +55,7 @@ class ViewAccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Edit -> {
-                requireView().findNavController().navigate(
+                findNavController().navigate(
                     ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAddAccount()
                         .setPARCELCREDACCOUNT(_account)
                 )
@@ -65,7 +65,7 @@ class ViewAccountFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _account.name))
-                requireView().findNavController()
+                findNavController()
                     .navigate(ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAccount())
                 true
             }

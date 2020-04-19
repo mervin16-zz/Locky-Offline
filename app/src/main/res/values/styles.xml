@@ -81,6 +81,7 @@
 
     <style name="Locky.TextAppearance.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textColor">@color/colorTextSubtitle</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="Locky.TextAppearance.List.Subtitle" parent="Locky.TextAppearance.Subtitle">
@@ -129,6 +130,14 @@
         <item name="iconPadding">12dp</item>
         <item name="android:padding">12dp</item>
     </style>
+
+    <style name="Locky.Button.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textColor">@color/color_state_chip_item_text</item>
+        <item name="chipBackgroundColor">@color/color_state_chip_item_background</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="chipCornerRadius">5dp</item>
+    </style>
+
 
     <!--
          *********************** Text Box ***********************

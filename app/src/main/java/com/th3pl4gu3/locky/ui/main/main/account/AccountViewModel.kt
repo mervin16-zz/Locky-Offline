@@ -41,7 +41,7 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "facebook.com",
+            logoUrl = "https://logo.clearbit.com/facebook.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -52,7 +52,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "google.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/google.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -62,7 +63,8 @@ class AccountViewModel : ViewModel(){
             name = "Instagram",
             username = "mervin16",
             password = "thisisapassword",
-            website = "instagram.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/instagram.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -73,7 +75,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "spotify.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/spotify.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -83,7 +86,8 @@ class AccountViewModel : ViewModel(){
             name = "Netflix",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "netflixinvestor.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/netflixinvestor.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -94,7 +98,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "udemy.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/udemy.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -105,7 +110,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "android.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/android.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -116,7 +122,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "apple.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/apple.com",
             additionalInfo = "Information"
         )
         val account9 = Account(
@@ -125,7 +132,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "lg.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/lg.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -136,7 +144,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "huawei.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/huawei.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -147,7 +156,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "sony.net",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/sony.net",
             additionalInfo = "Information"
         )
         val account12 = Account(
@@ -156,7 +166,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "mcb.mu",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/mcb.mu",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -167,7 +178,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "microsoft.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/microsoft.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -178,7 +190,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "github.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/github.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"
@@ -189,7 +202,8 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
-            website = "airmauritius.com",
+            website = "www.domain.com",
+            logoUrl = "https://logo.clearbit.com/airmauritius.com",
             additionalInfo = "Information",
             twoFA = "No",
             twoFASecretKeys = "None"

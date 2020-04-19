@@ -34,6 +34,7 @@ class AddAccountViewModel : ViewModel() {
     private val _emailErrorMessage = MutableLiveData<String>()
     private val _password = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
+    private val _logoUrl = MutableLiveData<String>()
     private val _website = MutableLiveData<String>()
     private val _2faEnabled = MutableLiveData<String>()
     private val _2faKeys = MutableLiveData<String>()
@@ -66,6 +67,9 @@ class AddAccountViewModel : ViewModel() {
 
     val passwordErrorMessage: LiveData<String>
         get() = _passwordErrorMessage
+
+    val logoUrl: LiveData<String>
+        get() = _logoUrl
 
     val website: LiveData<String>
         get() = _website
@@ -104,6 +108,7 @@ class AddAccountViewModel : ViewModel() {
             _username.value = it.username
             _email.value = it.email
             _password.value = it.password
+            _logoUrl.value = it.logoUrl
             _website.value = it.website
             _2faEnabled.value = it.twoFA
             _2faKeys.value = it.twoFASecretKeys
@@ -121,6 +126,10 @@ class AddAccountViewModel : ViewModel() {
         } catch (ex: Exception) {
             _toastEvent.value = "Error code 2: ${ex.message}"
         }
+    }
+
+    fun setAccountLogo(logoUrl: String) {
+        _logoUrl.value = logoUrl
     }
 
     private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
