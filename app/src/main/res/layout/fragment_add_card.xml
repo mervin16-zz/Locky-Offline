@@ -22,7 +22,7 @@
             android:id="@+id/Card_Logo"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/image_card_def"
+            cardLogo="@{ViewModel.number}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="* Required Fields"
+            android:text="@string/label_required"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Card_Logo" />
 
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Name"
+            android:hint="@string/field_card_name"
             app:layout_constraintEnd_toEndOf="@id/Card_Logo"
             app:layout_constraintStart_toStartOf="@id/Card_Logo"
             app:layout_constraintTop_toBottomOf="@id/Label_Required">
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Card Number"
+            android:hint="@string/field_card_number"
             app:layout_constraintTop_toBottomOf="@+id/Card_Name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Card Pin"
+            android:hint="@string/field_card_pin"
             app:layout_constraintTop_toBottomOf="@+id/Card_Number">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Bank"
+            android:hint="@string/field_card_bank"
             app:layout_constraintTop_toBottomOf="@+id/Card_Pin">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Card Holder Name"
+            android:hint="@string/field_card_holder"
             app:layout_constraintTop_toBottomOf="@+id/Card_Bank">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:hint="Issued Date"
+            android:hint="@string/field_card_date_issued"
             app:layout_constraintEnd_toStartOf="@+id/Card_Expiry_Date"
             app:layout_constraintStart_toStartOf="@+id/Card_Holder"
             app:layout_constraintTop_toBottomOf="@+id/Card_Holder">
@@ -142,7 +142,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="none" />
+                android:inputType="none"
+                android:text="@{ViewModel.issuedDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Expiry Date Text field ****************************** -->
@@ -152,7 +153,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:hint="Expiry Date"
+            android:hint="@string/field_card_date_expiry"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Issued_Date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
@@ -163,7 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="none" />
+                android:inputType="none"
+                android:text="@{ViewModel.expiryDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Optional Label ****************************** -->
@@ -173,7 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Optional Fields"
+            android:text="@string/label_optional"
             app:layout_constraintStart_toStartOf="@+id/Card_Issued_Date"
             app:layout_constraintTop_toBottomOf="@+id/Card_Issued_Date" />
 
@@ -184,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Additional Information"
+            android:hint="@string/field_card_additional"
             app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -193,7 +195,7 @@
                 android:inputType="textMultiLine"
                 android:maxLines="15"
                 android:minLines="2"
-                android:text="" />
+                android:text="@{ViewModel.additionalInformation}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Save Button ****************************** -->
@@ -204,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Save"
+            android:text="@string/button_action_save"
             app:icon="@drawable/ic_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

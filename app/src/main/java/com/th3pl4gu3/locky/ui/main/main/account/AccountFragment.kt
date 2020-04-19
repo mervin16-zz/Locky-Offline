@@ -1,6 +1,5 @@
 package com.th3pl4gu3.locky.ui.main.main.account
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupMenu
@@ -12,7 +11,6 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.view.ViewAccountFragment
 
 
 class AccountFragment : Fragment() {
@@ -99,8 +97,9 @@ class AccountFragment : Fragment() {
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         requireContext().copyToClipboard(message)
-        requireContext().toast(getString(R.string.message_copy_successful))
+        toast(getString(R.string.message_copy_successful))
         return true
     }
 
+    private fun toast(message: String) = requireContext().toast(message)
 }

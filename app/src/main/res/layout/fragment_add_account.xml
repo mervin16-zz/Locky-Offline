@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="* Required Fields"
+            android:text="@string/label_required"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Account_Logo" />
 
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Name"
+            android:hint="@string/field_account_name"
             app:layout_constraintEnd_toEndOf="@id/Account_Logo"
             app:layout_constraintStart_toStartOf="@id/Account_Logo"
             app:layout_constraintTop_toBottomOf="@id/Label_Required">
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Username"
+            android:hint="@string/field_account_username"
             app:layout_constraintTop_toBottomOf="@+id/Account_Name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Email"
+            android:hint="@string/field_account_email"
             app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@+id/Account_Username">
 
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Password"
+            android:hint="@string/field_account_password"
             app:layout_constraintTop_toBottomOf="@+id/Account_Email"
             tools:layout_editor_absoluteX="16dp">
 
@@ -120,13 +120,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Website"
+            android:hint="@string/field_account_website"
             app:layout_constraintTop_toBottomOf="@+id/Account_Password">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textWebEditText" />
+                android:inputType="textWebEditText"
+                android:text="@{ViewModel.website}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -137,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Optional Fields"
+            android:text="@string/label_optional"
             app:layout_constraintStart_toStartOf="@id/Label_Required"
             app:layout_constraintTop_toBottomOf="@id/Account_Website" />
 
@@ -149,13 +150,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Is 2FA Authentication"
+            android:hint="@string/field_account_2faauth"
             app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textShortMessage" />
+                android:inputType="textShortMessage"
+                android:text="@{ViewModel.twoFaEnabled}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** 2FA Secret Keys Text field ****************************** -->
@@ -165,13 +167,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="2FA Secret Keys"
+            android:hint="@string/field_account_2fakeys"
             app:layout_constraintTop_toBottomOf="@+id/Account_2FA_Enabled">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:text="@{ViewModel.twoFaKeys}"
                 android:maxLines="15"
                 android:minLines="2" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -184,13 +187,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Additional Comments"
+            android:hint="@string/field_account_additional"
             app:layout_constraintTop_toBottomOf="@+id/Account_2FA_Keys">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:text="@{ViewModel.additionalInfo}"
                 android:maxLines="15"
                 android:minLines="2" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -204,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Save"
+            android:text="@string/button_action_save"
             app:icon="@drawable/ic_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

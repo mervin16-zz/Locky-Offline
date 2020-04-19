@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentAddAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.toast
@@ -34,7 +35,9 @@ class AddAccountFragment : Fragment() {
         binding.lifecycleOwner = this
 
         //Fetch account if exists
-        _account = Account()
+        _account =
+            AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount ?: Account()
+
         _viewModel.setAccount(_account)
 
         binding.ButtonSave.setOnClickListener {
@@ -44,6 +47,10 @@ class AddAccountFragment : Fragment() {
                     username = binding.AccountUsername.editText?.text.toString()
                     email = binding.AccountEmail.editText?.text.toString()
                     password = binding.AccountPassword.editText?.text.toString()
+                    website = binding.AccountWebsite.editText?.text.toString()
+                    additionalInfo = binding.AccountComments.editText?.text.toString()
+                    twoFA = binding.Account2FAEnabled.editText?.text.toString()
+                    twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
                 }
             )
         }
@@ -51,7 +58,7 @@ class AddAccountFragment : Fragment() {
         /** Other Observations**/
         _viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
             if(it != null){
-                requireContext().toast(it)
+                toast(it)
                 _viewModel.doneWithToastEvent()
             }
         })
@@ -75,8 +82,9 @@ class AddAccountFragment : Fragment() {
 
         _viewModel.isFormValid.observe(viewLifecycleOwner, Observer {
             if (it) {
-                //TODO: Add database code here to insert account
-                requireContext().toast("Credentials has been stored.")
+                //TODO: Add _account to database here
+                toast(getString(R.string.message_credentials_created, _account.name))
+
                 requireView().findNavController()
                     .navigate(AddAccountFragmentDirections.actionAddAccountFragmentToFragmentAccount())
             }
@@ -89,4 +97,6 @@ class AddAccountFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun toast(message: String) = requireContext().toast(message)
 }

@@ -35,21 +35,165 @@ class AccountViewModel : ViewModel(){
     }
 
     internal fun generateDummyAccounts(): ArrayList<Account>{
-        val account1 = Account("1", name = "Facebook", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "facebook.com")
-        val account2 = Account("1", name = "Google", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "google.com")
-        val account3 = Account("1", name = "Instagram", username = "mervin16", password = "thisisapassword", website = "instagram.com")
-        val account4 = Account("1", name = "Spotify", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "spotify.com")
-        val account5 = Account("1", name = "Netflix", email = "mervin@gmail.com", password = "thisisapassword", website = "netflixinvestor.com")
-        val account6 = Account("1", name = "Udemy", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "udemy.com")
-        val account7 = Account("1", name = "Android", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "android.com")
-        val account8 = Account("1", name = "Apple", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "apple.com")
-        val account9 = Account("1", name = "LG", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "lg.com")
-        val account10 = Account("1", name = "Huawei", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "huawei.com")
-        val account11 = Account("1", name = "Sony", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "sony.net")
-        val account12 = Account("1", name = "MCB", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "mcb.mu")
-        val account13 = Account("1", name = "Microsoft", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "microsoft.com")
-        val account14 = Account("1", name = "Github", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "github.com")
-        val account15 = Account("1", name = "Air Mauritius", username = "mervin16", email = "mervin@gmail.com", password = "thisisapassword", website = "airmauritius.com")
+        val account1 = Account(
+            "1",
+            name = "Facebook",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "facebook.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account2 = Account(
+            "1",
+            name = "Google",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "google.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account3 = Account(
+            "1",
+            name = "Instagram",
+            username = "mervin16",
+            password = "thisisapassword",
+            website = "instagram.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account4 = Account(
+            "1",
+            name = "Spotify",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "spotify.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account5 = Account(
+            "1",
+            name = "Netflix",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "netflixinvestor.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account6 = Account(
+            "1",
+            name = "Udemy",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "udemy.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account7 = Account(
+            "1",
+            name = "Android",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "android.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account8 = Account(
+            "1",
+            name = "Apple",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "apple.com",
+            additionalInfo = "Information"
+        )
+        val account9 = Account(
+            "1",
+            name = "LG",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "lg.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account10 = Account(
+            "1",
+            name = "Huawei",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "huawei.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account11 = Account(
+            "1",
+            name = "Sony",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "sony.net",
+            additionalInfo = "Information"
+        )
+        val account12 = Account(
+            "1",
+            name = "MCB",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "mcb.mu",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account13 = Account(
+            "1",
+            name = "Microsoft",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "microsoft.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account14 = Account(
+            "1",
+            name = "Github",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "github.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
+        val account15 = Account(
+            "1",
+            name = "Air Mauritius",
+            username = "mervin16",
+            email = "mervin@gmail.com",
+            password = "thisisapassword",
+            website = "airmauritius.com",
+            additionalInfo = "Information",
+            twoFA = "No",
+            twoFASecretKeys = "None"
+        )
 
         return ArrayList<Account>().apply {
             add(account1)

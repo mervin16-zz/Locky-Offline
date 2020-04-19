@@ -92,7 +92,9 @@ class CardFragment : Fragment() {
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         requireContext().copyToClipboard(message)
-        requireContext().toast(getString(R.string.message_copy_successful))
+        toast(getString(R.string.message_copy_successful))
         return true
     }
+
+    private fun toast(message: String) = requireContext().toast(message)
 }

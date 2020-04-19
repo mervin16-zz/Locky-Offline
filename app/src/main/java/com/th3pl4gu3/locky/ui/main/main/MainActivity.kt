@@ -107,10 +107,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSlideNavOptions(): NavOptions? {
         return NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_slide_top_from_down)
-            .setExitAnim(R.anim.anim_slide_down_to_top)
-            .setPopEnterAnim(R.anim.anim_slide_down_from_top)
-            .setPopExitAnim(R.anim.anim_slide_top_to_down)
+            .setEnterAnim(R.anim.anim_slide_in_right)
+            .setExitAnim(R.anim.anim_slide_out_left)
+            .setPopEnterAnim(R.anim.anim_slide_in_left)
+            .setPopExitAnim(R.anim.anim_slide_out_right)
             .build()
     }
 

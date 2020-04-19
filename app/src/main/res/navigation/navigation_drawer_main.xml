@@ -54,7 +54,7 @@
         tools:layout="@layout/fragment_device" />
     <fragment
         android:id="@+id/View_Account_Fragment"
-        android:name="com.th3pl4gu3.locky.ui.main.view.ViewAccountFragment"
+        android:name="com.th3pl4gu3.locky.ui.main.view.account.ViewAccountFragment"
         android:label="ViewAccountFragment"
         tools:layout="@layout/fragment_view_account">
         <argument
@@ -63,18 +63,30 @@
         <action
             android:id="@+id/action_View_Account_Fragment_to_Fragment_Account"
             app:destination="@id/Fragment_Account" />
+        <action
+            android:id="@+id/action_View_Account_Fragment_to_Fragment_Add_Account"
+            app:destination="@id/Fragment_Add_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/Fragment_Add_Account"
         android:name="com.th3pl4gu3.locky.ui.main.add.account.AddAccountFragment"
         android:label="AddAccountFragment">
+        <argument
+            android:name="PARCEL_CRED_ACCOUNT"
+            app:argType="com.th3pl4gu3.locky.core.Account"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_addAccountFragment_to_Fragment_Account"
             app:destination="@id/Fragment_Account" />
     </fragment>
     <fragment
         android:id="@+id/View_Card_Fragment"
-        android:name="com.th3pl4gu3.locky.ui.main.view.ViewCardFragment"
+        android:name="com.th3pl4gu3.locky.ui.main.view.card.ViewCardFragment"
         android:label="ViewCardFragment">
         <action
             android:id="@+id/action_viewCardFragment_to_Fragment_Card"
@@ -82,6 +94,9 @@
         <argument
             android:name="PARCEL_CRED_CARD"
             app:argType="com.th3pl4gu3.locky.core.Card" />
+        <action
+            android:id="@+id/action_View_Card_Fragment_to_Fragment_Add_Card"
+            app:destination="@id/Fragment_Add_Card" />
     </fragment>
     <fragment
         android:id="@+id/Fragment_Add_Card"
@@ -90,5 +105,10 @@
         <action
             android:id="@+id/action_addCardFragment_to_Fragment_Card"
             app:destination="@id/Fragment_Card" />
+        <argument
+            android:name="PARCEL_CRED_CARD"
+            app:argType="com.th3pl4gu3.locky.core.Card"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

@@ -34,6 +34,10 @@ class AddAccountViewModel : ViewModel() {
     private val _emailErrorMessage = MutableLiveData<String>()
     private val _password = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
+    private val _website = MutableLiveData<String>()
+    private val _2faEnabled = MutableLiveData<String>()
+    private val _2faKeys = MutableLiveData<String>()
+    private val _additionalInfo = MutableLiveData<String>()
 
     //Validation Properties
     val isFormValid: LiveData<Boolean>
@@ -63,6 +67,18 @@ class AddAccountViewModel : ViewModel() {
     val passwordErrorMessage: LiveData<String>
         get() = _passwordErrorMessage
 
+    val website: LiveData<String>
+        get() = _website
+
+    val twoFaEnabled: LiveData<String>
+        get() = _2faEnabled
+
+    val twoFaKeys: LiveData<String>
+        get() = _2faKeys
+
+    val additionalInfo: LiveData<String>
+        get() = _additionalInfo
+
     //Other Properties
     val status: LiveData<LoadingStatus>
         get() = _status
@@ -88,12 +104,15 @@ class AddAccountViewModel : ViewModel() {
             _username.value = it.username
             _email.value = it.email
             _password.value = it.password
+            _website.value = it.website
+            _2faEnabled.value = it.twoFA
+            _2faKeys.value = it.twoFASecretKeys
+            _additionalInfo.value = it.additionalInfo
         }
     }
 
     fun isFormValid(account: Account) {
         val validation = Validation(account)
-
         try {
             validation.validateAccountForm()
             _isFormValid.value = true
@@ -116,6 +135,7 @@ class AddAccountViewModel : ViewModel() {
     }
 
     private fun getWebsiteLogoProperties() = coroutineScope.launch {
+
         try {
             _status.value = LoadingStatus.LOADING
             _websites.value = Repository()

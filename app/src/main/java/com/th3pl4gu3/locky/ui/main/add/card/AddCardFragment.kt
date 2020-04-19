@@ -3,15 +3,23 @@ package com.th3pl4gu3.locky.ui.main.add.card
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
+import com.th3pl4gu3.locky.ui.main.utils.setCardLogo
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedCalendar
 import com.th3pl4gu3.locky.ui.main.utils.toast
 import java.util.*
 
@@ -47,7 +55,7 @@ class AddCardFragment : Fragment() {
 
 
         //Fetch account if exists
-        _card = Card()
+        _card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard ?: Card()
         _viewModel.setCard(_card)
 
         binding.ButtonSave.setOnClickListener {
@@ -58,7 +66,10 @@ class AddCardFragment : Fragment() {
                     pin = binding.CardPin.editText?.text.toString().toShort()
                     bank = binding.CardBank.editText?.text.toString()
                     cardHolderName = binding.CardHolder.editText?.text.toString()
-                    //TODO: Add Date variables
+                    issuedDate =
+                        binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
+                    expiryDate =
+                        binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
                     additionalInfo = binding.CardMoreInfo.editText?.text.toString()
                 }
             )
@@ -67,7 +78,7 @@ class AddCardFragment : Fragment() {
         /** Other Observations**/
         _viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                requireContext().toast(it)
+                toast(it)
                 _viewModel.doneWithToastEvent()
             }
         })
@@ -96,7 +107,7 @@ class AddCardFragment : Fragment() {
         _viewModel.isFormValid.observe(viewLifecycleOwner, Observer {
             if (it) {
                 //TODO: Add database code here to insert account
-                requireContext().toast("Credentials has been stored.")
+                toast(getString(R.string.message_credentials_created, _card.name))
                 requireView().findNavController()
                     .navigate(AddCardFragmentDirections.actionAddCardFragmentToFragmentCard())
             }
@@ -124,6 +135,18 @@ class AddCardFragment : Fragment() {
             ).show()
         }
 
+        binding.CardNumber.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (count > 0) {
+                    binding.CardLogo.setCardLogo(s.toString().toLong())
+                }
+            }
+
+        })
         return binding.root
     }
 
@@ -132,11 +155,21 @@ class AddCardFragment : Fragment() {
         _binding = null
     }
 
-    private fun updateIssuedDateText(month: Int, year: Int) {
-        binding.IssuedDate.setText("${month + 1}/$year")
-    }
+    private fun updateIssuedDateText(month: Int, year: Int) = binding.IssuedDate.setText(
+        getString(
+            R.string.field_card_date_formatter,
+            (month + 1).toString(),
+            year.toString()
+        )
+    )
 
-    private fun updateExpiryDateText(month: Int, year: Int) {
-        binding.ExpiryDate.setText("${month + 1}/$year")
-    }
+    private fun updateExpiryDateText(month: Int, year: Int) = binding.ExpiryDate.setText(
+        getString(
+            R.string.field_card_date_formatter,
+            (month + 1).toString(),
+            year.toString()
+        )
+    )
+
+    private fun toast(message: String) = requireContext().toast(message)
 }

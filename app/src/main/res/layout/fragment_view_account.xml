@@ -18,7 +18,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/Account_Logo"
                 bindLogoImage="@{Account.website}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,15 +28,15 @@
                 tools:src="@drawable/image_placeholder_logo" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/Account_Name"
                 style="@style/Locky.TextAppearance.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{Account.name}"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                app:layout_constraintEnd_toEndOf="@+id/Account_Logo"
+                app:layout_constraintStart_toStartOf="@+id/Account_Logo"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Logo"
                 tools:text="Title" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -48,7 +48,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/Account_Name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

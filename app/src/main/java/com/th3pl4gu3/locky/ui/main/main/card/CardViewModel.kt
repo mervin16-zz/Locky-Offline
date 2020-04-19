@@ -35,14 +35,77 @@ class CardViewModel : ViewModel(){
     }
 
     internal fun generateDummyCards(): ArrayList<Card>{
-        val card1 = Card("1", name = "Mervin's Accout", number = 4850508089006089, bank = "MCB", pin = 1234)
-        val card2 = Card("1", name = "Mervin's Accout", number = 5150508089006089, bank = "MCB", pin = 1234)
-        val card3 = Card("1", name = "Mervin's Accout", number = 5450508089006089, bank = "MCB", pin = 1234)
-        val card4 = Card("1", name = "Mervin's Accout", number = 3550508089006089, bank = "MCB", pin = 1234)
-        val card5 = Card("1", name = "Mervin's Accout", number = 3000508089006089, bank = "MCB", pin = 1234)
-        val card6 = Card("1", name = "Mervin's Accout", number = 6011508089006089, bank = "MCB", pin = 1234)
-        val card7 = Card("1", name = "Mervin's Accout", number = 1800508089006089, bank = "MCB", pin = 1234)
-        val card8 = Card("1", name = "Mervin's Accout", number = 2130508089006089, bank = "MCB", pin = 1234)
+        val card1 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 4850508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card2 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 5150508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card3 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 5450508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card4 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 3550508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card5 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 3000508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju"
+        )
+        val card6 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 6011508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card7 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 1800508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
+        val card8 = Card(
+            "1",
+            name = "Mervin's Account",
+            number = 2130508089006089,
+            bank = "MCB",
+            pin = 1234,
+            cardHolderName = "Mervin Hemaraju",
+            additionalInfo = "Information"
+        )
 
         return java.util.ArrayList<Card>().apply {
             add(card1)

@@ -16,6 +16,7 @@ import java.util.*
 
 //TODO: Need to test all functions properly in BindingUtils.kt
 
+/********************************* Card Binding Adapters****************************************/
 @BindingAdapter("cardNumber")
 fun TextView.setCardNumber(number: Long) {
     text = number.toCreditCardFormat()
@@ -43,6 +44,8 @@ fun ImageView.setCardLogo(number: Long) {
     )
 }
 
+
+/********************************* Account Binding Adapters****************************************/
 @BindingAdapter("accountLogin")
 fun TextView.accountLogin(account: Account) {
     return if (account.username.isNotEmpty() && account.email.isNotEmpty()) {
@@ -67,6 +70,8 @@ fun ImageView.bindLogoImage(imgUrl: String?){
     }
 }
 
+
+/********************************* Other Binding Adapters****************************************/
 @BindingAdapter("loadingStatusVisibility")
 fun ProgressBar.setLoadingStatusVisibility(status: LoadingStatus) {
     visibility = when(status) {

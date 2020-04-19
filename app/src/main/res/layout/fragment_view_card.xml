@@ -28,7 +28,7 @@
                     tools:src="@drawable/image_placeholder_logo" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/Card_Number"
                     style="@style/Locky.TextAppearance.Title"
                     cardNumber="@{Card.number}"
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/Card_Number" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

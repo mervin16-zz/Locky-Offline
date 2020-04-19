@@ -102,3 +102,12 @@ fun Context.createPopUpMenu(view: View, menu: Int, listener: PopupMenu.OnMenuIte
 }
 
 fun Calendar.toFormattedString(): String = SimpleDateFormat("MM/yy", Locale.ENGLISH).format(this.timeInMillis)
+
+fun String.toFormattedCalendar(): Calendar {
+    val sd = SimpleDateFormat("MM/yy", Locale.ENGLISH)
+    val date = sd.parse(this)
+    val cal = Calendar.getInstance()
+    cal.time = date!!
+    return cal
+}
+

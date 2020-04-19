@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.core.Validation
 import com.th3pl4gu3.locky.core.exceptions.FormException
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedString
 import java.util.*
 
 class AddCardViewModel : ViewModel() {
@@ -27,6 +28,7 @@ class AddCardViewModel : ViewModel() {
     private val _cardHolderErrorMessage = MutableLiveData<String>()
     private val _issuedDate = MutableLiveData<String>()
     private val _expiryDate = MutableLiveData<String>()
+    private val _additionalInformation = MutableLiveData<String>()
 
     //Validation Properties
     val isFormValid: LiveData<Boolean>
@@ -52,6 +54,9 @@ class AddCardViewModel : ViewModel() {
 
     val expiryDate: LiveData<String>
         get() = _expiryDate
+
+    val additionalInformation: LiveData<String>
+        get() = _additionalInformation
 
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
@@ -83,6 +88,10 @@ class AddCardViewModel : ViewModel() {
             _number.value = it.number
             _pin.value = it.pin
             _bank.value = it.bank
+            _cardHolder.value = it.cardHolderName
+            _issuedDate.value = it.issuedDate.toFormattedString()
+            _expiryDate.value = it.expiryDate.toFormattedString()
+            _additionalInformation.value = it.additionalInfo
         }
     }
 

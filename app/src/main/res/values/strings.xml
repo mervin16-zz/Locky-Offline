@@ -33,39 +33,50 @@
     <!--
         ****************** Data Fields ******************
     -->
+    <string name="label_required">*Required Fields</string>
+    <string name="label_optional">Optional Fields</string>
+
+    <string name="field_account_name">Name</string>
     <string name="field_account_username">Username</string>
     <string name="field_account_email">Email</string>
     <string name="field_account_password">Password</string>
     <string name="field_account_website">Website</string>
-    <string name="field_account_2faauth">2FA Authentication (Optional)</string>
-    <string name="field_account_2fakeys">2FA Secret Keys (Optional)</string>
+    <string name="field_account_2faauth">2FA Authentication</string>
+    <string name="field_account_2fakeys">2FA Secret Keys</string>
     <string name="field_account_additional">Additional Comments</string>
 
 
-    <string name="field_card_name">Name on Card</string>
+    <string name="field_card_name">Name</string>
+    <string name="field_card_number">Number</string>
+    <string name="field_card_holder">Name on Card</string>
     <string name="field_card_bank">Bank</string>
     <string name="field_card_pin">Pin</string>
     <string name="field_card_date_issued">Date Issued</string>
     <string name="field_card_date_expiry">Expiry Cate</string>
     <string name="field_card_additional">Additional Comments</string>
 
+    <string name="field_card_date_formatter">"%1$s"/"%2$s"</string>
+
     <!--
         ****************** Messages ******************
     -->
     <string name="message_copy_successful">Copied successfully.</string>
+    <string name="message_credentials_created">"%1$s" has been added successfully.</string>
+    <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
 
     <!--
         ****************** Error Messages ******************
     -->
     <string name="error_internal_code_1">Error code 1: An internal error occurred. Please contact your IT support.</string>
 
+    <!--
+            ****************** Button Actions ******************
+        -->
+    <string name="button_action_save">Save</string>
 
     <!--
    ****************** Dev ******************
    -->
     <string name="dev_feature_implementation_unknown">The feature "%1$s" has not been implemented yet.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
