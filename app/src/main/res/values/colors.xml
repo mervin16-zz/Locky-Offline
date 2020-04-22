@@ -12,11 +12,15 @@
     <color name="colorAccentLight">@color/purple_100</color>
     <color name="colorRipple">@color/purple_50</color>
 
+    <!-- TextField Colors -->
+    <color name="colorTextFieldSearch_background">@color/grey_300</color>
+
     <!-- Button Colors -->
     <color name="colorFabNormal">@color/colorAccent</color>
     <color name="colorFabMini">@color/purple_100</color>
 
     <color name="colorChipDefault">@color/grey_50</color>
+    <color name="colorChipChecked">@color/colorAccentLight</color>
 
     <!--
         Icon Colors
@@ -35,7 +39,7 @@
     <color name="colorTextSubtitle">@color/grey_200</color>
 
     <!-- Color Palette -->
-    <color name="purple_600">#3B0273</color>
+    <color name="purple_600">#281255</color>
     <color name="purple_300">#734EE4</color>
     <color name="purple_200">#B39DDB</color>
     <color name="purple_100">#ece0fd</color>

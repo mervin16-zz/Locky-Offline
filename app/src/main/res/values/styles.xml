@@ -70,6 +70,8 @@
 
     <style name="Locky.TextAppearance.Title" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/colorTextTitle</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="fontFamily">@font/google_sans_medium</item>
     </style>
 
     <style name="Locky.TextAppearance.List.Title" parent="Locky.TextAppearance.Title">
@@ -129,6 +131,11 @@
         <item name="rippleColor">@color/colorRipple</item>
         <item name="iconPadding">12dp</item>
         <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorTextTitle</item>
+        <item name="rippleColor">@color/colorRipple</item>
     </style>
 
     <style name="Locky.Button.Chip" parent="Widget.MaterialComponents.Chip.Choice">

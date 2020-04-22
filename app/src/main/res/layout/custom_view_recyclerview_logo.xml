@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Logo"
+            type="com.th3pl4gu3.locky.core.networking.WebsiteLogo" />
+
+        <variable
+            name="ClickListener"
+            type="com.th3pl4gu3.locky.ui.main.add.account.ClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> ClickListener.onClick(Logo.logoUrl)}">
+
+        <ImageView
+            android:id="@+id/Website_Logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            bindLogoImage="@{Logo.logoUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/image_placeholder_logo" />
+
+        <TextView
+            android:id="@+id/Website_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{Logo.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/Website_Logo"
+            app:layout_constraintStart_toEndOf="@+id/Website_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Website_Logo"
+            tools:text="Title"
+            style="@style/Locky.TextAppearance.List.Title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

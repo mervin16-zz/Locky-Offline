@@ -54,6 +54,11 @@
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about" />
     <fragment
+        android:id="@+id/Fragment_Search"
+        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
+    <fragment
         android:id="@+id/Fragment_Device"
         android:name="com.th3pl4gu3.locky.ui.main.main.device.DeviceFragment"
         android:label="DeviceFragment"

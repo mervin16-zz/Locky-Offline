@@ -4,23 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.networking.LoadingStatus
-import com.th3pl4gu3.locky.core.networking.Repository
 import com.th3pl4gu3.locky.core.Validation
-import com.th3pl4gu3.locky.core.networking.WebsiteLogo
 import com.th3pl4gu3.locky.core.exceptions.FormException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class AddAccountViewModel : ViewModel() {
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private val _status = MutableLiveData<LoadingStatus>()
-    private val _websites = MutableLiveData<List<WebsiteLogo>>()
+
     private lateinit var _account: Account
     private var _toastEvent = MutableLiveData<String>()
 
@@ -83,20 +72,11 @@ class AddAccountViewModel : ViewModel() {
     val additionalInfo: LiveData<String>
         get() = _additionalInfo
 
+
     //Other Properties
-    val status: LiveData<LoadingStatus>
-        get() = _status
-
-    val websites: LiveData<List<WebsiteLogo>>
-        get() = _websites
-
     val toastEvent: LiveData<String>
         get() = _toastEvent
 
-    init {
-        _status.value = LoadingStatus.DONE
-        getWebsiteLogoProperties()
-    }
 
     fun doneWithToastEvent(){
         _toastEvent.value = null
@@ -141,24 +121,5 @@ class AddAccountViewModel : ViewModel() {
             if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
         _passwordErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
-    }
-
-    private fun getWebsiteLogoProperties() = coroutineScope.launch {
-
-        try {
-            _status.value = LoadingStatus.LOADING
-            _websites.value = Repository()
-                .getWebsiteDetails()
-            _status.value = LoadingStatus.DONE
-        } catch (t: Throwable) {
-            _status.value = LoadingStatus.ERROR
-            _websites.value = ArrayList()
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        viewModelJob.cancel()
     }
 }

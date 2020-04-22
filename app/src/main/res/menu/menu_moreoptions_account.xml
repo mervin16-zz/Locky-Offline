@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/Menu_CopyUsername"
-        android:title="Copy username"
+        android:title="@string/menu_account_moreOptions_copyUsername"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/Menu_CopyPass"
-        android:title="Copy Password"
+        android:title="@string/menu_account_moreOptions_copyPassword"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/Menu_ShowPass"
-        android:title="Show Password"
+        android:title="@string/menu_account_moreOptions_viewPassword"
         app:showAsAction="ifRoom"/>
 </menu>
