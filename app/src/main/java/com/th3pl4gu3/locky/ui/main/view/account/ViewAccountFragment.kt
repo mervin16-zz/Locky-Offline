@@ -8,8 +8,13 @@ import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
-import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.view.*
+import com.th3pl4gu3.locky.ui.main.utils.action
+import com.th3pl4gu3.locky.ui.main.utils.copyToClipboard
+import com.th3pl4gu3.locky.ui.main.utils.snackbar
+import com.th3pl4gu3.locky.ui.main.utils.toast
+import com.th3pl4gu3.locky.ui.main.view.CopyClickListener
+import com.th3pl4gu3.locky.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky.ui.main.view.ViewClickListener
 
 class ViewAccountFragment : Fragment() {
 
@@ -26,9 +31,7 @@ class ViewAccountFragment : Fragment() {
         _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(ViewAccountViewModel::class.java)
 
-        _account = ViewAccountFragmentArgs.fromBundle(
-            requireArguments()
-        ).parcelcredaccount
+        _account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
 
         binding.account = _account
 
@@ -56,7 +59,7 @@ class ViewAccountFragment : Fragment() {
         return when (item.itemId) {
             R.id.Action_Edit -> {
                 findNavController().navigate(
-                    ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAddAccount()
+                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
                         .setPARCELCREDACCOUNT(_account)
                 )
                 true
@@ -65,8 +68,8 @@ class ViewAccountFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _account.name))
-                findNavController()
-                    .navigate(ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAccount())
+                //findNavController().navigate(ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAccount())
+                toast(getString(R.string.dev_feature_implementation_unknown, "Delete Account"))
                 true
             }
             else -> false
@@ -85,7 +88,10 @@ class ViewAccountFragment : Fragment() {
                     }
                 })
 
-        binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
+        binding.RecyclerViewCredentialsField.apply {
+            adapter = credentialsAdapter
+            setHasFixedSize(true)
+        }
 
         return credentialsAdapter
     }

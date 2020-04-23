@@ -54,6 +54,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:text="@{ViewModel.name}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,6 +106,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:text="@{ViewModel.bank}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +123,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:text="@{ViewModel.cardHolder}" />
         </com.google.android.material.textfield.TextInputLayout>
 

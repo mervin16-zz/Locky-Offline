@@ -1,12 +1,12 @@
 package com.th3pl4gu3.locky.ui.main.main.account
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
@@ -18,7 +18,7 @@ class AccountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
     private lateinit var _viewModel: AccountViewModel
-
+    private var _lastClickTime: Long = 0
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,11 +26,14 @@ class AccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        // Fetch view model
         _viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-
+        // Bind lifecycle owner
         binding.lifecycleOwner = this
 
+        //Observe data when to show snack bar for "Show Password"
         _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.LayoutFragmentAccount.snackbar(it) {
@@ -59,7 +62,10 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToFilterAccountBottomSheetFragment())
+                if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
+                    _lastClickTime = SystemClock.elapsedRealtime()
+                    findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
+                }
                 true
             }
             else -> false
@@ -76,15 +82,24 @@ class AccountFragment : Fragment() {
             AccountAdapter(
                 AccountClickListener {
                     findNavController().navigate(
-                        AccountFragmentDirections.actionFragmentAccountToViewAccountFragment(it)
+                        AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
+                            it
+                        )
                     )
                 },
                 AccountOptionsClickListener { view, account ->
+                    //Prevents double click and creating a double instance
+                    view.apply {
+                        isEnabled = false
+                    }
                     //displaying the popup
                     createPopupMenu(view, account)
                 })
 
-        binding.RecyclerViewAccount.adapter = accountAdapter
+        binding.RecyclerViewAccount.apply {
+            adapter = accountAdapter
+            setHasFixedSize(true)
+        }
 
         return accountAdapter
     }
@@ -102,6 +117,10 @@ class AccountFragment : Fragment() {
                         true
                     }
                     else -> false
+                }
+            }, PopupMenu.OnDismissListener {
+                view.apply {
+                    isEnabled = true
                 }
             })
     }

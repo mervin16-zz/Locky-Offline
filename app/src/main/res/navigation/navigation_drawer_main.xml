@@ -9,83 +9,122 @@
     <fragment
         android:id="@+id/Fragment_Home"
         android:name="com.th3pl4gu3.locky.ui.main.main.home.HomeFragment"
-        android:label="HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/Fragment_Settings"
-        android:name="com.th3pl4gu3.locky.ui.main.main.settings.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/Fragment_Account"
-        android:name="com.th3pl4gu3.locky.ui.main.main.account.AccountFragment"
-        android:label="AccountFragment"
-        tools:layout="@layout/fragment_account">
-        <action
-            android:id="@+id/action_Fragment_Account_to_View_Account_Fragment"
-            app:destination="@id/View_Account_Fragment"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
-        <action
-            android:id="@+id/action_Fragment_Account_to_filterAccountBottomSheetFragment"
-            app:destination="@id/filterAccountBottomSheetFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/Fragment_Card"
-        android:name="com.th3pl4gu3.locky.ui.main.main.card.CardFragment"
-        android:label="CardFragment"
-        tools:layout="@layout/fragment_card">
-        <action
-            android:id="@+id/action_Fragment_Card_to_View_Card_Fragment"
-            app:destination="@id/View_Card_Fragment"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
-        <action
-            android:id="@+id/action_Fragment_Card_to_filterBottomSheetFragment"
-            app:destination="@id/filterBottomSheetFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/Fragment_About"
-        android:name="com.th3pl4gu3.locky.ui.main.main.about.AboutFragment"
-        android:label="AboutFragment"
-        tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/Fragment_Search"
-        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+
     <fragment
         android:id="@+id/Fragment_Device"
         android:name="com.th3pl4gu3.locky.ui.main.main.device.DeviceFragment"
-        android:label="DeviceFragment"
+        android:label="Devices"
         tools:layout="@layout/fragment_device" />
+
     <fragment
-        android:id="@+id/View_Account_Fragment"
+        android:id="@+id/Fragment_Card"
+        android:name="com.th3pl4gu3.locky.ui.main.main.card.CardFragment"
+        android:label="Cards"
+        tools:layout="@layout/fragment_card">
+        <action
+            android:id="@+id/action_Fragment_Card_to_Fragment_View_Card"
+            app:destination="@id/Fragment_View_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+        <action
+            android:id="@+id/action_Fragment_Card_to_BottomSheet_Fragment_Card_Filter"
+            app:destination="@id/BottomSheet_Fragment_Card_Filter" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Account"
+        android:name="com.th3pl4gu3.locky.ui.main.main.account.AccountFragment"
+        android:label="Accounts"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
+            app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+        <action
+            android:id="@+id/action_Fragment_Account_to_BottomSheet_Fragment_Account_Filter"
+            app:destination="@id/BottomSheet_Fragment_Account_Filter" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Settings"
+        android:name="com.th3pl4gu3.locky.ui.main.main.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/Fragment_About"
+        android:name="com.th3pl4gu3.locky.ui.main.main.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/Fragment_Search"
+        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/Fragment_View_Card"
+        android:name="com.th3pl4gu3.locky.ui.main.view.card.ViewCardFragment"
+        android:label="View Card"
+        tools:layout="@layout/fragment_view_card">
+        <argument
+            android:name="PARCEL_CRED_CARD"
+            app:argType="com.th3pl4gu3.locky.core.Card" />
+        <action
+            android:id="@+id/action_Fragment_View_Card_to_addCardFragment"
+            app:destination="@id/Fragment_Add_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_View_Account"
         android:name="com.th3pl4gu3.locky.ui.main.view.account.ViewAccountFragment"
-        android:label="ViewAccountFragment"
+        android:label="View Account"
         tools:layout="@layout/fragment_view_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
             app:argType="com.th3pl4gu3.locky.core.Account" />
         <action
-            android:id="@+id/action_View_Account_Fragment_to_Fragment_Account"
-            app:destination="@id/Fragment_Account" />
-        <action
-            android:id="@+id/action_View_Account_Fragment_to_Fragment_Add_Account"
+            android:id="@+id/action_Fragment_View_Account_to_Fragment_Add_Account"
             app:destination="@id/Fragment_Add_Account"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Add_Card"
+        android:name="com.th3pl4gu3.locky.ui.main.add.card.AddCardFragment"
+        android:label="Add Card"
+        tools:layout="@layout/fragment_add_card">
+        <argument
+            android:name="PARCEL_CRED_CARD"
+            app:argType="com.th3pl4gu3.locky.core.Card"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_Fragment_Add_Card_to_Fragment_Card"
+            app:destination="@id/Fragment_Card"
+            app:popUpTo="@id/navigation_drawer_main"
+            app:popUpToInclusive="false" />
+    </fragment>
+
     <fragment
         android:id="@+id/Fragment_Add_Account"
         android:name="com.th3pl4gu3.locky.ui.main.add.account.AddAccountFragment"
-        android:label="AddAccountFragment"
+        android:label="Add Account"
         tools:layout="@layout/fragment_add_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
@@ -93,62 +132,35 @@
             app:nullable="true"
             android:defaultValue="@null" />
         <action
-            android:id="@+id/action_addAccountFragment_to_Fragment_Account"
-            app:destination="@id/Fragment_Account" />
+            android:id="@+id/action_Fragment_Add_Account_to_BottomSheet_Fragment_Account_Logo"
+            app:destination="@id/BottomSheet_Fragment_Account_Logo" />
         <action
-            android:id="@+id/action_Fragment_Add_Account_to_logoBottomSheetFragment"
-            app:destination="@id/logoBottomSheetFragment" />
-        <argument
-            android:name="LOGO_URL"
-            app:argType="string"
-            android:defaultValue='"invalidurl"' />
-    </fragment>
-    <fragment
-        android:id="@+id/View_Card_Fragment"
-        android:name="com.th3pl4gu3.locky.ui.main.view.card.ViewCardFragment"
-        android:label="ViewCardFragment"
-        tools:layout="@layout/fragment_view_card">
-        <action
-            android:id="@+id/action_viewCardFragment_to_Fragment_Card"
-            app:destination="@id/Fragment_Card" />
-        <argument
-            android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.Card" />
-        <action
-            android:id="@+id/action_View_Card_Fragment_to_Fragment_Add_Card"
-            app:destination="@id/Fragment_Add_Card"
+            android:id="@+id/action_Fragment_Add_Account_to_Fragment_Account"
+            app:destination="@id/Fragment_Account"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/navigation_drawer_main"
+            app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-        android:id="@+id/Fragment_Add_Card"
-        android:name="com.th3pl4gu3.locky.ui.main.add.card.AddCardFragment"
-        android:label="AddCardFragment"
-        tools:layout="@layout/fragment_add_card">
-        <action
-            android:id="@+id/action_addCardFragment_to_Fragment_Card"
-            app:destination="@id/Fragment_Card" />
-        <argument
-            android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.Card"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
+
     <dialog
-        android:id="@+id/filterBottomSheetFragment"
+        android:id="@+id/BottomSheet_Fragment_Card_Filter"
         android:name="com.th3pl4gu3.locky.ui.main.main.card.FilterCardBottomSheetFragment"
-        android:label="FilterBottomSheetFragment"
+        android:label="Card Filter"
         tools:layout="@layout/fragment_bottom_sheet_card_filter" />
+
     <dialog
-        android:id="@+id/filterAccountBottomSheetFragment"
+        android:id="@+id/BottomSheet_Fragment_Account_Filter"
         android:name="com.th3pl4gu3.locky.ui.main.main.account.FilterAccountBottomSheetFragment"
-        android:label="FilterAccountBottomSheetFragment"
+        android:label="Account Filter"
         tools:layout="@layout/fragment_bottom_sheet_account_filter" />
+
     <dialog
-        android:id="@+id/logoBottomSheetFragment"
+        android:id="@+id/BottomSheet_Fragment_Account_Logo"
         android:name="com.th3pl4gu3.locky.ui.main.add.account.LogoBottomSheetFragment"
-        android:label="LogoBottomSheetFragment"
+        android:label="Account Logo"
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
+
 </navigation>

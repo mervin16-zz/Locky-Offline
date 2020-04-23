@@ -30,7 +30,7 @@ class CardViewModel : ViewModel(){
      * It will clear the toast request, so if the user rotates their phone it won't show a duplicate
      * toast.
      */
-    fun doneShowingSnackbar() {
+    fun doneShowingSnackBar() {
         _showSnackbarEvent.value = null
     }
 

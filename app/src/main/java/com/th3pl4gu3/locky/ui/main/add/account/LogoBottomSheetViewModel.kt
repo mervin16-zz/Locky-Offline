@@ -29,11 +29,7 @@ class LogoBottomSheetViewModel : ViewModel() {
         _websites.value = null
     }
 
-    internal fun loadLogos(query: String) {
-        getWebsiteLogoProperties(query)
-    }
-
-    private fun getWebsiteLogoProperties(query: String) = coroutineScope.launch {
+    internal fun getWebsiteLogoProperties(query: String) = coroutineScope.launch {
         try {
             _websites.value = Repository()
                 .getWebsiteDetails(query)

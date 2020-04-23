@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private lateinit var _appBarConfiguration: AppBarConfiguration
     private var _isOpen = false
+
+    //Fragments that can navigate with the drawer
     private val _navigationFragments = setOf(
         R.id.Fragment_Home,
         R.id.Fragment_Card,
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         //Update status bar upon current theme
         darkModeVerification()
 
-        //NavigationUI
+        //Setup the navigation components
         navigationUISetup()
 
         //Load expandable FABs and animations
@@ -78,15 +80,20 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun navigationUISetup() {
-        val navController = this.findNavController(R.id.Navigation_Host)
+        //Fetch the Nav Controller
+        val navController = findNavController(R.id.Navigation_Host)
+        //Setup the App Bar Configuration
         _appBarConfiguration = AppBarConfiguration(_navigationFragments, _binding.DrawerMain)
 
+        //Use Navigation UI to setup the app bar config and navigation view
         NavigationUI.setupActionBarWithNavController(this, navController, _appBarConfiguration)
         NavigationUI.setupWithNavController(_binding.NavigationView, navController)
 
+        //Set the mini FABs with navigation to navigate to fragments accordingly.
         Navigation.setViewNavController(_binding.FABAccount, navController)
         Navigation.setViewNavController(_binding.FABCard, navController)
 
+        //Add on change destination listener to navigation controller
         navController.addOnDestinationChangedListener { nc, nd, _ ->
             when (nd.id) {
                 nc.graph.startDestination,
@@ -98,10 +105,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    if (_isOpen) {
-                        closeFabsAnimation()
-                        _isOpen = false
-                    }
+
+                    //Hide all the FABs
+                    hideMiniFABs()
                     _binding.FABAdd.hide()
                 }
             }
@@ -119,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFABs(){
         _binding.FABAdd.setOnClickListener {
-            fabsActions()
+            fabAction()
         }
 
         _binding.FABAccount.setOnClickListener {
@@ -128,6 +134,8 @@ class MainActivity : AppCompatActivity() {
                 null,
                 getSlideNavOptions()
             )
+
+            toast(getString(R.string.dev_feature_implementation_unknown, "Add Account"))
         }
 
         _binding.FABCard.setOnClickListener {
@@ -136,35 +144,41 @@ class MainActivity : AppCompatActivity() {
                 null,
                 getSlideNavOptions()
             )
+
+            toast(getString(R.string.dev_feature_implementation_unknown, "Add Card"))
         }
     }
 
-    private fun fabsActions() {
-        _isOpen = if (_isOpen) {
-            closeFabsAnimation()
-            false
+    private fun fabAction() {
+        if (_isOpen) {
+            hideMiniFABs()
         } else {
-            openFabsAnimation()
-            true
+            showMiniFABs()
         }
     }
 
-    private fun openFabsAnimation() {
-        val fabOpen = AnimationUtils.loadAnimation(this, R.anim.anim_fab_open)
-        val fabClockwise = AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_clockwise)
-
-        _binding.FABAdd.startAnimation(fabClockwise)
-        _binding.FABAccount.startAnimation(fabOpen)
-        _binding.FABCard.startAnimation(fabOpen)
+    private fun hideMiniFABs() {
+        _binding.FABAdd.startAnimation(
+            AnimationUtils.loadAnimation(
+                this,
+                R.anim.anim_fab_rotate_anticlockwise
+            )
+        )
+        _binding.FABAccount.hide()
+        _binding.FABCard.hide()
+        _isOpen = false
     }
 
-    private fun closeFabsAnimation() {
-        val fabClose = AnimationUtils.loadAnimation(this, R.anim.anim_fab_close)
-        val fabAnticlockwise =
-            AnimationUtils.loadAnimation(this, R.anim.anim_fab_rotate_anticlockwise)
+    private fun showMiniFABs() {
+        _binding.FABAdd.startAnimation(
+            AnimationUtils.loadAnimation(
+                this,
+                R.anim.anim_fab_rotate_clockwise
+            )
+        )
+        _binding.FABAccount.show()
+        _binding.FABCard.show()
 
-        _binding.FABAdd.startAnimation(fabAnticlockwise)
-        _binding.FABAccount.startAnimation(fabClose)
-        _binding.FABCard.startAnimation(fabClose)
+        _isOpen = true
     }
 }

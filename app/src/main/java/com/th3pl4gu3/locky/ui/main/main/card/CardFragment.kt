@@ -1,9 +1,10 @@
 package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ class CardFragment : Fragment() {
 
     private var _binding: FragmentCardBinding? = null
     private lateinit var _viewModel: CardViewModel
+    private var _lastClickTime: Long = 0
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,19 +26,23 @@ class CardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentCardBinding.inflate(inflater, container, false)
+        // Fetch view model
         _viewModel = ViewModelProvider(this).get(CardViewModel::class.java)
+        // Bind lifecycle owner
         binding.lifecycleOwner = this
 
+        //Observe data when to show snack bar for "Show Pin"
         _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.LayoutFragmentCard.snackbar(it) {
                     action(getString(R.string.button_snack_action_close)) { dismiss() }
                 }
 
-                _viewModel.doneShowingSnackbar()
+                _viewModel.doneShowingSnackBar()
             }
         })
 
+        //Submit list for recyclerview
         initiateCardList().submitList(_viewModel.generateDummyCards())
 
         return binding.root
@@ -55,7 +61,10 @@ class CardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                findNavController().navigate(CardFragmentDirections.actionFragmentCardToFilterBottomSheetFragment())
+                if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
+                    _lastClickTime = SystemClock.elapsedRealtime()
+                    findNavController().navigate(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
+                }
                 true
             }
             else -> false
@@ -71,17 +80,23 @@ class CardFragment : Fragment() {
         val cardAdapter = CardAdapter(
             CardClickListener {
                 findNavController().navigate(
-                    CardFragmentDirections.actionFragmentCardToViewCardFragment(
+                    CardFragmentDirections.actionFragmentCardToFragmentViewCard(
                         it
                     )
                 )
             },
             CardOptionsClickListener { view, card ->
-                //displaying the popup
+                //Prevents double click and creating a double instance
+                view.apply {
+                    isEnabled = false
+                }
                 createPopupMenu(view, card)
             })
 
-        binding.RecyclerViewCard.adapter = cardAdapter
+        binding.RecyclerViewCard.apply {
+            adapter = cardAdapter
+            setHasFixedSize(true)
+        }
 
         return cardAdapter
     }
@@ -99,6 +114,10 @@ class CardFragment : Fragment() {
                         true
                     }
                     else -> false
+                }
+            }, PopupMenu.OnDismissListener {
+                view.apply {
+                    isEnabled = true
                 }
             })
     }

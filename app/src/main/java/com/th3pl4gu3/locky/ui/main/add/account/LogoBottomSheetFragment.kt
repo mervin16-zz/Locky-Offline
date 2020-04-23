@@ -1,16 +1,18 @@
 package com.th3pl4gu3.locky.ui.main.add.account
 
-import android.app.Dialog
-import android.content.res.Resources
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetAccountLogoBinding
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
@@ -33,17 +35,30 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
-        binding.go.setOnClickListener {
-            _viewModel.loadLogos(binding.search.text.toString())
+        with(binding) {
+            ButtonCancel.setOnClickListener {
+                dismiss()
+            }
+
+            TextfieldSearch.setOnEditorActionListener(OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    TextfieldSearch.clearFocus()
+                    (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                        .hideSoftInputFromWindow(TextfieldSearch.windowToken, 0)
+                    _viewModel.getWebsiteLogoProperties(TextfieldSearch.text.toString())
+                    return@OnEditorActionListener true
+                }
+                false
+            })
         }
 
         _viewModel.websites.observe(viewLifecycleOwner, Observer { logos ->
             if (logos != null) {
                 if (logos.isEmpty()) {
-                    binding.emptyView.visibility = View.VISIBLE
+                    binding.EmptyView.visibility = View.VISIBLE
                     binding.RecyclerViewLogo.visibility = View.GONE
                 } else {
-                    binding.emptyView.visibility = View.GONE
+                    binding.EmptyView.visibility = View.GONE
                     binding.RecyclerViewLogo.visibility = View.VISIBLE
                     initiateLogoList().submitList(logos)
                     _viewModel.resetLogos()
@@ -54,19 +69,6 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheetDialog =
-            super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        bottomSheetDialog.setOnShowListener {
-            val behavior: BottomSheetBehavior<*> =
-                BottomSheetBehavior.from(binding.cl)
-            behavior.skipCollapsed = true
-            behavior.peekHeight = Resources.getSystem().displayMetrics.heightPixels;
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-        return bottomSheetDialog
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -75,6 +77,7 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
     private fun initiateLogoList(): LogoViewAdapter {
         val logoAdapter = LogoViewAdapter(
             ClickListener {
+                //Pass logo url to parent fragment
                 findNavController().previousBackStackEntry?.savedStateHandle?.set(
                     KEY_ACCOUNT_LOGO,
                     it

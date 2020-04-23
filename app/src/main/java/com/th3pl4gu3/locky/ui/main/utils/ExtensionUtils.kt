@@ -18,7 +18,6 @@ import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_J
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_MASTERCARD
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_VISA
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 //TODO: Need to test all functions properly in ExtensionUtils.kt
@@ -92,12 +91,18 @@ fun Snackbar.action(action: String, listener: (View) -> Unit) {
 fun Context.copyToClipboard(data: String)
         = (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("text", data))
 
-fun Context.createPopUpMenu(view: View, menu: Int, listener: PopupMenu.OnMenuItemClickListener){
+fun Context.createPopUpMenu(
+    view: View,
+    menu: Int,
+    itemListener: PopupMenu.OnMenuItemClickListener,
+    dismissListener: PopupMenu.OnDismissListener
+) {
     val popup = PopupMenu(this, view)
     //inflating menu from xml resource
     popup.inflate(menu)
-    //adding click listener
-    popup.setOnMenuItemClickListener(listener)
+    //adding click & on dismiss listener
+    popup.setOnMenuItemClickListener(itemListener)
+    popup.setOnDismissListener(dismissListener)
     popup.show()
 }
 

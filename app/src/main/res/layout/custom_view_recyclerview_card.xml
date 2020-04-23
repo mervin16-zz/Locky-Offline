@@ -51,19 +51,8 @@
             app:layout_constraintBottom_toTopOf="@+id/Card_Date"
             app:layout_constraintStart_toEndOf="@+id/Card_Logo"
             app:layout_constraintTop_toTopOf="@+id/Card_Logo"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_chainStyle="spread"
             tools:text="4850 XXXX XXXX XXXX" />
-
-        <TextView
-            android:id="@+id/Entry_Name"
-            style="@style/Locky.TextAppearance.List.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Card.name}"
-            app:layout_constraintBottom_toTopOf="@+id/Card_Date"
-            app:layout_constraintStart_toStartOf="@+id/Card_Number"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Date"
-            tools:text="John Doe" />
 
         <TextView
             android:id="@+id/Card_Date"
@@ -72,11 +61,23 @@
             issuedCardDate="@{Card.issuedDate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintBottom_toTopOf="@+id/Entry_Name"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"
             app:layout_constraintTop_toBottomOf="@+id/Card_Number"
+            app:layout_constraintVertical_chainStyle="spread"
             tools:text="Issued: MM/yy | Expiry: MM/yy" />
+
+        <TextView
+            android:id="@+id/Entry_Name"
+            style="@style/Locky.TextAppearance.List.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Card.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
+            app:layout_constraintStart_toStartOf="@+id/Card_Number"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Date"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="John Doe" />
 
         <ImageButton
             android:id="@+id/Card_More_Options"
@@ -87,9 +88,9 @@
             android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/Card_Logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

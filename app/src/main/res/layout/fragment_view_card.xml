@@ -11,10 +11,11 @@
             type="com.th3pl4gu3.locky.core.Card" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/Layout_Credential_View"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <ImageView
@@ -22,22 +23,18 @@
             cardLogo="@{Card.number}"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center_horizontal"
             tools:src="@drawable/image_placeholder_logo" />
 
         <TextView
             android:id="@+id/Card_Number"
-            style="@style/Locky.TextAppearance.Title"
             cardNumber="@{Card.number}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/Card_Logo_Type"
-            app:layout_constraintStart_toStartOf="@+id/Card_Logo_Type"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Logo_Type"
-            tools:text="Title" />
+            android:layout_gravity="center_horizontal"
+            tools:text="Title"
+            style="@style/Locky.TextAppearance.Title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView_Credentials_Field"
@@ -45,12 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:nestedScrollingEnabled="true"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Number" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

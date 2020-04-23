@@ -11,10 +11,11 @@
             type="com.th3pl4gu3.locky.core.Account" />
     </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:id="@+id/Layout_Credential_View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+        android:orientation="vertical"
             android:padding="16dp">
 
             <ImageView
@@ -22,9 +23,7 @@
                 bindLogoImage="@{Account.logoUrl}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="center_horizontal"
                 tools:src="@drawable/image_placeholder_logo" />
 
             <TextView
@@ -33,10 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
                 android:text="@{Account.name}"
-                app:layout_constraintEnd_toEndOf="@+id/Account_Logo"
-                app:layout_constraintStart_toStartOf="@+id/Account_Logo"
-                app:layout_constraintTop_toBottomOf="@+id/Account_Logo"
                 tools:text="Title" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -45,11 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:nestedScrollingEnabled="true"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Account_Name" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

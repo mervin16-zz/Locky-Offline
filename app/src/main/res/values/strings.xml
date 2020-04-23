@@ -94,7 +94,7 @@
             ****************** Button Actions ******************
         -->
     <string name="button_action_save">Save</string>
-    <string name="button_action_search">Search</string>
+    <string name="button_action_cancel">Cancel</string>
 
     <!--
    ****************** Dev ******************

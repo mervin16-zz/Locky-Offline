@@ -29,7 +29,6 @@ fun TextView.setCardDate(issued: Calendar, expiry: Calendar) {
 
 @BindingAdapter("cardLogo")
 fun ImageView.setCardLogo(number: Long) {
-
     setBackgroundResource(
         when (number.getCardType()) {
             Card.CardType.VISA -> R.drawable.image_card_vs

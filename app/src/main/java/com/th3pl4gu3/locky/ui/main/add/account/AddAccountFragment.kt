@@ -42,53 +42,61 @@ class AddAccountFragment : Fragment() {
             AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount ?: Account()
         _viewModel.setAccount(_account)
 
-        binding.ButtonSave.setOnClickListener {
-            _viewModel.isFormValid(
-                _account.apply {
-                    name = binding.AccountName.editText?.text.toString()
-                    username = binding.AccountUsername.editText?.text.toString()
-                    email = binding.AccountEmail.editText?.text.toString()
-                    password = binding.AccountPassword.editText?.text.toString()
-                    website = binding.AccountWebsite.editText?.text.toString()
-                    additionalInfo = binding.AccountComments.editText?.text.toString()
-                    twoFA = binding.Account2FAEnabled.editText?.text.toString()
-                    twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
-                }
-            )
+        with(binding) {
+            ButtonSave.setOnClickListener {
+                _viewModel.isFormValid(
+                    _account.apply {
+                        name = binding.AccountName.editText?.text.toString()
+                        username = binding.AccountUsername.editText?.text.toString()
+                        email = binding.AccountEmail.editText?.text.toString()
+                        password = binding.AccountPassword.editText?.text.toString()
+                        website = binding.AccountWebsite.editText?.text.toString()
+                        additionalInfo = binding.AccountComments.editText?.text.toString()
+                        twoFA = binding.Account2FAEnabled.editText?.text.toString()
+                        twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
+                    }
+                )
+            }
+
+            AccountLogo.setOnClickListener {
+                findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
+            }
         }
 
-        /** Other Observations**/
-        _viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                toast(it)
-                _viewModel.doneWithToastEvent()
-            }
-        })
+        with(_viewModel) {
+            /** Other Observations**/
+            toastEvent.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    toast(it)
+                    doneWithToastEvent()
+                }
+            })
 
-        /** Form Validation Observations**/
-        _viewModel.nameErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.AccountName.error = it
-        })
+            /** Form Validation Observations**/
+            nameErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.AccountName.error = it
+            })
 
-        _viewModel.usernameErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.AccountUsername.error = it
-        })
+            usernameErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.AccountUsername.error = it
+            })
 
-        _viewModel.emailErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.AccountEmail.error = it
-        })
+            emailErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.AccountEmail.error = it
+            })
 
-        _viewModel.passwordErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.AccountPassword.error = it
-        })
+            passwordErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.AccountPassword.error = it
+            })
 
-        _viewModel.isFormValid.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                //TODO: Add _account to database here
-                toast(getString(R.string.message_credentials_created, _account.name))
-                findNavController().navigate(AddAccountFragmentDirections.actionAddAccountFragmentToFragmentAccount())
-            }
-        })
+            isFormValid.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    //TODO: Add _account to database here
+                    toast(getString(R.string.message_credentials_created, _account.name))
+                    findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
+                }
+            })
+        }
 
         val navBackStackEntry = findNavController().currentBackStackEntry!!
         navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
@@ -104,10 +112,6 @@ class AddAccountFragment : Fragment() {
                 navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
             }
         })
-
-        binding.AccountLogo.setOnClickListener {
-            findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToLogoBottomSheetFragment())
-        }
 
         return binding.root
     }

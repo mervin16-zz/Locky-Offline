@@ -8,8 +8,13 @@ import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentViewCardBinding
-import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.view.*
+import com.th3pl4gu3.locky.ui.main.utils.action
+import com.th3pl4gu3.locky.ui.main.utils.copyToClipboard
+import com.th3pl4gu3.locky.ui.main.utils.snackbar
+import com.th3pl4gu3.locky.ui.main.utils.toast
+import com.th3pl4gu3.locky.ui.main.view.CopyClickListener
+import com.th3pl4gu3.locky.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky.ui.main.view.ViewClickListener
 
 class ViewCardFragment : Fragment() {
 
@@ -26,9 +31,7 @@ class ViewCardFragment : Fragment() {
         _binding = FragmentViewCardBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(ViewCardViewModel::class.java)
 
-        _card = ViewCardFragmentArgs.fromBundle(
-            requireArguments()
-        ).parcelcredcard
+        _card = ViewCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
 
         binding.card = _card
 
@@ -56,7 +59,7 @@ class ViewCardFragment : Fragment() {
         return when (item.itemId) {
             R.id.Action_Edit -> {
                 findNavController().navigate(
-                    ViewCardFragmentDirections.actionViewCardFragmentToFragmentAddCard()
+                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
                         .setPARCELCREDCARD(_card)
                 )
                 true
@@ -65,7 +68,8 @@ class ViewCardFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _card.name))
-                findNavController().navigate(ViewCardFragmentDirections.actionViewCardFragmentToFragmentCard())
+                //findNavController().navigate(ViewCardFragmentDirections.actionViewCardFragmentToFragmentCard())
+                toast(getString(R.string.dev_feature_implementation_unknown, "Delete Card"))
                 true
             }
             else -> false
@@ -84,7 +88,10 @@ class ViewCardFragment : Fragment() {
                     }
                 })
 
-        binding.RecyclerViewCredentialsField.adapter = credentialsAdapter
+        binding.RecyclerViewCredentialsField.apply {
+            adapter = credentialsAdapter
+            setHasFixedSize(true)
+        }
 
         return credentialsAdapter
     }

@@ -29,11 +29,11 @@ class AddCardFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    var issuedDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
+    private var _issuedDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
         updateIssuedDateText(month, year)
     }
 
-    var expiryDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
+    private var _expiryDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
         updateExpiryDateText(month, year)
     }
 
@@ -43,106 +43,118 @@ class AddCardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAddCardBinding.inflate(inflater, container, false)
-
         _viewModel = ViewModelProvider(this).get(AddCardViewModel::class.java)
 
         //Bind view model and lifecycle owner
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
-
         //Fetch account if exists
         _card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard ?: Card()
-        _viewModel.setCard(_card)
 
-        binding.ButtonSave.setOnClickListener {
-            _viewModel.isFormValid(
-                _card.apply {
-                    name = binding.CardName.editText?.text.toString()
-                    number = binding.CardNumber.editText?.text.toString().toLong()
-                    pin = binding.CardPin.editText?.text.toString().toShort()
-                    bank = binding.CardBank.editText?.text.toString()
-                    cardHolderName = binding.CardHolder.editText?.text.toString()
-                    issuedDate =
-                        binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
-                    expiryDate =
-                        binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
-                    additionalInfo = binding.CardMoreInfo.editText?.text.toString()
+        with(_viewModel) {
+
+            setCard(_card)
+
+            /** Other Observations**/
+            toastEvent.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    toast(it)
+                    doneWithToastEvent()
                 }
-            )
-        }
+            })
 
-        /** Other Observations**/
-        _viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                toast(it)
-                _viewModel.doneWithToastEvent()
-            }
-        })
+            /** Form Validation Observations**/
+            nameErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardName.error = it
+            })
 
-        /** Form Validation Observations**/
-        _viewModel.nameErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.CardName.error = it
-        })
+            numberErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardNumber.error = it
+            })
 
-        _viewModel.numberErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.CardNumber.error = it
-        })
+            pinErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardPin.error = it
+            })
 
-        _viewModel.pinErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.CardPin.error = it
-        })
+            bankErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardBank.error = it
+            })
 
-        _viewModel.bankErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.CardBank.error = it
-        })
+            cardHolderErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardHolder.error = it
+            })
 
-        _viewModel.cardHolderErrorMessage.observe(viewLifecycleOwner, Observer {
-            binding.CardHolder.error = it
-        })
-
-        _viewModel.isFormValid.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                //TODO: Add database code here to insert account
-                toast(getString(R.string.message_credentials_created, _card.name))
-                findNavController().navigate(AddCardFragmentDirections.actionAddCardFragmentToFragmentCard())
-            }
-        })
-
-        binding.IssuedDate.setOnClickListener {
-            val cal = Calendar.getInstance()
-            DatePickerDialog(
-                requireContext(),
-                issuedDate,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.DAY_OF_MONTH),
-                cal.get(Calendar.MONTH)
-            ).show()
-        }
-
-        binding.ExpiryDate.setOnClickListener {
-            val cal = Calendar.getInstance()
-            DatePickerDialog(
-                requireContext(),
-                expiryDate,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.DAY_OF_MONTH),
-                cal.get(Calendar.MONTH)
-            ).show()
-        }
-
-        binding.CardNumber.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count > 0) {
-                    binding.CardLogo.setCardLogo(s.toString().toLong())
+            isFormValid.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    //TODO: Add database code here to insert account
+                    toast(getString(R.string.message_credentials_created, _card.name))
+                    findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
                 }
+            })
+        }
+
+        with(binding) {
+
+            ButtonSave.setOnClickListener {
+                _viewModel.isFormValid(
+                    _card.apply {
+                        name = binding.CardName.editText?.text.toString()
+                        number = binding.CardNumber.editText?.text.toString().toLong()
+                        pin = binding.CardPin.editText?.text.toString().toShort()
+                        bank = binding.CardBank.editText?.text.toString()
+                        cardHolderName = binding.CardHolder.editText?.text.toString()
+                        issuedDate =
+                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
+                        expiryDate =
+                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
+                        additionalInfo = binding.CardMoreInfo.editText?.text.toString()
+                    }
+                )
             }
 
-        })
+            IssuedDate.setOnClickListener {
+                val cal = Calendar.getInstance()
+                DatePickerDialog(
+                    requireContext(),
+                    _issuedDate,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    cal.get(Calendar.MONTH)
+                ).show()
+            }
+
+            ExpiryDate.setOnClickListener {
+                val cal = Calendar.getInstance()
+                DatePickerDialog(
+                    requireContext(),
+                    _expiryDate,
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.DAY_OF_MONTH),
+                    cal.get(Calendar.MONTH)
+                ).show()
+            }
+
+            CardNumber.editText?.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {}
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (count > 0) {
+                        binding.CardLogo.setCardLogo(s.toString().toLong())
+                    }
+                }
+
+            })
+        }
+
         return binding.root
     }
 

@@ -82,9 +82,9 @@
             android:onClick="@{(view) -> OptionsClickListener.onClick(view, Account)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/Account_Logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

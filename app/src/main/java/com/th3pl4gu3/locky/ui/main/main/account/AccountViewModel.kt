@@ -41,6 +41,7 @@ class AccountViewModel : ViewModel(){
             username = "mervin16",
             email = "mervin@gmail.com",
             password = "thisisapassword",
+            website = "www.domain.com",
             logoUrl = "https://logo.clearbit.com/facebook.com",
             additionalInfo = "Information",
             twoFA = "No",

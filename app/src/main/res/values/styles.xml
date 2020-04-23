@@ -111,9 +111,10 @@
     </style>
 
     <style name="Locky.FloatingActionButton.Mini" parent="Locky.FloatingActionButton.Normal">
-        <item name="tint">@color/colorIconFabMini</item>
         <item name="android:backgroundTint">@color/colorFabMini</item>
+        <item name="tint">@color/colorIconFabMini</item>
         <item name="elevation">8dp</item>
+        <item name="fabSize">mini</item>
     </style>
 
     <style name="Locky.Button.Positive" parent="Widget.MaterialComponents.Button">
@@ -130,11 +131,12 @@
         <item name="iconTint">@color/colorAccent</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="iconPadding">12dp</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">13dp</item>
     </style>
 
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorTextTitle</item>
+        <item name="android:textColor">@color/colorTextFieldSearch_border</item>
+        <item name="android:textSize">12sp</item>
         <item name="rippleColor">@color/colorRipple</item>
     </style>
 
@@ -156,6 +158,17 @@
 
     <style name="Locky.TextAppearance.TextBox.Hint" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.TextBox.Search" parent="Locky.TextBox.Default">
+        <item name="boxStrokeColor">@color/colorAccentDark</item>
+        <item name="android:background">@drawable/custom_background_edittext_search</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableTint">@color/colorAccentDark</item>
+        <item name="android:textColor">@color/colorTextFieldSearch_border</item>
+        <item name="android:textColorHint">@color/colorTextFieldSearch_border</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

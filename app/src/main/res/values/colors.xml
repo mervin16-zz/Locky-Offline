@@ -13,7 +13,7 @@
     <color name="colorRipple">@color/purple_50</color>
 
     <!-- TextField Colors -->
-    <color name="colorTextFieldSearch_background">@color/grey_300</color>
+    <color name="colorTextFieldSearch_border">@color/colorAccentDark</color>
 
     <!-- Button Colors -->
     <color name="colorFabNormal">@color/colorAccent</color>
