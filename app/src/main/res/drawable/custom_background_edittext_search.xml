@@ -4,7 +4,7 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent" />
-            <stroke android:width="1dp" android:color="@color/colorTextFieldSearch_border" />
+            <stroke android:width="1dp" android:color="@color/colorTextFieldAccentSearch" />
             <corners android:radius="5dp" />
             <padding android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp" />
         </shape>

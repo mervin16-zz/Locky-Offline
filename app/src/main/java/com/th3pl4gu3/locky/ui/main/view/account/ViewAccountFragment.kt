@@ -68,8 +68,7 @@ class ViewAccountFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _account.name))
-                //findNavController().navigate(ViewAccountFragmentDirections.actionViewAccountFragmentToFragmentAccount())
-                toast(getString(R.string.dev_feature_implementation_unknown, "Delete Account"))
+                findNavController().popBackStack()
                 true
             }
             else -> false

@@ -126,16 +126,16 @@
     </style>
 
     <style name="Locky.Button.Default" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="strokeColor">@color/colorAccent</item>
-        <item name="iconTint">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorButtonAccentPrimary</item>
+        <item name="strokeColor">@color/colorButtonAccentPrimary</item>
+        <item name="iconTint">@color/colorButtonAccentPrimary</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="iconPadding">12dp</item>
         <item name="android:padding">13dp</item>
     </style>
 
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorTextFieldSearch_border</item>
+        <item name="android:textColor">@color/colorButtonAccentSecondary</item>
         <item name="android:textSize">12sp</item>
         <item name="rippleColor">@color/colorRipple</item>
     </style>
@@ -152,7 +152,7 @@
          *********************** Text Box ***********************
      -->
     <style name="Locky.TextBox.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/colorAccent</item>
+        <item name="boxStrokeColor">@color/color_state_textfield_border</item>
         <item name="hintTextColor">@color/colorAccent</item>
     </style>
 
@@ -161,13 +161,13 @@
     </style>
 
     <style name="Locky.TextBox.Search" parent="Locky.TextBox.Default">
-        <item name="boxStrokeColor">@color/colorAccentDark</item>
+        <item name="boxStrokeColor">@color/colorTextFieldAccentSearch</item>
         <item name="android:background">@drawable/custom_background_edittext_search</item>
         <item name="android:drawableStart">@drawable/ic_search</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:drawableTint">@color/colorAccentDark</item>
-        <item name="android:textColor">@color/colorTextFieldSearch_border</item>
-        <item name="android:textColorHint">@color/colorTextFieldSearch_border</item>
+        <item name="android:drawableTint">@color/colorTextFieldAccentSearch</item>
+        <item name="android:textColor">@color/colorTextFieldAccentSearch</item>
+        <item name="android:textColorHint">@color/colorTextFieldAccentSearch</item>
         <item name="android:textSize">14sp</item>
     </style>
 

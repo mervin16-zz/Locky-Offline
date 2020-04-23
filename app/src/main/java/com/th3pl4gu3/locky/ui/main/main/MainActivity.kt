@@ -134,8 +134,6 @@ class MainActivity : AppCompatActivity() {
                 null,
                 getSlideNavOptions()
             )
-
-            toast(getString(R.string.dev_feature_implementation_unknown, "Add Account"))
         }
 
         _binding.FABCard.setOnClickListener {
@@ -144,8 +142,6 @@ class MainActivity : AppCompatActivity() {
                 null,
                 getSlideNavOptions()
             )
-
-            toast(getString(R.string.dev_feature_implementation_unknown, "Add Card"))
         }
     }
 

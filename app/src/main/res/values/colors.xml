@@ -13,7 +13,9 @@
     <color name="colorRipple">@color/purple_50</color>
 
     <!-- TextField Colors -->
-    <color name="colorTextFieldSearch_border">@color/colorAccentDark</color>
+    <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
+    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
+    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_600</color>
 
     <!-- Button Colors -->
     <color name="colorFabNormal">@color/colorAccent</color>
@@ -38,7 +40,10 @@
 
     <color name="colorTextSubtitle">@color/grey_200</color>
 
-    <!-- Color Palette -->
+    <color name="colorButtonAccentPrimary">@color/colorAccent</color>
+    <color name="colorButtonAccentSecondary">@color/colorAccentDark</color>
+
+    <!-- Color Light Palette -->
     <color name="purple_600">#281255</color>
     <color name="purple_300">#734EE4</color>
     <color name="purple_200">#B39DDB</color>
@@ -52,5 +57,7 @@
     <color name="grey_100">#D3D3D3</color>
     <color name="grey_50">#E8E7E7</color>
 
+
+    <!-- Color Dark ONLY Palette -->
     <color name="grey_dark_200">#272727</color>
 </resources>

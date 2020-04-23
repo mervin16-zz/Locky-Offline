@@ -34,9 +34,9 @@
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/Nested_Scroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:fillViewport="true">
 
                 <fragment
                     android:id="@+id/Navigation_Host"

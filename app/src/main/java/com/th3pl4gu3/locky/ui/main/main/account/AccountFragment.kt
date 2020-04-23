@@ -44,7 +44,16 @@ class AccountFragment : Fragment() {
             }
         })
 
-        initiateAccountList().submitList(_viewModel.generateDummyAccounts())
+        //Submit list for recyclerview
+        val accounts = _viewModel.generateDummyAccounts()
+        if (accounts.isEmpty()) {
+            binding.EmptyView.visibility = View.VISIBLE
+            binding.RecyclerViewAccount.visibility = View.GONE
+        } else {
+            binding.EmptyView.visibility = View.GONE
+            binding.RecyclerViewAccount.visibility = View.VISIBLE
+            initiateAccountList().submitList(accounts)
+        }
 
         return binding.root
     }

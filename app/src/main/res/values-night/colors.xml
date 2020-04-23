@@ -6,6 +6,11 @@
     <color name="colorPrimaryDark">@color/grey_dark_200</color>
     <color name="colorAccent">@color/purple_200</color>
 
+    <!-- TextField Colors -->
+    <color name="colorTextFieldAccentSearch">@color/colorAccent</color>
+    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
+    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_100</color>
+
     <!-- Icon Colors -->
     <color name="colorIcon">@color/grey_100</color>
 
@@ -19,5 +24,7 @@
     <color name="colorTextTitleAccent">@color/purple_200</color>
     <color name="colorTextMenu">@color/grey_300</color>
 
+    <color name="colorButtonAccentPrimary">@color/colorAccent</color>
+    <color name="colorButtonAccentSecondary">@color/colorAccent</color>
 
 </resources>

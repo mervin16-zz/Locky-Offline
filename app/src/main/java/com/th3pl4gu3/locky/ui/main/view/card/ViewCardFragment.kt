@@ -68,8 +68,7 @@ class ViewCardFragment : Fragment() {
             R.id.Action_Delete -> {
                 //TODO: Add database code to delete account here
                 toast(getString(R.string.message_credentials_deleted, _card.name))
-                //findNavController().navigate(ViewCardFragmentDirections.actionViewCardFragmentToFragmentCard())
-                toast(getString(R.string.dev_feature_implementation_unknown, "Delete Card"))
+                findNavController().popBackStack()
                 true
             }
             else -> false

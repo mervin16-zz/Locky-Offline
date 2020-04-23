@@ -43,7 +43,15 @@ class CardFragment : Fragment() {
         })
 
         //Submit list for recyclerview
-        initiateCardList().submitList(_viewModel.generateDummyCards())
+        val cards = _viewModel.generateDummyCards()
+        if (cards.isEmpty()) {
+            binding.EmptyView.visibility = View.VISIBLE
+            binding.RecyclerViewCard.visibility = View.GONE
+        } else {
+            binding.EmptyView.visibility = View.GONE
+            binding.RecyclerViewCard.visibility = View.VISIBLE
+            initiateCardList().submitList(cards)
+        }
 
         return binding.root
     }
