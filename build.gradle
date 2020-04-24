@@ -12,11 +12,16 @@ buildscript {
     ext.version_constraint_layout = "2.0.0-beta4"
     ext.version_gradle = '3.6.3'
     ext.version_material_design = "1.2.0-alpha05"
-    ext.version_navigation = "2.3.0-alpha02"
+    ext.version_navigation = "2.3.0-alpha05"
     //Testing
     ext.version_junit = "5.6.0"
     ext.version_junit_ext = "1.1.1"
     ext.version_espresso_core = "3.2.0"
+    //Google Service
+    ext.version_gms = "4.3.3"
+    //Firebase
+    ext.version_firebase_realtime = "19.3.0"
+    ext.version_firebase_analytics = "17.4.0"
     //Others
     ext.version_retrofit = "2.8.1"
     ext.version_glide = "4.11.0"
@@ -30,6 +35,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$version_gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
+        classpath "com.google.gms:google-services:$version_gms"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

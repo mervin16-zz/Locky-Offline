@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.core.Validation
 import com.th3pl4gu3.locky.core.exceptions.FormException
-import com.th3pl4gu3.locky.ui.main.utils.toFormattedString
+import com.th3pl4gu3.locky.repository.database.FirebaseRepository
 import java.util.*
 
 class AddCardViewModel : ViewModel() {
@@ -20,7 +20,7 @@ class AddCardViewModel : ViewModel() {
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _number = MutableLiveData<Long>()
     private val _numberErrorMessage = MutableLiveData<String>()
-    private val _pin = MutableLiveData<Short>()
+    private val _pin = MutableLiveData<Int>()
     private val _pinErrorMessage = MutableLiveData<String>()
     private val _bank = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
@@ -40,7 +40,7 @@ class AddCardViewModel : ViewModel() {
     val number: LiveData<Long>
         get() = _number
 
-    val pin: LiveData<Short>
+    val pin: LiveData<Int>
         get() = _pin
 
     val bank: LiveData<String>
@@ -89,8 +89,8 @@ class AddCardViewModel : ViewModel() {
             _pin.value = it.pin
             _bank.value = it.bank
             _cardHolder.value = it.cardHolderName
-            _issuedDate.value = it.issuedDate.toFormattedString()
-            _expiryDate.value = it.expiryDate.toFormattedString()
+            _issuedDate.value = it.issuedDate
+            _expiryDate.value = it.expiryDate
             _additionalInformation.value = it.additionalInfo
         }
     }
@@ -99,12 +99,17 @@ class AddCardViewModel : ViewModel() {
         val validation = Validation(card)
         try {
             validation.validateCardForm()
+            saveCardToDatabase(card)
             _isFormValid.value = true
         } catch (ex: FormException) {
             assignErrorMessages(validation.errorList)
         } catch (ex: Exception) {
             _toastEvent.value = "Error code 3: ${ex.message}"
         }
+    }
+
+    private fun saveCardToDatabase(card: Card){
+        FirebaseRepository().save(card)
     }
 
     private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {

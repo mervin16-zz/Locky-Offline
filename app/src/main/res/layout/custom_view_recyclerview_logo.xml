@@ -8,7 +8,7 @@
 
         <variable
             name="Logo"
-            type="com.th3pl4gu3.locky.core.networking.WebsiteLogo" />
+            type="com.th3pl4gu3.locky.repository.network.WebsiteLogo" />
 
         <variable
             name="ClickListener"

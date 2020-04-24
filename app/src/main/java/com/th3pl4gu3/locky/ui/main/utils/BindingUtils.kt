@@ -10,8 +10,7 @@ import com.bumptech.glide.Glide
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
 import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.networking.LoadingStatus
-import java.util.*
+import com.th3pl4gu3.locky.repository.LoadingStatus
 
 
 //TODO: Need to test all functions properly in BindingUtils.kt
@@ -23,8 +22,8 @@ fun TextView.setCardNumber(number: Long) {
 }
 
 @BindingAdapter("issuedCardDate", "expiryCardDate")
-fun TextView.setCardDate(issued: Calendar, expiry: Calendar) {
-    text = "Issued: ${issued.toFormattedString()} | Expiry: ${expiry.toFormattedString()}"
+fun TextView.setCardDate(issued: String, expiry: String) {
+    text = "Issued: $issued | Expiry: $expiry"
 }
 
 @BindingAdapter("cardLogo")

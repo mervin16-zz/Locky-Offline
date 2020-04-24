@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky.core
 
+import com.google.firebase.database.Exclude
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
@@ -8,6 +9,8 @@ abstract class Credentials (
     name: String = "",
     additionalInfo: String?
 ) {
-    internal var secretKeySpec: SecretKeySpec? = null
-    internal var ivParameterSpec: IvParameterSpec? = null
+
+    @set:Exclude @get:Exclude internal var secretKeySpec: SecretKeySpec? = null
+
+    @set:Exclude @get:Exclude internal var ivParameterSpec: IvParameterSpec? = null
 }

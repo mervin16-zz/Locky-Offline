@@ -17,6 +17,7 @@ import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.setCardLogo
 import com.th3pl4gu3.locky.ui.main.utils.toFormattedCalendar
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedString
 import com.th3pl4gu3.locky.ui.main.utils.toast
 import java.util.*
 
@@ -87,7 +88,6 @@ class AddCardFragment : Fragment() {
 
             isFormValid.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    //TODO: Add database code here to insert account
                     toast(getString(R.string.message_credentials_created, _card.name))
                     findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
                 }
@@ -101,13 +101,13 @@ class AddCardFragment : Fragment() {
                     _card.apply {
                         name = binding.CardName.editText?.text.toString()
                         number = binding.CardNumber.editText?.text.toString().toLong()
-                        pin = binding.CardPin.editText?.text.toString().toShort()
+                        pin = binding.CardPin.editText?.text.toString().toInt()
                         bank = binding.CardBank.editText?.text.toString()
                         cardHolderName = binding.CardHolder.editText?.text.toString()
                         issuedDate =
-                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
+                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar().toFormattedString()
                         expiryDate =
-                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar()
+                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar().toFormattedString()
                         additionalInfo = binding.CardMoreInfo.editText?.text.toString()
                     }
                 )

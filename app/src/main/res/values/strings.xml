@@ -17,6 +17,9 @@
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
 
+    <string name="text_title_emptyView_cards">Save Your Card. Ease Your Memory</string>
+    <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
+
     <!--
    ****************** Menu ******************
    -->

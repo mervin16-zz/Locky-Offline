@@ -2,15 +2,18 @@ package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
+import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
 
 class CardFragment : Fragment() {
@@ -32,25 +35,50 @@ class CardFragment : Fragment() {
         binding.lifecycleOwner = this
 
         //Observe data when to show snack bar for "Show Pin"
-        _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                binding.LayoutFragmentCard.snackbar(it) {
-                    action(getString(R.string.button_snack_action_close)) { dismiss() }
+        with(_viewModel) {
+
+            //set loading flag to show loading progress bar
+            setLoading(LoadingStatus.LOADING)
+
+            //Observe snack bar event for any trigger
+            showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    binding.LayoutFragmentCard.snackbar(it) {
+                        action(getString(R.string.button_snack_action_close)) { dismiss() }
+                    }
+                    doneShowingSnackBar()
                 }
+            })
 
-                _viewModel.doneShowingSnackBar()
-            }
-        })
+            //Observe loading status for any trigger for the progress bar
+            loadingStatus.observe(viewLifecycleOwner, Observer {
+                when(it){
+                    LoadingStatus.LOADING -> {
+                       progressBarVisibility(View.VISIBLE)
+                    }
+                    LoadingStatus.DONE, LoadingStatus.ERROR -> {
+                        progressBarVisibility(View.GONE)
+                    }
+                    else -> {
+                        progressBarVisibility(View.GONE)
+                    }
+                }
+            })
 
-        //Submit list for recyclerview
-        val cards = _viewModel.generateDummyCards()
-        if (cards.isEmpty()) {
-            binding.EmptyView.visibility = View.VISIBLE
-            binding.RecyclerViewCard.visibility = View.GONE
-        } else {
-            binding.EmptyView.visibility = View.GONE
-            binding.RecyclerViewCard.visibility = View.VISIBLE
-            initiateCardList().submitList(cards)
+            //Observe cards list being updated
+            cards.observe(viewLifecycleOwner, Observer { dataSnapshot ->
+                if(dataSnapshot != null){
+                    val cards = ArrayList<Card>()
+                    dataSnapshot.children.forEach { postSnapshot ->
+                        postSnapshot.getValue<Card>()?.let { cards.add(it) }
+                    }
+
+                    //set loading flag to hide progress bar
+                    setLoading(LoadingStatus.DONE)
+
+                    cardListVisibility(cards)
+                }
+            })
         }
 
         return binding.root
@@ -82,6 +110,21 @@ class CardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun progressBarVisibility(visibility: Int){
+        binding.ProgressBar.visibility = visibility
+    }
+
+    private fun cardListVisibility(cards: ArrayList<Card>) {
+        if (cards.isEmpty()) {
+            binding.EmptyView.visibility = View.VISIBLE
+            binding.RecyclerViewCard.visibility = View.GONE
+        } else {
+            binding.EmptyView.visibility = View.GONE
+            binding.RecyclerViewCard.visibility = View.VISIBLE
+            initiateCardList().submitList(cards)
+        }
     }
 
     private fun initiateCardList(): CardAdapter {

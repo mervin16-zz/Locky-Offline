@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             android:layout_marginBottom="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:textAlignment="center"
-                android:text="Save Your Card. Ease Your Memory" />
+                android:text="@string/text_title_emptyView_cards" />
 
             <TextView
                 style="@style/Locky.TextAppearance.Subtitle"
@@ -52,9 +53,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
-                android:text="Save all your card details here." />
+                android:text="@string/text_subtitle_emptyView_cards" />
 
         </LinearLayout>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/Progress_Bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

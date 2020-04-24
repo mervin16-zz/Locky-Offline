@@ -51,14 +51,14 @@ class ViewCardViewModel : ViewModel() {
             add(
                 CredentialsField(
                     LABEL_TEXTBOX_CARD_ISSUED,
-                    card.issuedDate.toFormattedString(),
+                    card.issuedDate,
                     isCopyable = View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
                     LABEL_TEXTBOX_CARD_EXPIRY,
-                    card.expiryDate.toFormattedString(),
+                    card.expiryDate,
                     isCopyable = View.VISIBLE
                 )
             )

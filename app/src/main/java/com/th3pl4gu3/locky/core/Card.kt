@@ -9,11 +9,11 @@ data class Card(
     val id: String = "",
     var name: String = "",
     var number: Long = 0,
-    var pin: Short = 0,
+    var pin: Int = 0,
     var bank: String = "",
     var cardHolderName: String = "",
-    var issuedDate: Calendar = Calendar.getInstance(),
-    var expiryDate: Calendar = Calendar.getInstance(),
+    var issuedDate: String = "01/10",
+    var expiryDate: String = "01/12",
     var additionalInfo: String? = null
 ) : Credentials(id = id, name = name, additionalInfo = additionalInfo), Parcelable {
 

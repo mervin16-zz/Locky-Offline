@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.core.networking
+package com.th3pl4gu3.locky.repository.network
 
 import com.squareup.moshi.Json
 
