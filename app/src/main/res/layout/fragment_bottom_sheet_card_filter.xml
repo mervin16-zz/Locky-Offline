@@ -3,6 +3,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="Sort"
+            type="com.th3pl4gu3.locky.core.CardRefine" />
+
+        <variable
+            name="Filter"
+            type="com.th3pl4gu3.locky.core.CardRefine" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,27 +32,34 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/Chip_Group_Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
+                app:singleSelection="false"
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_type"
+                    android:checked="@{Filter.cardType}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_Bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_bank"
+                    android:checked="@{Filter.bank}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_Cardholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_holder"
+                    android:checked="@{Filter.cardHolderName}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -60,27 +78,34 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/Chip_Group_Sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="false"
+                app:singleSelection="true"
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_type"
+                    android:checked="@{Sort.cardType}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_bank"
+                    android:checked="@{Sort.bank}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Cardholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_holder"
+                    android:checked="@{Sort.cardHolderName}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>

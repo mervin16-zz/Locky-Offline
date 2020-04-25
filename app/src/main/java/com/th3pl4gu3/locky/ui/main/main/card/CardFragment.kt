@@ -6,15 +6,19 @@ import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.CardRefine
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_FILTER
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
 
 class CardFragment : Fragment() {
 
@@ -66,17 +70,38 @@ class CardFragment : Fragment() {
             })
 
             //Observe cards list being updated
-            cards.observe(viewLifecycleOwner, Observer { dataSnapshot ->
-                if(dataSnapshot != null){
-                    val cards = ArrayList<Card>()
-                    dataSnapshot.children.forEach { postSnapshot ->
-                        postSnapshot.getValue<Card>()?.let { cards.add(it) }
-                    }
-
+            cards.observe(viewLifecycleOwner, Observer { cards ->
+                if (cards != null) {
                     //set loading flag to hide progress bar
                     setLoading(LoadingStatus.DONE)
 
                     cardListVisibility(cards)
+                }
+            })
+
+            val navBackStackEntry = findNavController().currentBackStackEntry!!
+            navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+                if (
+                    event == Lifecycle.Event.ON_RESUME &&
+                    navBackStackEntry.savedStateHandle.contains(KEY_CARDS_FILTER) &&
+                    navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
+                ) {
+                    val filter =
+                        navBackStackEntry.savedStateHandle.get<CardRefine>(KEY_CARDS_FILTER)!!
+                    val sort = navBackStackEntry.savedStateHandle.get<CardRefine>(KEY_CARDS_SORT)!!
+
+                    //_viewModel.updateCards(filter)
+                    Log.i(
+                        "REFINEMENTTEST",
+                        "CT:${filter.cardType} B:${filter.bank} NC:${filter.cardHolderName}"
+                    )
+                    Log.i(
+                        "REFINEMENTTEST",
+                        "CT:${sort.cardType} B:${sort.bank} NC:${sort.cardHolderName}"
+                    )
+
+                    navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_FILTER)
+                    navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_SORT)
                 }
             })
         }
@@ -116,7 +141,7 @@ class CardFragment : Fragment() {
         binding.ProgressBar.visibility = visibility
     }
 
-    private fun cardListVisibility(cards: ArrayList<Card>) {
+    private fun cardListVisibility(cards: List<Card>) {
         if (cards.isEmpty()) {
             binding.EmptyView.visibility = View.VISIBLE
             binding.RecyclerViewCard.visibility = View.GONE

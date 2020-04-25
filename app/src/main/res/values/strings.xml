@@ -20,6 +20,9 @@
     <string name="text_title_emptyView_cards">Save Your Card. Ease Your Memory</string>
     <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
 
+    <string name="text_title_emptyView_accounts">An Account a Day, Keeps Hackers Away!</string>
+    <string name="text_subtitle_emptyView_accounts">Save all your account details here.</string>
+
     <!--
    ****************** Menu ******************
    -->

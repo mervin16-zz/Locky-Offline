@@ -28,4 +28,8 @@ class CardDao : IFirebaseRepository<Card> {
             query = database.getReference(REFERENCE_CARD)
         )
 
+    /*fun getBySortedBank(): LiveData<DataSnapshot> =
+        FirebaseQueryLiveData(
+            query = database.getReference(REFERENCE_CARD).orderByChild("bank").orderByValue()
+        )*/
 }

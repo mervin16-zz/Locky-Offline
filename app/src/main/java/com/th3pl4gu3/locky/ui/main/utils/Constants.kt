@@ -13,6 +13,10 @@ class Constants {
             ****    Key & Value Pairs    ****
          */
         const val KEY_ACCOUNT_LOGO = "KEY_ACCOUNT_LOGO"
+        const val KEY_CARDS_FILTER = "KEY_CARD_FILTER"
+        const val KEY_CARDS_SORT = "KEY_CARD_SORT"
+        const val KEY_ACCOUNTS_FILTER = "KEY_ACCOUNT_FILTER"
+        const val KEY_ACCOUNTS_SORT = "KEY_ACCOUNT_SORT"
 
         /*
             ****    Placeholders    ****

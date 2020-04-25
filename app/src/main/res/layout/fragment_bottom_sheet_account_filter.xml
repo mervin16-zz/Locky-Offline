@@ -3,6 +3,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="Filter"
+            type="com.th3pl4gu3.locky.core.AccountRefine" />
+
+        <variable
+            name="Sort"
+            type="com.th3pl4gu3.locky.core.AccountRefine" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,27 +32,34 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/Chip_Group_Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
+                app:singleSelection="false"
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_Website"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_website"
+                    android:checked="@{Filter.website}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_Email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_email"
+                    android:checked="@{Filter.email}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Filter_2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_2faauth"
+                    android:checked="@{Filter.twofa}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -60,27 +78,34 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/Chip_Group_Sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="false"
+                app:singleSelection="true"
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Website"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_website"
+                    android:checked="@{Sort.website}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_email"
+                    android:checked="@{Sort.email}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_2faauth"
+                    android:checked="@{Sort.twofa}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>

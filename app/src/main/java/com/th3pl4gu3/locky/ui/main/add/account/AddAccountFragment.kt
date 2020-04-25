@@ -91,7 +91,6 @@ class AddAccountFragment : Fragment() {
 
             isFormValid.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    //TODO: Add _account to database here
                     toast(getString(R.string.message_credentials_created, _account.name))
                     findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
                 }
@@ -104,11 +103,14 @@ class AddAccountFragment : Fragment() {
                     KEY_ACCOUNT_LOGO
                 )
             ) {
-                _viewModel.setAccountLogo(
-                    navBackStackEntry.savedStateHandle.get<String>(
-                        KEY_ACCOUNT_LOGO
-                    )!!
-                )
+                val logoUrl = navBackStackEntry.savedStateHandle.get<String>(
+                    KEY_ACCOUNT_LOGO
+                )!!
+
+                //Set the logo url in the local account
+                _account.logoUrl = logoUrl
+                //Set the logo url in the view model also
+                _viewModel.setAccountLogo(logoUrl)
                 navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
             }
         })

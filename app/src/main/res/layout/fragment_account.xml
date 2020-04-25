@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="?attr/actionBarSize"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:textAlignment="center"
-                android:text="An Account a Day, Keeps Hackers Away!" />
+                android:text="@string/text_title_emptyView_accounts" />
 
             <TextView
                 style="@style/Locky.TextAppearance.Subtitle"
@@ -53,9 +54,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
-                android:text="Save all your account details here." />
+                android:text="@string/text_subtitle_emptyView_accounts" />
 
         </LinearLayout>
+
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/Progress_Bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

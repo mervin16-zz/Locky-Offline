@@ -2,16 +2,23 @@ package com.th3pl4gu3.locky.ui.main.main.account
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.AccountRefine
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
+import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_FILTER
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
 
 
 class AccountFragment : Fragment() {
@@ -33,26 +40,70 @@ class AccountFragment : Fragment() {
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
-        //Observe data when to show snack bar for "Show Password"
-        _viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                binding.LayoutFragmentAccount.snackbar(it) {
-                    action(getString(R.string.button_snack_action_close)) { dismiss() }
+        //Observe data when to show snack bar for "Show Pin"
+        with(_viewModel) {
+
+            //set loading flag to show loading progress bar
+            setLoading(LoadingStatus.LOADING)
+
+            showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    binding.LayoutFragmentAccount.snackbar(it) {
+                        action(getString(R.string.button_snack_action_close)) { dismiss() }
+                    }
+
+                    doneShowingSnackBar()
                 }
+            })
 
-                _viewModel.doneShowingSnackbar()
-            }
-        })
+            //Observe loading status for any trigger for the progress bar
+            loadingStatus.observe(viewLifecycleOwner, Observer {
+                when (it) {
+                    LoadingStatus.LOADING -> {
+                        progressBarVisibility(View.VISIBLE)
+                    }
+                    LoadingStatus.DONE, LoadingStatus.ERROR -> {
+                        progressBarVisibility(View.GONE)
+                    }
+                    else -> {
+                        progressBarVisibility(View.GONE)
+                    }
+                }
+            })
 
-        //Submit list for recyclerview
-        val accounts = _viewModel.generateDummyAccounts()
-        if (accounts.isEmpty()) {
-            binding.EmptyView.visibility = View.VISIBLE
-            binding.RecyclerViewAccount.visibility = View.GONE
-        } else {
-            binding.EmptyView.visibility = View.GONE
-            binding.RecyclerViewAccount.visibility = View.VISIBLE
-            initiateAccountList().submitList(accounts)
+            //Observe accounts list being updated
+            accounts.observe(viewLifecycleOwner, Observer { accounts ->
+                if (accounts != null) {
+                    //set loading flag to hide progress bar
+                    setLoading(LoadingStatus.DONE)
+
+                    accountListVisibility(accounts)
+                }
+            })
+
+            val navBackStackEntry = findNavController().currentBackStackEntry!!
+            navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+                if (
+                    event == Lifecycle.Event.ON_RESUME &&
+                    navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_FILTER) &&
+                    navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
+                ) {
+                    val filter =
+                        navBackStackEntry.savedStateHandle.get<AccountRefine>(KEY_ACCOUNTS_FILTER)!!
+                    val sort =
+                        navBackStackEntry.savedStateHandle.get<AccountRefine>(KEY_ACCOUNTS_SORT)!!
+
+                    //_viewModel.updateCards(filter)
+                    Log.i(
+                        "REFINEMENTTEST",
+                        "CT:${filter.website} B:${filter.email} NC:${filter.twofa}"
+                    )
+                    Log.i("REFINEMENTTEST", "CT:${sort.website} B:${sort.email} NC:${sort.twofa}")
+
+                    navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_FILTER)
+                    navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_SORT)
+                }
+            })
         }
 
         return binding.root
@@ -84,6 +135,21 @@ class AccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun progressBarVisibility(visibility: Int) {
+        binding.ProgressBar.visibility = visibility
+    }
+
+    private fun accountListVisibility(accounts: List<Account>) {
+        if (accounts.isEmpty()) {
+            binding.EmptyView.visibility = View.VISIBLE
+            binding.RecyclerViewAccount.visibility = View.GONE
+        } else {
+            binding.EmptyView.visibility = View.GONE
+            binding.RecyclerViewAccount.visibility = View.VISIBLE
+            initiateAccountList().submitList(accounts)
+        }
     }
 
     private fun initiateAccountList(): AccountAdapter {
