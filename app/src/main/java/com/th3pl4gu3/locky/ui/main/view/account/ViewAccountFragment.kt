@@ -81,7 +81,7 @@ class ViewAccountFragment : Fragment() {
                 CopyClickListener { data ->
                     copyToClipboardAndToast(data)
                 },
-                ViewClickListener { data ->
+                ViewClickListener {
                     binding.LayoutCredentialView.snackbar(_account.password) {
                         action(getString(R.string.button_snack_action_close)) { dismiss() }
                     }

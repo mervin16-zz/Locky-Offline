@@ -5,7 +5,7 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 abstract class Credentials (
-    id: String = "",
+    open var id: String = "",
     name: String = "",
     additionalInfo: String?
 ) {

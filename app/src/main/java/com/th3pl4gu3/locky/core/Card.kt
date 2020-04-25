@@ -2,11 +2,10 @@ package com.th3pl4gu3.locky.core
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 data class Card(
-    val id: String = "",
+    override var id: String = "",
     var name: String = "",
     var number: Long = 0,
     var pin: Int = 0,
@@ -26,5 +25,4 @@ data class Card(
         DINNERS_CLUB,
         DEFAULT
     }
-
 }

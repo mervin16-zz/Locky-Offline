@@ -66,7 +66,7 @@ class ViewCardFragment : Fragment() {
             }
 
             R.id.Action_Delete -> {
-                //TODO: Add database code to delete account here
+                _viewModel.delete(_card.id)
                 toast(getString(R.string.message_credentials_deleted, _card.name))
                 findNavController().popBackStack()
                 true
@@ -81,7 +81,7 @@ class ViewCardFragment : Fragment() {
                 CopyClickListener { data ->
                     copyToClipboardAndToast(data)
                 },
-                ViewClickListener { data ->
+                ViewClickListener {
                     binding.LayoutCredentialView.snackbar(_card.pin.toString()) {
                         action(getString(R.string.button_snack_action_close)) { dismiss() }
                     }

@@ -63,8 +63,8 @@ class CopyClickListener(val clickListener: (data: String) -> Unit){
     fun onClick(data: String) = clickListener(data)
 }
 
-class ViewClickListener(val clickListener: (data: String) -> Unit){
-    fun onClick(data: String) = clickListener(data)
+class ViewClickListener(val clickListener: () -> Unit) {
+    fun onClick() = clickListener()
 }
 
 data class CredentialsField(

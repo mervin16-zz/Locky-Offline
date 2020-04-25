@@ -3,10 +3,14 @@ package com.th3pl4gu3.locky.ui.main.add.card
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.core.Validation
 import com.th3pl4gu3.locky.core.exceptions.FormException
-import com.th3pl4gu3.locky.repository.database.FirebaseRepository
+import com.th3pl4gu3.locky.repository.database.CardDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class AddCardViewModel : ViewModel() {
@@ -29,6 +33,8 @@ class AddCardViewModel : ViewModel() {
     private val _issuedDate = MutableLiveData<String>()
     private val _expiryDate = MutableLiveData<String>()
     private val _additionalInformation = MutableLiveData<String>()
+
+    private var isEmptyCard = true
 
     //Validation Properties
     val isFormValid: LiveData<Boolean>
@@ -78,11 +84,17 @@ class AddCardViewModel : ViewModel() {
     val toastEvent: LiveData<String>
         get() = _toastEvent
 
-    fun doneWithToastEvent() {
+    internal fun doneWithToastEvent() {
         _toastEvent.value = null
     }
 
-    fun setCard(card: Card) {
+    internal fun setCard(card: Card) {
+
+        /** Check if data comes from edit screen
+         *  or data is empty because it comes form add screen
+         *  To do that, test if the id is empty or not **/
+        isEmptyCard = card.id.isEmpty()
+
         this._card = card.also {
             _name.value = it.name
             _number.value = it.number
@@ -95,21 +107,37 @@ class AddCardViewModel : ViewModel() {
         }
     }
 
-    fun isFormValid(card: Card) {
-        val validation = Validation(card)
-        try {
-            validation.validateCardForm()
-            saveCardToDatabase(card)
-            _isFormValid.value = true
-        } catch (ex: FormException) {
-            assignErrorMessages(validation.errorList)
-        } catch (ex: Exception) {
-            _toastEvent.value = "Error code 3: ${ex.message}"
+    internal fun isFormValid(card: Card) {
+        viewModelScope.launch {
+            val validation = Validation(card)
+            try {
+                validation.validateCardForm()
+                insertCardInDatabase(card)
+                _isFormValid.value = true
+            } catch (ex: FormException) {
+                assignErrorMessages(validation.errorList)
+            } catch (ex: Exception) {
+                _toastEvent.value = "Error code 3: ${ex.message}"
+            }
         }
     }
 
-    private fun saveCardToDatabase(card: Card){
-        FirebaseRepository().save(card)
+    private suspend fun insertCardInDatabase(card: Card) {
+        withContext(Dispatchers.IO) {
+            if (isEmptyCard) saveCardToDatabase(card) else updateCardInDatabase(card)
+        }
+    }
+
+    private suspend fun updateCardInDatabase(card: Card) {
+        withContext(Dispatchers.IO) {
+            CardDao().update(card)
+        }
+    }
+
+    private suspend fun saveCardToDatabase(card: Card) {
+        withContext(Dispatchers.IO) {
+            CardDao().save(card)
+        }
     }
 
     private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
