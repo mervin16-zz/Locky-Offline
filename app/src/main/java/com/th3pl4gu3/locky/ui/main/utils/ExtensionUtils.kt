@@ -35,6 +35,13 @@ fun Window.activateDarkStatusBar() {
     this.statusBarColor = context.getColor(R.color.colorPrimary)
 }
 
+fun Window.activateLightAccentStatusBar(view: View) {
+    var flags: Int = view.systemUiVisibility
+    flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    view.systemUiVisibility = flags
+    this.statusBarColor = context.getColor(R.color.colorAccentLight)
+}
+
 fun Long.getCardType(): Card.CardType{
 
     val number = this.toString().replace(",", "")

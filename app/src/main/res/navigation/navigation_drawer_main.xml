@@ -163,4 +163,11 @@
         android:label="Account Logo"
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
 
+    <activity
+        android:id="@+id/Activity_Login"
+        android:name="com.th3pl4gu3.locky.ui.main.login.LoginActivity"
+        android:label="Login"
+        tools:layout="@layout/activity_login" />
+
+
 </navigation>
