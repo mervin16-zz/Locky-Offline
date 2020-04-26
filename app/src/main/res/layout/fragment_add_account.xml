@@ -48,7 +48,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:text="@{ViewModel.name}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,7 +143,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textShortMessage"
+                android:inputType="textShortMessage|textCapWords"
                 android:text="@{ViewModel.twoFaEnabled}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,7 +178,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:inputType="textMultiLine|textCapSentences"
                 android:text="@{ViewModel.additionalInfo}"
                 android:maxLines="15"
                 android:minLines="2" />

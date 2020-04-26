@@ -4,14 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <variable
-            name="Filter"
-            type="com.th3pl4gu3.locky.core.AccountRefine" />
-
         <variable
             name="Sort"
-            type="com.th3pl4gu3.locky.core.AccountRefine" />
+            type="com.th3pl4gu3.locky.core.tuning.AccountSort" />
     </data>
 
     <LinearLayout
@@ -43,7 +38,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_website"
-                    android:checked="@{Filter.website}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
@@ -51,7 +45,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_email"
-                    android:checked="@{Filter.email}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
@@ -59,7 +52,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_account_2faauth"
-                    android:checked="@{Filter.twofa}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>

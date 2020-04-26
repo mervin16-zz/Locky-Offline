@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky.core.CardRefine
+import com.th3pl4gu3.locky.core.tuning.CardSort
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetCardFilterBinding
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_FILTER
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 
 class FilterCardBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetCardFilterBinding? = null
     private val binding get() = _binding!!
-    private val _refineSorting = CardRefine()
-    private val _refineFiltering = CardRefine()
+    private val _sort = CardSort()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +27,9 @@ class FilterCardBottomSheetFragment : BottomSheetDialogFragment() {
 
         with(binding) {
 
-            sort = _refineSorting
+            LocalStorageManager.with(requireActivity().application)
 
-            filter = _refineFiltering
+            sort = LocalStorageManager.get<CardSort>(KEY_CARDS_SORT) ?: _sort
 
             return root
         }
@@ -41,20 +40,12 @@ class FilterCardBottomSheetFragment : BottomSheetDialogFragment() {
 
         with(findNavController().previousBackStackEntry?.savedStateHandle) {
             this?.set(
-                KEY_CARDS_FILTER,
-                _refineFiltering.apply {
-                    cardType = binding.ChipFilterType.isChecked
-                    bank = binding.ChipFilterBank.isChecked
-                    cardHolderName = binding.ChipFilterCardholder.isChecked
-                }
-            )
-
-            this?.set(
                 KEY_CARDS_SORT,
-                _refineSorting.apply {
-                    cardType = binding.ChipSortType.isChecked
-                    bank = binding.ChipSortBank.isChecked
-                    cardHolderName = binding.ChipSortCardholder.isChecked
+                _sort.apply {
+                    sortByName = binding.ChipSortName.isChecked
+                    sortByType = binding.ChipSortType.isChecked
+                    sortByBank = binding.ChipSortBank.isChecked
+                    sortByCardHolderName = binding.ChipSortCardholder.isChecked
                 }
             )
         }

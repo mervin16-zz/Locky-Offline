@@ -2,7 +2,6 @@ package com.th3pl4gu3.locky.ui.main.main.account
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -13,11 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.AccountRefine
+import com.th3pl4gu3.locky.core.tuning.AccountSort
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_FILTER
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
 
 
@@ -85,22 +83,18 @@ class AccountFragment : Fragment() {
             navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
                 if (
                     event == Lifecycle.Event.ON_RESUME &&
-                    navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_FILTER) &&
                     navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
                 ) {
-                    val filter =
-                        navBackStackEntry.savedStateHandle.get<AccountRefine>(KEY_ACCOUNTS_FILTER)!!
                     val sort =
-                        navBackStackEntry.savedStateHandle.get<AccountRefine>(KEY_ACCOUNTS_SORT)!!
+                        navBackStackEntry.savedStateHandle.get<AccountSort>(KEY_ACCOUNTS_SORT)!!
 
-                    //_viewModel.updateCards(filter)
-                    Log.i(
-                        "REFINEMENTTEST",
-                        "CT:${filter.website} B:${filter.email} NC:${filter.twofa}"
-                    )
-                    Log.i("REFINEMENTTEST", "CT:${sort.website} B:${sort.email} NC:${sort.twofa}")
+                    if (sort.hasChanges()) {
+                        //Store sort to local storage
+                        LocalStorageManager.with(requireActivity().application)
+                        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
+                        _viewModel.refresh(sort)
+                    }
 
-                    navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_FILTER)
                     navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_SORT)
                 }
             })

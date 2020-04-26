@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky.core.AccountRefine
+import com.th3pl4gu3.locky.core.tuning.AccountSort
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetAccountFilterBinding
-import com.th3pl4gu3.locky.ui.main.utils.Constants
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 
 class FilterAccountBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetAccountFilterBinding? = null
     private val binding get() = _binding!!
-    private val _refineSorting = AccountRefine()
-    private val _refineFiltering = AccountRefine()
+    private val _sort = AccountSort()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +27,9 @@ class FilterAccountBottomSheetFragment : BottomSheetDialogFragment() {
 
         with(binding) {
 
-            sort = _refineSorting
+            LocalStorageManager.with(requireActivity().application)
 
-            filter = _refineFiltering
+            sort = LocalStorageManager.get<AccountSort>(KEY_ACCOUNTS_SORT) ?: _sort
 
             return root
         }
@@ -39,18 +39,10 @@ class FilterAccountBottomSheetFragment : BottomSheetDialogFragment() {
         super.onDismiss(dialog)
 
         with(findNavController().previousBackStackEntry?.savedStateHandle) {
-            this?.set(
-                Constants.KEY_ACCOUNTS_FILTER,
-                _refineFiltering.apply {
-                    website = binding.ChipFilterWebsite.isChecked
-                    email = binding.ChipFilterEmail.isChecked
-                    twofa = binding.ChipFilter2FA.isChecked
-                }
-            )
 
             this?.set(
-                Constants.KEY_ACCOUNTS_SORT,
-                _refineSorting.apply {
+                KEY_ACCOUNTS_SORT,
+                _sort.apply {
                     website = binding.ChipSortWebsite.isChecked
                     email = binding.ChipSortEmail.isChecked
                     twofa = binding.ChipSort2FA.isChecked

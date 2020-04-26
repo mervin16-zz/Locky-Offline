@@ -26,6 +26,7 @@ buildscript {
     ext.version_retrofit = "2.8.1"
     ext.version_glide = "4.11.0"
     ext.version_moshi = "1.9.2"
+    ext.version_gson = "2.8.6"
 
     repositories {
         google()

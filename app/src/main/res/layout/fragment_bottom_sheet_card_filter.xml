@@ -4,14 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="Sort"
-            type="com.th3pl4gu3.locky.core.CardRefine" />
-
-        <variable
-            name="Filter"
-            type="com.th3pl4gu3.locky.core.CardRefine" />
+            type="com.th3pl4gu3.locky.core.tuning.CardSort" />
     </data>
 
     <LinearLayout
@@ -43,23 +38,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_type"
-                    android:checked="@{Filter.cardType}"
-                    style="@style/Locky.Button.Chip" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/Chip_Filter_Bank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/field_card_bank"
-                    android:checked="@{Filter.bank}"
-                    style="@style/Locky.Button.Chip" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/Chip_Filter_Cardholder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/field_card_holder"
-                    android:checked="@{Filter.cardHolderName}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -85,11 +63,19 @@
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/Chip_Sort_Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_card_name"
+                    android:checked="@{Sort.sortByName}"
+                    style="@style/Locky.Button.Chip" />
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/Chip_Sort_Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_type"
-                    android:checked="@{Sort.cardType}"
+                    android:checked="@{Sort.sortByType}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
@@ -97,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_bank"
-                    android:checked="@{Sort.bank}"
+                    android:checked="@{Sort.sortByBank}"
                     style="@style/Locky.Button.Chip" />
 
                 <com.google.android.material.chip.Chip
@@ -105,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/field_card_holder"
-                    android:checked="@{Sort.cardHolderName}"
+                    android:checked="@{Sort.sortByCardHolderName}"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>

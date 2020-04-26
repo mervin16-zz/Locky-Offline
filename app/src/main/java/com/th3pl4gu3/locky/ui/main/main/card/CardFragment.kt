@@ -13,11 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.CardRefine
+import com.th3pl4gu3.locky.core.tuning.CardSort
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_FILTER
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
 
 class CardFragment : Fragment() {
@@ -83,29 +82,23 @@ class CardFragment : Fragment() {
             navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
                 if (
                     event == Lifecycle.Event.ON_RESUME &&
-                    navBackStackEntry.savedStateHandle.contains(KEY_CARDS_FILTER) &&
                     navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
                 ) {
-                    val filter =
-                        navBackStackEntry.savedStateHandle.get<CardRefine>(KEY_CARDS_FILTER)!!
-                    val sort = navBackStackEntry.savedStateHandle.get<CardRefine>(KEY_CARDS_SORT)!!
+                    val sort = navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!
 
-                    //_viewModel.updateCards(filter)
-                    Log.i(
-                        "REFINEMENTTEST",
-                        "CT:${filter.cardType} B:${filter.bank} NC:${filter.cardHolderName}"
-                    )
-                    Log.i(
-                        "REFINEMENTTEST",
-                        "CT:${sort.cardType} B:${sort.bank} NC:${sort.cardHolderName}"
-                    )
+                    if (sort.hasChanges()) {
+                        //Store sort to local storage
+                        LocalStorageManager.with(requireActivity().application)
+                        LocalStorageManager.put(KEY_CARDS_SORT, sort)
+                        _viewModel.refreshSort(sort)
+                    }
 
-                    navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_FILTER)
                     navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_SORT)
                 }
             })
         }
 
+        Log.i("INITTEST", "OnCreate Ended")
         return binding.root
     }
 

@@ -1,28 +1,65 @@
 package com.th3pl4gu3.locky.ui.main.main.account
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.tuning.AccountSort
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.repository.database.AccountDao
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AccountViewModel : ViewModel(){
+class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _showSnackbarEvent = MutableLiveData<String>()
     private var _loadingStatus = MutableLiveData<LoadingStatus>()
-    private val _accountSnapShotList = AccountDao().getAll()
-    private val _mediatorAccounts = MediatorLiveData<List<Account>>()
 
-    init {
-        //Load the acounts for the first time
-        loadAccounts()
+    private val _accountSnapShotList = AccountDao().getAll()
+    private var _currentAccountsExposed = MediatorLiveData<List<Account>>()
+
+    private val sortedByEmail = Transformations.map(_currentAccountsExposed) {
+        it.sortedBy { account ->
+            account.email.toLowerCase(
+                Locale.ROOT
+            )
+        }
+    }
+    private val sortedByWebsite = Transformations.map(_currentAccountsExposed) {
+        it.sortedBy { account ->
+            account.website?.toLowerCase(
+                Locale.ROOT
+            )
+        }
+    }
+    private val sortedBy2FA = Transformations.map(_currentAccountsExposed) {
+        it.sortedBy { account ->
+            account.twoFA?.toLowerCase(
+                Locale.ROOT
+            )
+        }
     }
 
-    val accounts: LiveData<List<Account>>
-        get() = _mediatorAccounts
+    private var _sort = MutableLiveData<AccountSort>()
+
+    init {
+        //Load the accounts for the first time
+        loadAccounts()
+        //Set the default value for account sort
+        _sort.value = checkSorting()
+    }
+
+    val accounts = Transformations.switchMap(_sort) {
+        when (true) {
+            it.website -> sortedByWebsite
+            it.twofa -> sortedBy2FA
+            it.email -> sortedByEmail
+            else -> _currentAccountsExposed
+        }
+    }
 
     val showSnackBarEvent: LiveData<String>
         get() = _showSnackbarEvent
@@ -42,15 +79,31 @@ class AccountViewModel : ViewModel(){
         _loadingStatus.value = status
     }
 
+    internal fun refresh(sort: AccountSort) {
+        _sort.value = sort
+    }
+
     private fun loadAccounts() {
-        _mediatorAccounts.addSource(_accountSnapShotList) { snapshot ->
-            if (snapshot != null) {
-                val cardList = ArrayList<Account>()
-                snapshot.children.forEach { postSnapshot ->
-                    postSnapshot.getValue<Account>()?.let { cardList.add(it) }
-                }
-                _mediatorAccounts.value = cardList
-            }
+        _currentAccountsExposed.addSource(_accountSnapShotList) { snapshot ->
+            _currentAccountsExposed.value = decomposeDataSnapshots(snapshot)
         }
     }
+
+    private fun checkSorting(): AccountSort {
+        LocalStorageManager.with(getApplication())
+        return if (LocalStorageManager.exists(KEY_ACCOUNTS_SORT)) {
+            LocalStorageManager.get(KEY_ACCOUNTS_SORT)!!
+        } else AccountSort()
+    }
+
+    private fun decomposeDataSnapshots(snapshot: DataSnapshot?): List<Account> =
+        if (snapshot != null) {
+            val accountList = ArrayList<Account>()
+            snapshot.children.forEach { postSnapshot ->
+                postSnapshot.getValue<Account>()?.let { accountList.add(it) }
+            }
+            accountList
+        } else {
+            ArrayList()
+        }
 }
