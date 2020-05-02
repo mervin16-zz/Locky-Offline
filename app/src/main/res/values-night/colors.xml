@@ -6,6 +6,13 @@
     <color name="colorPrimaryDark">@color/grey_dark_200</color>
     <color name="colorAccent">@color/purple_200</color>
 
+    <!--
+        Gradient Colors
+    -->
+    <color name="background_gradient_accent_start">@color/purple_300</color>
+    <color name="background_gradient_accent_middle">@color/purple_400</color>
+    <color name="background_gradient_accent_end">@color/purple_600</color>
+
     <!-- TextField Colors -->
     <color name="colorTextFieldAccentSearch">@color/colorAccent</color>
     <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>

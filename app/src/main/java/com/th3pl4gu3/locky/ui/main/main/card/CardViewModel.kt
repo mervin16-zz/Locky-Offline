@@ -29,8 +29,10 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
             )
         }
     }
+
     private val sortedByType =
         Transformations.map(_currentCardsExposed) { it.sortedBy { card -> card.number.getCardType() } }
+
     private val sortedByBank = Transformations.map(_currentCardsExposed) {
         it.sortedBy { card ->
             card.bank.toLowerCase(

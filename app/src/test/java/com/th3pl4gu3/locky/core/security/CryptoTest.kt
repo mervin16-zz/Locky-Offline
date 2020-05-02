@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.security
+package com.th3pl4gu3.locky.core.security
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest

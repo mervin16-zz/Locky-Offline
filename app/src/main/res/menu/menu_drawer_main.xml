@@ -43,13 +43,4 @@
                 android:title="@string/menu_drawer_main_about" />
         </menu>
     </item>
-
-    <item android:title="@string/menu_drawer_subtitle_user">
-        <menu>
-            <item
-                android:id="@+id/Activity_Login"
-                android:icon="@drawable/ic_logout"
-                android:title="@string/menu_drawer_main_logout" />
-        </menu>
-    </item>
 </menu>

@@ -3,7 +3,9 @@ package com.th3pl4gu3.locky.ui.main.utils
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.widget.PopupMenu
@@ -35,11 +37,8 @@ fun Window.activateDarkStatusBar() {
     this.statusBarColor = context.getColor(R.color.colorPrimary)
 }
 
-fun Window.activateLightAccentStatusBar(view: View) {
-    var flags: Int = view.systemUiVisibility
-    flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    view.systemUiVisibility = flags
-    this.statusBarColor = context.getColor(R.color.colorAccentLight)
+fun Window.activateAccentStatusBar() {
+    this.statusBarColor = context.getColor(R.color.colorAccent)
 }
 
 fun Long.getCardType(): Card.CardType{
@@ -113,9 +112,13 @@ fun Context.createPopUpMenu(
     popup.show()
 }
 
-fun Calendar.toFormattedString(): String = SimpleDateFormat("MM/yy", Locale.ENGLISH).format(this.timeInMillis)
+fun Calendar.toFormattedStringForCard(): String =
+    SimpleDateFormat("MM/yy", Locale.ENGLISH).format(this.timeInMillis)
 
-fun String.toFormattedCalendar(): Calendar {
+fun Calendar.toFormattedStringDefault(): String =
+    SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(this.timeInMillis)
+
+fun String.toFormattedCalendarForCard(): Calendar {
     val sd = SimpleDateFormat("MM/yy", Locale.ENGLISH)
     val date = sd.parse(this)
     val cal = Calendar.getInstance()
@@ -123,3 +126,16 @@ fun String.toFormattedCalendar(): Calendar {
     return cal
 }
 
+fun String.toFormattedCalendarDefault(): Calendar {
+    val sd = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+    val date = sd.parse(this)
+    val cal = Calendar.getInstance()
+    cal.time = date!!
+    return cal
+}
+
+fun <T> Context.openActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
+    val intent = Intent(this, it)
+    intent.putExtras(Bundle().apply(extras))
+    startActivity(intent)
+}

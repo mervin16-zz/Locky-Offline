@@ -2,11 +2,14 @@ package com.th3pl4gu3.locky.ui.main.main
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -14,16 +17,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
+import com.firebase.ui.auth.AuthUI
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
-import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
-import com.th3pl4gu3.locky.ui.main.utils.toast
+import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
+    private lateinit var _viewModel: MainActivityViewModel
     private lateinit var _appBarConfiguration: AppBarConfiguration
     private var _isOpen = false
 
@@ -38,11 +42,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        _viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+        _binding.lifecycleOwner = this
 
         //Set the support action bar to the toolbar
         setSupportActionBar(_binding.ToolbarMain)
         //Remove the default actionbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        //Observer to check if user has been authenticated
+        observeAuthenticationState()
 
         //Update status bar upon current theme
         darkModeVerification()
@@ -54,19 +64,27 @@ class MainActivity : AppCompatActivity() {
         loadFABs()
 
         //Scroll changes to adjust toolbar elevation accordingly
-        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY > 0) {
-                _binding.ToolbarMain.elevation = 8F
-            } else {
-                _binding.ToolbarMain.elevation = 0F
-            }
-        }
+        setUpNestedScrollChangeListener()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-        item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.Activity_Login -> {
+                logout()
+                return true
+            }
+        }
+
+        return item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
             item
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
@@ -176,5 +194,32 @@ class MainActivity : AppCompatActivity() {
         _binding.FABCard.show()
 
         _isOpen = true
+    }
+
+    private fun observeAuthenticationState() {
+        _viewModel.authenticationState.observe(this, Observer { authenticationState ->
+            when (authenticationState) {
+                AuthenticationState.UNAUTHENTICATED -> {
+                    findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Login)
+                }
+                else -> return@Observer
+            }
+        })
+    }
+
+    private fun setUpNestedScrollChangeListener() =
+        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY > 0) {
+                _binding.ToolbarMain.elevation = 8F
+            } else {
+                _binding.ToolbarMain.elevation = 0F
+            }
+        }
+
+    private fun logout() {
+        LocalStorageManager.with(application)
+        LocalStorageManager.remove(KEY_USER_ACCOUNT)
+
+        AuthUI.getInstance().signOut(this)
     }
 }

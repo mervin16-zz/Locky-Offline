@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/path_background_gradient">
+
+        <ImageView
+            android:id="@+id/Image_Art_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/path_login_art" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Button_Email"
+            style="@style/Locky.Button.Splash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/button_action_email_sign_in"
+            app:layout_constraintBottom_toTopOf="@+id/FAB_Google"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/FAB_Facebook"
+            style="@style/Locky.FloatingActionButton.Authentication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/FAB_Google"
+            app:layout_constraintEnd_toStartOf="@+id/FAB_Google"
+            app:layout_constraintTop_toTopOf="@+id/FAB_Google"
+            app:srcCompat="@drawable/ic_facebook_f" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/FAB_Google"
+            style="@style/Locky.FloatingActionButton.Authentication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_google_g" />
+
+        <TextView
+            android:id="@+id/Text_Register_With"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_subtitle_register_with"
+            android:textColor="@color/grey_300"
+            app:layout_constraintBottom_toBottomOf="@+id/FAB_Facebook"
+            app:layout_constraintEnd_toStartOf="@+id/FAB_Facebook"
+            app:layout_constraintStart_toStartOf="@+id/Button_Email"
+            app:layout_constraintTop_toTopOf="@+id/FAB_Facebook" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

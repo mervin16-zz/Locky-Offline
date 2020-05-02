@@ -1,9 +1,9 @@
-package com.th3pl4gu3.locky.security
+package com.th3pl4gu3.locky.core.security
 
-import com.th3pl4gu3.locky.security.Constants.Companion.VALUE_CIPHER_AES
-import com.th3pl4gu3.locky.security.Constants.Companion.VALUE_CIPHER_AESCBCPKCS5
-import com.th3pl4gu3.locky.security.Constants.Companion.VALUE_CIPHER_AES_KEY_SIZE
-import com.th3pl4gu3.locky.security.Constants.Companion.VALUE_CIPHER_IV_SIZE
+import com.th3pl4gu3.locky.core.security.Constants.Companion.VALUE_CIPHER_AES
+import com.th3pl4gu3.locky.core.security.Constants.Companion.VALUE_CIPHER_AESCBCPKCS5
+import com.th3pl4gu3.locky.core.security.Constants.Companion.VALUE_CIPHER_AES_KEY_SIZE
+import com.th3pl4gu3.locky.core.security.Constants.Companion.VALUE_CIPHER_IV_SIZE
 import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator

@@ -66,6 +66,7 @@ dependencies {
     /** Firebase **/
     implementation "com.google.firebase:firebase-analytics:$version_firebase_analytics"
     implementation "com.google.firebase:firebase-database-ktx:$version_firebase_realtime"
+    implementation "com.firebaseui:firebase-ui-auth:$version_firebase_auth_ui"
 
     /** Junit Test Suite **/
     implementation 'androidx.appcompat:appcompat:1.1.0'

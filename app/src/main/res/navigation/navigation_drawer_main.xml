@@ -165,7 +165,7 @@
 
     <activity
         android:id="@+id/Activity_Login"
-        android:name="com.th3pl4gu3.locky.ui.main.login.LoginActivity"
+        android:name="com.th3pl4gu3.locky.ui.main.login.login.LoginActivity"
         android:label="Login"
         tools:layout="@layout/activity_login" />
 

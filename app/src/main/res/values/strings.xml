@@ -23,6 +23,12 @@
     <string name="text_title_emptyView_accounts">An Account a Day, Keeps Hackers Away!</string>
     <string name="text_subtitle_emptyView_accounts">Save all your account details here.</string>
 
+    <string name="text_subtitle_register_with">Or register with</string>
+    <string name="text_subtitle_forgot_password"><u>Forgot password?</u></string>
+
+    <string name="text_title_splash">All your accounts in one place</string>
+    <string name="text_subtitle_splash">Manage your all your logins and bank cards on a single application</string>
+
     <!--
    ****************** Menu ******************
    -->
@@ -50,11 +56,6 @@
     <string name="menu_card_moreOptions_copyNumber">Copy Number</string>
     <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
     <string name="menu_card_moreOptions_viewPin">View Pin</string>
-
-    <!--
-        ****************** Button Actions ******************
-    -->
-    <string name="button_snack_action_close">Close</string>
 
     <!--
         ****************** Data Fields ******************
@@ -92,17 +93,22 @@
     <string name="message_copy_successful">Copied successfully.</string>
     <string name="message_credentials_created">"%1$s" has been added successfully.</string>
     <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
+    <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
 
     <!--
         ****************** Error Messages ******************
     -->
     <string name="error_internal_code_1">Error code 1: An internal error occurred. Please contact your IT support.</string>
+    <string name="error_internal_code_4">Error code 4: "%1$s"</string>
 
     <!--
             ****************** Button Actions ******************
         -->
+    <string name="button_snack_action_close">Close</string>
     <string name="button_action_save">Save</string>
     <string name="button_action_cancel">Cancel</string>
+    <string name="button_action_email_sign_in">email sign in</string>
+    <string name="button_action_get_started">get started</string>
 
     <!--
    ****************** Dev ******************

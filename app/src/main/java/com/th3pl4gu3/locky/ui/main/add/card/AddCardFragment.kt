@@ -16,8 +16,8 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.setCardLogo
-import com.th3pl4gu3.locky.ui.main.utils.toFormattedCalendar
-import com.th3pl4gu3.locky.ui.main.utils.toFormattedString
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedCalendarForCard
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedStringForCard
 import com.th3pl4gu3.locky.ui.main.utils.toast
 import java.util.*
 
@@ -105,9 +105,11 @@ class AddCardFragment : Fragment() {
                         bank = binding.CardBank.editText?.text.toString()
                         cardHolderName = binding.CardHolder.editText?.text.toString()
                         issuedDate =
-                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar().toFormattedString()
+                            binding.CardIssuedDate.editText?.text.toString()
+                                .toFormattedCalendarForCard().toFormattedStringForCard()
                         expiryDate =
-                            binding.CardIssuedDate.editText?.text.toString().toFormattedCalendar().toFormattedString()
+                            binding.CardIssuedDate.editText?.text.toString()
+                                .toFormattedCalendarForCard().toFormattedStringForCard()
                         additionalInfo = binding.CardMoreInfo.editText?.text.toString()
                     }
                 )

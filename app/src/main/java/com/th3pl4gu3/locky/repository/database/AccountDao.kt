@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky.repository.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
@@ -12,19 +13,23 @@ class AccountDao : IFirebaseRepository<Account> {
     private val REFERENCE_ACCOUNT = "ACCOUNTS"
     private val database = Firebase.database
 
-    override fun save(credentials: Account): Task<Void> {
-        credentials.id = database.getReference(REFERENCE_ACCOUNT).push().key!!
-        return database.getReference(REFERENCE_ACCOUNT).child(credentials.id).setValue(credentials)
+    override fun save(obj: Account): Task<Void> {
+        obj.id = database.getReference(REFERENCE_ACCOUNT).push().key!!
+        return database.getReference(REFERENCE_ACCOUNT).child(obj.id).setValue(obj)
     }
 
-    override fun update(credentials: Account): Task<Void> =
-        database.getReference(REFERENCE_ACCOUNT).child(credentials.id).setValue(credentials)
+    override fun update(obj: Account): Task<Void> =
+        database.getReference(REFERENCE_ACCOUNT).child(obj.id).setValue(obj)
 
     override fun remove(key: String): Task<Void> =
         database.getReference(REFERENCE_ACCOUNT).child(key).removeValue()
 
     override fun getAll(): LiveData<DataSnapshot> =
-        FirebaseQueryLiveData(
+        FirebaseFetchLiveData(
             query = database.getReference(REFERENCE_ACCOUNT)
         )
+
+    override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(
+        query = database.getReference(REFERENCE_ACCOUNT).child(key)
+    )
 }

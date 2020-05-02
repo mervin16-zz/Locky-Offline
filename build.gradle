@@ -22,6 +22,7 @@ buildscript {
     //Firebase
     ext.version_firebase_realtime = "19.3.0"
     ext.version_firebase_analytics = "17.4.0"
+    ext.version_firebase_auth_ui = "6.2.0"
     //Others
     ext.version_retrofit = "2.8.1"
     ext.version_glide = "4.11.0"

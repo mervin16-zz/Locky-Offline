@@ -23,6 +23,14 @@ object LocalStorageManager {
     }
 
     /**
+     * Removes object into the Preferences.
+     **/
+    fun remove(key: String) {
+        //Remove that entry in SharedPreferences
+        preferences.edit().remove(key).apply()
+    }
+
+    /**
      * Saves object into the Preferences.
      *
      * @param `object` Object of model class (of type [T]) to save

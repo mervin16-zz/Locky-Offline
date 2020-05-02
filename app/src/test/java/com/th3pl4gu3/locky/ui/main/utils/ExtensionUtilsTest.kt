@@ -294,7 +294,7 @@ internal class ExtensionUtilsTest {
         date.set(Calendar.MONTH, 2)
         date.set(Calendar.YEAR, 2016)
         date.add(Calendar.DAY_OF_MONTH, number)
-        result = date.toFormattedString()
+        result = date.toFormattedStringForCard()
 
         //Assert
         assertEquals(expectedResult, result)
@@ -317,7 +317,7 @@ internal class ExtensionUtilsTest {
 
         //Act
         //Conver to cal
-        val calObj = date.toFormattedCalendar()
+        val calObj = date.toFormattedCalendarForCard()
         //Convert back to string to test
         result = SimpleDateFormat("MM/yy", Locale.ENGLISH).format(calObj.timeInMillis)
 

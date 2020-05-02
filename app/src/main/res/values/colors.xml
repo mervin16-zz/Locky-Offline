@@ -7,15 +7,17 @@
     -->
     <color name="colorPrimary">@android:color/white</color>
     <color name="colorPrimaryDark">@android:color/white</color>
-    <color name="colorAccent">@color/purple_300</color>
+    <color name="colorAccent">@color/purple_400</color>
     <color name="colorAccentDark">@color/purple_600</color>
     <color name="colorAccentLight">@color/purple_100</color>
     <color name="colorRipple">@color/purple_50</color>
 
-    <!-- TextField Colors -->
-    <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
-    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
-    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_600</color>
+    <!--
+        Gradient Colors
+    -->
+    <color name="background_gradient_accent_start">@color/purple_300</color>
+    <color name="background_gradient_accent_middle">@color/colorAccent</color>
+    <color name="background_gradient_accent_end">@color/colorAccentDark</color>
 
     <!-- Button Colors -->
     <color name="colorFabNormal">@color/colorAccent</color>
@@ -31,6 +33,13 @@
     <color name="colorIconFabNormal">@android:color/white</color>
     <color name="colorIconFabMini">@color/colorAccentDark</color>
 
+
+    <!-- TextField Colors -->
+    <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
+    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
+    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_600</color>
+
+
     <!--
         Typography Colors
     -->
@@ -44,9 +53,9 @@
     <color name="colorButtonAccentSecondary">@color/colorAccentDark</color>
 
     <!-- Color Light Palette -->
-    <color name="purple_600">#281255</color>
-    <color name="purple_300">#734EE4</color>
-    <color name="purple_200">#B39DDB</color>
+    <color name="purple_600">#FF3A056E</color>
+    <color name="purple_400">#FF601A9D</color>
+    <color name="purple_300">#FFB96AFF</color>
     <color name="purple_100">#ece0fd</color>
     <color name="purple_50">#20DB9AFF</color>
 
@@ -60,4 +69,5 @@
 
     <!-- Color Dark ONLY Palette -->
     <color name="grey_dark_200">#272727</color>
+    <color name="purple_200">#B39DDB</color>
 </resources>
