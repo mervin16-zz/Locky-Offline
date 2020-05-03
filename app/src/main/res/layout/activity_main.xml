@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/app_name"
-                    style="@style/Locky.Toolbar.TitleText" />
+                    style="@style/Locky.Text.Toolbar.TitleText" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -97,7 +97,7 @@
             android:paddingStart="0dp"
             android:clipToPadding="false"
             app:headerLayout="@layout/drawer_header"
-            app:itemTextAppearance="@style/Locky.TextAppearance.Drawer.Item"
+            app:itemTextAppearance="@style/Locky.Text.Drawer.Item"
             app:menu="@menu/menu_drawer_main"
             style="@style/Locky.Widget.Custom.NavigationView" />
 

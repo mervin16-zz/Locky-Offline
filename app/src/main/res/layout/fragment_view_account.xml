@@ -20,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/Account_Logo"
-                bindLogoImage="@{Account.logoUrl}"
+                bindUrlImage="@{Account.logoUrl}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/Account_Name"
-                style="@style/Locky.TextAppearance.Title"
+                style="@style/Locky.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

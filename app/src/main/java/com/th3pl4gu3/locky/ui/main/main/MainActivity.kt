@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationState.UNAUTHENTICATED -> {
-                    findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Login)
+                    findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
                 }
                 else -> return@Observer
             }

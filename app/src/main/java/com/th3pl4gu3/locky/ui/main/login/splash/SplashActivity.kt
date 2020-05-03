@@ -11,6 +11,7 @@ import com.th3pl4gu3.locky.ui.main.main.MainActivity
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
 import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USERS
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.openActivity
 
@@ -61,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
                              * start a session
                              * we can then navigate to main screen
                              **/
-                            startSession(it)
+                            startSessionIfActive(it)
                             navigateToMain()
                             return@Observer
                         }
@@ -104,10 +105,13 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun startSession(user: User) {
+    private fun startSessionIfActive(user: User) {
         //Store user object in shared preferences
         LocalStorageManager.with(application)
-        LocalStorageManager.put(Constants.KEY_USER_ACCOUNT, user)
+        if (!LocalStorageManager.exists(KEY_USER_ACCOUNT)) LocalStorageManager.put(
+            KEY_USER_ACCOUNT,
+            user
+        )
     }
 
     private fun clearSession() {

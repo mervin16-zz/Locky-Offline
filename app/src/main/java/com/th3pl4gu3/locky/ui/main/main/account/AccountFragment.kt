@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.core.tuning.AccountSort
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky.repository.LoadingStatus
@@ -75,7 +77,10 @@ class AccountFragment : Fragment() {
                     //set loading flag to hide progress bar
                     setLoading(LoadingStatus.DONE)
 
-                    accountListVisibility(accounts)
+                    //Filter accounts by this user only
+                    accountListVisibility(accounts.filter {
+                        it.user == getUser()
+                    })
                 }
             })
 
@@ -192,6 +197,12 @@ class AccountFragment : Fragment() {
                     isEnabled = true
                 }
             })
+    }
+
+    private fun getUser(): String {
+        LocalStorageManager.with(requireActivity().application)
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
+            ?: throw UserException(getString(R.string.error_internal_code_6))
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

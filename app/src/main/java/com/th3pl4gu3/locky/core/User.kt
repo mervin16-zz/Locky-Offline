@@ -39,5 +39,9 @@ data class User(
             )
         }
     }
+
+    override fun toString(): String {
+        return "ID: $id | name: $_name | photo: $_photoUrl | email: $email | Dj: $dateJoined | account: $accountType"
+    }
 }
 

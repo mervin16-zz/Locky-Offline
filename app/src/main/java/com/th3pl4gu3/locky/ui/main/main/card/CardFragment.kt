@@ -2,7 +2,6 @@ package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -13,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.core.tuning.CardSort
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky.repository.LoadingStatus
@@ -55,9 +56,9 @@ class CardFragment : Fragment() {
 
             //Observe loading status for any trigger for the progress bar
             loadingStatus.observe(viewLifecycleOwner, Observer {
-                when(it){
+                when (it) {
                     LoadingStatus.LOADING -> {
-                       progressBarVisibility(View.VISIBLE)
+                        progressBarVisibility(View.VISIBLE)
                     }
                     LoadingStatus.DONE, LoadingStatus.ERROR -> {
                         progressBarVisibility(View.GONE)
@@ -74,7 +75,7 @@ class CardFragment : Fragment() {
                     //set loading flag to hide progress bar
                     setLoading(LoadingStatus.DONE)
 
-                    cardListVisibility(cards)
+                    cardListVisibility(cards.filter { it.user == getUser() })
                 }
             })
 
@@ -98,7 +99,6 @@ class CardFragment : Fragment() {
             })
         }
 
-        Log.i("INITTEST", "OnCreate Ended")
         return binding.root
     }
 
@@ -130,7 +130,7 @@ class CardFragment : Fragment() {
         _binding = null
     }
 
-    private fun progressBarVisibility(visibility: Int){
+    private fun progressBarVisibility(visibility: Int) {
         binding.ProgressBar.visibility = visibility
     }
 
@@ -189,6 +189,12 @@ class CardFragment : Fragment() {
                     isEnabled = true
                 }
             })
+    }
+
+    private fun getUser(): String {
+        LocalStorageManager.with(requireActivity().application)
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
+            ?: throw UserException(getString(R.string.error_internal_code_6))
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Account(
     override var id: String = "",
+    var user: String = "",
     var name: String = "",
     var username: String = "",
     var email: String = "",
@@ -15,4 +16,4 @@ data class Account(
     var additionalInfo: String? = null,
     var twoFA: String? = null,
     var twoFASecretKeys: String? = null
-) : Credentials(id = id, name = name, additionalInfo = additionalInfo), Parcelable
+) : Credentials(id = id, user = user, name = name, additionalInfo = additionalInfo), Parcelable

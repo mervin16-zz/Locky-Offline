@@ -32,23 +32,25 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                android:tint="@color/purple_200"
-                app:srcCompat="@drawable/image_card_def" />
+                android:tint="@color/colorAccent"
+                app:srcCompat="@drawable/ic_card_generic" />
 
             <TextView
-                style="@style/Locky.TextAppearance.Title"
+                style="@style/Locky.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:textAlignment="center"
                 android:text="@string/text_title_emptyView_cards" />
 
             <TextView
-                style="@style/Locky.TextAppearance.Subtitle"
+                style="@style/Locky.Text.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

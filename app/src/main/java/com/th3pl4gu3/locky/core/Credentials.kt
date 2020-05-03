@@ -6,6 +6,7 @@ import javax.crypto.spec.SecretKeySpec
 
 abstract class Credentials (
     open var id: String = "",
+    user: String = "",
     name: String = "",
     additionalInfo: String?
 ) {

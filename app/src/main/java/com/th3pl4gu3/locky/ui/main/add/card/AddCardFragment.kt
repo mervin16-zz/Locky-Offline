@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
-import com.th3pl4gu3.locky.ui.main.utils.setCardLogo
-import com.th3pl4gu3.locky.ui.main.utils.toFormattedCalendarForCard
-import com.th3pl4gu3.locky.ui.main.utils.toFormattedStringForCard
-import com.th3pl4gu3.locky.ui.main.utils.toast
+import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import java.util.*
 
 
@@ -97,22 +97,29 @@ class AddCardFragment : Fragment() {
         with(binding) {
 
             ButtonSave.setOnClickListener {
-                _viewModel.isFormValid(
-                    _card.apply {
-                        name = binding.CardName.editText?.text.toString()
-                        number = binding.CardNumber.editText?.text.toString().toLong()
-                        pin = binding.CardPin.editText?.text.toString().toInt()
-                        bank = binding.CardBank.editText?.text.toString()
-                        cardHolderName = binding.CardHolder.editText?.text.toString()
-                        issuedDate =
-                            binding.CardIssuedDate.editText?.text.toString()
-                                .toFormattedCalendarForCard().toFormattedStringForCard()
-                        expiryDate =
-                            binding.CardIssuedDate.editText?.text.toString()
-                                .toFormattedCalendarForCard().toFormattedStringForCard()
-                        additionalInfo = binding.CardMoreInfo.editText?.text.toString()
-                    }
-                )
+                try {
+                    _viewModel.isFormValid(
+                        _card.apply {
+                            user = getUser()
+                            name = binding.CardName.editText?.text.toString()
+                            number = binding.CardNumber.editText?.text.toString().toLong()
+                            pin = binding.CardPin.editText?.text.toString().toInt()
+                            bank = binding.CardBank.editText?.text.toString()
+                            cardHolderName = binding.CardHolder.editText?.text.toString()
+                            issuedDate =
+                                binding.CardIssuedDate.editText?.text.toString()
+                                    .toFormattedCalendarForCard().toFormattedStringForCard()
+                            expiryDate =
+                                binding.CardIssuedDate.editText?.text.toString()
+                                    .toFormattedCalendarForCard().toFormattedStringForCard()
+                            additionalInfo = binding.CardMoreInfo.editText?.text.toString()
+                        }
+                    )
+                } catch (e: UserException) {
+                    toast(e.message!!)
+                } catch (e: Exception) {
+                    toast(getString(R.string.error_internal_code_5, e.message!!))
+                }
             }
 
             IssuedDate.setOnClickListener {
@@ -163,6 +170,13 @@ class AddCardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getUser(): String {
+        LocalStorageManager.with(requireActivity().application)
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.email ?: throw UserException(
+            getString(R.string.error_internal_code_6)
+        )
     }
 
     private fun updateIssuedDateText(month: Int, year: Int) = binding.IssuedDate.setText(

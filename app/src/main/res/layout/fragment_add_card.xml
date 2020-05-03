@@ -31,7 +31,7 @@
         <!--****************************** Required Label ****************************** -->
         <TextView
             android:id="@+id/Label_Required"
-            style="@style/Locky.TextAppearance.Subtitle"
+            style="@style/Locky.Text.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -174,7 +174,7 @@
         <!--****************************** Optional Label ****************************** -->
         <TextView
             android:id="@+id/Label_Optional"
-            style="@style/Locky.TextAppearance.Subtitle"
+            style="@style/Locky.Text.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"

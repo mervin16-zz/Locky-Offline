@@ -31,6 +31,15 @@
         </menu>
     </item>
 
+    <item android:title="@string/menu_drawer_subtitle_user">
+        <menu>
+            <item
+                android:id="@+id/Fragment_Profile"
+                android:icon="@drawable/ic_profile"
+                android:title="@string/menu_drawer_main_profile" />
+        </menu>
+    </item>
+
     <item android:title="@string/menu_drawer_subtitle_others">
         <menu>
             <item

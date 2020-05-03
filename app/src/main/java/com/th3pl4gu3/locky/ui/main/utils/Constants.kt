@@ -53,5 +53,11 @@ class Constants {
         const val LABEL_TEXTBOX_CARD_ISSUED = "Issued Date"
         const val LABEL_TEXTBOX_CARD_EXPIRY = "Expiry Date"
         const val LABEL_TEXTBOX_CARD_ADDITIONAL_COMMENTS = "Additional Comments"
+
+
+        const val LABEL_TEXTBOX_USER_NAME = "Name"
+        const val LABEL_TEXTBOX_USER_EMAIL = "Email"
+        const val LABEL_TEXTBOX_USER_DATE_JOINED = "Daje Joined"
+        const val LABEL_TEXTBOX_USER_ACCOUNT_TYPE = "Account Type"
     }
 }

@@ -24,6 +24,8 @@
     <!-- Button Colors -->
     <color name="colorChipDefault">@color/grey_400</color>
 
+    <color name="colorButtonDelete">@color/red_100</color>
+
     <!--
         Typography Colors
     -->
@@ -31,7 +33,7 @@
     <color name="colorTextTitleAccent">@color/purple_200</color>
     <color name="colorTextMenu">@color/grey_300</color>
 
-    <color name="colorButtonAccentPrimary">@color/colorAccent</color>
-    <color name="colorButtonAccentSecondary">@color/colorAccent</color>
+    <color name="colorButtonTextAccentPrimary">@color/colorAccentDark</color>
+    <color name="colorButtonTextAccentSecondary">@color/colorAccent</color>
 
 </resources>

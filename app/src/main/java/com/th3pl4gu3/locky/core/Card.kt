@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Card(
     override var id: String = "",
+    var user: String = "",
     var name: String = "",
     var number: Long = 0,
     var pin: Int = 0,
@@ -14,7 +15,7 @@ data class Card(
     var issuedDate: String = "01/10",
     var expiryDate: String = "01/12",
     var additionalInfo: String? = null
-) : Credentials(id = id, name = name, additionalInfo = additionalInfo), Parcelable {
+) : Credentials(id = id, user = user, name = name, additionalInfo = additionalInfo), Parcelable {
 
     enum class CardType {
         VISA,

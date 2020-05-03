@@ -12,8 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.databinding.FragmentAddAccountBinding
+import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.toast
 
 class AddAccountFragment : Fragment() {
@@ -44,18 +48,25 @@ class AddAccountFragment : Fragment() {
 
         with(binding) {
             ButtonSave.setOnClickListener {
-                _viewModel.isFormValid(
-                    _account.apply {
-                        name = binding.AccountName.editText?.text.toString()
-                        username = binding.AccountUsername.editText?.text.toString()
-                        email = binding.AccountEmail.editText?.text.toString()
-                        password = binding.AccountPassword.editText?.text.toString()
-                        website = binding.AccountWebsite.editText?.text.toString()
-                        additionalInfo = binding.AccountComments.editText?.text.toString()
-                        twoFA = binding.Account2FAEnabled.editText?.text.toString()
-                        twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
-                    }
-                )
+                try {
+                    _viewModel.isFormValid(
+                        _account.apply {
+                            user = getUser()
+                            name = binding.AccountName.editText?.text.toString()
+                            username = binding.AccountUsername.editText?.text.toString()
+                            email = binding.AccountEmail.editText?.text.toString()
+                            password = binding.AccountPassword.editText?.text.toString()
+                            website = binding.AccountWebsite.editText?.text.toString()
+                            additionalInfo = binding.AccountComments.editText?.text.toString()
+                            twoFA = binding.Account2FAEnabled.editText?.text.toString()
+                            twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
+                        }
+                    )
+                } catch (e: UserException) {
+                    toast(e.message!!)
+                } catch (e: Exception) {
+                    toast(getString(R.string.error_internal_code_5, e.message!!))
+                }
             }
 
             AccountLogo.setOnClickListener {
@@ -121,6 +132,12 @@ class AddAccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getUser(): String {
+        LocalStorageManager.with(requireActivity().application)
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
+            ?: throw UserException(getString(R.string.error_internal_code_6))
     }
 
     private fun toast(message: String) = requireContext().toast(message)

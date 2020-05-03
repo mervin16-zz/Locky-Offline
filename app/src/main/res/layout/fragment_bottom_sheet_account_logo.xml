@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.7"
-            style="@style/Locky.TextBox.Search" />
+            style="@style/Locky.TextBox.Default.Search" />
 
         <Button
             android:id="@+id/Button_Cancel"
@@ -76,7 +76,7 @@
                 app:srcCompat="@drawable/image_placeholder_logo" />
 
             <TextView
-                style="@style/Locky.TextAppearance.Title"
+                style="@style/Locky.Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,7 +84,7 @@
                 android:text="@string/text_title_emptyView_logo_search" />
 
             <TextView
-                style="@style/Locky.TextAppearance.Subtitle"
+                style="@style/Locky.Text.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

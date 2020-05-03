@@ -27,7 +27,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            bindLogoImage="@{Logo.logoUrl}"
+            bindUrlImage="@{Logo.logoUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toEndOf="@+id/Website_Logo"
             app:layout_constraintTop_toTopOf="@+id/Website_Logo"
             tools:text="Title"
-            style="@style/Locky.TextAppearance.List.Title" />
+            style="@style/Locky.Text.Title.List" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -120,7 +120,11 @@ class LoginActivity : AppCompatActivity() {
                  * Since we already have the user,
                  * we just need to start a session and redirects him/her to the main screen
                  **/
-                startSession(it)
+                startSession(user.apply {
+                    id = it.id
+                    dateJoined = it.dateJoined
+                    accountType = it.accountType
+                })
                 navigateToMain()
                 return
             }

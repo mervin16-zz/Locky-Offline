@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/Account_Logo"
-            bindLogoImage="@{Account.logoUrl}"
+            bindUrlImage="@{Account.logoUrl}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="24dp"
@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/Entry_Name"
-            style="@style/Locky.TextAppearance.List.Title"
+            style="@style/Locky.Text.Title.List"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -52,7 +52,7 @@
 
         <TextView
             android:id="@+id/Account_Login"
-            style="@style/Locky.TextAppearance.List.Subtitle"
+            style="@style/Locky.Text.Subtitle.List"
             accountLogin="@{Account}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
 
         <TextView
             android:id="@+id/Account_Website"
-            style="@style/Locky.TextAppearance.List.Subtitle"
+            style="@style/Locky.Text.Subtitle.List"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Account.website}"

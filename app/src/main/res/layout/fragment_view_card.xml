@@ -34,7 +34,7 @@
             android:layout_marginTop="8dp"
             android:layout_gravity="center_horizontal"
             tools:text="Title"
-            style="@style/Locky.TextAppearance.Title" />
+            style="@style/Locky.Text.Title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView_Credentials_Field"

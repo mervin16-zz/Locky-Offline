@@ -10,14 +10,14 @@
         android:padding="16dp">
 
         <TextView
-            style="@style/Locky.TextAppearance.Title"
+            style="@style/Locky.Text.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="About Fragment" />
 
         <TextView
-            style="@style/Locky.TextAppearance.Body"
+            style="@style/Locky.Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -37,7 +37,7 @@
             Tincidunt vitae semper quis lectus nulla at volutpat diam. Arcu risus quis varius quam quisque id diam." />
 
         <TextView
-            style="@style/Locky.TextAppearance.Body"
+            style="@style/Locky.Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -57,7 +57,7 @@
             Tincidunt vitae semper quis lectus nulla at volutpat diam. Arcu risus quis varius quam quisque id diam." />
 
         <TextView
-            style="@style/Locky.TextAppearance.Body"
+            style="@style/Locky.Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

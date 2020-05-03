@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/Card_Number"
-            style="@style/Locky.TextAppearance.List.Title"
+            style="@style/Locky.Text.Title.List"
             cardNumber="@{Card.number}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/Card_Date"
-            style="@style/Locky.TextAppearance.List.Subtitle"
+            style="@style/Locky.Text.Subtitle.List"
             expiryCardDate="@{Card.expiryDate}"
             issuedCardDate="@{Card.issuedDate}"
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
 
         <TextView
             android:id="@+id/Entry_Name"
-            style="@style/Locky.TextAppearance.List.Subtitle"
+            style="@style/Locky.Text.Subtitle.List"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Card.name}"

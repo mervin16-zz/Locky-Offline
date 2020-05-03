@@ -26,6 +26,8 @@
     <color name="colorChipDefault">@color/grey_50</color>
     <color name="colorChipChecked">@color/colorAccentLight</color>
 
+    <color name="colorButtonDelete">@color/red_400</color>
+
     <!--
         Icon Colors
     -->
@@ -49,10 +51,13 @@
 
     <color name="colorTextSubtitle">@color/grey_200</color>
 
-    <color name="colorButtonAccentPrimary">@color/colorAccent</color>
-    <color name="colorButtonAccentSecondary">@color/colorAccentDark</color>
+    <color name="colorButtonTextAccentPrimary">@color/colorAccent</color>
+    <color name="colorButtonTextAccentSecondary">@color/colorAccentDark</color>
+    <color name="colorButtonTextNegative">@color/grey_400</color>
 
     <!-- Color Light Palette -->
+    <color name="red_400">#DC061E</color>
+
     <color name="purple_600">#FF3A056E</color>
     <color name="purple_400">#FF601A9D</color>
     <color name="purple_300">#FFB96AFF</color>
@@ -70,4 +75,6 @@
     <!-- Color Dark ONLY Palette -->
     <color name="grey_dark_200">#272727</color>
     <color name="purple_200">#B39DDB</color>
+
+    <color name="red_100">#FF8795</color>
 </resources>
