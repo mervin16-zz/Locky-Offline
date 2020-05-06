@@ -1,25 +1,18 @@
 package com.th3pl4gu3.locky.ui.main.view.card
 
+import android.app.Application
 import android.view.View
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.R
+import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.repository.database.CardDao
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_ADDITIONAL_COMMENTS
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_BANK
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_CARD_HOLDER
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_EXPIRY
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_ISSUED
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_NAME
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_CARD_PIN
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_PASSWORD_HIDDEN
 import com.th3pl4gu3.locky.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ViewCardViewModel : ViewModel() {
+class ViewCardViewModel(application: Application) : AndroidViewModel(application) {
 
     internal fun delete(key: String) {
         viewModelScope.launch {
@@ -37,52 +30,54 @@ class ViewCardViewModel : ViewModel() {
         ArrayList<CredentialsField>().apply {
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_NAME,
-                    if (card.name.isEmpty()) PLACEHOLDER_DATA_NONE else card.name,
+                    getString(R.string.field_card_name),
+                    if (card.entryName.isEmpty()) getString(R.string.field_placeholder_empty) else card.entryName,
                     isCopyable = View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_BANK,
-                    if (card.bank.isEmpty()) PLACEHOLDER_DATA_NONE else card.bank,
+                    getString(R.string.field_card_bank),
+                    if (card.bank.isEmpty()) getString(R.string.field_placeholder_empty) else card.bank,
                     isCopyable = View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_PIN,
-                    PLACEHOLDER_DATA_PASSWORD_HIDDEN,
+                    getString(R.string.field_card_pin),
+                    getString(R.string.field_placeholder_hidden),
                     View.VISIBLE,
                     View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_CARD_HOLDER,
+                    getString(R.string.field_card_holder),
                     card.cardHolderName,
                     View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_ISSUED,
+                    getString(R.string.field_card_date_issued),
                     card.issuedDate,
                     isCopyable = View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_EXPIRY,
+                    getString(R.string.field_card_date_expiry),
                     card.expiryDate,
                     isCopyable = View.VISIBLE
                 )
             )
             add(
                 CredentialsField(
-                    LABEL_TEXTBOX_CARD_ADDITIONAL_COMMENTS,
-                    if (card.additionalInfo.isNullOrEmpty()) PLACEHOLDER_DATA_NONE else card.additionalInfo!!
+                    getString(R.string.field_card_additional),
+                    if (card.cardMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else card.cardMoreInfo!!
                 )
             )
         }
+
+    private fun getString(res: Int) = getApplication<Application>().getString(res)
 }

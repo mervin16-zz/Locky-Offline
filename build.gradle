@@ -13,6 +13,7 @@ buildscript {
     ext.version_gradle = '3.6.3'
     ext.version_material_design = "1.2.0-alpha05"
     ext.version_navigation = "2.3.0-alpha05"
+    ext.version_security = "1.0.0-rc01"
     //Testing
     ext.version_junit = "5.6.0"
     ext.version_junit_ext = "1.1.1"

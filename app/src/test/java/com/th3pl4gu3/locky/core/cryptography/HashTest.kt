@@ -1,6 +1,6 @@
-package com.th3pl4gu3.locky.core.security
+package com.th3pl4gu3.locky.core.cryptography
 
-import com.th3pl4gu3.locky.core.security.Constants.Companion.EXCEPTION_HASH_NOT_VALID
+import com.th3pl4gu3.locky.core.Constants.Companion.EXCEPTION_HASH_NOT_VALID
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

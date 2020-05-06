@@ -8,8 +8,8 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.main.Account
+import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.repository.LoadingStatus
 
 
@@ -17,7 +17,7 @@ import com.th3pl4gu3.locky.repository.LoadingStatus
 
 /********************************* Card Binding Adapters****************************************/
 @BindingAdapter("cardNumber")
-fun TextView.setCardNumber(number: Long) {
+fun TextView.setCardNumber(number: String) {
     text = number.toCreditCardFormat()
 }
 
@@ -27,7 +27,7 @@ fun TextView.setCardDate(issued: String, expiry: String) {
 }
 
 @BindingAdapter("cardLogo")
-fun ImageView.setCardLogo(number: Long) {
+fun ImageView.setCardLogo(number: String) {
     setBackgroundResource(
         when (number.getCardType()) {
             Card.CardType.VISA -> R.drawable.image_card_vs

@@ -11,21 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.User
-import com.th3pl4gu3.locky.core.exceptions.UserException
-import com.th3pl4gu3.locky.core.tuning.CardSort
+import com.th3pl4gu3.locky.core.main.Card
+import com.th3pl4gu3.locky.core.main.CardSort
 import com.th3pl4gu3.locky.databinding.FragmentCardBinding
-import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
 
 class CardFragment : Fragment() {
 
     private var _binding: FragmentCardBinding? = null
-    private lateinit var _viewModel: CardViewModel
+    private var _viewModel: CardViewModel? = null
     private var _lastClickTime: Long = 0
+
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,71 +34,25 @@ class CardFragment : Fragment() {
         _binding = FragmentCardBinding.inflate(inflater, container, false)
         // Fetch view model
         _viewModel = ViewModelProvider(this).get(CardViewModel::class.java)
+        //Bind view model to layout
+        binding.viewModel = _viewModel
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
-        //Observe data when to show snack bar for "Show Pin"
-        with(_viewModel) {
-
-            //set loading flag to show loading progress bar
-            setLoading(LoadingStatus.LOADING)
-
-            //Observe snack bar event for any trigger
-            showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    binding.LayoutFragmentCard.snackbar(it) {
-                        action(getString(R.string.button_snack_action_close)) { dismiss() }
-                    }
-                    doneShowingSnackBar()
-                }
-            })
-
-            //Observe loading status for any trigger for the progress bar
-            loadingStatus.observe(viewLifecycleOwner, Observer {
-                when (it) {
-                    LoadingStatus.LOADING -> {
-                        progressBarVisibility(View.VISIBLE)
-                    }
-                    LoadingStatus.DONE, LoadingStatus.ERROR -> {
-                        progressBarVisibility(View.GONE)
-                    }
-                    else -> {
-                        progressBarVisibility(View.GONE)
-                    }
-                }
-            })
-
-            //Observe cards list being updated
-            cards.observe(viewLifecycleOwner, Observer { cards ->
-                if (cards != null) {
-                    //set loading flag to hide progress bar
-                    setLoading(LoadingStatus.DONE)
-
-                    cardListVisibility(cards.filter { it.user == getUser() })
-                }
-            })
-
-            val navBackStackEntry = findNavController().currentBackStackEntry!!
-            navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (
-                    event == Lifecycle.Event.ON_RESUME &&
-                    navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
-                ) {
-                    val sort = navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!
-
-                    if (sort.hasChanges()) {
-                        //Store sort to local storage
-                        LocalStorageManager.with(requireActivity().application)
-                        LocalStorageManager.put(KEY_CARDS_SORT, sort)
-                        _viewModel.refreshSort(sort)
-                    }
-
-                    navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_SORT)
-                }
-            })
-        }
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Observe snack bar event for any trigger
+        observeSnackBarEvent()
+
+        //Observe cards list being updated
+        observeCardsEvent()
+
+        //Observe sort & filter changes
+        observeBackStackEntryForFilterSheet()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,10 +68,7 @@ class CardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
-                    _lastClickTime = SystemClock.elapsedRealtime()
-                    findNavController().navigate(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
-                }
+                navigateToFilterSheet()
                 true
             }
             else -> false
@@ -130,29 +80,56 @@ class CardFragment : Fragment() {
         _binding = null
     }
 
-    private fun progressBarVisibility(visibility: Int) {
-        binding.ProgressBar.visibility = visibility
+    private fun observeSnackBarEvent() {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                snackBarAction(it)
+            }
+        })
     }
 
-    private fun cardListVisibility(cards: List<Card>) {
-        if (cards.isEmpty()) {
-            binding.EmptyView.visibility = View.VISIBLE
-            binding.RecyclerViewCard.visibility = View.GONE
-        } else {
-            binding.EmptyView.visibility = View.GONE
-            binding.RecyclerViewCard.visibility = View.VISIBLE
-            initiateCardList().submitList(cards)
+    private fun observeCardsEvent() {
+        with(viewModel) {
+            cards.observe(viewLifecycleOwner, Observer { cards ->
+                if (cards != null) {
+                    //set loading flag to hide progress bar
+                    doneLoading()
+
+                    //Alternate visibility for account list and empty view
+                    alternateCardListVisibility(cards.size)
+
+                    //Submit the cards
+                    initiateCardList().submitList(cards)
+                }
+            })
         }
+    }
+
+    private fun observeBackStackEntryForFilterSheet() {
+        val navBackStackEntry = findNavController().currentBackStackEntry!!
+        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (
+                event == Lifecycle.Event.ON_RESUME &&
+                navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
+            ) {
+                val sort = navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!
+
+                if (sort.hasChanges()) {
+                    //Store sort to local storage
+                    LocalStorageManager.with(requireActivity().application)
+                    LocalStorageManager.put(KEY_CARDS_SORT, sort)
+                    viewModel.refreshSort(sort)
+                }
+
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_SORT)
+            }
+        })
     }
 
     private fun initiateCardList(): CardAdapter {
         val cardAdapter = CardAdapter(
             CardClickListener {
-                findNavController().navigate(
-                    CardFragmentDirections.actionFragmentCardToFragmentViewCard(
-                        it
-                    )
-                )
+                navigateToSelectedCard(it)
             },
             CardOptionsClickListener { view, card ->
                 //Prevents double click and creating a double instance
@@ -170,6 +147,21 @@ class CardFragment : Fragment() {
         return cardAdapter
     }
 
+    private fun navigateToFilterSheet() {
+        if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
+            _lastClickTime = SystemClock.elapsedRealtime()
+            findNavController().navigate(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
+        }
+    }
+
+    private fun navigateToSelectedCard(card: Card) {
+        findNavController().navigate(
+            CardFragmentDirections.actionFragmentCardToFragmentViewCard(
+                card
+            )
+        )
+    }
+
     private fun createPopupMenu(view: View, card: Card) {
         requireContext().createPopUpMenu(
             view,
@@ -178,10 +170,7 @@ class CardFragment : Fragment() {
                 when (it.itemId) {
                     R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
                     R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin.toString())
-                    R.id.Menu_ShowPin -> {
-                        _viewModel.setSnackBarMessage(card.pin.toString())
-                        true
-                    }
+                    R.id.Menu_ShowPin -> triggerSnackBarAction(card.pin.toString())
                     else -> false
                 }
             }, PopupMenu.OnDismissListener {
@@ -191,10 +180,16 @@ class CardFragment : Fragment() {
             })
     }
 
-    private fun getUser(): String {
-        LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
-            ?: throw UserException(getString(R.string.error_internal_code_6))
+    private fun snackBarAction(message: String) {
+        binding.LayoutFragmentCard.snackbar(message) {
+            action(getString(R.string.button_snack_action_close)) { dismiss() }
+        }
+        viewModel.doneShowingSnackBar()
+    }
+
+    private fun triggerSnackBarAction(message: String): Boolean {
+        viewModel.setSnackBarMessage(message)
+        return true
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

@@ -4,23 +4,47 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.getValue
-import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.tuning.AccountSort
+import com.th3pl4gu3.locky.core.main.Account
+import com.th3pl4gu3.locky.core.main.AccountSort
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.repository.database.AccountDao
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import java.util.*
 import kotlin.collections.ArrayList
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
+    /**
+     * Live Data Variables
+     **/
     private var _showSnackbarEvent = MutableLiveData<String>()
     private var _loadingStatus = MutableLiveData<LoadingStatus>()
-
     private val _accountSnapShotList = AccountDao().getAll()
     private var _currentAccountsExposed = MediatorLiveData<List<Account>>()
+    private var _sort = MutableLiveData<AccountSort>()
+    private var _accountListVisibility = MutableLiveData(false)
+    private var _accountEmptyViewVisibility = MutableLiveData(false)
 
+    /**
+     * Init Clause
+     **/
+    init {
+        //Set the loading status
+        _loadingStatus.value = LoadingStatus.LOADING
+
+        //Load the accounts for the first time
+        loadAccounts()
+
+        //Set the default value for account sort
+        _sort.value = checkSorting()
+    }
+
+    /**
+     * Live Data Transformations
+     **/
     private val sortedByEmail = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
             account.email.toLowerCase(
@@ -28,6 +52,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
             )
         }
     }
+
     private val sortedByWebsite = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
             account.website?.toLowerCase(
@@ -43,13 +68,18 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private var _sort = MutableLiveData<AccountSort>()
-
-    init {
-        //Load the accounts for the first time
-        loadAccounts()
-        //Set the default value for account sort
-        _sort.value = checkSorting()
+    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
+        when (it) {
+            LoadingStatus.LOADING -> {
+                true
+            }
+            LoadingStatus.DONE, LoadingStatus.ERROR -> {
+                false
+            }
+            else -> {
+                false
+            }
+        }
     }
 
     val accounts = Transformations.switchMap(_sort) {
@@ -61,11 +91,36 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    /**
+     * Properties
+     **/
     val showSnackBarEvent: LiveData<String>
         get() = _showSnackbarEvent
 
-    val loadingStatus: LiveData<LoadingStatus>
-        get() = _loadingStatus
+    val accountListVisibility: LiveData<Boolean>
+        get() = _accountListVisibility
+
+    val accountEmptyViewVisibility: LiveData<Boolean>
+        get() = _accountEmptyViewVisibility
+
+    /**
+     * Functions
+     **/
+    internal fun alternateAccountListVisibility(accountListSize: Int) {
+        /**
+         * Alternate visibility for account list
+         * and empty view for accounts
+         */
+        if (accountListSize > 0) {
+            _accountListVisibility.value = true
+            _accountEmptyViewVisibility.value = false
+
+            return
+        }
+
+        _accountListVisibility.value = false
+        _accountEmptyViewVisibility.value = true
+    }
 
     internal fun setSnackBarMessage(message: String) {
         _showSnackbarEvent.value = message
@@ -75,12 +130,12 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         _showSnackbarEvent.value = null
     }
 
-    internal fun setLoading(status: LoadingStatus) {
-        _loadingStatus.value = status
-    }
-
     internal fun refresh(sort: AccountSort) {
         _sort.value = sort
+    }
+
+    internal fun doneLoading() {
+        _loadingStatus.value = LoadingStatus.DONE
     }
 
     private fun loadAccounts() {
@@ -100,10 +155,17 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         if (snapshot != null) {
             val accountList = ArrayList<Account>()
             snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Account>()?.let { accountList.add(it) }
+                postSnapshot.getValue<Account>()
+                    ?.let { if (it.userID == getUserID()) accountList.add(it) }
             }
             accountList
         } else {
             ArrayList()
         }
+
+    private fun getUserID(): String {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id
+            ?: TODO("LiveData to catch errors implementation here.")
+    }
 }

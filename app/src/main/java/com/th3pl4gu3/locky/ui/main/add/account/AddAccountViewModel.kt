@@ -1,133 +1,177 @@
 package com.th3pl4gu3.locky.ui.main.add.account
 
+import android.app.Application
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.Validation
+import com.th3pl4gu3.locky.BR
 import com.th3pl4gu3.locky.core.exceptions.FormException
+import com.th3pl4gu3.locky.core.main.Account
+import com.th3pl4gu3.locky.core.main.User
+import com.th3pl4gu3.locky.core.main.Validation
 import com.th3pl4gu3.locky.repository.database.AccountDao
+import com.th3pl4gu3.locky.ui.main.utils.Constants
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky.ui.main.utils.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddAccountViewModel : ViewModel() {
+class AddAccountViewModel(application: Application) : ObservableViewModel(application) {
 
-
+    /**
+     * Variables
+     **/
     private lateinit var _account: Account
     private var _toastEvent = MutableLiveData<String>()
-
-    //Form Validation variables
-    private val _isFormValid = MutableLiveData(false)
-    private val _name = MutableLiveData<String>()
+    private val _formValidity = MutableLiveData<String>()
     private val _nameErrorMessage = MutableLiveData<String>()
-    private val _username = MutableLiveData<String>()
     private val _usernameErrorMessage = MutableLiveData<String>()
-    private val _email = MutableLiveData<String>()
     private val _emailErrorMessage = MutableLiveData<String>()
-    private val _password = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
-    private val _logoUrl = MutableLiveData<String>()
-    private val _website = MutableLiveData<String>()
-    private val _2faEnabled = MutableLiveData<String>()
-    private val _2faKeys = MutableLiveData<String>()
-    private val _additionalInfo = MutableLiveData<String>()
-
     private var isEmptyAccount = true
 
-    //Validation Properties
-    val isFormValid: LiveData<Boolean>
-        get() = _isFormValid
+    /**
+     * Bindable two-way binding
+     **/
+    var accountName: String
+        @Bindable get() {
+            return _account.accountName
+        }
+        set(value) {
+            _account.accountName = value
+            notifyPropertyChanged(BR.accountName)
+        }
 
-    val name: LiveData<String>
-        get() = _name
+    var username: String
+        @Bindable get() {
+            return _account.username
+        }
+        set(value) {
+            _account.username = value
+            notifyPropertyChanged(BR.username)
+        }
+
+    var email: String
+        @Bindable get() {
+            return _account.email
+        }
+        set(value) {
+            _account.email = value
+            notifyPropertyChanged(BR.email)
+        }
+
+    var password: String
+        @Bindable get() {
+            return _account.password
+        }
+        set(value) {
+            _account.password = value
+            notifyPropertyChanged(BR.password)
+        }
+
+    var website: String?
+        @Bindable get() {
+            return _account.website
+        }
+        set(value) {
+            _account.website = value
+            notifyPropertyChanged(BR.website)
+        }
+
+    var twoFa: String?
+        @Bindable get() {
+            return _account.twoFA
+        }
+        set(value) {
+            _account.twoFA = value
+            notifyPropertyChanged(BR.twoFa)
+        }
+
+    var twoFaKeys: String?
+        @Bindable get() {
+            return _account.twoFASecretKeys
+        }
+        set(value) {
+            _account.twoFASecretKeys = value
+            notifyPropertyChanged(BR.twoFaKeys)
+        }
+
+    var accountMoreInfo: String?
+        @Bindable get() {
+            return _account.accountMoreInfo
+        }
+        set(value) {
+            _account.accountMoreInfo = value
+            notifyPropertyChanged(BR.accountMoreInfo)
+        }
+
+    var logoUrl: String
+        @Bindable get() {
+            return _account.logoUrl
+        }
+        set(value) {
+            _account.logoUrl = value
+            notifyPropertyChanged(BR.logoUrl)
+        }
+
+    /**
+     * Properties
+     **/
+    val formValidity: LiveData<String>
+        get() = _formValidity
 
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
 
-    val username: LiveData<String>
-        get() = _username
-
     val usernameErrorMessage: LiveData<String>
         get() = _usernameErrorMessage
-
-    val email: LiveData<String>
-        get() = _email
 
     val emailErrorMessage: LiveData<String>
         get() = _emailErrorMessage
 
-    val password: LiveData<String>
-        get() = _password
-
     val passwordErrorMessage: LiveData<String>
         get() = _passwordErrorMessage
 
-    val logoUrl: LiveData<String>
-        get() = _logoUrl
-
-    val website: LiveData<String>
-        get() = _website
-
-    val twoFaEnabled: LiveData<String>
-        get() = _2faEnabled
-
-    val twoFaKeys: LiveData<String>
-        get() = _2faKeys
-
-    val additionalInfo: LiveData<String>
-        get() = _additionalInfo
-
-
-    //Other Properties
     val toastEvent: LiveData<String>
         get() = _toastEvent
 
-
-    fun doneWithToastEvent(){
-        _toastEvent.value = null
-    }
-
-    fun setAccount(account: Account){
-
-        /** Check if data comes from edit screen
-         *  or data is empty because it comes form add screen
-         *  To do that, test if the id is empty or not **/
-        isEmptyAccount = account.id.isEmpty()
-
-        this._account = account.also {
-            _name.value = it.name
-            _username.value = it.username
-            _email.value = it.email
-            _password.value = it.password
-            _logoUrl.value = it.logoUrl
-            _website.value = it.website
-            _2faEnabled.value = it.twoFA
-            _2faKeys.value = it.twoFASecretKeys
-            _additionalInfo.value = it.additionalInfo
-        }
-    }
-
-    fun isFormValid(account: Account) {
+    /**
+     * Functions
+     **/
+    fun save() {
         viewModelScope.launch {
-            val validation = Validation(account)
-            try {
-                validation.validateAccountForm()
-                insertAccountInDatabase(account)
-                _isFormValid.value = true
-            } catch (ex: FormException) {
-                assignErrorMessages(validation.errorList)
-            } catch (ex: Exception) {
-                _toastEvent.value = "Error code 2: ${ex.message}"
+            _account.apply {
+                this.userID = getUserID()
+
+                val validation = Validation(this)
+                try {
+                    validation.validateAccountForm()
+                    insertAccountInDatabase(this)
+                    _formValidity.value = accountName
+                } catch (ex: FormException) {
+                    assignErrorMessages(validation.errorList)
+                } catch (ex: Exception) {
+                    _toastEvent.value = "Error code 2: ${ex.message}"
+                }
             }
         }
     }
 
-    fun setAccountLogo(logoUrl: String) {
-        _logoUrl.value = logoUrl
+    internal fun setAccount(account: Account?) {
+
+        /** Check if data comes from edit screen
+         *  or data is empty because it comes form add screen
+         *  To do that, test if it is null or not **/
+        isEmptyAccount = account == null
+
+        this._account = account ?: Account()
     }
 
+    internal fun doneWithToastEvent() {
+        _toastEvent.value = null
+    }
 
     private suspend fun insertAccountInDatabase(account: Account) {
         withContext(Dispatchers.IO) {
@@ -156,5 +200,11 @@ class AddAccountViewModel : ViewModel() {
             if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
         _passwordErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
+    }
+
+    private fun getUserID(): String {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.id!!
+        //?: throw UserException(getString(R.string.error_internal_code_6))
     }
 }

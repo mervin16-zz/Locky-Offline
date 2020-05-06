@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_view_card">
         <argument
             android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.Card" />
+            app:argType="com.th3pl4gu3.locky.core.main.Card" />
         <action
             android:id="@+id/action_Fragment_View_Card_to_addCardFragment"
             app:destination="@id/Fragment_Add_Card"
@@ -94,7 +94,7 @@
         tools:layout="@layout/fragment_view_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky.core.Account" />
+            app:argType="com.th3pl4gu3.locky.core.main.Account" />
         <action
             android:id="@+id/action_Fragment_View_Account_to_Fragment_Add_Account"
             app:destination="@id/Fragment_Add_Account"
@@ -111,7 +111,7 @@
         tools:layout="@layout/fragment_add_card">
         <argument
             android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.Card"
+            app:argType="com.th3pl4gu3.locky.core.main.Card"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -128,7 +128,7 @@
         tools:layout="@layout/fragment_add_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky.core.Account"
+            app:argType="com.th3pl4gu3.locky.core.main.Account"
             app:nullable="true"
             android:defaultValue="@null" />
         <action

@@ -4,8 +4,9 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.getValue
-import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.tuning.CardSort
+import com.th3pl4gu3.locky.core.main.Card
+import com.th3pl4gu3.locky.core.main.CardSort
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.repository.database.CardDao
 import com.th3pl4gu3.locky.ui.main.utils.Constants
@@ -16,12 +17,32 @@ import kotlin.collections.ArrayList
 
 class CardViewModel(application: Application) : AndroidViewModel(application) {
 
+    /**
+     * Live Data Variables
+     **/
     private val _showSnackbarEvent = MutableLiveData<String>()
     private val _loadingStatus = MutableLiveData<LoadingStatus>()
-
     private val _cardSnapShotList = CardDao().getAll()
     private var _currentCardsExposed = MediatorLiveData<List<Card>>()
+    private var _sort = MutableLiveData<CardSort>()
+    private var _cardListVisibility = MutableLiveData(false)
+    private var _cardEmptyViewVisibility = MutableLiveData(false)
 
+    /**
+     * Init Clause
+     **/
+    init {
+        //Set the loading status
+        _loadingStatus.value = LoadingStatus.LOADING
+        //Load the cards for the first time
+        loadCards()
+        //Set the default value for card sort
+        _sort.value = checkSorting()
+    }
+
+    /**
+     * Live Data Transformations
+     **/
     private val sortedByName = Transformations.map(_currentCardsExposed) {
         it.sortedBy { card ->
             card.name.toLowerCase(
@@ -48,15 +69,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private var _sort = MutableLiveData<CardSort>()
-
-    init {
-        //Load the cards for the first time
-        loadCards()
-        //Set the default value for card sort
-        _sort.value = checkSorting()
-    }
-
     val cards = Transformations.switchMap(_sort) {
         when (true) {
             it.sortByName -> sortedByName
@@ -67,24 +79,62 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
+        when (it) {
+            LoadingStatus.LOADING -> {
+                true
+            }
+            LoadingStatus.DONE, LoadingStatus.ERROR -> {
+                false
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    /**
+     * Properties
+     **/
     val showSnackBarEvent: LiveData<String>
         get() = _showSnackbarEvent
 
-    val loadingStatus: LiveData<LoadingStatus>
-        get() = _loadingStatus
+    val cardListVisibility: LiveData<Boolean>
+        get() = _cardListVisibility
+
+    val cardEmptyViewVisibility: LiveData<Boolean>
+        get() = _cardEmptyViewVisibility
+
+    /**
+     * Functions
+     **/
+    internal fun alternateCardListVisibility(accountListSize: Int) {
+        /**
+         * Alternate visibility for card list
+         * and empty view for cards
+         */
+        if (accountListSize > 0) {
+            _cardListVisibility.value = true
+            _cardEmptyViewVisibility.value = false
+
+            return
+        }
+
+        _cardListVisibility.value = false
+        _cardEmptyViewVisibility.value = true
+    }
 
     internal fun setSnackBarMessage(message: String) {
         _showSnackbarEvent.value = message
     }
 
+    internal fun doneLoading() {
+        _loadingStatus.value = LoadingStatus.DONE
+    }
+
     internal fun doneShowingSnackBar() {
         _showSnackbarEvent.value = null
     }
-
-    internal fun setLoading(status: LoadingStatus) {
-        _loadingStatus.value = status
-    }
-
 
     internal fun refreshSort(sort: CardSort) {
         _sort.value = sort
@@ -107,10 +157,17 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         if (snapshot != null) {
             val cardList = ArrayList<Card>()
             snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Card>()?.let { cardList.add(it) }
+                postSnapshot.getValue<Card>()
+                    ?.let { if (it.userID == getUserID()) cardList.add(it) }
             }
             cardList
         } else {
             ArrayList()
         }
+
+    private fun getUserID(): String {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.id
+            ?: TODO("LiveData to catch errors implementation here.")
+    }
 }

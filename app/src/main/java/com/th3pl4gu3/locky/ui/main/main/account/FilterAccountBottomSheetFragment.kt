@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky.core.tuning.AccountSort
+import com.th3pl4gu3.locky.core.main.AccountSort
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetAccountFilterBinding
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager

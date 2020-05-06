@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="ViewModel"
             type="com.th3pl4gu3.locky.ui.main.add.account.LogoBottomSheetViewModel" />
@@ -48,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:visibility="gone"
+            android:visibility="@{ViewModel.emptyViewVisibility ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@+id/Button_Cancel"
             app:layout_constraintStart_toStartOf="@+id/Textfield_Search"
@@ -62,6 +64,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
             android:orientation="vertical"
+            android:visibility="@{ViewModel.emptyViewVisibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
-                android:text="@string/text_title_emptyView_logo_search" />
+                android:text="@{ViewModel.logoTitle}" />
 
             <TextView
                 style="@style/Locky.Text.Subtitle"

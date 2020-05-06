@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.core.security
+package com.th3pl4gu3.locky.core
 
 class Constants {
     companion object {
@@ -18,8 +18,11 @@ class Constants {
         /*
             ****    Error Messages | Exceptions    ****
          */
-        const val EXCEPTION_HASH_NOT_VALID = "Hash is not valid."
+        const val EXCEPTION_HASH_NOT_VALID = "Hash is not valid"
         const val EXCEPTION_HASH_DIGEST = "Couldn't make digest of partial content"
-        const val EXCEPTION_GENERAL = "An error occurred in the system. Please try again later."
+        const val EXCEPTION_GENERAL = "An error occurred in the system. Please try again later"
+        const val EXCEPTION_FORM = "There are field errors"
+        const val ERROR_MESSAGE_FIELD_CANNOT_BE_EMPTY = "This field cannot be empty"
+        const val ERROR_MESSAGE_EMAIL_FORMAT = "Please enter a valid email format"
     }
 }

@@ -8,7 +8,7 @@
 
         <variable
             name="Card"
-            type="com.th3pl4gu3.locky.core.Card" />
+            type="com.th3pl4gu3.locky.core.main.Card" />
 
         <variable
             name="ClickListener"
@@ -72,7 +72,7 @@
             style="@style/Locky.Text.Subtitle.List"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Card.name}"
+            android:text="@{Card.entryName}"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintStart_toStartOf="@+id/Card_Number"
             app:layout_constraintTop_toBottomOf="@+id/Card_Date"

@@ -1,68 +1,120 @@
 package com.th3pl4gu3.locky.ui.main.add.card
 
+import android.app.Application
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.Validation
+import com.th3pl4gu3.locky.BR
+import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.exceptions.FormException
+import com.th3pl4gu3.locky.core.main.Card
+import com.th3pl4gu3.locky.core.main.User
+import com.th3pl4gu3.locky.core.main.Validation
 import com.th3pl4gu3.locky.repository.database.CardDao
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky.ui.main.utils.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class AddCardViewModel : ViewModel() {
+class AddCardViewModel(application: Application) : ObservableViewModel(application) {
 
-    private lateinit var _card: Card
+    /**
+     * Variables
+     **/
     private var _toastEvent = MutableLiveData<String>()
-
-    //Form Validation variables
-    private val _isFormValid = MutableLiveData(false)
-    private val _name = MutableLiveData<String>()
+    private val _formValidity = MutableLiveData<String>()
     private val _nameErrorMessage = MutableLiveData<String>()
-    private val _number = MutableLiveData<Long>()
     private val _numberErrorMessage = MutableLiveData<String>()
-    private val _pin = MutableLiveData<Int>()
     private val _pinErrorMessage = MutableLiveData<String>()
-    private val _bank = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
-    private val _cardHolder = MutableLiveData<String>()
     private val _cardHolderErrorMessage = MutableLiveData<String>()
-    private val _issuedDate = MutableLiveData<String>()
-    private val _expiryDate = MutableLiveData<String>()
-    private val _additionalInformation = MutableLiveData<String>()
-
     private var isEmptyCard = true
+    private var _card = Card()
 
-    //Validation Properties
-    val isFormValid: LiveData<Boolean>
-        get() = _isFormValid
+    /**
+     * Bindable two-way binding
+     **/
+    var entryName: String
+        @Bindable get() {
+            return _card.entryName
+        }
+        set(value) {
+            _card.entryName = value
+            notifyPropertyChanged(BR.entryName)
+        }
 
-    val name: LiveData<String>
-        get() = _name
+    var cardNumber: String
+        @Bindable get() {
+            return _card.number
+        }
+        set(value) {
+            _card.number = value
+            notifyPropertyChanged(BR.cardNumber)
+        }
 
-    val number: LiveData<Long>
-        get() = _number
+    var pin: String
+        @Bindable get() {
+            return _card.pin
+        }
+        set(value) {
+            _card.pin = value
+            notifyPropertyChanged(BR.pin)
+        }
 
-    val pin: LiveData<Int>
-        get() = _pin
+    var bank: String
+        @Bindable get() {
+            return _card.bank
+        }
+        set(value) {
+            _card.bank = value
+            notifyPropertyChanged(BR.bank)
+        }
 
-    val bank: LiveData<String>
-        get() = _bank
+    var cardHolderName: String
+        @Bindable get() {
+            return _card.cardHolderName
+        }
+        set(value) {
+            _card.cardHolderName = value
+            notifyPropertyChanged(BR.cardHolderName)
+        }
 
-    val cardHolder: LiveData<String>
-        get() = _cardHolder
+    var issuedDate: String
+        @Bindable get() {
+            return _card.issuedDate
+        }
+        set(value) {
+            _card.issuedDate = value
+            notifyPropertyChanged(BR.issuedDate)
+        }
 
-    val issuedDate: LiveData<String>
-        get() = _issuedDate
+    var expiryDate: String
+        @Bindable get() {
+            return _card.expiryDate
+        }
+        set(value) {
+            _card.expiryDate = value
+            notifyPropertyChanged(BR.expiryDate)
+        }
 
-    val expiryDate: LiveData<String>
-        get() = _expiryDate
+    var moreInfo: String?
+        @Bindable get() {
+            return _card.cardMoreInfo
+        }
+        set(value) {
+            _card.cardMoreInfo = value
+            notifyPropertyChanged(BR.moreInfo)
+        }
 
-    val additionalInformation: LiveData<String>
-        get() = _additionalInformation
+    /**
+     * Properties
+     **/
+    val formValidity: LiveData<String>
+        get() = _formValidity
 
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
@@ -79,47 +131,64 @@ class AddCardViewModel : ViewModel() {
     val cardHolderErrorMessage: LiveData<String>
         get() = _cardHolderErrorMessage
 
-
-    //Other Properties
     val toastEvent: LiveData<String>
         get() = _toastEvent
+
+
+    /**
+     * Functions
+     **/
+    fun save() {
+        viewModelScope.launch {
+            _card.apply {
+                userID = getUserID()
+
+                val validation = Validation(this)
+                try {
+                    validation.validateCardForm()
+                    insertCardInDatabase(this)
+                    _formValidity.value = entryName
+                } catch (ex: FormException) {
+                    assignErrorMessages(validation.errorList)
+                } catch (ex: Exception) {
+                    _toastEvent.value = "Error code 3: ${ex.message}"
+                }
+            }
+
+        }
+    }
 
     internal fun doneWithToastEvent() {
         _toastEvent.value = null
     }
 
-    internal fun setCard(card: Card) {
+    internal fun setCard(card: Card?) {
 
         /** Check if data comes from edit screen
          *  or data is empty because it comes form add screen
-         *  To do that, test if the id is empty or not **/
-        isEmptyCard = card.id.isEmpty()
+         *  To do that, test if card is null
+         **/
+        isEmptyCard = card == null
 
-        this._card = card.also {
-            _name.value = it.name
-            _number.value = it.number
-            _pin.value = it.pin
-            _bank.value = it.bank
-            _cardHolder.value = it.cardHolderName
-            _issuedDate.value = it.issuedDate
-            _expiryDate.value = it.expiryDate
-            _additionalInformation.value = it.additionalInfo
-        }
+        this._card = card ?: Card()
     }
 
-    internal fun isFormValid(card: Card) {
-        viewModelScope.launch {
-            val validation = Validation(card)
-            try {
-                validation.validateCardForm()
-                insertCardInDatabase(card)
-                _isFormValid.value = true
-            } catch (ex: FormException) {
-                assignErrorMessages(validation.errorList)
-            } catch (ex: Exception) {
-                _toastEvent.value = "Error code 3: ${ex.message}"
-            }
-        }
+    internal fun updateIssuedDateText(month: Int, year: Int) {
+        issuedDate = getApplication<Application>().getString(
+            R.string.field_card_date_formatter,
+            (month + 1).toString(),
+            year.toString()
+        )
+    }
+
+
+    internal fun updateExpiryDateText(month: Int, year: Int) {
+        expiryDate =
+            getApplication<Application>().getString(
+                R.string.field_card_date_formatter,
+                (month + 1).toString(),
+                year.toString()
+            )
     }
 
     private suspend fun insertCardInDatabase(card: Card) {
@@ -152,4 +221,11 @@ class AddCardViewModel : ViewModel() {
         _cardHolderErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.CARD_HOLDER)) errorList[Validation.ErrorField.CARD_HOLDER] else null
     }
+
+
+    private fun getUserID(): String {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
+    }
+
 }

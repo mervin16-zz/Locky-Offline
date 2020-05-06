@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky.core
+package com.th3pl4gu3.locky.core.main
 
 import android.os.Parcelable
 import com.google.firebase.auth.FirebaseAuth
@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class User(
-    var id: String = "",
+data class User constructor(
+    private val _id: String = "",
     private val _name: String = "",
     private val _photoUrl: String = "",
     var email: String = "",
@@ -19,6 +19,9 @@ data class User(
 
     enum class AccountType { TRIAL, NORMAL, SUPER }
 
+    val id: String
+        @Exclude get() = _id
+
     val name: String
         @Exclude get() = _name
 
@@ -27,13 +30,15 @@ data class User(
 
     companion object {
         private const val TAG = "USER_CLASS_TEST"
-        fun getInstance() = getUser()
+        fun getInstance() =
+            getUser()
 
         private fun getUser(): User {
             val user = FirebaseAuth.getInstance().currentUser
 
             return User(
-                _name = user?.displayName!!,
+                _id = user?.uid!!,
+                _name = user.displayName!!,
                 _photoUrl = user.photoUrl.toString(),
                 email = user.email!!
             )

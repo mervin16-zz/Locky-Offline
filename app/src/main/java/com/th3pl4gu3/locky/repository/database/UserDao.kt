@@ -6,7 +6,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.main.User
 
 class UserDao : IFirebaseRepository<User> {
 
@@ -14,7 +14,6 @@ class UserDao : IFirebaseRepository<User> {
     private val database = Firebase.database
 
     override fun save(obj: User): Task<Void> {
-        obj.id = database.getReference(REFERENCE_USER).push().key!!
         return database.getReference(REFERENCE_USER).child(obj.id).setValue(obj)
     }
 
@@ -29,6 +28,6 @@ class UserDao : IFirebaseRepository<User> {
     )
 
     override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(
-        query = database.getReference(REFERENCE_USER).orderByChild("email").equalTo(key)
+        query = database.getReference(REFERENCE_USER).equalTo(key)
     )
 }

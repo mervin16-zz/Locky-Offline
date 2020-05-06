@@ -4,7 +4,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.getValue
-import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.repository.database.FirebaseUserLiveData
 import com.th3pl4gu3.locky.repository.database.UserDao
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState

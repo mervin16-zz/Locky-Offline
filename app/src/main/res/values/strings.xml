@@ -64,6 +64,11 @@
     <string name="label_required">*Required Fields</string>
     <string name="label_optional">Optional Fields</string>
 
+    <string name="field_profile_name">Full name</string>
+    <string name="field_profile_email">Email</string>
+    <string name="field_profile_dj">Date joined</string>
+    <string name="field_profile_account_type">Account type</string>
+
     <string name="field_account_name">Name</string>
     <string name="field_account_username">Username</string>
     <string name="field_account_email">Email</string>
@@ -74,19 +79,22 @@
     <string name="field_account_additional">Additional Comments</string>
 
 
-    <string name="field_card_name">Name</string>
+    <string name="field_card_name">Entry Name</string>
     <string name="field_card_number">Number</string>
     <string name="field_card_type">Card Type</string>
     <string name="field_card_holder">Name on Card</string>
     <string name="field_card_bank">Bank</string>
     <string name="field_card_pin">Pin</string>
     <string name="field_card_date_issued">Date Issued</string>
-    <string name="field_card_date_expiry">Expiry Cate</string>
+    <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
 
     <string name="field_card_date_formatter">"%1$s"/"%2$s"</string>
 
     <string name="field_hint_search">Search</string>
+
+    <string name="field_placeholder_empty">None</string>
+    <string name="field_placeholder_hidden">******</string>
 
     <!--
         ****************** Messages ******************
@@ -95,16 +103,16 @@
     <string name="message_credentials_created">"%1$s" has been added successfully.</string>
     <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
     <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
+    <string name="message_loading_logo">Loading your logos…</string>
+    <string name="message_loading_logo_none">No logos found</string>
 
     <!--
         ****************** Error Messages ******************
     -->
-    <string name="error_internal_code_1">Error code 1: An internal error occurred. Please contact your IT support.</string>
+    <string name="error_internal_code_1">Error code 1: "%1$s"</string>
+    <string name="error_internal_code_2">Error code 2: "%1$s"</string>
+    <string name="error_internal_code_3">Error code 3: An error occurred while fetching your profile. Please contact support.</string>
     <string name="error_internal_code_4">Error code 4: "%1$s"</string>
-    <string name="error_internal_code_5">Error code 5: An internal error occurred: "%1$s"</string>
-    <string name="error_internal_code_6">Error code 6: An internal error occurred while fetching your user ID. Please contact your IT support.</string>
-    <string name="error_internal_code_7">Error code 7: An internal error occurred while fetching your user infor. Please contact your IT support.</string>
-    <string name="error_internal_code_8">Error code 8: An internal error occurred: "%1$s"</string>
 
     <!--
             ****************** Button Actions ******************

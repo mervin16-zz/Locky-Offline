@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky.core.tuning.CardSort
+import com.th3pl4gu3.locky.core.main.CardSort
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetCardFilterBinding
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager

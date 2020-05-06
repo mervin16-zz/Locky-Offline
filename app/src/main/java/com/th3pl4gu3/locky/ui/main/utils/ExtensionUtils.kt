@@ -12,7 +12,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_AMEX
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_DINNERSCLUB
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_DISCOVER
@@ -41,9 +41,9 @@ fun Window.activateAccentStatusBar() {
     this.statusBarColor = context.getColor(R.color.colorAccent)
 }
 
-fun Long.getCardType(): Card.CardType{
+fun String.getCardType(): Card.CardType {
 
-    val number = this.toString().replace(",", "")
+    val number = this.replace(",", "")
 
     return when {
         Regex(pattern = REGEX_CREDIT_CARD_VISA).containsMatchIn(number) -> {
@@ -70,8 +70,8 @@ fun Long.getCardType(): Card.CardType{
     }
 }
 
-fun Long.toCreditCardFormat(): String{
-    val number = this.toString().replace(",", "").trim()
+fun String.toCreditCardFormat(): String {
+    val number = this.replace(",", "").trim()
     val result = StringBuilder()
 
     number.indices.forEach { i ->

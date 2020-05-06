@@ -3,8 +3,6 @@ package com.th3pl4gu3.locky.ui.main.add.card
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,29 +11,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Card
-import com.th3pl4gu3.locky.core.User
-import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
-import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky.ui.main.utils.toast
 import java.util.*
 
 
 class AddCardFragment : Fragment() {
 
     private var _binding: FragmentAddCardBinding? = null
-    private lateinit var _viewModel: AddCardViewModel
-    private lateinit var _card: Card
+    private var _viewModel: AddCardViewModel? = null
 
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     private var _issuedDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
-        updateIssuedDateText(month, year)
+        viewModel.updateIssuedDateText(month, year)
     }
 
     private var _expiryDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
-        updateExpiryDateText(month, year)
+        viewModel.updateExpiryDateText(month, year)
     }
 
     override fun onCreateView(
@@ -47,25 +41,67 @@ class AddCardFragment : Fragment() {
         _viewModel = ViewModelProvider(this).get(AddCardViewModel::class.java)
 
         //Bind view model and lifecycle owner
-        binding.viewModel = _viewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        //Fetch account if exists
-        _card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard ?: Card()
+        //Fetch card if exists
+        viewModel.setCard(AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard)
 
-        with(_viewModel) {
+        return binding.root
+    }
 
-            setCard(_card)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            /** Other Observations**/
-            toastEvent.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    toast(it)
-                    doneWithToastEvent()
-                }
-            })
+        /**
+         * Date picker listeners
+         */
+        datePickerListeners()
 
-            /** Form Validation Observations**/
+        /**
+         * Form validity event
+         */
+        observeFormValidityEvent()
+
+        /**
+         * Form validation error messages events
+         */
+        observeFormValidationErrorMessagesEvents()
+
+        /**
+         * Observe toast event
+         */
+        observeToastEvent()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun datePickerListeners() {
+        with(binding) {
+            IssuedDate.setOnClickListener {
+                showDatePickerDialog(_issuedDate)
+            }
+
+            ExpiryDate.setOnClickListener {
+                showDatePickerDialog(_expiryDate)
+            }
+        }
+    }
+
+    private fun observeToastEvent() {
+        viewModel.toastEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                toast(it)
+                viewModel.doneWithToastEvent()
+            }
+        })
+    }
+
+    private fun observeFormValidationErrorMessagesEvents() {
+        with(viewModel) {
             nameErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.CardName.error = it
             })
@@ -85,115 +121,32 @@ class AddCardFragment : Fragment() {
             cardHolderErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.CardHolder.error = it
             })
-
-            isFormValid.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    toast(getString(R.string.message_credentials_created, _card.name))
-                    findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
-                }
-            })
         }
-
-        with(binding) {
-
-            ButtonSave.setOnClickListener {
-                try {
-                    _viewModel.isFormValid(
-                        _card.apply {
-                            user = getUser()
-                            name = binding.CardName.editText?.text.toString()
-                            number = binding.CardNumber.editText?.text.toString().toLong()
-                            pin = binding.CardPin.editText?.text.toString().toInt()
-                            bank = binding.CardBank.editText?.text.toString()
-                            cardHolderName = binding.CardHolder.editText?.text.toString()
-                            issuedDate =
-                                binding.CardIssuedDate.editText?.text.toString()
-                                    .toFormattedCalendarForCard().toFormattedStringForCard()
-                            expiryDate =
-                                binding.CardIssuedDate.editText?.text.toString()
-                                    .toFormattedCalendarForCard().toFormattedStringForCard()
-                            additionalInfo = binding.CardMoreInfo.editText?.text.toString()
-                        }
-                    )
-                } catch (e: UserException) {
-                    toast(e.message!!)
-                } catch (e: Exception) {
-                    toast(getString(R.string.error_internal_code_5, e.message!!))
-                }
-            }
-
-            IssuedDate.setOnClickListener {
-                val cal = Calendar.getInstance()
-                DatePickerDialog(
-                    requireContext(),
-                    _issuedDate,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.DAY_OF_MONTH),
-                    cal.get(Calendar.MONTH)
-                ).show()
-            }
-
-            ExpiryDate.setOnClickListener {
-                val cal = Calendar.getInstance()
-                DatePickerDialog(
-                    requireContext(),
-                    _expiryDate,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.DAY_OF_MONTH),
-                    cal.get(Calendar.MONTH)
-                ).show()
-            }
-
-            CardNumber.editText?.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {}
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (count > 0) {
-                        binding.CardLogo.setCardLogo(s.toString().toLong())
-                    }
-                }
-
-            })
-        }
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun observeFormValidityEvent() {
+        viewModel.formValidity.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                showToastAndNavigateToCardList(it)
+            }
+        })
     }
 
-    private fun getUser(): String {
-        LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.email ?: throw UserException(
-            getString(R.string.error_internal_code_6)
-        )
+    private fun showToastAndNavigateToCardList(toastMessage: String) {
+        toast(getString(R.string.message_credentials_created, toastMessage))
+        findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
     }
 
-    private fun updateIssuedDateText(month: Int, year: Int) = binding.IssuedDate.setText(
-        getString(
-            R.string.field_card_date_formatter,
-            (month + 1).toString(),
-            year.toString()
-        )
-    )
-
-    private fun updateExpiryDateText(month: Int, year: Int) = binding.ExpiryDate.setText(
-        getString(
-            R.string.field_card_date_formatter,
-            (month + 1).toString(),
-            year.toString()
-        )
-    )
+    private fun showDatePickerDialog(dateSetListener: OnDateSetListener) {
+        val cal = Calendar.getInstance()
+        DatePickerDialog(
+            requireContext(),
+            dateSetListener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.MONTH)
+        ).show()
+    }
 
     private fun toast(message: String) = requireContext().toast(message)
 }

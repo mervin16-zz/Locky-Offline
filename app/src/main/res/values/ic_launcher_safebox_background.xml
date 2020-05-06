@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_safebox_background">@color/colorAccentLight</color>
+    <drawable name="ic_launcher_safebox_background">@drawable/path_background_gradient</drawable>
 </resources>

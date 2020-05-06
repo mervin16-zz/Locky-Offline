@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.databinding.FragmentViewCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.action
 import com.th3pl4gu3.locky.ui.main.utils.copyToClipboard
@@ -19,23 +19,33 @@ import com.th3pl4gu3.locky.ui.main.view.ViewClickListener
 class ViewCardFragment : Fragment() {
 
     private var _binding: FragmentViewCardBinding? = null
-    private lateinit var _viewModel: ViewCardViewModel
+    private var _viewModel: ViewCardViewModel? = null
     private lateinit var _card: Card
+
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Fetch the layout and do the binding
         _binding = FragmentViewCardBinding.inflate(inflater, container, false)
+        //Instantiate view model
         _viewModel = ViewModelProvider(this).get(ViewCardViewModel::class.java)
 
+        //Fetch the account clicked on the previous screen
         _card = ViewCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
 
-        binding.card = _card
+        with(_card) {
 
-        initiateCredentialsFieldList().submitList(_viewModel.fieldList(_card))
+            //Bind the card to the layout for displaying
+            binding.card = this
+
+            //Submit the card details to the recyclerview
+            initiateCredentialsFieldList().submitList(viewModel.fieldList(this))
+        }
 
         return binding.root
     }
@@ -58,20 +68,30 @@ class ViewCardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Edit -> {
-                findNavController().navigate(
-                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
-                        .setPARCELCREDCARD(_card)
-                )
+                navigateToEditScreen()
                 true
             }
 
             R.id.Action_Delete -> {
-                _viewModel.delete(_card.id)
-                toast(getString(R.string.message_credentials_deleted, _card.name))
-                findNavController().popBackStack()
+                deleteCardAndNavigateBackToCardList()
                 true
             }
             else -> false
+        }
+    }
+
+    private fun navigateToEditScreen() {
+        findNavController().navigate(
+            ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
+                .setPARCELCREDCARD(_card)
+        )
+    }
+
+    private fun deleteCardAndNavigateBackToCardList() {
+        with(_card) {
+            viewModel.delete(cardID)
+            toast(getString(R.string.message_credentials_deleted, entryName))
+            findNavController().popBackStack()
         }
     }
 
@@ -82,9 +102,7 @@ class ViewCardFragment : Fragment() {
                     copyToClipboardAndToast(data)
                 },
                 ViewClickListener {
-                    binding.LayoutCredentialView.snackbar(_card.pin.toString()) {
-                        action(getString(R.string.button_snack_action_close)) { dismiss() }
-                    }
+                    snackBarAction()
                 })
 
         binding.RecyclerViewCredentialsField.apply {
@@ -93,6 +111,12 @@ class ViewCardFragment : Fragment() {
         }
 
         return credentialsAdapter
+    }
+
+    private fun snackBarAction() {
+        binding.LayoutCredentialView.snackbar(_card.pin) {
+            action(getString(R.string.button_snack_action_close)) { dismiss() }
+        }
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

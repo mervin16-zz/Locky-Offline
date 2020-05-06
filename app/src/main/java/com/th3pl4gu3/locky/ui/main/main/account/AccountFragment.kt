@@ -11,12 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.User
-import com.th3pl4gu3.locky.core.exceptions.UserException
-import com.th3pl4gu3.locky.core.tuning.AccountSort
+import com.th3pl4gu3.locky.core.main.Account
+import com.th3pl4gu3.locky.core.main.AccountSort
 import com.th3pl4gu3.locky.databinding.FragmentAccountBinding
-import com.th3pl4gu3.locky.repository.LoadingStatus
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
 
@@ -24,9 +21,11 @@ import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
 class AccountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
-    private lateinit var _viewModel: AccountViewModel
+    private var _viewModel: AccountViewModel? = null
     private var _lastClickTime: Long = 0
+
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,75 +36,25 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         // Fetch view model
         _viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        //Bind view model to layout
+        binding.viewModel = _viewModel
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
-        //Observe data when to show snack bar for "Show Pin"
-        with(_viewModel) {
-
-            //set loading flag to show loading progress bar
-            setLoading(LoadingStatus.LOADING)
-
-            showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    binding.LayoutFragmentAccount.snackbar(it) {
-                        action(getString(R.string.button_snack_action_close)) { dismiss() }
-                    }
-
-                    doneShowingSnackBar()
-                }
-            })
-
-            //Observe loading status for any trigger for the progress bar
-            loadingStatus.observe(viewLifecycleOwner, Observer {
-                when (it) {
-                    LoadingStatus.LOADING -> {
-                        progressBarVisibility(View.VISIBLE)
-                    }
-                    LoadingStatus.DONE, LoadingStatus.ERROR -> {
-                        progressBarVisibility(View.GONE)
-                    }
-                    else -> {
-                        progressBarVisibility(View.GONE)
-                    }
-                }
-            })
-
-            //Observe accounts list being updated
-            accounts.observe(viewLifecycleOwner, Observer { accounts ->
-                if (accounts != null) {
-                    //set loading flag to hide progress bar
-                    setLoading(LoadingStatus.DONE)
-
-                    //Filter accounts by this user only
-                    accountListVisibility(accounts.filter {
-                        it.user == getUser()
-                    })
-                }
-            })
-
-            val navBackStackEntry = findNavController().currentBackStackEntry!!
-            navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-                if (
-                    event == Lifecycle.Event.ON_RESUME &&
-                    navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
-                ) {
-                    val sort =
-                        navBackStackEntry.savedStateHandle.get<AccountSort>(KEY_ACCOUNTS_SORT)!!
-
-                    if (sort.hasChanges()) {
-                        //Store sort to local storage
-                        LocalStorageManager.with(requireActivity().application)
-                        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
-                        _viewModel.refresh(sort)
-                    }
-
-                    navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_SORT)
-                }
-            })
-        }
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Observe data when to show snack bar for "Show Pin"
+        observeSnackBarEvent()
+
+        //Observe accounts list being updated
+        observeAccountsEvent()
+
+        //Observe sort & filter changes
+        observeBackStackEntryForFilterSheet()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,10 +70,7 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
-                    _lastClickTime = SystemClock.elapsedRealtime()
-                    findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
-                }
+                navigateToFilterSheet()
                 true
             }
             else -> false
@@ -136,18 +82,58 @@ class AccountFragment : Fragment() {
         _binding = null
     }
 
-    private fun progressBarVisibility(visibility: Int) {
-        binding.ProgressBar.visibility = visibility
+    private fun observeBackStackEntryForFilterSheet() {
+        val navBackStackEntry = findNavController().currentBackStackEntry!!
+        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (
+                event == Lifecycle.Event.ON_RESUME &&
+                navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
+            ) {
+                val sort =
+                    navBackStackEntry.savedStateHandle.get<AccountSort>(KEY_ACCOUNTS_SORT)!!
+
+                if (sort.hasChanges()) {
+                    //Store sort to local storage
+                    LocalStorageManager.with(requireActivity().application)
+                    LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
+                    viewModel.refresh(sort)
+                }
+
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_SORT)
+            }
+        })
     }
 
-    private fun accountListVisibility(accounts: List<Account>) {
-        if (accounts.isEmpty()) {
-            binding.EmptyView.visibility = View.VISIBLE
-            binding.RecyclerViewAccount.visibility = View.GONE
-        } else {
-            binding.EmptyView.visibility = View.GONE
-            binding.RecyclerViewAccount.visibility = View.VISIBLE
-            initiateAccountList().submitList(accounts)
+    private fun observeAccountsEvent() {
+        viewModel.accounts.observe(viewLifecycleOwner, Observer { accounts ->
+            if (accounts != null) {
+
+                with(viewModel) {
+                    //set loading flag to hide progress bar
+                    doneLoading()
+
+                    //Alternate visibility for account list and empty view
+                    alternateAccountListVisibility(accounts.size)
+                }
+
+                //Submit list to recyclerview
+                initiateAccountList().submitList(accounts)
+            }
+        })
+    }
+
+    private fun observeSnackBarEvent() {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                snackBarAction(it)
+            }
+        })
+    }
+
+    private fun navigateToFilterSheet() {
+        if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
+            _lastClickTime = SystemClock.elapsedRealtime()
+            findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
         }
     }
 
@@ -155,11 +141,7 @@ class AccountFragment : Fragment() {
         val accountAdapter =
             AccountAdapter(
                 AccountClickListener {
-                    findNavController().navigate(
-                        AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
-                            it
-                        )
-                    )
+                    navigateToSelectedAccount(it)
                 },
                 AccountOptionsClickListener { view, account ->
                     //Prevents double click and creating a double instance
@@ -178,6 +160,14 @@ class AccountFragment : Fragment() {
         return accountAdapter
     }
 
+    private fun navigateToSelectedAccount(account: Account) {
+        findNavController().navigate(
+            AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
+                account
+            )
+        )
+    }
+
     private fun createPopupMenu(view: View, account: Account) {
         requireContext().createPopUpMenu(
             view,
@@ -186,10 +176,7 @@ class AccountFragment : Fragment() {
                 when (it.itemId) {
                     R.id.Menu_CopyUsername -> copyToClipboardAndToast(account.username)
                     R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
-                    R.id.Menu_ShowPass -> {
-                        _viewModel.setSnackBarMessage(account.password)
-                        true
-                    }
+                    R.id.Menu_ShowPass -> triggerSnackBarEvent(account.password)
                     else -> false
                 }
             }, PopupMenu.OnDismissListener {
@@ -199,10 +186,16 @@ class AccountFragment : Fragment() {
             })
     }
 
-    private fun getUser(): String {
-        LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
-            ?: throw UserException(getString(R.string.error_internal_code_6))
+    private fun snackBarAction(message: String) {
+        binding.LayoutFragmentAccount.snackbar(message) {
+            action(getString(R.string.button_snack_action_close)) { dismiss() }
+        }
+        viewModel.doneShowingSnackBar()
+    }
+
+    private fun triggerSnackBarEvent(message: String): Boolean {
+        viewModel.setSnackBarMessage(message)
+        return true
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="ViewModel"
             type="com.th3pl4gu3.locky.ui.main.add.card.AddCardViewModel" />
@@ -22,7 +21,7 @@
             android:id="@+id/Card_Logo"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            cardLogo="@{ViewModel.number}"
+            cardLogo="@{ViewModel.cardNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:text="@{ViewModel.name}" />
+                android:text="@={ViewModel.entryName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Number Text field ****************************** -->
@@ -66,13 +65,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_number"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
             app:layout_constraintTop_toBottomOf="@+id/Card_Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="@{String.valueOf(ViewModel.number)}" />
+                android:maxLength="20"
+                android:text="@={ViewModel.cardNumber}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Pin Text field ****************************** -->
@@ -83,13 +85,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_pin"
+            app:counterEnabled="true"
+            app:counterMaxLength="5"
             app:layout_constraintTop_toBottomOf="@+id/Card_Number">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="@{String.valueOf(ViewModel.pin)}"
+                android:text="@={ViewModel.pin}"
                 android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:text="@{ViewModel.bank}" />
+                android:text="@={ViewModel.bank}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Card holder Text field ****************************** -->
@@ -124,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:text="@{ViewModel.cardHolder}" />
+                android:text="@={ViewModel.cardHolderName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Issued Date Text field ****************************** -->
@@ -146,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:inputType="none"
-                android:text="@{ViewModel.issuedDate}" />
+                android:text="@={ViewModel.issuedDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Expiry Date Text field ****************************** -->
@@ -168,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:inputType="none"
-                android:text="@{ViewModel.expiryDate}" />
+                android:text="@={ViewModel.expiryDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Optional Label ****************************** -->
@@ -190,6 +194,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_additional"
+            app:counterEnabled="true"
+            app:counterMaxLength="300"
             app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -198,7 +204,8 @@
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLines="15"
                 android:minLines="2"
-                android:text="@{ViewModel.additionalInformation}" />
+                android:maxLength="300"
+                android:text="@={ViewModel.moreInfo}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--****************************** Save Button ****************************** -->
@@ -210,6 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/button_action_save"
+            android:onClick="@{() -> ViewModel.save()}"
             app:icon="@drawable/ic_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

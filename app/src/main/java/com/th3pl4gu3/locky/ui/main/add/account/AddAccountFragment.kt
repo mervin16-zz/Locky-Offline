@@ -11,22 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Account
-import com.th3pl4gu3.locky.core.User
-import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.databinding.FragmentAddAccountBinding
-import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
-import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.toast
 
 class AddAccountFragment : Fragment() {
 
     private var _binding: FragmentAddAccountBinding? = null
-    private lateinit var _viewModel: AddAccountViewModel
-    private lateinit var _account: Account
+    private var _viewModel: AddAccountViewModel? = null
 
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +29,6 @@ class AddAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddAccountBinding.inflate(inflater, container, false)
-
         _viewModel = ViewModelProvider(this).get(AddAccountViewModel::class.java)
 
         //Bind view model and lifecycle owner
@@ -42,48 +36,53 @@ class AddAccountFragment : Fragment() {
         binding.lifecycleOwner = this
 
         //Fetch account if exists
-        _account =
-            AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount ?: Account()
-        _viewModel.setAccount(_account)
+        viewModel.setAccount(AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount)
 
-        with(binding) {
-            ButtonSave.setOnClickListener {
-                try {
-                    _viewModel.isFormValid(
-                        _account.apply {
-                            user = getUser()
-                            name = binding.AccountName.editText?.text.toString()
-                            username = binding.AccountUsername.editText?.text.toString()
-                            email = binding.AccountEmail.editText?.text.toString()
-                            password = binding.AccountPassword.editText?.text.toString()
-                            website = binding.AccountWebsite.editText?.text.toString()
-                            additionalInfo = binding.AccountComments.editText?.text.toString()
-                            twoFA = binding.Account2FAEnabled.editText?.text.toString()
-                            twoFASecretKeys = binding.Account2FAKeys.editText?.text.toString()
-                        }
-                    )
-                } catch (e: UserException) {
-                    toast(e.message!!)
-                } catch (e: Exception) {
-                    toast(getString(R.string.error_internal_code_5, e.message!!))
-                }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //On click listener for logo search sheet
+        listenerLogoClick()
+
+        //Toast event
+        observeToastEvent()
+
+        //Form validity
+        observeFormValidity()
+
+        //Observe form error message events
+        observeFormErrorMessageEvents()
+
+        //Observe back stack entry for logo result
+        observeBackStackEntryForLogoResult()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun observeBackStackEntryForLogoResult() {
+        val navBackStackEntry = findNavController().currentBackStackEntry!!
+        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains(
+                    KEY_ACCOUNT_LOGO
+                )
+            ) {
+                //Set the logo url in the view model
+                viewModel.logoUrl =
+                    navBackStackEntry.savedStateHandle.get<String>(KEY_ACCOUNT_LOGO)!!
+
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
             }
+        })
+    }
 
-            AccountLogo.setOnClickListener {
-                findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
-            }
-        }
-
-        with(_viewModel) {
-            /** Other Observations**/
-            toastEvent.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    toast(it)
-                    doneWithToastEvent()
-                }
-            })
-
-            /** Form Validation Observations**/
+    private fun observeFormErrorMessageEvents() {
+        with(viewModel) {
             nameErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.AccountName.error = it
             })
@@ -99,45 +98,41 @@ class AddAccountFragment : Fragment() {
             passwordErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.AccountPassword.error = it
             })
+        }
+    }
 
-            isFormValid.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    toast(getString(R.string.message_credentials_created, _account.name))
-                    findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
+    private fun observeFormValidity() {
+        viewModel.formValidity.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                showToastAndNavigateToAccountList(it)
+            }
+        })
+    }
+
+    private fun observeToastEvent() {
+        with(viewModel) {
+            toastEvent.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    toast(it)
+                    doneWithToastEvent()
                 }
             })
         }
-
-        val navBackStackEntry = findNavController().currentBackStackEntry!!
-        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains(
-                    KEY_ACCOUNT_LOGO
-                )
-            ) {
-                val logoUrl = navBackStackEntry.savedStateHandle.get<String>(
-                    KEY_ACCOUNT_LOGO
-                )!!
-
-                //Set the logo url in the local account
-                _account.logoUrl = logoUrl
-                //Set the logo url in the view model also
-                _viewModel.setAccountLogo(logoUrl)
-                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
-            }
-        })
-
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun listenerLogoClick() {
+        binding.AccountLogo.setOnClickListener {
+            navigateToLogoSearch()
+        }
     }
 
-    private fun getUser(): String {
-        LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.email
-            ?: throw UserException(getString(R.string.error_internal_code_6))
+    private fun showToastAndNavigateToAccountList(toastMessage: String) {
+        toast(getString(R.string.message_credentials_created, toastMessage))
+        findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
+    }
+
+    private fun navigateToLogoSearch() {
+        findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
     }
 
     private fun toast(message: String) = requireContext().toast(message)

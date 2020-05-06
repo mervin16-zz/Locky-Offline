@@ -1,6 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.utils
 
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.main.Card
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="Account"
-            type="com.th3pl4gu3.locky.core.Account" />
+            type="com.th3pl4gu3.locky.core.main.Account" />
 
         <variable
             name="ClickListener" type="com.th3pl4gu3.locky.ui.main.main.account.AccountClickListener"/>
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="@{Account.name}"
+            android:text="@{Account.accountName}"
             app:layout_constraintBottom_toTopOf="@+id/Account_Login"
             app:layout_constraintStart_toEndOf="@+id/Account_Logo"
             app:layout_constraintTop_toTopOf="@+id/Account_Logo"

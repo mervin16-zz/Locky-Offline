@@ -1,14 +1,15 @@
-package com.th3pl4gu3.locky.core.tuning
+package com.th3pl4gu3.locky.core.main
 
 import android.os.Parcelable
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class AccountSort(
-    var website: Boolean = false,
-    var email: Boolean = false,
-    var twofa: Boolean = false
+class CardSort(
+    var sortByName: Boolean = false,
+    var sortByType: Boolean = false,
+    var sortByBank: Boolean = false,
+    var sortByCardHolderName: Boolean = false
 ) : Parcelable {
 
     @IgnoredOnParcel
@@ -19,7 +20,7 @@ class AccountSort(
     }
 
     override fun toString(): String {
-        return "w:$website|e:$email|t:$twofa"
+        return "n:$sortByName|t:$sortByType|b:$sortByBank|c:$sortByCardHolderName"
     }
 
     fun hasChanges(): Boolean {

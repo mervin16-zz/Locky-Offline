@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewAccountBinding
 
 class AccountAdapter(
@@ -59,9 +59,9 @@ class AccountDiffCallback: DiffUtil.ItemCallback<Account>() {
 }
 
 class AccountClickListener(val clickListener: (account: Account) -> Unit){
-    fun onClick(account:  Account) = clickListener(account)
+    fun onClick(account: Account) = clickListener(account)
 }
 
 class AccountOptionsClickListener(val clickListener: (view: View, account: Account) -> Unit){
-    fun onClick(view: View, account:  Account) = clickListener(view, account)
+    fun onClick(view: View, account: Account) = clickListener(view, account)
 }

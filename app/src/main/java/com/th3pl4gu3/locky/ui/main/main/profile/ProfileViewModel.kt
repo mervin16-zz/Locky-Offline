@@ -1,40 +1,39 @@
 package com.th3pl4gu3.locky.ui.main.main.profile
 
-import androidx.lifecycle.ViewModel
-import com.th3pl4gu3.locky.core.User
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_USER_ACCOUNT_TYPE
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_USER_DATE_JOINED
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_USER_EMAIL
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.LABEL_TEXTBOX_USER_NAME
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.PLACEHOLDER_DATA_NONE
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.th3pl4gu3.locky.R
+import com.th3pl4gu3.locky.core.main.User
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
     internal fun fieldList(user: User): ArrayList<UserDetails> =
         ArrayList<UserDetails>().apply {
             add(
                 UserDetails(
-                    LABEL_TEXTBOX_USER_NAME,
-                    if (user.name.isEmpty()) PLACEHOLDER_DATA_NONE else user.name
+                    getString(R.string.field_profile_name),
+                    if (user.name.isEmpty()) getString(R.string.field_placeholder_empty) else user.name
                 )
             )
             add(
                 UserDetails(
-                    LABEL_TEXTBOX_USER_EMAIL,
-                    if (user.email.isEmpty()) PLACEHOLDER_DATA_NONE else user.email
+                    getString(R.string.field_profile_email),
+                    if (user.email.isEmpty()) getString(R.string.field_placeholder_empty) else user.email
                 )
             )
             add(
                 UserDetails(
-                    LABEL_TEXTBOX_USER_DATE_JOINED,
-                    if (user.dateJoined.isEmpty()) PLACEHOLDER_DATA_NONE else user.dateJoined
+                    getString(R.string.field_profile_dj),
+                    if (user.dateJoined.isEmpty()) getString(R.string.field_placeholder_empty) else user.dateJoined
                 )
             )
             add(
                 UserDetails(
-                    LABEL_TEXTBOX_USER_ACCOUNT_TYPE,
+                    getString(R.string.field_profile_account_type),
                     user.accountType.toString()
                 )
             )
         }
+
+    private fun getString(res: Int) = getApplication<Application>().getString(res)
 }

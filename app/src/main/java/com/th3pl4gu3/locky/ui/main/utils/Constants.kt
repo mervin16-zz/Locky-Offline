@@ -21,8 +21,6 @@ class Constants {
         /*
             ****    Placeholders    ****
          */
-        const val PLACEHOLDER_DATA_NONE = "None"
-        const val PLACEHOLDER_DATA_PASSWORD_HIDDEN = "*****"
 
         /*
             ****    Regexes    ****
@@ -34,30 +32,5 @@ class Constants {
         const val REGEX_CREDIT_CARD_JCB = "^(?:2131|1800|35[0-9]{3})[0-9]{3,}\$"
         const val REGEX_CREDIT_CARD_DINNERSCLUB = "^3(?:0[0-5]|[68][0-9])[0-9]{4,}\$"
 
-        /*
-            ****    Labels    ****
-         */
-        const val LABEL_TEXTBOX_ACCOUNT_USERNAME = "Username"
-        const val LABEL_TEXTBOX_ACCOUNT_EMAIL = "Email"
-        const val LABEL_TEXTBOX_ACCOUNT_PASSWORD = "Password"
-        const val LABEL_TEXTBOX_ACCOUNT_WEBSITE = "Website"
-        const val LABEL_TEXTBOX_ACCOUNT_2FA = "2FA Authentication"
-        const val LABEL_TEXTBOX_ACCOUNT_2FAKEYS = "2FA Keys"
-        const val LABEL_TEXTBOX_ACCOUNT_ADDITIONAL_COMMENTS = "Additional Comments"
-
-
-        const val LABEL_TEXTBOX_CARD_NAME = "Account Name"
-        const val LABEL_TEXTBOX_CARD_BANK = "Bank Issuer"
-        const val LABEL_TEXTBOX_CARD_PIN = "Card Pin"
-        const val LABEL_TEXTBOX_CARD_CARD_HOLDER = "Cardholder Name"
-        const val LABEL_TEXTBOX_CARD_ISSUED = "Issued Date"
-        const val LABEL_TEXTBOX_CARD_EXPIRY = "Expiry Date"
-        const val LABEL_TEXTBOX_CARD_ADDITIONAL_COMMENTS = "Additional Comments"
-
-
-        const val LABEL_TEXTBOX_USER_NAME = "Name"
-        const val LABEL_TEXTBOX_USER_EMAIL = "Email"
-        const val LABEL_TEXTBOX_USER_DATE_JOINED = "Daje Joined"
-        const val LABEL_TEXTBOX_USER_ACCOUNT_TYPE = "Account Type"
     }
 }

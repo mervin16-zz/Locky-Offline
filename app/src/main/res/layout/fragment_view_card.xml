@@ -8,7 +8,7 @@
 
         <variable
             name="Card"
-            type="com.th3pl4gu3.locky.core.Card" />
+            type="com.th3pl4gu3.locky.core.main.Card" />
     </data>
 
     <LinearLayout

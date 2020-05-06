@@ -15,6 +15,7 @@
 
         <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
 
+        <item name="android:windowLightStatusBar">false</item>
         <!--
             Navigation Drawer Theme
         -->

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.Account
+import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
 import com.th3pl4gu3.locky.ui.main.utils.action
 import com.th3pl4gu3.locky.ui.main.utils.copyToClipboard
@@ -19,23 +19,33 @@ import com.th3pl4gu3.locky.ui.main.view.ViewClickListener
 class ViewAccountFragment : Fragment() {
 
     private var _binding: FragmentViewAccountBinding? = null
+    private var _viewModel: ViewAccountViewModel? = null
     private lateinit var _account: Account
-    private lateinit var _viewModel: ViewAccountViewModel
+
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Fetch the layout and do the binding
         _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
+        //Instantiate view model
         _viewModel = ViewModelProvider(this).get(ViewAccountViewModel::class.java)
 
+        //Fetch the account clicked on the previous screen
         _account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
 
-        binding.account = _account
+        with(_account) {
 
-        initiateCredentialsFieldList().submitList(_viewModel.fieldList(_account))
+            //Bind the account to the layout for displaying
+            binding.account = this
+
+            //Submit the account details to the recyclerview
+            initiateCredentialsFieldList().submitList(viewModel.fieldList(this))
+        }
 
         return binding.root
     }
@@ -58,17 +68,12 @@ class ViewAccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Edit -> {
-                findNavController().navigate(
-                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
-                        .setPARCELCREDACCOUNT(_account)
-                )
+                navigateToEditScreen()
                 true
             }
 
             R.id.Action_Delete -> {
-                _viewModel.delete(_account.id)
-                toast(getString(R.string.message_credentials_deleted, _account.name))
-                findNavController().popBackStack()
+                deleteAndNavigateBackToAccountList()
                 true
             }
             else -> false
@@ -82,9 +87,7 @@ class ViewAccountFragment : Fragment() {
                     copyToClipboardAndToast(data)
                 },
                 ViewClickListener {
-                    binding.LayoutCredentialView.snackbar(_account.password) {
-                        action(getString(R.string.button_snack_action_close)) { dismiss() }
-                    }
+                    snackBarAction()
                 })
 
         binding.RecyclerViewCredentialsField.apply {
@@ -93,6 +96,27 @@ class ViewAccountFragment : Fragment() {
         }
 
         return credentialsAdapter
+    }
+
+    private fun deleteAndNavigateBackToAccountList() {
+        with(_account) {
+            viewModel.delete(accountID)
+            toast(getString(R.string.message_credentials_deleted, accountName))
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun navigateToEditScreen() {
+        findNavController().navigate(
+            ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
+                .setPARCELCREDACCOUNT(_account)
+        )
+    }
+
+    private fun snackBarAction() {
+        binding.LayoutCredentialView.snackbar(_account.password) {
+            action(getString(R.string.button_snack_action_close)) { dismiss() }
+        }
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {

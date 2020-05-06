@@ -21,8 +21,10 @@ import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
 class LogoBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetAccountLogoBinding? = null
-    private lateinit var _viewModel: LogoBottomSheetViewModel
+    private var _viewModel: LogoBottomSheetViewModel? = null
+
     private val binding get() = _binding!!
+    private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,38 +37,22 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
-        with(binding) {
-            ButtonCancel.setOnClickListener {
-                dismiss()
-            }
+        return binding.root
+    }
 
-            TextfieldSearch.setOnEditorActionListener(OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    TextfieldSearch.clearFocus()
-                    (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-                        .hideSoftInputFromWindow(TextfieldSearch.windowToken, 0)
-                    _viewModel.getWebsiteLogoProperties(TextfieldSearch.text.toString())
-                    return@OnEditorActionListener true
-                }
-                false
-            })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Cancel button listener
+        binding.ButtonCancel.setOnClickListener {
+            dismiss()
         }
 
-        _viewModel.websites.observe(viewLifecycleOwner, Observer { logos ->
-            if (logos != null) {
-                if (logos.isEmpty()) {
-                    binding.EmptyView.visibility = View.VISIBLE
-                    binding.RecyclerViewLogo.visibility = View.GONE
-                } else {
-                    binding.EmptyView.visibility = View.GONE
-                    binding.RecyclerViewLogo.visibility = View.VISIBLE
-                    initiateLogoList().submitList(logos)
-                    _viewModel.resetLogos()
-                }
-            }
-        })
+        //Logos event
+        observeLogosEvent()
 
-        return binding.root
+        //Logo search text field listener
+        textFieldSearchListener()
     }
 
     override fun onDestroyView() {
@@ -74,15 +60,43 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 
+    private fun textFieldSearchListener() {
+        binding.TextfieldSearch.setOnEditorActionListener(OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                dismissKeyBoardAndSearchForLogo()
+                return@OnEditorActionListener true
+            }
+            false
+        })
+    }
+
+    private fun observeLogosEvent() {
+        viewModel.websites.observe(viewLifecycleOwner, Observer { logos ->
+            if (logos != null) {
+
+                if (logos.isEmpty()) {
+                    viewModel.setErrorLoadingStatus()
+                    return@Observer
+                }
+
+                initiateLogoList().submitList(logos)
+            }
+        })
+    }
+
+    private fun dismissKeyBoardAndSearchForLogo() {
+        with(binding) {
+            TextfieldSearch.clearFocus()
+            (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(TextfieldSearch.windowToken, 0)
+            viewModel?.getWebsiteLogoProperties(TextfieldSearch.text.toString())
+        }
+    }
+
     private fun initiateLogoList(): LogoViewAdapter {
         val logoAdapter = LogoViewAdapter(
             ClickListener {
-                //Pass logo url to parent fragment
-                findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                    KEY_ACCOUNT_LOGO,
-                    it
-                )
-                dismiss()
+                passLogoUrlToParentFragmentAndDismiss(it)
             })
 
         binding.RecyclerViewLogo.apply {
@@ -91,5 +105,14 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         return logoAdapter
+    }
+
+    private fun passLogoUrlToParentFragmentAndDismiss(logoUrl: String) {
+        //Pass logo url to parent fragment
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+            KEY_ACCOUNT_LOGO,
+            logoUrl
+        )
+        dismiss()
     }
 }

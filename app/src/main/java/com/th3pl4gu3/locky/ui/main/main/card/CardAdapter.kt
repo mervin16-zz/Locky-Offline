@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky.core.Card
+import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.databinding.CustomViewRecyclerviewCardBinding
 
 class CardAdapter(

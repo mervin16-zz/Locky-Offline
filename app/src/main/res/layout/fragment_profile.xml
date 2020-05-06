@@ -8,7 +8,7 @@
 
         <variable
             name="User"
-            type="com.th3pl4gu3.locky.core.User" />
+            type="com.th3pl4gu3.locky.core.main.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

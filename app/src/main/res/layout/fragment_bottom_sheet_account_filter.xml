@@ -6,7 +6,7 @@
     <data>
         <variable
             name="Sort"
-            type="com.th3pl4gu3.locky.core.tuning.AccountSort" />
+            type="com.th3pl4gu3.locky.core.main.AccountSort" />
     </data>
 
     <LinearLayout

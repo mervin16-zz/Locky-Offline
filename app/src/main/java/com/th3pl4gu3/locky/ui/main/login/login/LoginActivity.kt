@@ -11,11 +11,13 @@ import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivityLoginBinding
 import com.th3pl4gu3.locky.ui.main.main.MainActivity
-import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USERS
+import com.th3pl4gu3.locky.ui.main.utils.openActivity
+import com.th3pl4gu3.locky.ui.main.utils.toast
 
 
 class LoginActivity : AppCompatActivity() {
@@ -53,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 Activity.RESULT_OK -> return
                 else -> toast(
                     getString(
-                        R.string.error_internal_code_4,
+                        R.string.error_internal_code_1,
                         IdpResponse.fromResultIntent(data)?.error?.errorCode?.toString()
                     )
                 )
@@ -114,21 +116,7 @@ class LoginActivity : AppCompatActivity() {
          **/
 
         val user = User.getInstance()
-        _users.forEach {
-            if (it.email == user.email) {
-                /**
-                 * Since we already have the user,
-                 * we just need to start a session and redirects him/her to the main screen
-                 **/
-                startSession(user.apply {
-                    id = it.id
-                    dateJoined = it.dateJoined
-                    accountType = it.accountType
-                })
-                navigateToMain()
-                return
-            }
-        }
+        verifyIfExistingUserAndNavigateToMain(user)
 
         /**
          * If the code reaches here,
@@ -137,17 +125,30 @@ class LoginActivity : AppCompatActivity() {
          * we create the user in the background
          * then we start a session and redirects the user to the main screen
          **/
+        createNewUserAndNavigateToMain(user)
+    }
+
+    private fun verifyIfExistingUserAndNavigateToMain(user: User) {
+        _users.forEach {
+            if (it.email == user.email) {
+                /**
+                 * Since we already have the user,
+                 * we just need to start a session and redirects him/her to the main screen
+                 **/
+                _viewModel.startSession(user.apply {
+                    dateJoined = it.dateJoined
+                    accountType = it.accountType
+                })
+                navigateToMain()
+                return
+            }
+        }
+    }
+
+    private fun createNewUserAndNavigateToMain(user: User) {
         _viewModel.createUser(user)
-        startSession(user)
         navigateToMain()
     }
-
-    private fun startSession(user: User) {
-        //Store user object in shared preferences
-        LocalStorageManager.with(application)
-        LocalStorageManager.put(Constants.KEY_USER_ACCOUNT, user)
-    }
-
 
     private fun navigateToMain() {
         openActivity(MainActivity::class.java)

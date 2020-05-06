@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.User
 import com.th3pl4gu3.locky.core.exceptions.UserException
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.FragmentProfileBinding
 import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
@@ -31,16 +32,18 @@ class ProfileFragment : Fragment() {
         _viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         try {
+
             val user = getUser()
             binding.user = user
 
             initiateUserDetailsList().submitList(viewModel.fieldList(user))
+
         } catch (e: UserException) {
-            binding.user = User()
+            navigateBack()
             toast(e.message!!)
         } catch (e: Exception) {
-            binding.user = User()
-            toast(getString(R.string.error_internal_code_8, e.message!!))
+            navigateBack()
+            toast(getString(R.string.error_internal_code_4, e.message!!))
         }
 
         return binding.root
@@ -49,7 +52,10 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        _viewModel = null
+    }
+
+    private fun navigateBack() {
+        findNavController().popBackStack()
     }
 
     private fun initiateUserDetailsList(): UserDetailsViewAdapter {
@@ -66,7 +72,7 @@ class ProfileFragment : Fragment() {
     private fun getUser(): User {
         LocalStorageManager.with(requireActivity().application)
         return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)
-            ?: throw UserException(getString(R.string.error_internal_code_7))
+            ?: throw UserException(getString(R.string.error_internal_code_3))
     }
 
     private fun toast(message: String) = requireContext().toast(message)

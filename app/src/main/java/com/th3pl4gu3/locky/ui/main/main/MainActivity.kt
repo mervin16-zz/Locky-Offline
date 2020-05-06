@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -19,6 +20,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import com.firebase.ui.auth.AuthUI
 import com.th3pl4gu3.locky.R
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky.ui.main.utils.*
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         _viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
+        _binding.user = getUser()
+
         _binding.lifecycleOwner = this
 
         //Set the support action bar to the toolbar
@@ -68,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.Activity_Login -> {
                 logout()
@@ -94,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
             Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
             Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
-            else -> toast(getString(R.string.error_internal_code_1))
+            else -> toast(getString(R.string.error_internal_code_2))
         }
 
     private fun navigationUISetup() {
@@ -112,6 +115,19 @@ class MainActivity : AppCompatActivity() {
         Navigation.setViewNavController(_binding.FABCard, navController)
 
         //Add on change destination listener to navigation controller
+        navigationDestinationChangeListener(navController)
+    }
+
+    private fun setUpNestedScrollChangeListener() =
+        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY > 0) {
+                _binding.ToolbarMain.elevation = 8F
+            } else {
+                _binding.ToolbarMain.elevation = 0F
+            }
+        }
+
+    private fun navigationDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
             when (nd.id) {
                 nc.graph.startDestination,
@@ -147,19 +163,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         _binding.FABAccount.setOnClickListener {
-            findNavController(R.id.Navigation_Host).navigate(
-                R.id.Fragment_Add_Account,
-                null,
-                getSlideNavOptions()
-            )
+            navigateToAddAccount()
         }
 
         _binding.FABCard.setOnClickListener {
-            findNavController(R.id.Navigation_Host).navigate(
-                R.id.Fragment_Add_Card,
-                null,
-                getSlideNavOptions()
-            )
+            navigateToAddCard()
         }
     }
 
@@ -200,26 +208,42 @@ class MainActivity : AppCompatActivity() {
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationState.UNAUTHENTICATED -> {
-                    findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
+                    navigateToSplashScreen()
                 }
                 else -> return@Observer
             }
         })
     }
 
-    private fun setUpNestedScrollChangeListener() =
-        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY > 0) {
-                _binding.ToolbarMain.elevation = 8F
-            } else {
-                _binding.ToolbarMain.elevation = 0F
-            }
-        }
+    private fun navigateToAddAccount() {
+        findNavController(R.id.Navigation_Host).navigate(
+            R.id.Fragment_Add_Account,
+            null,
+            getSlideNavOptions()
+        )
+    }
+
+    private fun navigateToAddCard() {
+        findNavController(R.id.Navigation_Host).navigate(
+            R.id.Fragment_Add_Card,
+            null,
+            getSlideNavOptions()
+        )
+    }
+
+    private fun navigateToSplashScreen() {
+        findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
+    }
 
     private fun logout() {
         LocalStorageManager.with(application)
         LocalStorageManager.remove(KEY_USER_ACCOUNT)
 
         AuthUI.getInstance().signOut(this)
+    }
+
+    private fun getUser(): User {
+        LocalStorageManager.with(application)
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT) ?: User.getInstance()
     }
 }

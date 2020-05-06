@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
-import com.th3pl4gu3.locky.core.User
+import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.ui.main.login.login.LoginActivity
 import com.th3pl4gu3.locky.ui.main.main.MainActivity
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
-import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USERS
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
@@ -117,7 +116,7 @@ class SplashActivity : AppCompatActivity() {
     private fun clearSession() {
         //Remove user object in shared preferences
         LocalStorageManager.with(application)
-        LocalStorageManager.remove(Constants.KEY_USER_ACCOUNT)
+        LocalStorageManager.remove(KEY_USER_ACCOUNT)
         //Clear firebase auth session
         AuthUI.getInstance().signOut(this)
     }
