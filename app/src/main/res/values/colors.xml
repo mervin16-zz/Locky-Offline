@@ -38,9 +38,11 @@
 
     <!-- TextField Colors -->
     <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
-    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
-    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_600</color>
-
+    <color name="colorTextFieldAccentDefault_Active">@color/purple_300</color>
+    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_300</color>
+    <color name="colorTextFieldErrorDefault">@color/red_300</color>
+    <color name="colorTextFieldIconDefault">@color/purple_tint_50</color>
+    <color name="colorTextFieldTextDefault">@color/colorAccentDark</color>
 
     <!--
         Typography Colors
@@ -57,15 +59,17 @@
 
     <!-- Color Light Palette -->
     <color name="red_400">#DC061E</color>
+    <color name="red_300">#E57373</color>
 
     <color name="purple_600">#FF3A056E</color>
-    <color name="purple_400">#FF601A9D</color>
-    <color name="purple_300">#FFB96AFF</color>
+    <color name="purple_400">#7C2CC1</color>
+    <color name="purple_300">#9575CD</color>
     <color name="purple_100">#ece0fd</color>
     <color name="purple_50">#20DB9AFF</color>
+    <color name="purple_tint_50">#D35C4B6C</color>
 
     <color name="grey_600">#4E4E4E</color>
-    <color name="grey_400">#4F4F4F</color>
+    <color name="grey_400">#7E7D7D</color>
     <color name="grey_300">#959595</color>
     <color name="grey_200">#959595</color>
     <color name="grey_100">#D3D3D3</color>

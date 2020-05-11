@@ -22,7 +22,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
      **/
     private var _showSnackbarEvent = MutableLiveData<String>()
     private var _loadingStatus = MutableLiveData<LoadingStatus>()
-    private val _accountSnapShotList = AccountDao().getAll()
     private var _currentAccountsExposed = MediatorLiveData<List<Account>>()
     private var _sort = MutableLiveData<AccountSort>()
     private var _accountListVisibility = MutableLiveData(false)
@@ -139,7 +138,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun loadAccounts() {
-        _currentAccountsExposed.addSource(_accountSnapShotList) { snapshot ->
+        _currentAccountsExposed.addSource(AccountDao().getAll(getUserID())) { snapshot ->
             _currentAccountsExposed.value = decomposeDataSnapshots(snapshot)
         }
     }
@@ -156,7 +155,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
             val accountList = ArrayList<Account>()
             snapshot.children.forEach { postSnapshot ->
                 postSnapshot.getValue<Account>()
-                    ?.let { if (it.userID == getUserID()) accountList.add(it) }
+                    ?.let { accountList.add(it) }
             }
             accountList
         } else {

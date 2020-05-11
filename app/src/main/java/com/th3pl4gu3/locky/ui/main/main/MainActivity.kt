@@ -2,9 +2,7 @@ package com.th3pl4gu3.locky.ui.main.main
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -31,15 +29,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private lateinit var _viewModel: MainActivityViewModel
     private lateinit var _appBarConfiguration: AppBarConfiguration
-    private var _isOpen = false
 
     //Fragments that can navigate with the drawer
     private val _navigationFragments = setOf(
-        R.id.Fragment_Home,
         R.id.Fragment_Card,
         R.id.Fragment_Account,
         R.id.Fragment_Device
     )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,22 +69,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        /*when (item.itemId) {
             R.id.Activity_Login -> {
                 logout()
                 return true
             }
-        }
+        }*/
 
         return item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
             item
         )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar_main, menu)
         return super.onCreateOptionsMenu(menu)
-    }
+    }*/
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
@@ -111,8 +108,8 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(_binding.NavigationView, navController)
 
         //Set the mini FABs with navigation to navigate to fragments accordingly.
-        Navigation.setViewNavController(_binding.FABAccount, navController)
-        Navigation.setViewNavController(_binding.FABCard, navController)
+        Navigation.setViewNavController(_binding.FABAdd, navController)
+        Navigation.setViewNavController(_binding.FABSearch, navController)
 
         //Add on change destination listener to navigation controller
         navigationDestinationChangeListener(navController)
@@ -131,17 +128,18 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
             when (nd.id) {
                 nc.graph.startDestination,
-                R.id.Fragment_Account,
                 R.id.Fragment_Card,
                 R.id.Fragment_Device -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    //Show all the FABs
+                    _binding.FABSearch.show()
                     _binding.FABAdd.show()
                 }
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     //Hide all the FABs
-                    hideMiniFABs()
+                    _binding.FABSearch.hide()
                     _binding.FABAdd.hide()
                 }
             }
@@ -159,49 +157,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadFABs(){
         _binding.FABAdd.setOnClickListener {
-            fabAction()
+            navigateToAddCategorySheet()
         }
 
-        _binding.FABAccount.setOnClickListener {
-            navigateToAddAccount()
+        _binding.FABSearch.setOnClickListener {
+            navigateToSearchSheet()
         }
-
-        _binding.FABCard.setOnClickListener {
-            navigateToAddCard()
-        }
-    }
-
-    private fun fabAction() {
-        if (_isOpen) {
-            hideMiniFABs()
-        } else {
-            showMiniFABs()
-        }
-    }
-
-    private fun hideMiniFABs() {
-        _binding.FABAdd.startAnimation(
-            AnimationUtils.loadAnimation(
-                this,
-                R.anim.anim_fab_rotate_anticlockwise
-            )
-        )
-        _binding.FABAccount.hide()
-        _binding.FABCard.hide()
-        _isOpen = false
-    }
-
-    private fun showMiniFABs() {
-        _binding.FABAdd.startAnimation(
-            AnimationUtils.loadAnimation(
-                this,
-                R.anim.anim_fab_rotate_clockwise
-            )
-        )
-        _binding.FABAccount.show()
-        _binding.FABCard.show()
-
-        _isOpen = true
     }
 
     private fun observeAuthenticationState() {
@@ -215,19 +176,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun navigateToAddAccount() {
+    private fun navigateToSearchSheet() {
         findNavController(R.id.Navigation_Host).navigate(
-            R.id.Fragment_Add_Account,
-            null,
-            getSlideNavOptions()
+            R.id.BottomSheet_Fragment_Search, null
         )
     }
 
-    private fun navigateToAddCard() {
+    private fun navigateToAddCategorySheet() {
         findNavController(R.id.Navigation_Host).navigate(
-            R.id.Fragment_Add_Card,
-            null,
-            getSlideNavOptions()
+            R.id.BottomSheet_Fragment_Add_Category,
+            null
         )
     }
 

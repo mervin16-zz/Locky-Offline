@@ -46,6 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/field_card_name"
+            app:startIconDrawable="@drawable/ic_profile"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="@id/Card_Logo"
             app:layout_constraintStart_toStartOf="@id/Card_Logo"
             app:layout_constraintTop_toBottomOf="@id/Label_Required">
@@ -65,6 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_number"
+            app:startIconDrawable="@drawable/ic_credit_card"
+            app:endIconMode="clear_text"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:layout_constraintTop_toBottomOf="@+id/Card_Name">
@@ -85,6 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_pin"
+            app:startIconDrawable="@drawable/ic_pin"
+            app:endIconMode="password_toggle"
             app:counterEnabled="true"
             app:counterMaxLength="5"
             app:layout_constraintTop_toBottomOf="@+id/Card_Number">
@@ -105,6 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_bank"
+            app:startIconDrawable="@drawable/ic_bank"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/Card_Pin">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -122,6 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_card_holder"
+            app:startIconDrawable="@drawable/ic_profile"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/Card_Bank">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +150,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:hint="@string/field_card_date_issued"
+            app:startIconDrawable="@drawable/ic_date"
             app:layout_constraintEnd_toStartOf="@+id/Card_Expiry_Date"
             app:layout_constraintStart_toStartOf="@+id/Card_Holder"
             app:layout_constraintTop_toBottomOf="@+id/Card_Holder">
@@ -161,6 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:hint="@string/field_card_date_expiry"
+            app:startIconDrawable="@drawable/ic_date"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Issued_Date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
@@ -212,13 +224,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Save"
-            style="@style/Locky.Button.Default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal"
             android:text="@string/button_action_save"
             android:onClick="@{() -> ViewModel.save()}"
+            android:theme="@style/Locky.Button.Theme"
             app:icon="@drawable/ic_save"
+            style="@style/Locky.Button.Filled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

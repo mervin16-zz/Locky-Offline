@@ -121,7 +121,7 @@ class AddAccountFragment : Fragment() {
     }
 
     private fun listenerLogoClick() {
-        binding.AccountLogo.setOnClickListener {
+        binding.AccountLogEdit.setOnClickListener {
             navigateToLogoSearch()
         }
     }

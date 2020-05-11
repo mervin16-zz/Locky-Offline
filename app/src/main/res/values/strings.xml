@@ -17,6 +17,9 @@
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
 
+    <string name="text_title_emptyView_item_search">Find your items!</string>
+    <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and devices</string>
+
     <string name="text_title_emptyView_cards">Save Your Card. Ease Your Memory</string>
     <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
 
@@ -29,13 +32,13 @@
     <string name="text_title_splash">All your accounts in one place</string>
     <string name="text_subtitle_splash">Manage your all your logins and bank cards on a single application</string>
 
+
     <!--
    ****************** Menu ******************
    -->
     <string name="menu_drawer_subtitle_others">OTHERS</string>
     <string name="menu_drawer_subtitle_search">SEARCH</string>
     <string name="menu_drawer_subtitle_user">USER</string>
-    <string name="menu_drawer_main_home">Home</string>
     <string name="menu_drawer_main_account">Accounts</string>
     <string name="menu_drawer_main_card">Cards</string>
     <string name="menu_drawer_main_device">Devices</string>
@@ -105,6 +108,9 @@
     <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
     <string name="message_loading_logo">Loading your logos…</string>
     <string name="message_loading_logo_none">No logos found</string>
+    <string name="message_loading_item_search">Fetching your items…</string>
+    <string name="message_loading_item_account_none">No accounts found</string>
+    <string name="message_loading_item_cards_none">No cards found</string>
 
     <!--
         ****************** Error Messages ******************

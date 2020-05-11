@@ -4,11 +4,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/Fragment_Home"
-            android:icon="@drawable/ic_home"
-            android:checked="true"
-            android:title="@string/menu_drawer_main_home" />
-        <item
             android:id="@+id/Fragment_Account"
             android:icon="@drawable/ic_account"
             android:title="@string/menu_drawer_main_account" />

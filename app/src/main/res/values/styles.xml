@@ -16,6 +16,8 @@
         <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
 
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
         <!--
             Navigation Drawer Theme
         -->
@@ -27,6 +29,7 @@
 
         <item name="android:buttonBarPositiveButtonStyle">@style/Locky.Button.Positive</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/Locky.Button.Negative</item>
+
     </style>
 
     <!-- Splash Launcher UI theme. -->
@@ -54,6 +57,11 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <style name="Locky.ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
     <!-- Navigation -->
     <style name="Locky.Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
@@ -78,12 +86,33 @@
          *********************** Text Box ***********************
      -->
     <style name="Locky.TextBox.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:theme">@style/Locky.TextBox.TextAppearance</item>
+        <item name="hintTextColor">@color/colorTextFieldTextDefault</item>
         <item name="boxStrokeColor">@color/color_state_textfield_border</item>
-        <item name="hintTextColor">@color/colorAccent</item>
+        <item name="startIconTint">@color/colorTextFieldIconDefault</item>
+        <item name="endIconTint">@color/colorTextFieldIconDefault</item>
+        <item name="counterMaxLength">150</item>
+
+        <!-- Error fields theme-->
+        <item name="boxStrokeErrorColor">@color/colorTextFieldErrorDefault</item>
+        <item name="errorIconTint">@color/colorTextFieldErrorDefault</item>
+        <item name="errorTextColor">@color/colorTextFieldErrorDefault</item>
     </style>
 
-    <style name="Locky.TextBox.TextAppearance.Hint" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorAccent</item>
+    <style name="Locky.TextBox.TextAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/colorTextFieldAccentDefault_Active</item>
+        <item name="colorControlActivated">@color/colorTextFieldAccentDefault_Active</item>
+        <item name="colorControlHighlight">@color/colorTextFieldAccentDefault_Active</item>
+
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+
+        <item name="android:textColorHint">@color/colorTextFieldIconDefault</item>
+        <item name="android:textColor">@color/colorTextFieldTextDefault</item>
+        <item name="android:textSize">13sp</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.SmallComponent
+        </item>
     </style>
 
     <style name="Locky.TextBox.Default.Search">
@@ -125,6 +154,13 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="Locky.Button.Theme" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.SmallComponent
+        </item>
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+    </style>
+
     <style name="Locky.Button.Positive" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
@@ -143,12 +179,12 @@
     </style>
 
     <style name="Locky.Button.Filled" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="backgroundTint">@color/colorAccentDark</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
         <item name="iconTint">@color/colorAccentDark</item>
-        <item name="rippleColor">@color/colorRipple</item>
+        <item name="backgroundTint">@color/colorAccentLight</item>
+        <item name="rippleColor">@color/colorAccent</item>
         <item name="iconPadding">12dp</item>
-        <item name="android:padding">13dp</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="Locky.Button.Filled.Delete">
@@ -205,8 +241,8 @@
 
 
     <style name="Locky.Text.Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/musket_regular</item>
+        <item name="fontFamily">@font/musket_regular</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextTitleAccent</item>

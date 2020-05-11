@@ -4,13 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_drawer_main"
-    app:startDestination="@id/Fragment_Home">
-
-    <fragment
-        android:id="@+id/Fragment_Home"
-        android:name="com.th3pl4gu3.locky.ui.main.main.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/Fragment_Account">
 
     <fragment
         android:id="@+id/Fragment_Device"
@@ -64,11 +58,11 @@
         android:label="About"
         tools:layout="@layout/fragment_about" />
 
-    <fragment
-        android:id="@+id/Fragment_Search"
-        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchFragment"
+    <dialog
+        android:id="@+id/BottomSheet_Fragment_Search"
+        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchBottomSheetFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_bottom_sheet_search" />
 
     <fragment
         android:id="@+id/Fragment_View_Card"
@@ -173,5 +167,18 @@
         android:name="com.th3pl4gu3.locky.ui.main.main.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+
+    <dialog
+        android:id="@+id/BottomSheet_Fragment_Add_Category"
+        android:name="com.th3pl4gu3.locky.ui.main.add.AddCategoryBottomSheetFragment"
+        android:label="Add Category"
+        tools:layout="@layout/fragment_bottom_sheet_add_category">
+        <action
+            android:id="@+id/action_BottomSheet_Fragment_Add_Category_to_Fragment_Add_Card"
+            app:destination="@id/Fragment_Add_Card" />
+        <action
+            android:id="@+id/action_BottomSheet_Fragment_Add_Category_to_Fragment_Add_Account"
+            app:destination="@id/Fragment_Add_Account" />
+    </dialog>
 
 </navigation>

@@ -11,7 +11,7 @@ import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
 
 class SplashViewModel : ViewModel() {
 
-    private var _usersDataSnapShots = UserDao().getAll()
+    private var _usersDataSnapShots = UserDao().getAll("")
 
     internal val users = Transformations.map(_usersDataSnapShots) {
         decomposeDataSnapshots(it)

@@ -169,8 +169,8 @@ class CardFragment : Fragment() {
             PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
-                    R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin.toString())
-                    R.id.Menu_ShowPin -> triggerSnackBarAction(card.pin.toString())
+                    R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin)
+                    R.id.Menu_ShowPin -> triggerSnackBarAction(card.pin)
                     else -> false
                 }
             }, PopupMenu.OnDismissListener {

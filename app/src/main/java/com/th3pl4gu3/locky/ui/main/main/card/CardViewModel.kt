@@ -22,7 +22,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
      **/
     private val _showSnackbarEvent = MutableLiveData<String>()
     private val _loadingStatus = MutableLiveData<LoadingStatus>()
-    private val _cardSnapShotList = CardDao().getAll()
     private var _currentCardsExposed = MediatorLiveData<List<Card>>()
     private var _sort = MutableLiveData<CardSort>()
     private var _cardListVisibility = MutableLiveData(false)
@@ -141,7 +140,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun loadCards() {
-        _currentCardsExposed.addSource(_cardSnapShotList) { snapshot ->
+        _currentCardsExposed.addSource(CardDao().getAll(getUserID())) { snapshot ->
             _currentCardsExposed.value = decomposeDataSnapshots(snapshot)
         }
     }
@@ -158,7 +157,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
             val cardList = ArrayList<Card>()
             snapshot.children.forEach { postSnapshot ->
                 postSnapshot.getValue<Card>()
-                    ?.let { if (it.userID == getUserID()) cardList.add(it) }
+                    ?.let { cardList.add(it) }
             }
             cardList
         } else {

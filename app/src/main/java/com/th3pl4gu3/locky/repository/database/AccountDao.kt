@@ -10,8 +10,11 @@ import com.th3pl4gu3.locky.core.main.Account
 
 class AccountDao : IFirebaseRepository<Account> {
 
-    private val REFERENCE_ACCOUNT = "ACCOUNTS"
-    private val database = Firebase.database
+    companion object {
+        private const val REFERENCE_ACCOUNT = "ACCOUNTS"
+        private const val FIELD_USER_ID = "userID"
+        private val database = Firebase.database
+    }
 
     override fun save(obj: Account): Task<Void> {
         obj.accountID = database.getReference(REFERENCE_ACCOUNT).push().key!!
@@ -24,9 +27,10 @@ class AccountDao : IFirebaseRepository<Account> {
     override fun remove(key: String): Task<Void> =
         database.getReference(REFERENCE_ACCOUNT).child(key).removeValue()
 
-    override fun getAll(): LiveData<DataSnapshot> =
+    override fun getAll(key: String): LiveData<DataSnapshot> =
         FirebaseFetchLiveData(
             query = database.getReference(REFERENCE_ACCOUNT)
+                .orderByChild(FIELD_USER_ID).equalTo(key)
         )
 
     override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(

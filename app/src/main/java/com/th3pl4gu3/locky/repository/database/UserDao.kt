@@ -23,8 +23,9 @@ class UserDao : IFirebaseRepository<User> {
     override fun remove(key: String): Task<Void> =
         database.getReference(REFERENCE_USER).child(key).removeValue()
 
-    override fun getAll(): LiveData<DataSnapshot> = FirebaseFetchLiveData(
+    override fun getAll(key: String): LiveData<DataSnapshot> = FirebaseFetchLiveData(
         query = database.getReference(REFERENCE_USER)
+        //.orderByChild("email").equalTo(key) TODO("NEED TO REVIEW")
     )
 
     override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(

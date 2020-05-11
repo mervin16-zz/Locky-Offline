@@ -13,7 +13,7 @@ interface IFirebaseRepository<T> {
 
     fun remove(key: String): Task<Void>
 
-    fun getAll(): LiveData<DataSnapshot>
+    fun getAll(key: String): LiveData<DataSnapshot>
 
     fun getOne(key: String): MutableLiveData<DataSnapshot>
 }

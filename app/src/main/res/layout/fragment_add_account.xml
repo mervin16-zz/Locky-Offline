@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="16dp">
 
         <!--****************************** LOGO ****************************** -->
         <ImageView
@@ -25,6 +25,15 @@
             android:layout_gravity="center_horizontal"
             bindUrlImage="@{ViewModel.logoUrl}"
             tools:src="@drawable/image_placeholder_logo" />
+
+        <ImageButton
+            android:id="@+id/Account_Log_Edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:background="?android:selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_edit" />
 
 
         <!--****************************** Required Label ****************************** -->
@@ -39,11 +48,13 @@
         <!--****************************** Name Text field ****************************** -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Account_Name"
-            style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/field_account_name">
+            android:hint="@string/field_account_name"
+            app:startIconDrawable="@drawable/ic_profile"
+            app:endIconMode="clear_text"
+            style="@style/Locky.TextBox.Default">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -60,7 +71,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/field_account_username">
+            android:hint="@string/field_account_username"
+            app:startIconDrawable="@drawable/ic_profile"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -78,6 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/field_account_email"
+            app:startIconDrawable="@drawable/ic_email"
+            app:endIconMode="clear_text"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -94,8 +109,10 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/field_account_password">
+            android:layout_marginTop="6dp"
+            android:hint="@string/field_account_password"
+            app:startIconDrawable="@drawable/ic_account"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -111,7 +128,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/field_account_website">
+            android:hint="@string/field_account_website"
+            app:startIconDrawable="@drawable/ic_web"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -154,7 +173,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/field_account_2fakeys">
+            android:hint="@string/field_account_2fakeys"
+            app:startIconDrawable="@drawable/ic_key"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -189,14 +210,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Save"
-            style="@style/Locky.Button.Default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/button_action_save"
             android:onClick="@{() -> ViewModel.save()}"
-            app:icon="@drawable/ic_save" />
+            android:theme="@style/Locky.Button.Theme"
+            app:icon="@drawable/ic_save"
+            style="@style/Locky.Button.Filled" />
 
     </LinearLayout>
 
