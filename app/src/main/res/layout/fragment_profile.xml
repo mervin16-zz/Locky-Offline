@@ -5,16 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="User"
             type="com.th3pl4gu3.locky.core.main.User" />
+
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky.ui.main.main.profile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp">
 
         <ImageView
             android:id="@+id/Account_Logo"
@@ -33,9 +37,9 @@
             android:id="@+id/RecyclerView_User_Details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:nestedScrollingEnabled="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,15 +47,35 @@
             app:layout_constraintTop_toBottomOf="@+id/Account_Logo" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/Button_Logout"
+            style="@style/Locky.Button.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/button_action_logout"
+            android:onClick="@{() -> ViewModel.removeUserSession()}"
+            app:icon="@drawable/ic_logout"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RecyclerView_User_Details" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Delete"
             style="@style/Locky.Button.Filled.Delete"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/button_action_delete"
+            app:iconGravity="textStart"
             app:icon="@drawable/ic_delete"
-            app:layout_constraintEnd_toEndOf="@+id/RecyclerView_User_Details"
-            app:layout_constraintTop_toBottomOf="@+id/RecyclerView_User_Details" />
+            app:layout_constraintEnd_toEndOf="@+id/Button_Logout"
+            app:layout_constraintStart_toStartOf="@+id/Button_Logout"
+            app:layout_constraintTop_toBottomOf="@+id/Button_Logout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

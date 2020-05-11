@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.VALUE_EMPTY
 import com.th3pl4gu3.locky.ui.main.utils.action
 import com.th3pl4gu3.locky.ui.main.utils.copyToClipboard
 import com.th3pl4gu3.locky.ui.main.utils.snackbar
@@ -67,8 +68,20 @@ class ViewAccountFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.Action_Duplicate -> {
+                /*
+                * We set the account id to empty here
+                * When the add screen receives it, it wil perceive it as a new account that needs to be
+                * added to the database
+                */
+                navigateToEditScreen(_account.apply {
+                    accountID = VALUE_EMPTY
+                })
+                true
+            }
+
             R.id.Action_Edit -> {
-                navigateToEditScreen()
+                navigateToEditScreen(_account)
                 true
             }
 
@@ -106,10 +119,10 @@ class ViewAccountFragment : Fragment() {
         }
     }
 
-    private fun navigateToEditScreen() {
+    private fun navigateToEditScreen(account: Account) {
         findNavController().navigate(
             ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
-                .setPARCELCREDACCOUNT(_account)
+                .setPARCELCREDACCOUNT(account)
         )
     }
 

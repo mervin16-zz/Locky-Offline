@@ -61,7 +61,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     }
     private val sortedBy2FA = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
-            account.twoFA?.toLowerCase(
+            account.authenticationType?.toLowerCase(
                 Locale.ROOT
             )
         }

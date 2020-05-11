@@ -188,6 +188,7 @@
     </style>
 
     <style name="Locky.Button.Filled.Delete">
+        <item name="android:textColor">@android:color/white</item>
         <item name="backgroundTint">@color/colorButtonDelete</item>
         <item name="iconTint">@android:color/white</item>
         <item name="android:padding">8dp</item>

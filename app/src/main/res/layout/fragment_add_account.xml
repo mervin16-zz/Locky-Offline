@@ -157,7 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/field_account_2faauth">
+            android:hint="@string/field_account_authentication_type">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

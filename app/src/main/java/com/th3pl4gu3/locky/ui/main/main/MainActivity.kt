@@ -16,12 +16,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
-import com.firebase.ui.auth.AuthUI
 import com.th3pl4gu3.locky.R
-import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky.ui.main.utils.*
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
+import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
+import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
+import com.th3pl4gu3.locky.ui.main.utils.toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         _viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
-        _binding.user = getUser()
-
         _binding.lifecycleOwner = this
 
         //Set the support action bar to the toolbar
@@ -61,30 +59,19 @@ class MainActivity : AppCompatActivity() {
         //Setup the navigation components
         navigationUISetup()
 
-        //Load expandable FABs and animations
-        loadFABs()
+        //Load FABs
+        listenerForAddFab()
+
+        listenerForSearchFab()
 
         //Scroll changes to adjust toolbar elevation accordingly
         setUpNestedScrollChangeListener()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        /*when (item.itemId) {
-            R.id.Activity_Login -> {
-                logout()
-                return true
-            }
-        }*/
-
-        return item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
+    override fun onOptionsItemSelected(item: MenuItem) =
+        item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
             item
         )
-    }
-
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }*/
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
@@ -131,16 +118,15 @@ class MainActivity : AppCompatActivity() {
                 R.id.Fragment_Card,
                 R.id.Fragment_Device -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
                     //Show all the FABs
-                    _binding.FABSearch.show()
-                    _binding.FABAdd.show()
+                    showFabs()
                 }
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     //Hide all the FABs
-                    _binding.FABSearch.hide()
-                    _binding.FABAdd.hide()
+                    hideFabs()
                 }
             }
         }
@@ -155,11 +141,23 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun loadFABs(){
+    private fun hideFabs() {
+        _binding.FABSearch.hide()
+        _binding.FABAdd.hide()
+    }
+
+    private fun showFabs() {
+        _binding.FABSearch.show()
+        _binding.FABAdd.show()
+    }
+
+    private fun listenerForAddFab() {
         _binding.FABAdd.setOnClickListener {
             navigateToAddCategorySheet()
         }
+    }
 
+    private fun listenerForSearchFab() {
         _binding.FABSearch.setOnClickListener {
             navigateToSearchSheet()
         }
@@ -191,17 +189,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToSplashScreen() {
         findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
-    }
-
-    private fun logout() {
-        LocalStorageManager.with(application)
-        LocalStorageManager.remove(KEY_USER_ACCOUNT)
-
-        AuthUI.getInstance().signOut(this)
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.with(application)
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT) ?: User.getInstance()
     }
 }

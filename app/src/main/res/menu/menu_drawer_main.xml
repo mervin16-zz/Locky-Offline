@@ -17,15 +17,6 @@
             android:title="@string/menu_drawer_main_device" />
     </group>
 
-    <item android:title="@string/menu_drawer_subtitle_search">
-        <menu>
-            <item
-                android:id="@+id/Fragment_Search"
-                android:icon="@drawable/ic_search"
-                android:title="@string/menu_drawer_main_search" />
-        </menu>
-    </item>
-
     <item android:title="@string/menu_drawer_subtitle_user">
         <menu>
             <item

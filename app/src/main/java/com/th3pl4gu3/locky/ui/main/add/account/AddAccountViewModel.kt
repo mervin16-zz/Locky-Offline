@@ -82,10 +82,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
     var twoFa: String?
         @Bindable get() {
-            return _account.twoFA
+            return _account.authenticationType
         }
         set(value) {
-            _account.twoFA = value
+            _account.authenticationType = value
             notifyPropertyChanged(BR.twoFa)
         }
 
@@ -164,7 +164,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         /** Check if data comes from edit screen
          *  or data is empty because it comes form add screen
          *  To do that, test if it is null or not **/
-        isEmptyAccount = account == null
+        isEmptyAccount = account == null || account.accountID.isEmpty()
 
         this._account = account ?: Account()
     }

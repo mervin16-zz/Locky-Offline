@@ -14,10 +14,12 @@ data class User constructor(
     private val _photoUrl: String = "",
     var email: String = "",
     var dateJoined: String = Calendar.getInstance().toFormattedStringDefault(),
-    var accountType: AccountType = AccountType.TRIAL
+    var accountType: AccountType = AccountType.TRIAL,
+    var accountStatus: AccountStatus = AccountStatus.ACTIVE
 ) : Parcelable {
 
     enum class AccountType { TRIAL, NORMAL, SUPER }
+    enum class AccountStatus { ACTIVE, INACTIVE, BLOCKED }
 
     val id: String
         @Exclude get() = _id
@@ -46,7 +48,7 @@ data class User constructor(
     }
 
     override fun toString(): String {
-        return "ID: $id | name: $_name | photo: $_photoUrl | email: $email | Dj: $dateJoined | account: $accountType"
+        return "ID: $id | name: $_name | photo: $_photoUrl | email: $email | Dj: $dateJoined | accountT: $accountType | accountS: $accountStatus"
     }
 }
 

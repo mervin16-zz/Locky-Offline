@@ -59,8 +59,8 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_2faauth),
-                    if (account.twoFA.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.twoFA!!
+                    getString(R.string.field_account_authentication_type),
+                    if (account.authenticationType.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.authenticationType!!
                 )
             )
             add(

@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -80,6 +81,22 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 
+    private fun navigateToSelectedCard(account: Account) {
+        findNavController().navigate(
+            SearchBottomSheetFragmentDirections.actionBottomSheetFragmentSearchToFragmentViewAccount(
+                account
+            )
+        )
+    }
+
+    private fun navigateToSelectedCard(card: Card) {
+        findNavController().navigate(
+            SearchBottomSheetFragmentDirections.actionBottomSheetFragmentSearchToFragmentViewCard(
+                card
+            )
+        )
+    }
+
     private fun observeSnackBarEvent() {
         viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -139,7 +156,7 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
     private fun initiateCardList(): CardAdapter {
         val cardAdapter = CardAdapter(
             CardClickListener {
-
+                navigateToSelectedCard(it)
             },
             CardOptionsClickListener { view, card ->
                 createCardPopupMenu(view, card)
@@ -157,7 +174,7 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
         val accountAdapter =
             AccountAdapter(
                 AccountClickListener {
-
+                    navigateToSelectedCard(it)
                 },
                 AccountOptionsClickListener { view, account ->
                     createActionPopupMenu(view, account)

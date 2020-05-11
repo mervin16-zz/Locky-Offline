@@ -51,7 +51,7 @@
                     android:id="@+id/Chip_Filter_2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_account_2faauth"
+                    android:text="@string/field_account_authentication_type"
                     style="@style/Locky.Button.Chip" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -96,7 +96,7 @@
                     android:id="@+id/Chip_Sort_2FA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/field_account_2faauth"
+                    android:text="@string/field_account_authentication_type"
                     android:checked="@{Sort.twofa}"
                     style="@style/Locky.Button.Chip" />
 

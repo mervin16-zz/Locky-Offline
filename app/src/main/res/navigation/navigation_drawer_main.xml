@@ -62,7 +62,22 @@
         android:id="@+id/BottomSheet_Fragment_Search"
         android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchBottomSheetFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_bottom_sheet_search" />
+        tools:layout="@layout/fragment_bottom_sheet_search">
+        <action
+            android:id="@+id/action_BottomSheet_Fragment_Search_to_Fragment_View_Card"
+            app:destination="@id/Fragment_View_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+        <action
+            android:id="@+id/action_BottomSheet_Fragment_Search_to_Fragment_View_Account"
+            app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </dialog>
 
     <fragment
         android:id="@+id/Fragment_View_Card"

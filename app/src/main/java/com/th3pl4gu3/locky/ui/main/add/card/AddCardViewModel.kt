@@ -168,7 +168,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
          *  or data is empty because it comes form add screen
          *  To do that, test if card is null
          **/
-        isEmptyCard = card == null
+        isEmptyCard = card == null || card.cardID.isEmpty()
 
         this._card = card ?: Card()
     }
