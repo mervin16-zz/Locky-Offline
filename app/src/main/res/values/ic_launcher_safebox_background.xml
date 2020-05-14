@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <drawable name="ic_launcher_safebox_background">@drawable/path_background_gradient</drawable>
+    <color name="ic_launcher_safebox_background">@android:color/white</color>
 </resources>

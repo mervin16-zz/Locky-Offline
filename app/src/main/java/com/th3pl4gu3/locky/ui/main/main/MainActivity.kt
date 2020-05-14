@@ -3,7 +3,11 @@ package com.th3pl4gu3.locky.ui.main.main
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -16,6 +20,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
@@ -120,13 +126,23 @@ class MainActivity : AppCompatActivity() {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
 
                     //Show all the FABs
-                    showFabs()
+                    showFABs()
+
+                    //Show the toolbar
+                    toolbarTitleVisibility(true)
                 }
+                R.id.Fragment_View_Account,
+                R.id.Fragment_View_Card,
+                R.id.Fragment_Add_Account,
+                R.id.Fragment_Add_Card -> toolbarTitleVisibility(false)
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     //Hide all the FABs
-                    hideFabs()
+                    hideFABs()
+
+                    //Show the toolbar
+                    toolbarTitleVisibility(true)
                 }
             }
         }
@@ -141,29 +157,50 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun hideFabs() {
+    private fun updateToolbarTitle(title: String) {
+        _binding.ToolbarMainTitle.text = title
+    }
+
+    private fun toolbarTitleVisibility(visibility: Boolean) {
+        _binding.ToolbarMainTitle.visibility = if (visibility) View.VISIBLE else View.GONE
+    }
+
+    private fun hideFABs() {
         _binding.FABSearch.hide()
         _binding.FABAdd.hide()
     }
 
-    private fun showFabs() {
+    private fun showFABs() {
         _binding.FABSearch.show()
         _binding.FABAdd.show()
+
+        showFABFromSlidingBehavior(_binding.FABSearch, _binding.FABSearch.isVisible)
+        showFABFromSlidingBehavior(_binding.FABAdd, _binding.FABAdd.isVisible)
     }
 
-    private fun listenerForAddFab() {
-        _binding.FABAdd.setOnClickListener {
+    private fun showFABFromSlidingBehavior(fab: FloatingActionButton, isVisible: Boolean) {
+        val layoutParams: ViewGroup.LayoutParams = fab.layoutParams
+        if (layoutParams is CoordinatorLayout.LayoutParams) {
+            val behavior = layoutParams.behavior
+            if (behavior is HideBottomViewOnScrollBehavior) {
+                if (isVisible) {
+                    behavior.slideUp(fab)
+                } else {
+                    behavior.slideDown(fab)
+                }
+            }
+        }
+    }
+
+    private fun listenerForAddFab() = _binding.FABAdd.setOnClickListener {
             navigateToAddCategorySheet()
         }
-    }
 
-    private fun listenerForSearchFab() {
-        _binding.FABSearch.setOnClickListener {
+    private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
             navigateToSearchSheet()
         }
-    }
 
-    private fun observeAuthenticationState() {
+    private fun observeAuthenticationState() =
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationState.UNAUTHENTICATED -> {
@@ -172,22 +209,16 @@ class MainActivity : AppCompatActivity() {
                 else -> return@Observer
             }
         })
-    }
 
-    private fun navigateToSearchSheet() {
-        findNavController(R.id.Navigation_Host).navigate(
+    private fun navigateToSearchSheet() = findNavController(R.id.Navigation_Host).navigate(
             R.id.BottomSheet_Fragment_Search, null
         )
-    }
 
-    private fun navigateToAddCategorySheet() {
-        findNavController(R.id.Navigation_Host).navigate(
+    private fun navigateToAddCategorySheet() = findNavController(R.id.Navigation_Host).navigate(
             R.id.BottomSheet_Fragment_Add_Category,
             null
         )
-    }
 
-    private fun navigateToSplashScreen() {
+    private fun navigateToSplashScreen() =
         findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
-    }
 }

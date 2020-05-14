@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,6 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <!--
+           Recyclerview
+        -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView_Card"
             android:layout_width="match_parent"
@@ -25,64 +30,120 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-        <!-- Empty View -->
-        <LinearLayout
+
+        <!--
+            Empty Views and group
+        -->
+        <androidx.constraintlayout.widget.Group
             android:id="@+id/Empty_View"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:visibility="@{ViewModel.cardEmptyViewVisibility? View.VISIBLE : View.GONE}"
-            android:layout_marginBottom="?attr/actionBarSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:constraint_referenced_ids="Empty_View_Illustration,Empty_View_Title,Empty_View_Subtitle" />
 
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:tint="@color/colorAccent"
-                app:srcCompat="@drawable/ic_card_generic" />
-
-            <TextView
-                style="@style/Locky.Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:textAlignment="center"
-                android:text="@string/text_title_emptyView_cards" />
-
-            <TextView
-                style="@style/Locky.Text.Subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/text_subtitle_emptyView_cards" />
-
-        </LinearLayout>
-
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/Progress_Bar"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/Empty_View_Illustration"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/Empty_View_Title"
+            app:layout_constraintEnd_toEndOf="@id/Guideline_Right"
+            app:layout_constraintStart_toStartOf="@id/Guideline_Left"
+            app:layout_constraintTop_toBottomOf="@id/Guideline_Top"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".8"
+            app:srcCompat="@drawable/il_card" />
+
+        <TextView
+            android:id="@+id/Empty_View_Title"
+            style="@style/Locky.Text.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/text_title_emptyView_cards"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/Empty_View_Subtitle"
+            app:layout_constraintEnd_toStartOf="@+id/Guideline_Right"
+            app:layout_constraintStart_toStartOf="@+id/Guideline_Left"
+            app:layout_constraintTop_toBottomOf="@+id/Empty_View_Illustration"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".8" />
+
+        <TextView
+            android:id="@+id/Empty_View_Subtitle"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="?attr/actionBarSize"
-            android:indeterminate="true"
+            android:text="@string/text_subtitle_emptyView_cards"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/Guideline_Bottom"
+            app:layout_constraintEnd_toStartOf="@+id/Guideline_Right"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="@+id/Guideline_Left"
+            app:layout_constraintTop_toBottomOf="@+id/Empty_View_Title"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".8" />
+
+        <!--
+            Progress Bar
+        -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/Progress_Bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:visibility="@{ViewModel.loadingStatus? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/json_anim_loading" />
+
+        <!--
+            Guidelines
+        -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/Guideline_Left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/Guideline_Right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/Guideline_Top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/Guideline_Bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

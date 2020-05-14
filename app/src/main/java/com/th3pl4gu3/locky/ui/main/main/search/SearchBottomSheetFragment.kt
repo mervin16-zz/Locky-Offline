@@ -113,7 +113,7 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
         val bottomSheet =
             bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
         bottomSheetBehaviour = BottomSheetBehavior.from(bottomSheet as View)
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
 
         val layoutParams = bottomSheet.layoutParams
 

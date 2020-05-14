@@ -1065,7 +1065,7 @@
             android:fillColor="#9575CD"
             android:pathData="M376.27,275.81l-26.59,0l5.14,-12.62l16.31,0l5.14,12.62z"
             android:strokeAlpha="0.4" />
-  </group>
+    </group>
     <group>
         <clip-path android:pathData="M257.182,250.535m-79.967,79.967a113.09,113.09 90,1 1,159.933 -159.933a113.09,113.09 90,1 1,-159.933 159.933" />
         <path

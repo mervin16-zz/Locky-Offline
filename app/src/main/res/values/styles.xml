@@ -35,26 +35,22 @@
     <!-- Splash Launcher UI theme. -->
     <style name="Locky.Theme.Launcher" parent="Locky.Theme">
         <item name="android:windowBackground">@drawable/custom_background_launcher</item>
-        <item name="colorPrimary">@color/background_gradient_accent_start</item>
-        <item name="colorPrimaryDark">@color/background_gradient_accent_start</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!-- Firebase UI theme. -->
     <style name="Locky.Theme.Launcher.FirebaseUI" parent="FirebaseUI">
-        <item name="colorPrimary">@color/background_gradient_accent_start</item>
-        <item name="colorPrimaryDark">@color/background_gradient_accent_start</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="colorControlNormal">@color/colorAccentDark</item>
         <item name="colorControlActivated">@color/colorAccentDark</item>
         <item name="colorControlHighlight">@color/colorAccentDark</item>
-        <item name="android:windowBackground">@drawable/path_background_gradient</item>
 
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Locky.ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
@@ -146,11 +142,11 @@
     </style>
 
     <style name="Locky.FloatingActionButton.Authentication" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/white</item>
         <item name="fabSize">normal</item>
         <item name="borderWidth">2dp</item>
-        <item name="backgroundTint">@android:color/white</item>
-        <item name="tint">@android:color/white</item>
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="tint">@color/colorAccent</item>
         <item name="elevation">0dp</item>
     </style>
 
@@ -196,15 +192,13 @@
     </style>
 
     <style name="Locky.Button.Splash" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/colorButtonTextAccentSecondary</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="backgroundTint">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="backgroundTint">@color/colorAccent</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="elevation">12dp</item>
-        <item name="cornerRadius">21dp</item>
     </style>
 
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
@@ -229,15 +223,15 @@
         <item name="fontFamily">@font/google_sans_medium</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorTextTitle</item>
     </style>
 
     <style name="Locky.Text.Splash.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:fontFamily">@font/google_sans_medium</item>
         <item name="fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorTextSubtitle</item>
     </style>
 
 

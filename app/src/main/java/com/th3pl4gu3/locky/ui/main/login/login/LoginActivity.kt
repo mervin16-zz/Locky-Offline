@@ -15,7 +15,6 @@ import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivityLoginBinding
 import com.th3pl4gu3.locky.ui.main.main.MainActivity
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USERS
 import com.th3pl4gu3.locky.ui.main.utils.openActivity
 import com.th3pl4gu3.locky.ui.main.utils.toast
 
@@ -24,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityLoginBinding
     private lateinit var _viewModel: LoginViewModel
-    private lateinit var _users: List<User>
 
     companion object {
         const val SIGN_IN_RESULT_CODE = 1001
@@ -37,13 +35,18 @@ class LoginActivity : AppCompatActivity() {
 
         _binding.lifecycleOwner = this
 
-        _users = intent.getParcelableArrayListExtra(KEY_USERS) ?: ArrayList()
-
         _binding.ButtonStarted.setOnClickListener {
             launchEmailAuth()
         }
 
+        /* Observe if the user was already authenticated in Firebase Auth*/
         observeAuthenticationState()
+
+        /* Observe the fetched user from local firebase database */
+        observeUser()
+
+        /* Observe toast event for any errors*/
+        observeNewUserTriggerEvent()
     }
 
 
@@ -95,6 +98,41 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
+    private fun mergeDatabaseUserWithAuthUser(dbUser: User) = User.getInstance().apply {
+        dateJoined = dbUser.dateJoined
+        accountType = dbUser.accountType
+        accountStatus = dbUser.accountStatus
+    }
+
+    private fun observeUser() {
+        _viewModel.user.observe(this, Observer { user ->
+            if (user != null) {
+                /*
+                * If the user was fetched successfully
+                * Create a session if the session doesn't exist already
+                */
+                _viewModel.createSession(mergeDatabaseUserWithAuthUser(user))
+
+                /* Navigate the user to the main screen */
+                navigateToMain()
+            }
+        })
+    }
+
+    private fun observeNewUserTriggerEvent() {
+        _viewModel.newUserTrigger.observe(this, Observer {
+            when (it) {
+                LoginViewModel.UserTrigger.NEW_USER -> createNewUserAndNavigateToMain(User.getInstance())
+                LoginViewModel.UserTrigger.EXISTING_USER -> {
+                }
+                LoginViewModel.UserTrigger.INIT -> {
+                }
+                else -> {
+                }
+            }
+        })
+    }
+
     private fun observeAuthenticationState() {
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
@@ -108,41 +146,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        /**
-         * Here we check if the firebase auth matches the list of users returned from the previous screen
-         * if a match is found,
-         * it mean the user already exists.
-         * if not, we need to create the user.
-         **/
-
-        val user = User.getInstance()
-        verifyIfExistingUserAndNavigateToMain(user)
-
-        /**
-         * If the code reaches here,
-         * it means that no user was found in list
-         * this means that we need to create the user
-         * we create the user in the background
-         * then we start a session and redirects the user to the main screen
-         **/
-        createNewUserAndNavigateToMain(user)
-    }
-
-    private fun verifyIfExistingUserAndNavigateToMain(user: User) {
-        _users.forEach {
-            if (it.email == user.email) {
-                /**
-                 * Since we already have the user,
-                 * we just need to start a session and redirects him/her to the main screen
-                 **/
-                _viewModel.startSession(user.apply {
-                    dateJoined = it.dateJoined
-                    accountType = it.accountType
-                })
-                navigateToMain()
-                return
-            }
-        }
+        /* Verify if it is an existing user*/
+        _viewModel.returningUser(User.getInstance())
     }
 
     private fun createNewUserAndNavigateToMain(user: User) {

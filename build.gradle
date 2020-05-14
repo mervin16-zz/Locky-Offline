@@ -29,6 +29,7 @@ buildscript {
     ext.version_glide = "4.11.0"
     ext.version_moshi = "1.9.2"
     ext.version_gson = "2.8.6"
+    ext.version_lottie = "3.4.0"
 
     repositories {
         google()

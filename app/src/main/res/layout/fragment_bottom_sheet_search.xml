@@ -55,131 +55,196 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/Layout_Nested_Scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="64dp"
             android:fillViewport="true"
             app:layout_anchor="@id/Layout_Fixed_Top_View"
             app:layout_anchorGravity="bottom">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/Layout_Linear_Main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/View_Lists"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:visibility="@{ViewModel.starterScreenVisibility? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone">
+                    app:constraint_referenced_ids="EmptyView_Cards_Text,RecyclerView_Accounts,Lists_Title_Cards,RecyclerView_Cards,EmptyView_Accounts_Text,Lists_Title_Accounts,Barrier_Separator"
+                    tools:visibility="visible" />
 
-                    <TextView
-                        style="@style/Locky.Text.Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/menu_drawer_main_account" />
+                <TextView
+                    android:id="@+id/Lists_Title_Accounts"
+                    style="@style/Locky.Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/menu_drawer_main_account"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/RecyclerView_Accounts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:visibility="@{ViewModel.accountListVisibility? View.VISIBLE : View.GONE}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                    <TextView
-                        android:id="@+id/EmptyView_Accounts_Text"
-                        style="@style/Locky.Text.Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/message_loading_item_account_none"
-                        android:visibility="@{ViewModel.accountListVisibility? View.GONE : View.VISIBLE}" />
-
-                    <TextView
-                        style="@style/Locky.Text.Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/menu_drawer_main_card" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/RecyclerView_Cards"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:visibility="@{ViewModel.cardListVisibility? View.VISIBLE : View.GONE}"
-                        tools:layout_height="50dp" />
-
-                    <TextView
-                        android:id="@+id/EmptyView_Cards_Text"
-                        style="@style/Locky.Text.Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/message_loading_item_cards_none"
-                        android:visibility="@{ViewModel.cardListVisibility? View.GONE : View.VISIBLE}" />
-
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerView_Accounts"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:visibility="@{ViewModel.accountListVisibility? View.VISIBLE : View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Lists_Title_Accounts" />
+
+                <TextView
+                    android:id="@+id/EmptyView_Accounts_Text"
+                    style="@style/Locky.Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/message_loading_item_account_none"
+                    android:visibility="@{ViewModel.accountListVisibility? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Lists_Title_Accounts" />
+
+                <TextView
+                    android:id="@+id/Lists_Title_Cards"
+                    style="@style/Locky.Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/menu_drawer_main_card"
+                    app:layout_constraintStart_toStartOf="@+id/Lists_Title_Accounts"
+                    app:layout_constraintTop_toBottomOf="@+id/Barrier_Separator" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerView_Cards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="@{ViewModel.cardListVisibility? View.VISIBLE : View.GONE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/RecyclerView_Accounts"
+                    app:layout_constraintStart_toStartOf="@+id/RecyclerView_Accounts"
+                    app:layout_constraintTop_toBottomOf="@+id/Lists_Title_Cards"
+                    tools:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/EmptyView_Cards_Text"
+                    style="@style/Locky.Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/message_loading_item_cards_none"
+                    android:visibility="@{ViewModel.cardListVisibility? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="@+id/EmptyView_Accounts_Text"
+                    app:layout_constraintTop_toBottomOf="@+id/Lists_Title_Cards" />
+
+
+                <!--
+                    Starter Screen Views
+                -->
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/View_Starter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:visibility="@{ViewModel.starterScreenVisibility? View.VISIBLE : View.GONE}"
-                    tools:visibility="visible">
+                    app:constraint_referenced_ids="Starter_Title,Starter_Illustration,Starter_Subtitle,Guideline_Right,Guideline_Left,Guideline_Top,Guideline_Bottom"
+                    tools:visibility="gone" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="16dp"
-                        android:scaleType="centerCrop"
-                        android:tint="@color/purple_200"
-                        app:layout_constraintBottom_toTopOf="@+id/textView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/image_placeholder_logo" />
+                <ImageView
+                    android:id="@+id/Starter_Illustration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toTopOf="@+id/Starter_Title"
+                    app:layout_constraintEnd_toStartOf="@+id/Guideline_Right"
+                    app:layout_constraintStart_toStartOf="@+id/Guideline_Left"
+                    app:layout_constraintTop_toTopOf="@+id/Guideline_Top"
+                    app:layout_constraintVertical_chainStyle="spread"
+                    app:srcCompat="@drawable/il_search" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        style="@style/Locky.Text.Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/text_title_emptyView_item_search"
-                        app:layout_constraintBottom_toTopOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView"
-                        app:layout_constraintStart_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                <TextView
+                    android:id="@+id/Starter_Title"
+                    style="@style/Locky.Text.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/text_title_emptyView_item_search"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toTopOf="@+id/Starter_Subtitle"
+                    app:layout_constraintEnd_toStartOf="@+id/Guideline_Right"
+                    app:layout_constraintStart_toStartOf="@+id/Guideline_Left"
+                    app:layout_constraintTop_toBottomOf="@+id/Starter_Illustration"
+                    app:layout_constraintWidth_percent=".8" />
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        style="@style/Locky.Text.Subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/text_subtitle_emptyView_item_search"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <TextView
+                    android:id="@+id/Starter_Subtitle"
+                    style="@style/Locky.Text.Subtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/text_subtitle_emptyView_item_search"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toTopOf="@+id/Guideline_Bottom"
+                    app:layout_constraintEnd_toStartOf="@+id/Guideline_Right"
+                    app:layout_constraintStart_toStartOf="@+id/Guideline_Left"
+                    app:layout_constraintTop_toBottomOf="@+id/Starter_Title"
+                    app:layout_constraintWidth_percent=".8" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+                <!--
+                    Guidelines
+                -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/Guideline_Left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/Guideline_Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".9" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/Guideline_Top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/Guideline_Bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".8" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/Barrier_Separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="RecyclerView_Accounts,EmptyView_Accounts_Text,Lists_Title_Accounts"
+                    tools:layout_editor_absoluteY="731dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 

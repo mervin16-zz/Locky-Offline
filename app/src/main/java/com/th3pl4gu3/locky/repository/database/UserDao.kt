@@ -10,8 +10,11 @@ import com.th3pl4gu3.locky.core.main.User
 
 class UserDao : IFirebaseRepository<User> {
 
-    private val REFERENCE_USER = "USERS"
-    private val database = Firebase.database
+    companion object {
+        private const val REFERENCE_USER = "USERS"
+        private const val FIELD_USER_EMAIL = "email"
+        private val database = Firebase.database
+    }
 
     override fun save(obj: User): Task<Void> {
         return database.getReference(REFERENCE_USER).child(obj.id).setValue(obj)
@@ -25,7 +28,7 @@ class UserDao : IFirebaseRepository<User> {
 
     override fun getAll(key: String): LiveData<DataSnapshot> = FirebaseFetchLiveData(
         query = database.getReference(REFERENCE_USER)
-        //.orderByChild("email").equalTo(key) TODO("NEED TO REVIEW")
+            .orderByChild(FIELD_USER_EMAIL).equalTo(key)
     )
 
     override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(
