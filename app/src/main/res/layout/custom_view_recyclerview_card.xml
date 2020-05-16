@@ -25,72 +25,90 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> ClickListener.onClick(Card)}">
+        android:onClick="@{() -> ClickListener.onClick(Card)}"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/Card_Logo"
             cardLogo="@{Card.number}"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/image_card_def" />
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="Card_Logo" />
+
         <TextView
             android:id="@+id/Card_Number"
-            style="@style/Locky.Text.Title.List"
+            style="@style/Locky.Text.Title6.List"
             cardNumber="@{Card.number}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             app:layout_constraintBottom_toTopOf="@+id/Card_Date"
-            app:layout_constraintStart_toEndOf="@+id/Card_Logo"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
             app:layout_constraintTop_toTopOf="@+id/Card_Logo"
-            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_chainStyle="spread_inside"
             tools:text="4850 XXXX XXXX XXXX" />
 
         <TextView
             android:id="@+id/Card_Date"
-            style="@style/Locky.Text.Subtitle.List"
+            style="@style/Locky.Text.Subtitle.List.Primary"
             expiryCardDate="@{Card.expiryDate}"
             issuedCardDate="@{Card.issuedDate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/Entry_Name"
-            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
+            app:layout_constraintStart_toStartOf="@+id/Card_Number"
             app:layout_constraintTop_toBottomOf="@+id/Card_Number"
             app:layout_constraintVertical_chainStyle="spread"
             tools:text="Issued: MM/yy | Expiry: MM/yy" />
 
         <TextView
             android:id="@+id/Entry_Name"
-            style="@style/Locky.Text.Subtitle.List"
+            style="@style/Locky.Text.Subtitle.List.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Card.entryName}"
+            android:ellipsize="end"
+            android:ems="14"
+            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintStart_toStartOf="@+id/Card_Number"
             app:layout_constraintTop_toBottomOf="@+id/Card_Date"
             app:layout_constraintVertical_chainStyle="spread"
-            tools:text="John Doe" />
+            tools:text="This can be a really really long long name" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_More_Options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="Card_More_Options" />
 
         <ImageButton
             android:id="@+id/Card_More_Options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/custom_states_background_button_image"
             android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/Barrier_More_Options"
             app:layout_constraintTop_toTopOf="@+id/Card_Logo" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,10 +1,12 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!--
+    ***
+    ******* Application's Base Theme  *******
+    ***
+    -->
     <style name="Locky.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!--
-            Application's Theme
-        -->
+        <!-- Base Theme-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,15 +14,14 @@
         <item name="colorAccentLight">@color/colorAccentLight</item>
         <item name="colorRipple">@color/colorRipple</item>
         <item name="android:listDivider">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
 
         <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
 
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
 
-        <!--
-            Navigation Drawer Theme
-        -->
+        <!-- Navigation Drawer -->
         <item name="colorNavigationItem">@color/color_state_drawer_item</item>
         <item name="colorNavigationItemSelected">@android:color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/custom_drawer_background</item>
@@ -32,12 +33,22 @@
 
     </style>
 
-    <!-- Splash Launcher UI theme. -->
+
+    <!--
+    ***
+    ******* Splash Launcher Theme  *******
+    ***
+    -->
     <style name="Locky.Theme.Launcher" parent="Locky.Theme">
         <item name="android:windowBackground">@drawable/custom_background_launcher</item>
     </style>
 
-    <!-- Firebase UI theme. -->
+
+    <!--
+    ***
+    ******* FirebaseUI Theme  *******
+    ***
+    -->
     <style name="Locky.Theme.Launcher.FirebaseUI" parent="FirebaseUI">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -53,21 +64,27 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+
+    <!--
+    ***
+    ******* Application Components  *******
+    ***
+    -->
+
+    <!-- Shape Cutout-->
     <style name="Locky.ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">4dp</item>
     </style>
 
-    <!-- Navigation -->
+    <!-- Navigation View Style -->
     <style name="Locky.Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
         <item name="itemTextColor">?attr/colorNavigationItem</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
     </style>
 
-    <!--
-    *********************** App Icons ***********************
-    -->
+    <!-- Global Icons -->
     <style name="Locky.Icon.Drawer.Hamburger" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@color/colorIcon</item>
@@ -79,9 +96,14 @@
 
 
     <!--
-         *********************** Text Box ***********************
-     -->
+    ***
+    ******* Text Fields  *******
+    ***
+    -->
+
+    <!-- Default Text Field Style -->
     <style name="Locky.TextBox.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Main Styles-->
         <item name="android:theme">@style/Locky.TextBox.TextAppearance</item>
         <item name="hintTextColor">@color/colorTextFieldTextDefault</item>
         <item name="boxStrokeColor">@color/color_state_textfield_border</item>
@@ -89,12 +111,13 @@
         <item name="endIconTint">@color/colorTextFieldIconDefault</item>
         <item name="counterMaxLength">150</item>
 
-        <!-- Error fields theme-->
+        <!-- Error Fields Styles-->
         <item name="boxStrokeErrorColor">@color/colorTextFieldErrorDefault</item>
         <item name="errorIconTint">@color/colorTextFieldErrorDefault</item>
         <item name="errorTextColor">@color/colorTextFieldErrorDefault</item>
     </style>
 
+    <!-- Default Text Field Text Appearance Style -->
     <style name="Locky.TextBox.TextAppearance" parent="Widget.Design.TextInputLayout">
         <item name="colorControlNormal">@color/colorTextFieldAccentDefault_Active</item>
         <item name="colorControlActivated">@color/colorTextFieldAccentDefault_Active</item>
@@ -111,6 +134,7 @@
         </item>
     </style>
 
+    <!-- Search Text Field Style -->
     <style name="Locky.TextBox.Default.Search">
         <item name="boxStrokeColor">@color/colorTextFieldAccentSearch</item>
         <item name="android:background">@drawable/custom_background_edittext_search</item>
@@ -124,8 +148,12 @@
 
 
     <!--
-        *********************** Buttons ***********************
+    ***
+    ******* Buttons  *******
+    ***
     -->
+
+    <!-- Floating Action Buttons -->
     <style name="Locky.FloatingActionButton.Normal" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:backgroundTint">@color/colorFabNormal</item>
         <item name="fabSize">normal</item>
@@ -150,11 +178,26 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="Locky.FloatingActionButton.Normal.Display">
+        <item name="elevation">0dp</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+
+    <!-- Material Buttons -->
     <style name="Locky.Button.Theme" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.SmallComponent
         </item>
-        <item name="fontFamily">@font/rubik_medium</item>
-        <item name="android:fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="Locky.Button.Filled" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="elevation">12dp</item>
     </style>
 
     <style name="Locky.Button.Positive" parent="Widget.MaterialComponents.Button">
@@ -163,42 +206,6 @@
 
     <style name="Locky.Button.Negative" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/colorButtonTextNegative</item>
-    </style>
-
-    <style name="Locky.Button.Default" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
-        <item name="android:textColor">@color/colorButtonTextAccentPrimary</item>
-        <item name="strokeColor">@color/colorButtonTextAccentPrimary</item>
-        <item name="iconTint">@color/colorButtonTextAccentPrimary</item>
-        <item name="rippleColor">@color/colorRipple</item>
-        <item name="iconPadding">12dp</item>
-        <item name="android:padding">13dp</item>
-    </style>
-
-    <style name="Locky.Button.Filled" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/colorAccentDark</item>
-        <item name="iconTint">@color/colorAccentDark</item>
-        <item name="backgroundTint">@color/colorAccentLight</item>
-        <item name="rippleColor">@color/colorAccent</item>
-        <item name="iconPadding">12dp</item>
-        <item name="android:padding">10dp</item>
-    </style>
-
-    <style name="Locky.Button.Filled.Delete">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="backgroundTint">@color/colorButtonDelete</item>
-        <item name="iconTint">@android:color/white</item>
-        <item name="android:padding">8dp</item>
-        <item name="iconPadding">8dp</item>
-    </style>
-
-    <style name="Locky.Button.Splash" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:textSize">12sp</item>
-        <item name="backgroundTint">@color/colorAccent</item>
-        <item name="rippleColor">@color/colorRipple</item>
-        <item name="elevation">12dp</item>
     </style>
 
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
@@ -214,52 +221,18 @@
         <item name="chipCornerRadius">5dp</item>
     </style>
 
+
     <!--
-     *********************** Typography ***********************
-     -->
-
-    <style name="Locky.Text.Splash.Title" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
+    ***
+    ******* Typography  *******
+    ***
+    -->
+    <style name="Locky.Text.Title6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/colorTextTitle</item>
     </style>
 
-    <style name="Locky.Text.Splash.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/colorTextSubtitle</item>
-    </style>
-
-
-    <style name="Locky.Text.Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:fontFamily">@font/musket_regular</item>
-        <item name="fontFamily">@font/musket_regular</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorTextTitleAccent</item>
-    </style>
-
-    <style name="Locky.Text.Drawer.Title" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">@color/colorTextTitleAccent</item>
-        <item name="textAllCaps">false</item>
-        <item name="fontFamily">@font/musket_regular</item>
-        <item name="android:fontFamily">@font/musket_regular</item>
-    </style>
-
-    <style name="Locky.Text.Drawer.Item" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textSize">13sp</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
-    </style>
-
-    <style name="Locky.Text.Title" parent="TextAppearance.MaterialComponents.Headline6">
+    <style name="Locky.Text.Title5" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/colorTextTitle</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
     </style>
 
     <style name="Locky.Text.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle2">
@@ -267,28 +240,61 @@
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="Locky.Text.Title.List">
-        <item name="android:textSize">15sp</item>
+    <style name="Locky.Text.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/colorTextBody</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="Locky.Text.Subtitle.List">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/colorTextSubtitle</item>
+    <style name="Locky.Text.Caption" parent="TextAppearance.MaterialComponents.Caption" />
+
+    <style name="Locky.Text.Subtitle.Smaller">
+        <item name="android:textSize">11sp</item>
     </style>
 
-    <style name="Locky.Text.Label" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-
-    <style name="Locky.Text.Body" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">@color/colorTextTitle</item>
-    </style>
-
-    <style name="Locky.Text.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
-        <item name="fontFamily">@font/google_sans_medium</item>
+    <style name="Locky.Text.Title6.Splash">
+        <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Locky.Text.Subtitle.Splash">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Locky.Text.Title6.Toolbar">
+        <item name="android:fontFamily">@font/musket_regular</item>
+        <item name="fontFamily">@font/musket_regular</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Locky.Text.Title6.Drawer">
+        <item name="fontFamily">@font/musket_regular</item>
+        <item name="android:fontFamily">@font/musket_regular</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="Locky.Text.Body.Drawer" />
+
+    <style name="Locky.Text.Title6.List">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Locky.Text.Subtitle.List" />
+
+    <style name="Locky.Text.Subtitle.List.Primary">
+        <item name="android:textColor">@color/grey_400</item>
+    </style>
+
+    <style name="Locky.Text.Subtitle.List.Secondary">
+        <item name="android:textColor">@color/grey_200</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Locky.Text.Subtitle.Label">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.Text.Title5.Name" />
 
 </resources>

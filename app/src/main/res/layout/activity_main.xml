@@ -24,7 +24,7 @@
 
                 <TextView
                     android:id="@+id/Toolbar_Main_Title"
-                    style="@style/Locky.Text.Toolbar.TitleText"
+                    style="@style/Locky.Text.Title6.Toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -83,7 +83,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="16dp"
             app:headerLayout="@layout/drawer_header"
-            app:itemTextAppearance="@style/Locky.Text.Drawer.Item"
+            app:itemTextAppearance="@style/Locky.Text.Body.Drawer"
             app:menu="@menu/menu_drawer_main" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

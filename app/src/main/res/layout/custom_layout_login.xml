@@ -1,112 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/Image_Art_Login"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent=".5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/il_register" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Text_Title"
-            style="@style/Locky.Text.Splash.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/text_title_login"
-            app:layout_constraintBottom_toTopOf="@+id/Text_Subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Image_Art_Login"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <ImageView
+                android:id="@+id/Image_Art_Login"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent=".5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/il_register" />
 
-        <TextView
-            android:id="@+id/Text_Subtitle"
-            style="@style/Locky.Text.Splash.Subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/text_subtitle_login"
-            app:layout_constraintBottom_toTopOf="@+id/Guideline_Buttons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Text_Title" />
+            <TextView
+                android:id="@+id/Text_Title"
+                style="@style/Locky.Text.Title6.Splash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/text_title_login"
+                app:layout_constraintBottom_toTopOf="@+id/Text_Subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Image_Art_Login"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Email"
-            style="@style/Locky.Button.Splash"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/button_action_email_sign_in"
-            app:layout_constraintBottom_toTopOf="@+id/FAB_Google"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Guideline_Buttons"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/Text_Subtitle"
+                style="@style/Locky.Text.Subtitle.Splash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/text_subtitle_login"
+                app:layout_constraintBottom_toTopOf="@+id/Guideline_Buttons"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Text_Title" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/FAB_Facebook"
-            style="@style/Locky.FloatingActionButton.Authentication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/FAB_Google"
-            app:layout_constraintEnd_toStartOf="@+id/FAB_Google"
-            app:layout_constraintTop_toTopOf="@+id/FAB_Google"
-            app:srcCompat="@drawable/ic_facebook_f" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Email"
+                style="@style/Locky.Button.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/button_action_email_sign_in"
+                app:layout_constraintBottom_toTopOf="@+id/FAB_Google"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/Guideline_Buttons"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/FAB_Google"
-            style="@style/Locky.FloatingActionButton.Authentication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Button_Email"
-            app:layout_constraintTop_toBottomOf="@+id/Button_Email"
-            app:srcCompat="@drawable/ic_google_g" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/FAB_Facebook"
+                style="@style/Locky.FloatingActionButton.Authentication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/FAB_Google"
+                app:layout_constraintEnd_toStartOf="@+id/FAB_Google"
+                app:layout_constraintTop_toTopOf="@+id/FAB_Google"
+                app:srcCompat="@drawable/ic_facebook_f" />
 
-        <TextView
-            android:id="@+id/Text_Register_With"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_subtitle_register_with"
-            android:textColor="@color/grey_300"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/FAB_Facebook"
-            app:layout_constraintEnd_toStartOf="@+id/FAB_Facebook"
-            app:layout_constraintStart_toStartOf="@+id/Button_Email"
-            app:layout_constraintTop_toTopOf="@+id/FAB_Facebook" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/FAB_Google"
+                style="@style/Locky.FloatingActionButton.Authentication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Button_Email"
+                app:layout_constraintTop_toBottomOf="@+id/Button_Email"
+                app:srcCompat="@drawable/ic_google_g" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/Guideline_Buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".73" />
+            <TextView
+                android:id="@+id/Text_Register_With"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_subtitle_register_with"
+                android:textColor="@color/grey_300"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/FAB_Facebook"
+                app:layout_constraintEnd_toStartOf="@+id/FAB_Facebook"
+                app:layout_constraintStart_toStartOf="@+id/Button_Email"
+                app:layout_constraintTop_toTopOf="@+id/FAB_Facebook" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/Guideline_Buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".73" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

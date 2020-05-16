@@ -97,9 +97,11 @@ class ViewAccountFragment : Fragment() {
         val credentialsAdapter =
             CredentialsViewAdapter(
                 CopyClickListener { data ->
+                    //TODO("Fix Copying issue for password")
                     copyToClipboardAndToast(data)
                 },
                 ViewClickListener {
+                    //TODO("Fix viewing issue")
                     snackBarAction()
                 })
 

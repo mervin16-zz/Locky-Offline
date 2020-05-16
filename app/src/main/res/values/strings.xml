@@ -68,12 +68,6 @@
     <string name="label_required">*Required Fields</string>
     <string name="label_optional">Optional Fields</string>
 
-    <string name="field_profile_name">Full name</string>
-    <string name="field_profile_email">Email</string>
-    <string name="field_profile_dj">Date joined</string>
-    <string name="field_profile_account_type">Account type</string>
-    <string name="field_profile_account_status">Account Status</string>
-
     <string name="field_account_name">Name</string>
     <string name="field_account_username">Username</string>
     <string name="field_account_email">Email</string>

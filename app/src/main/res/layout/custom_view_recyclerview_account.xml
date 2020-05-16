@@ -1,91 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="Account"
             type="com.th3pl4gu3.locky.core.main.Account" />
 
         <variable
-            name="ClickListener" type="com.th3pl4gu3.locky.ui.main.main.account.AccountClickListener"/>
+            name="ClickListener"
+            type="com.th3pl4gu3.locky.ui.main.main.account.AccountClickListener" />
 
         <variable
-            name="OptionsClickListener" type="com.th3pl4gu3.locky.ui.main.main.account.AccountOptionsClickListener"/>
+            name="OptionsClickListener"
+            type="com.th3pl4gu3.locky.ui.main.main.account.AccountOptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> ClickListener.onClick(Account)}">
+        android:onClick="@{() -> ClickListener.onClick(Account)}"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/Account_Logo"
-            bindUrlImage="@{Account.logoUrl}"
+            imageUrl="@{Account.logoUrl}"
+            loadingResource="@{@drawable/ic_image_loading}"
+            errorResource="@{@drawable/ic_account_placeholder}"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_image_loading" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="Account_Logo" />
 
         <TextView
             android:id="@+id/Entry_Name"
-            style="@style/Locky.Text.Title.List"
+            style="@style/Locky.Text.Title6.List"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:ellipsize="end"
+            android:ems="11"
+            android:singleLine="true"
             android:text="@{Account.accountName}"
             app:layout_constraintBottom_toTopOf="@+id/Account_Login"
-            app:layout_constraintStart_toEndOf="@+id/Account_Logo"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
             app:layout_constraintTop_toTopOf="@+id/Account_Logo"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            tools:text="Title" />
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="This is a very very long title that can overlap" />
 
         <TextView
             android:id="@+id/Account_Login"
-            style="@style/Locky.Text.Subtitle.List"
+            style="@style/Locky.Text.Subtitle.List.Primary"
             accountLogin="@{Account}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:ems="15"
+            android:singleLine="true"
             app:layout_constraintBottom_toTopOf="@+id/Account_Website"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"
             app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
             app:layout_constraintVertical_chainStyle="spread"
-            tools:text="username | email@email.com" />
+            tools:text="username | this_is_a_long_email@email.com" />
 
         <TextView
             android:id="@+id/Account_Website"
-            style="@style/Locky.Text.Subtitle.List"
+            style="@style/Locky.Text.Subtitle.List.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:ems="15"
+            android:singleLine="true"
             android:text="@{Account.website}"
             android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
-            app:layout_constraintStart_toStartOf="@+id/Account_Login"
+            app:layout_constraintStart_toStartOf="@+id/Entry_Name"
             app:layout_constraintTop_toBottomOf="@+id/Account_Login"
-            tools:text="www.domain.com" />
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="www.domain.com/path/path/path/page.html" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="Account_More_Options" />
 
         <ImageButton
             android:id="@+id/Account_More_Options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/custom_states_background_button_image"
             android:onClick="@{(view) -> OptionsClickListener.onClick(view, Account)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
             app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Account_Logo" />
+            app:layout_constraintStart_toEndOf="@id/Barrier_Options"
+            app:layout_constraintTop_toTopOf="@+id/Account_Logo"
+            tools:src="@drawable/ic_more_options" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         R.id.Fragment_Device
     )
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -104,8 +103,11 @@ class MainActivity : AppCompatActivity() {
         Navigation.setViewNavController(_binding.FABAdd, navController)
         Navigation.setViewNavController(_binding.FABSearch, navController)
 
-        //Add on change destination listener to navigation controller
-        navigationDestinationChangeListener(navController)
+        //Add on change destination listener to navigation controller to handle fab visibility
+        navigationDestinationChangeListener_FAB(navController)
+
+        //Add on change destination listener to navigation controller to handle screen title visibility
+        navigationDestinationChangeListener_ToolbarTitle(navController)
     }
 
     private fun setUpNestedScrollChangeListener() =
@@ -117,7 +119,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun navigationDestinationChangeListener(navController: NavController) {
+    private fun navigationDestinationChangeListener_ToolbarTitle(navController: NavController) {
+        navController.addOnDestinationChangedListener { nc, nd, _ ->
+            when (nd.id) {
+                R.id.Fragment_Account -> updateToolbar("Accounts")
+                R.id.Fragment_Card -> updateToolbar("Cards")
+                R.id.Fragment_Device -> updateToolbar("Devices")
+                R.id.Fragment_Settings -> updateToolbar("Settings")
+                R.id.Fragment_Profile -> updateToolbar("Profile")
+                R.id.Fragment_About -> updateToolbar("About")
+                else -> {
+                    //Show the toolbar
+                    updateToolbar(null)
+                }
+            }
+        }
+    }
+
+    private fun navigationDestinationChangeListener_FAB(navController: NavController) {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
             when (nd.id) {
                 nc.graph.startDestination,
@@ -127,22 +146,12 @@ class MainActivity : AppCompatActivity() {
 
                     //Show all the FABs
                     showFABs()
-
-                    //Show the toolbar
-                    toolbarTitleVisibility(true)
                 }
-                R.id.Fragment_View_Account,
-                R.id.Fragment_View_Card,
-                R.id.Fragment_Add_Account,
-                R.id.Fragment_Add_Card -> toolbarTitleVisibility(false)
                 else -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     //Hide all the FABs
                     hideFABs()
-
-                    //Show the toolbar
-                    toolbarTitleVisibility(true)
                 }
             }
         }
@@ -155,6 +164,15 @@ class MainActivity : AppCompatActivity() {
             .setPopEnterAnim(R.anim.anim_slide_in_left)
             .setPopExitAnim(R.anim.anim_slide_out_right)
             .build()
+    }
+
+    private fun updateToolbar(title: String?) {
+        if (title != null) {
+            updateToolbarTitle(title)
+            toolbarTitleVisibility(true)
+        } else {
+            toolbarTitleVisibility(false)
+        }
     }
 
     private fun updateToolbarTitle(title: String) {

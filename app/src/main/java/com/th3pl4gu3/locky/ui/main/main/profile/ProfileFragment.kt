@@ -44,9 +44,6 @@ class ProfileFragment : Fragment() {
         /* Bind view model to layout*/
         binding.viewModel = viewModel
 
-        /* Send user details to recycler view */
-        initiateUserDetailsList().submitList(viewModel.fieldList(user))
-
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -77,17 +74,6 @@ class ProfileFragment : Fragment() {
 
     private fun navigateBack() {
         findNavController().popBackStack()
-    }
-
-    private fun initiateUserDetailsList(): UserDetailsViewAdapter {
-        val userDetailsViewAdapter = UserDetailsViewAdapter()
-
-        binding.RecyclerViewUserDetails.apply {
-            adapter = userDetailsViewAdapter
-            setHasFixedSize(true)
-        }
-
-        return userDetailsViewAdapter
     }
 
     private fun getUser(): User {

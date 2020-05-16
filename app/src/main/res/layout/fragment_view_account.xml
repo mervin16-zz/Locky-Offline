@@ -11,39 +11,51 @@
             type="com.th3pl4gu3.locky.core.main.Account" />
     </data>
 
-    <LinearLayout
-            android:id="@+id/Layout_Credential_View"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout_Credential_View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/Account_Logo"
+            imageUrl="@{Account.logoUrl}"
+            loadingResource="@{@drawable/ic_image_loading}"
+            errorResource="@{@drawable/ic_account_placeholder}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_account_placeholder" />
+
+        <TextView
+            android:id="@+id/Account_Name"
+            style="@style/Locky.Text.Title5.Name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:textAlignment="center"
+            android:text="@{Account.accountName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Account_Logo"
+            tools:text="This can be a very very very long title toooooo" />
 
-            <ImageView
-                android:id="@+id/Account_Logo"
-                bindUrlImage="@{Account.logoUrl}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                tools:src="@drawable/image_placeholder_logo" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_Credentials_Field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Account_Name" />
 
-            <TextView
-                android:id="@+id/Account_Name"
-                style="@style/Locky.Text.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"
-                android:text="@{Account.accountName}"
-                tools:text="Title" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerView_Credentials_Field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:nestedScrollingEnabled="true"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

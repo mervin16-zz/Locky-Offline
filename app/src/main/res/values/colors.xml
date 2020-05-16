@@ -48,10 +48,9 @@
         Typography Colors
     -->
     <color name="colorTextTitle">@color/grey_600</color>
-    <color name="colorTextTitleAccent">@color/colorAccentDark</color>
-    <color name="colorTextMenu">@color/grey_600</color>
-
     <color name="colorTextSubtitle">@color/grey_200</color>
+    <color name="colorTextBody">@color/grey_600</color>
+    <color name="colorTextMenu">@color/grey_600</color>
 
     <color name="colorButtonTextAccentPrimary">@color/colorAccent</color>
     <color name="colorButtonTextAccentSecondary">@color/colorAccentDark</color>
@@ -62,7 +61,7 @@
     <color name="red_300">#E57373</color>
 
     <color name="purple_600">#FF3A056E</color>
-    <color name="purple_400">#7C2CC1</color>
+    <color name="purple_400">#6E4EA7</color>
     <color name="purple_300">#9575CD</color>
     <color name="purple_100">#ece0fd</color>
     <color name="purple_50">#20DB9AFF</color>

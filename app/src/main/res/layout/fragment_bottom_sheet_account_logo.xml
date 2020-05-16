@@ -75,11 +75,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                android:tint="@color/purple_200"
-                app:srcCompat="@drawable/image_placeholder_logo" />
+                app:srcCompat="@drawable/il_search" />
 
             <TextView
-                style="@style/Locky.Text.Title"
+                style="@style/Locky.Text.Title6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
