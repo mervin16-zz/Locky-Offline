@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.BR
-import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.exceptions.FormException
 import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.core.main.User
@@ -15,6 +14,7 @@ import com.th3pl4gu3.locky.repository.database.CardDao
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.ObservableViewModel
+import com.th3pl4gu3.locky.ui.main.utils.toFormattedStringForCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -173,22 +173,17 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         this._card = card ?: Card()
     }
 
-    internal fun updateIssuedDateText(month: Int, year: Int) {
-        issuedDate = getApplication<Application>().getString(
-            R.string.field_card_date_formatter,
-            (month + 1).toString(),
-            year.toString()
-        )
+    internal fun updateIssuedDateText(timeInMillis: Long) {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = timeInMillis
+        issuedDate = cal.toFormattedStringForCard()
     }
 
 
-    internal fun updateExpiryDateText(month: Int, year: Int) {
-        expiryDate =
-            getApplication<Application>().getString(
-                R.string.field_card_date_formatter,
-                (month + 1).toString(),
-                year.toString()
-            )
+    internal fun updateExpiryDateText(timeInMillis: Long) {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = timeInMillis
+        expiryDate = cal.toFormattedStringForCard()
     }
 
     private suspend fun insertCardInDatabase(card: Card) {

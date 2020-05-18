@@ -136,6 +136,9 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     internal fun refreshSort(sort: CardSort) {
+        //Store sort to local storage
+        LocalStorageManager.with(getApplication())
+        LocalStorageManager.put(Constants.KEY_CARDS_SORT, sort)
         _sort.value = sort
     }
 

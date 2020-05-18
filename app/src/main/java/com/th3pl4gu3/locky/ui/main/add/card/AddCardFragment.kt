@@ -1,7 +1,5 @@
 package com.th3pl4gu3.locky.ui.main.add.card
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky.ui.main.utils.toast
-import java.util.*
 
 
 class AddCardFragment : Fragment() {
@@ -23,14 +21,6 @@ class AddCardFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
-
-    private var _issuedDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
-        viewModel.updateIssuedDateText(month, year)
-    }
-
-    private var _expiryDate: OnDateSetListener = OnDateSetListener { _, year, month, _ ->
-        viewModel.updateExpiryDateText(month, year)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,11 +72,11 @@ class AddCardFragment : Fragment() {
     private fun datePickerListeners() {
         with(binding) {
             IssuedDate.setOnClickListener {
-                showDatePickerDialog(_issuedDate)
+                showIssuedDatePickerDialog()
             }
 
             ExpiryDate.setOnClickListener {
-                showDatePickerDialog(_expiryDate)
+                showExpiryDatePickerDialog()
             }
         }
     }
@@ -137,15 +127,28 @@ class AddCardFragment : Fragment() {
         findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
     }
 
-    private fun showDatePickerDialog(dateSetListener: OnDateSetListener) {
-        val cal = Calendar.getInstance()
-        DatePickerDialog(
-            requireContext(),
-            dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.DAY_OF_MONTH),
-            cal.get(Calendar.MONTH)
-        ).show()
+    private fun showIssuedDatePickerDialog() {
+        val picker = MaterialDatePicker.Builder.datePicker().build()
+        picker.addOnNegativeButtonClickListener {
+            picker.dismiss()
+        }
+        picker.addOnPositiveButtonClickListener { selection ->
+            viewModel.updateIssuedDateText(selection)
+        }
+
+        picker.show(requireActivity().supportFragmentManager, picker.toString())
+    }
+
+    private fun showExpiryDatePickerDialog() {
+        val picker = MaterialDatePicker.Builder.datePicker().build()
+        picker.addOnNegativeButtonClickListener {
+            picker.dismiss()
+        }
+        picker.addOnPositiveButtonClickListener { selection ->
+            viewModel.updateExpiryDateText(selection)
+        }
+
+        picker.show(requireActivity().supportFragmentManager, picker.toString())
     }
 
     private fun toast(message: String) = requireContext().toast(message)

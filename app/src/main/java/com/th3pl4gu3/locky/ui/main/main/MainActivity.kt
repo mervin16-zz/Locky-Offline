@@ -1,6 +1,5 @@
 package com.th3pl4gu3.locky.ui.main.main
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -25,9 +24,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
-import com.th3pl4gu3.locky.ui.main.utils.activateDarkStatusBar
-import com.th3pl4gu3.locky.ui.main.utils.activateLightStatusBar
-import com.th3pl4gu3.locky.ui.main.utils.toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         observeAuthenticationState()
 
         //Update status bar upon current theme
-        darkModeVerification()
+        //darkModeVerification()
 
         //Setup the navigation components
         navigationUISetup()
@@ -81,13 +77,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
 
-    private fun darkModeVerification() =
+    /*private fun darkModeVerification() =
         when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
             Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
             Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
             else -> toast(getString(R.string.error_internal_code_2))
-        }
+        }*/
 
     private fun navigationUISetup() {
         //Fetch the Nav Controller

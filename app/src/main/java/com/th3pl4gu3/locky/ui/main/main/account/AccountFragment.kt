@@ -93,9 +93,6 @@ class AccountFragment : Fragment() {
                     navBackStackEntry.savedStateHandle.get<AccountSort>(KEY_ACCOUNTS_SORT)!!
 
                 if (sort.hasChanges()) {
-                    //Store sort to local storage
-                    LocalStorageManager.with(requireActivity().application)
-                    LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
                     viewModel.refresh(sort)
                 }
 

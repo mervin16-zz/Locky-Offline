@@ -115,9 +115,6 @@ class CardFragment : Fragment() {
                 val sort = navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!
 
                 if (sort.hasChanges()) {
-                    //Store sort to local storage
-                    LocalStorageManager.with(requireActivity().application)
-                    LocalStorageManager.put(KEY_CARDS_SORT, sort)
                     viewModel.refreshSort(sort)
                 }
 

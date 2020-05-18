@@ -6,9 +6,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class AccountSort(
-    var website: Boolean = false,
+    var name: Boolean = false,
+    var username: Boolean = false,
     var email: Boolean = false,
-    var twofa: Boolean = false
+    var website: Boolean = false,
+    var authType: Boolean = false
 ) : Parcelable {
 
     @IgnoredOnParcel
@@ -19,7 +21,7 @@ class AccountSort(
     }
 
     override fun toString(): String {
-        return "w:$website|e:$email|t:$twofa"
+        return "nm:$name|un:$username|em:$email|ws:$website|at:$authType"
     }
 
     fun hasChanges(): Boolean {

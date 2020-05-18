@@ -12,7 +12,6 @@
     <!--
     ****************** Titles & Subtitles ******************
     -->
-    <string name="text_title_filter">Filter</string>
     <string name="text_title_sort">Sort</string>
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
@@ -20,21 +19,27 @@
     <string name="text_title_emptyView_item_search">Find your items!</string>
     <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and devices</string>
 
-    <string name="text_title_emptyView_cards">Save Your Card. Ease Your Memory</string>
+    <string name="text_title_emptyView_cards">Save you Card. Ease your Mind</string>
     <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
 
-    <string name="text_title_emptyView_accounts">An Account a Day, Keeps Hackers Away!</string>
+    <string name="text_title_emptyView_accounts">An Account a day, keeps Hackers away!</string>
     <string name="text_subtitle_emptyView_accounts">Save all your account details here.</string>
 
     <string name="text_subtitle_register_with">Or register with</string>
     <string name="text_subtitle_forgot_password"><u>Forgot password?</u></string>
 
     <string name="text_title_splash">Welcome to Locky</string>
-    <string name="text_subtitle_splash">Manage your all your passwords and bank cards on a single secure place.</string>
+    <string name="text_subtitle_splash">Manage all your passwords and bank cards on a single secure place.</string>
 
     <string name="text_title_login">Get your account now</string>
     <string name="text_subtitle_login">Login with your account. If you don\'t have one, we will create it for you.</string>
 
+
+    <string name="text_title_alert_delete">Delete "%1$s"</string>
+    <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>
+    <string name="text_title_alert_delete_message_card">Are you sure you want to delete the card \'"%1$s"\'</string>
+
+    <string name="button_action_category_add_item">Add an item</string>
 
     <!--
    ****************** Menu ******************
@@ -88,13 +93,21 @@
     <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
 
-    <string name="field_card_date_formatter">"%1$s"/"%2$s"</string>
-
     <string name="field_hint_search">Search</string>
 
     <string name="field_placeholder_empty">None</string>
     <string name="field_placeholder_hidden">******</string>
 
+    <string name="field_account_sort_name">Name</string>
+    <string name="field_account_sort_username">Username</string>
+    <string name="field_account_sort_email">Email</string>
+    <string name="field_account_sort_website">Website</string>
+    <string name="field_account_sort_authentication_type">Auth Type</string>
+
+    <string name="field_card_sort_name">Entry Name</string>
+    <string name="field_card_sort_bank">Bank</string>
+    <string name="field_card_sort_type">Card Type</string>
+    <string name="field_card_sort_cardholder">Cardholder</string>
     <!--
         ****************** Messages ******************
     -->
@@ -126,6 +139,10 @@
     <string name="button_action_logout">Logout</string>
     <string name="button_action_email_sign_in">email sign in</string>
     <string name="button_action_get_started">get started</string>
+
+    <string name="button_action_category_add_account">Add account</string>
+    <string name="button_action_category_add_card">Add card</string>
+    <string name="button_action_category_add_device">Add device</string>
 
     <!--
    ****************** Dev ******************

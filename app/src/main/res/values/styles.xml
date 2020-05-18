@@ -6,7 +6,7 @@
     ***
     -->
     <style name="Locky.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Base Theme-->
+        <!-- Base Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -16,9 +16,15 @@
         <item name="android:listDivider">@android:color/transparent</item>
         <item name="android:fontFamily">@font/google_sans_medium</item>
 
+        <!-- Overflow icon (More Options) Theme -->
         <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
 
-        <item name="android:windowLightStatusBar">false</item>
+        <!-- Prevents multi-finger touch events -->
+        <item name="android:splitMotionEvents">false</item>
+
+        <!-- Status and navigation bar colors -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Navigation Drawer -->
@@ -26,13 +32,16 @@
         <item name="colorNavigationItemSelected">@android:color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/custom_drawer_background</item>
 
+        <!-- Menu Hamburger icon styles -->
         <item name="drawerArrowStyle">@style/Locky.Icon.Drawer.Hamburger</item>
 
-        <item name="android:buttonBarPositiveButtonStyle">@style/Locky.Button.Positive</item>
-        <item name="android:buttonBarNegativeButtonStyle">@style/Locky.Button.Negative</item>
+        <!-- Alert Dialog Theme-->
+        <item name="materialAlertDialogTheme">@style/Locky.MaterialAlertDialog</item>
+
+        <!-- Date Picker Calendar Theme -->
+        <item name="materialCalendarTheme">@style/Locky.MaterialDatePicker</item>
 
     </style>
-
 
     <!--
     ***
@@ -50,10 +59,6 @@
     ***
     -->
     <style name="Locky.Theme.Launcher.FirebaseUI" parent="FirebaseUI">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
         <item name="colorControlNormal">@color/colorAccentDark</item>
         <item name="colorControlActivated">@color/colorAccentDark</item>
         <item name="colorControlHighlight">@color/colorAccentDark</item>
@@ -77,6 +82,21 @@
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent.Rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <!-- Navigation View Style -->
     <style name="Locky.Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
@@ -94,6 +114,29 @@
         <item name="android:tint">@color/colorIcon</item>
     </style>
 
+    <!-- Material Dialog -->
+    <style name="Locky.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/Locky.MaterialAlertDialog.App</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Locky.Button.TextButton.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Locky.Button.TextButton.Negative</item>
+    </style>
+
+    <style name="Locky.MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <!-- Material Date Picker -->
+    <style name="Locky.MaterialDatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:windowFullscreen">false</item>
+        <item name="materialCalendarStyle">@style/Locky.MaterialDatePicker.Style</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Locky.Button.TextButton.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Locky.Button.TextButton.Negative</item>
+    </style>
+
+    <style name="Locky.MaterialDatePicker.Style" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent.Rounded</item>
+    </style>
+
 
     <!--
     ***
@@ -106,7 +149,6 @@
         <!-- Main Styles-->
         <item name="android:theme">@style/Locky.TextBox.TextAppearance</item>
         <item name="hintTextColor">@color/colorTextFieldTextDefault</item>
-        <item name="boxStrokeColor">@color/color_state_textfield_border</item>
         <item name="startIconTint">@color/colorTextFieldIconDefault</item>
         <item name="endIconTint">@color/colorTextFieldIconDefault</item>
         <item name="counterMaxLength">150</item>
@@ -119,10 +161,6 @@
 
     <!-- Default Text Field Text Appearance Style -->
     <style name="Locky.TextBox.TextAppearance" parent="Widget.Design.TextInputLayout">
-        <item name="colorControlNormal">@color/colorTextFieldAccentDefault_Active</item>
-        <item name="colorControlActivated">@color/colorTextFieldAccentDefault_Active</item>
-        <item name="colorControlHighlight">@color/colorTextFieldAccentDefault_Active</item>
-
         <item name="fontFamily">@font/rubik_medium</item>
         <item name="android:fontFamily">@font/rubik_medium</item>
 
@@ -155,7 +193,7 @@
 
     <!-- Floating Action Buttons -->
     <style name="Locky.FloatingActionButton.Normal" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:backgroundTint">@color/colorFabNormal</item>
+        <item name="backgroundTint">@color/colorFabNormal</item>
         <item name="fabSize">normal</item>
         <item name="borderWidth">0dp</item>
         <item name="tint">@color/colorIconFabNormal</item>
@@ -163,7 +201,7 @@
     </style>
 
     <style name="Locky.FloatingActionButton.Mini" parent="Locky.FloatingActionButton.Normal">
-        <item name="android:backgroundTint">@color/colorFabMini</item>
+        <item name="backgroundTint">@color/colorFabMini</item>
         <item name="tint">@color/colorIconFabMini</item>
         <item name="elevation">8dp</item>
         <item name="fabSize">mini</item>
@@ -200,18 +238,25 @@
         <item name="elevation">12dp</item>
     </style>
 
-    <style name="Locky.Button.Positive" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-
-    <style name="Locky.Button.Negative" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/colorButtonTextNegative</item>
-    </style>
-
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/colorButtonTextAccentSecondary</item>
         <item name="android:textSize">12sp</item>
         <item name="rippleColor">@color/colorRipple</item>
+    </style>
+
+    <style name="Locky.Button.TextButton.Positive">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.Button.TextButton.Negative">
+        <item name="android:textColor">@color/colorButtonTextNegative</item>
+    </style>
+
+    <style name="Locky.Button.TextButton.Icon" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/colorButtonTextAccentSecondary</item>
+        <item name="android:textColor">@color/colorButtonTextAccentSecondary</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Locky.Button.Chip" parent="Widget.MaterialComponents.Chip.Choice">
@@ -221,6 +266,11 @@
         <item name="chipCornerRadius">5dp</item>
     </style>
 
+    <style name="Locky.Button.TextButton.Icon.MenuItem">
+        <item name="iconGravity">start</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="iconPadding">12dp</item>
+    </style>
 
     <!--
     ***
@@ -296,5 +346,9 @@
     </style>
 
     <style name="Locky.Text.Title5.Name" />
+
+    <style name="Locky.Text.Title6.BottomSheet">
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>

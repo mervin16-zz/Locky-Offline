@@ -156,15 +156,15 @@
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Card_Filter"
-        android:name="com.th3pl4gu3.locky.ui.main.main.card.FilterCardBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky.ui.main.main.card.TuningCardBottomSheetFragment"
         android:label="Card Filter"
-        tools:layout="@layout/fragment_bottom_sheet_card_filter" />
+        tools:layout="@layout/fragment_bottom_sheet_card_tuning" />
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Account_Filter"
-        android:name="com.th3pl4gu3.locky.ui.main.main.account.FilterAccountBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky.ui.main.main.account.TuningAccountBottomSheetFragment"
         android:label="Account Filter"
-        tools:layout="@layout/fragment_bottom_sheet_account_filter" />
+        tools:layout="@layout/fragment_bottom_sheet_account_tuning" />
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Account_Logo"
@@ -190,10 +190,19 @@
         tools:layout="@layout/fragment_bottom_sheet_add_category">
         <action
             android:id="@+id/action_BottomSheet_Fragment_Add_Category_to_Fragment_Add_Card"
-            app:destination="@id/Fragment_Add_Card" />
+            app:destination="@id/Fragment_Add_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+
         <action
             android:id="@+id/action_BottomSheet_Fragment_Add_Category_to_Fragment_Add_Account"
-            app:destination="@id/Fragment_Add_Account" />
+            app:destination="@id/Fragment_Add_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </dialog>
 
 </navigation>

@@ -44,6 +44,23 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Live Data Transformations
      **/
+
+    private val sortedByName = Transformations.map(_currentAccountsExposed) {
+        it.sortedBy { account ->
+            account.accountName.toLowerCase(
+                Locale.ROOT
+            )
+        }
+    }
+
+    private val sortedByUsername = Transformations.map(_currentAccountsExposed) {
+        it.sortedBy { account ->
+            account.username.toLowerCase(
+                Locale.ROOT
+            )
+        }
+    }
+
     private val sortedByEmail = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
             account.email.toLowerCase(
@@ -59,7 +76,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
             )
         }
     }
-    private val sortedBy2FA = Transformations.map(_currentAccountsExposed) {
+    private val sortedByAuthType = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
             account.authenticationType?.toLowerCase(
                 Locale.ROOT
@@ -83,9 +100,11 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     val accounts = Transformations.switchMap(_sort) {
         when (true) {
-            it.website -> sortedByWebsite
-            it.twofa -> sortedBy2FA
+            it.name -> sortedByName
+            it.username -> sortedByUsername
             it.email -> sortedByEmail
+            it.website -> sortedByWebsite
+            it.authType -> sortedByAuthType
             else -> _currentAccountsExposed
         }
     }
@@ -130,6 +149,9 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     }
 
     internal fun refresh(sort: AccountSort) {
+        //Store sort to local storage
+        LocalStorageManager.with(getApplication())
+        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
         _sort.value = sort
     }
 

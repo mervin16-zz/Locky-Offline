@@ -5,6 +5,7 @@
     <color name="colorPrimary">@color/grey_dark_200</color>
     <color name="colorPrimaryDark">@color/grey_dark_200</color>
     <color name="colorAccent">@color/purple_200</color>
+    <color name="colorOnSurfaceWhite">@color/grey_dark_200</color>
 
     <!--
         Gradient Colors

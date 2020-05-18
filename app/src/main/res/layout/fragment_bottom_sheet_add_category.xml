@@ -3,36 +3,82 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/Category_Add_Item"
+            style="@style/Locky.Text.Title6.BottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Add Category"
-            style="@style/Locky.Text.Subtitle" />
+            android:background="@color/colorAccent"
+            android:padding="16dp"
+            android:text="@string/button_action_category_add_item"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Button_Close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/Category_Add_Item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Category_Add_Item"
+            app:srcCompat="@drawable/ic_close" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="Button_Close,Category_Add_Item" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Add_Account"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="wrap_content"
+            style="@style/Locky.Button.TextButton.Icon.MenuItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add Account"
-            app:icon="@drawable/ic_account" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="10dp"
+            android:text="@string/button_action_category_add_account"
+            app:icon="@drawable/ic_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Header" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Add_Card"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="wrap_content"
+            style="@style/Locky.Button.TextButton.Icon.MenuItem"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add Card"
-            app:icon="@drawable/ic_credit_card" />
-    </LinearLayout>
+            android:padding="10dp"
+            android:text="@string/button_action_category_add_card"
+            app:icon="@drawable/ic_credit_card"
+            app:layout_constraintEnd_toEndOf="@+id/Button_Add_Account"
+            app:layout_constraintStart_toStartOf="@+id/Button_Add_Account"
+            app:layout_constraintTop_toBottomOf="@id/Button_Add_Account" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Button_Add_Device"
+            style="@style/Locky.Button.TextButton.Icon.MenuItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/button_action_category_add_device"
+            app:icon="@drawable/ic_device"
+            app:layout_constraintEnd_toEndOf="@+id/Button_Add_Account"
+            app:layout_constraintStart_toStartOf="@+id/Button_Add_Account"
+            app:layout_constraintTop_toBottomOf="@id/Button_Add_Card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.FragmentBottomSheetAddCategoryBinding
+import com.th3pl4gu3.locky.ui.main.utils.toast
 
 class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -28,6 +30,10 @@ class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ButtonClose.setOnClickListener {
+            dismiss()
+        }
+
         binding.ButtonAddAccount.setOnClickListener {
             findNavController().navigate(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddAccount())
         }
@@ -35,10 +41,16 @@ class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
         binding.ButtonAddCard.setOnClickListener {
             findNavController().navigate(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddCard())
         }
+
+        binding.ButtonAddDevice.setOnClickListener {
+            toast(getString(R.string.dev_feature_implementation_unknown, "Add device"))
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun toast(message: String) = requireContext().toast(message)
 }

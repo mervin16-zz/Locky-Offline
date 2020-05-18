@@ -37,10 +37,6 @@ fun Window.activateDarkStatusBar() {
     this.statusBarColor = context.getColor(R.color.colorPrimary)
 }
 
-fun Window.activateAccentStatusBar() {
-    this.statusBarColor = context.getColor(R.color.colorAccent)
-}
-
 fun String.getCardType(): Card.CardType {
 
     val number = this.replace(",", "")

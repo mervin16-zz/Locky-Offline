@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.databinding.FragmentViewAccountBinding
@@ -86,7 +87,7 @@ class ViewAccountFragment : Fragment() {
             }
 
             R.id.Action_Delete -> {
-                deleteAndNavigateBackToAccountList()
+                deleteConfirmationDialog(_account.accountName)
                 true
             }
             else -> false
@@ -139,6 +140,18 @@ class ViewAccountFragment : Fragment() {
         toast(getString(R.string.message_copy_successful))
         return true
     }
+
+    private fun deleteConfirmationDialog(name: String) =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_alert_delete, name))
+            .setMessage(getString(R.string.text_title_alert_delete_message_account, name))
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.button_action_delete) { _, _ ->
+                deleteAndNavigateBackToAccountList()
+            }
+            .show()
 
     private fun toast(message: String) = requireContext().toast(message)
 }
