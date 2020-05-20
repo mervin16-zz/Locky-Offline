@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.exceptions.UserException
@@ -63,17 +62,13 @@ class ProfileFragment : Fragment() {
     private fun observeSignOutEvent() {
         viewModel.signUserOut.observe(viewLifecycleOwner, Observer {
             if (it) {
-                /* Log the user out from firebase*/
+                /* Log the user out from firebase and clear session*/
                 logout()
 
                 /* Show a toast for the user */
                 toast(getString(R.string.message_user_account_status_signed_out))
             }
         })
-    }
-
-    private fun navigateBack() {
-        findNavController().popBackStack()
     }
 
     private fun getUser(): User {
@@ -84,6 +79,9 @@ class ProfileFragment : Fragment() {
 
     private fun logout() {
         AuthUI.getInstance().signOut(requireContext())
+
+        LocalStorageManager.with(requireActivity().application)
+        LocalStorageManager.remove(KEY_USER_ACCOUNT)
     }
 
     private fun toast(message: String) = requireContext().toast(message)

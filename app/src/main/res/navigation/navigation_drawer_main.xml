@@ -174,7 +174,7 @@
 
     <activity
         android:id="@+id/Activity_Splash"
-        android:name="com.th3pl4gu3.locky.ui.main.login.splash.SplashActivity"
+        android:name="com.th3pl4gu3.locky.ui.main.splash.SplashActivity"
         android:label="SplashActivity" />
 
     <fragment

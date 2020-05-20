@@ -1,7 +1,6 @@
 package com.th3pl4gu3.locky.repository.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
@@ -29,9 +28,5 @@ class UserDao : IFirebaseRepository<User> {
     override fun getAll(key: String): LiveData<DataSnapshot> = FirebaseFetchLiveData(
         query = database.getReference(REFERENCE_USER)
             .orderByChild(FIELD_USER_EMAIL).equalTo(key)
-    )
-
-    override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(
-        query = database.getReference(REFERENCE_USER).equalTo(key)
     )
 }

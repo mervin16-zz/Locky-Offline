@@ -1,7 +1,6 @@
 package com.th3pl4gu3.locky.repository.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
@@ -33,8 +32,4 @@ class CardDao : IFirebaseRepository<Card> {
                 .orderByChild(FIELD_USER_ID).equalTo(key)
         )
     }
-
-    override fun getOne(key: String): MutableLiveData<DataSnapshot> = FirebaseFetchOnceLiveData(
-        query = database.getReference(REFERENCE_CARD).child(key)
-    )
 }

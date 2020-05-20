@@ -121,6 +121,8 @@
     <string name="message_loading_item_account_none">No accounts found</string>
     <string name="message_loading_item_cards_none">No cards found</string>
     <string name="message_user_account_status_signed_out">You\'ve been signed out</string>
+    <string name="message_user_account_status_blocked">This account has been blocked. Please contact your administrator</string>
+    <string name="message_user_account_status_inactive">This account has been disabled. Please create another account</string>
 
     <!--
         ****************** Error Messages ******************
@@ -130,8 +132,8 @@
     <string name="error_internal_code_3">Error code 3: An error occurred while fetching your profile. Please contact support.</string>
 
     <!--
-            ****************** Button Actions ******************
-        -->
+        ****************** Button Actions ******************
+    -->
     <string name="button_snack_action_close">Close</string>
     <string name="button_action_save">Save</string>
     <string name="button_action_cancel">Cancel</string>

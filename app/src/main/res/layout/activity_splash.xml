@@ -3,6 +3,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky.ui.main.splash.SplashViewModel" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,9 +72,22 @@
                 android:layout_marginBottom="32dp"
                 android:text="@string/button_action_get_started"
                 android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
+                android:visibility="@{ViewModel.isLoading? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/Progress_Bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:indeterminate="true"
+                android:visibility="@{ViewModel.isLoading? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.AppCompat.ProgressBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
