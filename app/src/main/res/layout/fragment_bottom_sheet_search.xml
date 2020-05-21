@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:background="@color/colorOnSurfaceWhite"
+            android:background="@color/colorOnSurface"
             android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingEnd="0dp"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="@string/settings_key_category_display"
+        app:title="@string/settings_title_category_display"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <ListPreference
+            android:key="@string/settings_key_display_theme"
+            android:title="@string/settings_title_display_theme"
+            android:defaultValue="0"
+            android:entries="@array/list_themes"
+            android:entryValues="@array/list_themes"
+            app:icon="@drawable/ic_theme" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/settings_key_category_security"
+        app:title="@string/settings_title_category_security">
+
+        <SwitchPreferenceCompat
+            app:key="@string/settings_key_security_fingerprint"
+            app:title="@string/settings_title_security_fingerprint"
+            app:icon="@drawable/ic_fingerprint" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/settings_key_category_backup"
+        app:title="@string/settings_title_category_backup">
+
+        <Preference
+            app:key="@string/settings_key_backup_backup"
+            app:summary="@string/settings_summary_backup_backup"
+            app:title="@string/settings_title_backup_backup"
+            app:icon="@drawable/ic_backup" />
+
+        <Preference
+            app:key="@string/settings_key_backup_restore"
+            app:summary="@string/settings_summary_backup_restore"
+            app:title="@string/settings_title_backup_restore"
+            app:icon="@drawable/ic_restore" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/settings_key_category_help"
+        app:title="@string/settings_title_category_help">
+
+        <Preference
+            app:key="@string/settings_key_help_feedback"
+            app:summary="@string/settings_summary_help_feedback"
+            app:title="@string/settings_title_help_feedback"
+            app:icon="@drawable/ic_feedback" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

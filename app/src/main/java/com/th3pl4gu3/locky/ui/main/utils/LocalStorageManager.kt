@@ -11,7 +11,7 @@ object LocalStorageManager {
     lateinit var preferences: SharedPreferences
 
     //Name of Shared Preference file
-    private const val PREFERENCES_FILE_NAME = "PREFERENCES_FILE_NAME"
+    private const val PREFERENCES_FILE_NAME = "com.th3pl4gu3.locky"
 
     /**
      * Call this first before retrieving or saving object.
@@ -21,6 +21,8 @@ object LocalStorageManager {
     fun with(application: Application) {
         preferences = application.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
     }
+
+    fun getInstance() = preferences
 
     /**
      * Removes object into the Preferences.

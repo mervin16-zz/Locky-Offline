@@ -7,6 +7,8 @@
     ****************** Application Specific ******************
     -->
     <string name="app_name">Locky</string>
+    <string name="app_support_email_team">mervinhemaraju16@gmail.com</string>
+    <string name="app_support_email_subject">Support :: Locky :: Feedback</string>
 
 
     <!--
@@ -38,6 +40,10 @@
     <string name="text_title_alert_delete">Delete "%1$s"</string>
     <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>
     <string name="text_title_alert_delete_message_card">Are you sure you want to delete the card \'"%1$s"\'</string>
+
+    <string name="text_title_alert_intent_none">Unable to open "%1$s" app</string>
+    <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
+        application to continue</string>
 
     <string name="button_action_category_add_item">Add an item</string>
 
@@ -108,6 +114,8 @@
     <string name="field_card_sort_bank">Bank</string>
     <string name="field_card_sort_type">Card Type</string>
     <string name="field_card_sort_cardholder">Cardholder</string>
+
+
     <!--
         ****************** Messages ******************
     -->
@@ -139,12 +147,47 @@
     <string name="button_action_cancel">Cancel</string>
     <string name="button_action_delete">Delete</string>
     <string name="button_action_logout">Logout</string>
+    <string name="button_action_okay">OK</string>
     <string name="button_action_email_sign_in">email sign in</string>
     <string name="button_action_get_started">get started</string>
 
     <string name="button_action_category_add_account">Add account</string>
     <string name="button_action_category_add_card">Add card</string>
     <string name="button_action_category_add_device">Add device</string>
+
+    <!--
+        ****************** Settings ******************
+    -->
+    <string name="settings_key_category_display">settings_key_category_display</string>
+    <string name="settings_key_category_security">settings_key_category_security</string>
+    <string name="settings_key_category_backup">settings_key_category_backup</string>
+    <string name="settings_key_category_help">settings_key_category_help</string>
+
+    <string name="settings_title_category_display">Display</string>
+    <string name="settings_title_category_security">Security</string>
+    <string name="settings_title_category_backup">Backup</string>
+    <string name="settings_title_category_help">Help</string>
+
+    <string name="settings_key_display_theme">settings_title_display_theme</string>
+    <string name="settings_title_display_theme">App Theme</string>
+    <string name="settings_value_display_default">Default</string>
+    <string name="settings_value_display_light">Light</string>
+    <string name="settings_value_display_dark">Dark</string>
+
+    <string name="settings_key_security_fingerprint">settings_key_security_fingerprint</string>
+    <string name="settings_title_security_fingerprint">Enable Fingerprint Authentication</string>
+
+    <string name="settings_key_backup_backup">settings_key_backup_backup</string>
+    <string name="settings_title_backup_backup">Backup</string>
+    <string name="settings_summary_backup_backup">Perform a backup of your accounts, cards etc…</string>
+
+    <string name="settings_key_backup_restore">settings_key_backup_restore</string>
+    <string name="settings_title_backup_restore">Restore</string>
+    <string name="settings_summary_backup_restore">Restore your accounts, cards etc…</string>
+
+    <string name="settings_key_help_feedback">settings_key_help_feedback</string>
+    <string name="settings_title_help_feedback">Send feedback</string>
+    <string name="settings_summary_help_feedback">Report technical issues or suggest new features</string>
 
     <!--
    ****************** Dev ******************

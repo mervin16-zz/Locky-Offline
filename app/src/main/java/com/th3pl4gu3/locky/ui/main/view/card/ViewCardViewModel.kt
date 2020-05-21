@@ -1,7 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.view.card
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.R
@@ -30,51 +29,51 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
         ArrayList<CredentialsField>().apply {
             add(
                 CredentialsField(
-                    getString(R.string.field_card_name),
-                    if (card.entryName.isEmpty()) getString(R.string.field_placeholder_empty) else card.entryName,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_card_name),
+                    data = if (card.entryName.isEmpty()) getString(R.string.field_placeholder_empty) else card.entryName,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_bank),
-                    if (card.bank.isEmpty()) getString(R.string.field_placeholder_empty) else card.bank,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_card_bank),
+                    data = if (card.bank.isEmpty()) getString(R.string.field_placeholder_empty) else card.bank,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_pin),
-                    getString(R.string.field_placeholder_hidden),
-                    View.VISIBLE,
-                    View.VISIBLE
+                    subtitle = getString(R.string.field_card_pin),
+                    data = if (card.pin.isEmpty()) getString(R.string.field_placeholder_empty) else card.pin,
+                    isCopyable = true,
+                    isViewable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_holder),
-                    card.cardHolderName,
-                    View.VISIBLE
+                    subtitle = getString(R.string.field_card_holder),
+                    data = card.cardHolderName,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_date_issued),
-                    card.issuedDate,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_card_date_issued),
+                    data = card.issuedDate,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_date_expiry),
-                    card.expiryDate,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_card_date_expiry),
+                    data = card.expiryDate,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_card_additional),
-                    if (card.cardMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else card.cardMoreInfo!!
+                    subtitle = getString(R.string.field_card_additional),
+                    data = if (card.cardMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else card.cardMoreInfo!!
                 )
             )
         }

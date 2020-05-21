@@ -1,10 +1,8 @@
 <resources>
 
-    <!--
-    ***
-    ******* Application's Base Theme  *******
-    ***
-    -->
+    <!-- ======================== -->
+    <!-- Application's Base Theme -->
+    <!-- ======================== -->
     <style name="Locky.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Base Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -14,7 +12,9 @@
         <item name="colorAccentLight">@color/colorAccentLight</item>
         <item name="colorRipple">@color/colorRipple</item>
         <item name="android:listDivider">@android:color/transparent</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+
+        <!-- Default background screen -->
+        <item name="android:windowBackground">@color/colorOnSurface</item>
 
         <!-- Overflow icon (More Options) Theme -->
         <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
@@ -24,8 +24,8 @@
 
         <!-- Status and navigation bar colors -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">@bool/theme_status_bar_light</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
 
         <!-- Navigation Drawer -->
         <item name="colorNavigationItem">@color/color_state_drawer_item</item>
@@ -41,23 +41,22 @@
         <!-- Date Picker Calendar Theme -->
         <item name="materialCalendarTheme">@style/Locky.MaterialDatePicker</item>
 
+        <item name="preferenceTheme">@style/Locky.PreferenceTheme</item>
+
     </style>
 
-    <!--
-    ***
-    ******* Splash Launcher Theme  *******
-    ***
-    -->
+
+    <!-- ====================== -->
+    <!-- Splash Launcher Theme -->
+    <!-- ====================== -->
     <style name="Locky.Theme.Launcher" parent="Locky.Theme">
         <item name="android:windowBackground">@drawable/custom_background_launcher</item>
     </style>
 
 
-    <!--
-    ***
-    ******* FirebaseUI Theme  *******
-    ***
-    -->
+    <!-- ================= -->
+    <!-- Firebase UI Theme -->
+    <!-- ================= -->
     <style name="Locky.Theme.Launcher.FirebaseUI" parent="FirebaseUI">
         <item name="colorControlNormal">@color/colorAccentDark</item>
         <item name="colorControlActivated">@color/colorAccentDark</item>
@@ -66,15 +65,13 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">@bool/theme_status_bar_light</item>
     </style>
 
 
-    <!--
-    ***
-    ******* Application Components  *******
-    ***
-    -->
+    <!-- ========================== -->
+    <!-- Material Custom Components -->
+    <!-- ========================== -->
 
     <!-- Shape Cutout-->
     <style name="Locky.ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
@@ -137,12 +134,16 @@
         <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent.Rounded</item>
     </style>
 
+    <!-- Settings Preferences -->
+    <style name="Locky.PreferenceTheme" parent="PreferenceThemeOverlay">
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
 
-    <!--
-    ***
-    ******* Text Fields  *******
-    ***
-    -->
+
+    <!-- ===================== -->
+    <!-- Text field Styles -->
+    <!-- ===================== -->
 
     <!-- Default Text Field Style -->
     <style name="Locky.TextBox.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -185,11 +186,9 @@
     </style>
 
 
-    <!--
-    ***
-    ******* Buttons  *******
-    ***
-    -->
+    <!-- ======================= -->
+    <!-- Material Button Styles -->
+    <!-- ======================= -->
 
     <!-- Floating Action Buttons -->
     <style name="Locky.FloatingActionButton.Normal" parent="Widget.MaterialComponents.FloatingActionButton">
@@ -272,11 +271,10 @@
         <item name="iconPadding">12dp</item>
     </style>
 
-    <!--
-    ***
-    ******* Typography  *******
-    ***
-    -->
+
+    <!-- ======================== -->
+    <!-- ====== Typography ====== -->
+    <!-- ======================== -->
     <style name="Locky.Text.Title6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/colorTextTitle</item>
     </style>
@@ -311,10 +309,9 @@
     </style>
 
     <style name="Locky.Text.Title6.Toolbar">
-        <item name="android:fontFamily">@font/musket_regular</item>
-        <item name="fontFamily">@font/musket_regular</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="fontFamily">@font/rubik_medium</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Locky.Text.Title6.Drawer">

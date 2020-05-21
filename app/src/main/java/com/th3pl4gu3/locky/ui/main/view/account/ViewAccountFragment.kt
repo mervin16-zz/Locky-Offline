@@ -36,6 +36,7 @@ class ViewAccountFragment : Fragment() {
         _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
         //Instantiate view model
         _viewModel = ViewModelProvider(this).get(ViewAccountViewModel::class.java)
+        binding.lifecycleOwner = this
 
         //Fetch the account clicked on the previous screen
         _account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
@@ -98,12 +99,10 @@ class ViewAccountFragment : Fragment() {
         val credentialsAdapter =
             CredentialsViewAdapter(
                 CopyClickListener { data ->
-                    //TODO("Fix Copying issue for password")
                     copyToClipboardAndToast(data)
                 },
-                ViewClickListener {
-                    //TODO("Fix viewing issue")
-                    snackBarAction()
+                ViewClickListener { data ->
+                    snackBarAction(data)
                 })
 
         binding.RecyclerViewCredentialsField.apply {
@@ -129,8 +128,8 @@ class ViewAccountFragment : Fragment() {
         )
     }
 
-    private fun snackBarAction() {
-        binding.LayoutCredentialView.snackbar(_account.password) {
+    private fun snackBarAction(message: String) {
+        binding.LayoutCredentialView.snackbar(message) {
             action(getString(R.string.button_snack_action_close)) { dismiss() }
         }
     }

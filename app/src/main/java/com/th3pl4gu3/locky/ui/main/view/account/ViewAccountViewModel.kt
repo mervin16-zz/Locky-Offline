@@ -1,7 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.view.account
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.R
@@ -30,50 +29,50 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
         ArrayList<CredentialsField>().apply {
             add(
                 CredentialsField(
-                    getString(R.string.field_account_username),
-                    if (account.username.isEmpty()) getString(R.string.field_placeholder_empty) else account.username,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_account_username),
+                    data = if (account.username.isEmpty()) getString(R.string.field_placeholder_empty) else account.username,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_email),
-                    if (account.email.isEmpty()) getString(R.string.field_placeholder_empty) else account.email,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_account_email),
+                    data = if (account.email.isEmpty()) getString(R.string.field_placeholder_empty) else account.email,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_password),
-                    getString(R.string.field_placeholder_hidden),
-                    View.VISIBLE,
-                    View.VISIBLE
+                    subtitle = getString(R.string.field_account_password),
+                    data = if (account.password.isEmpty()) getString(R.string.field_placeholder_empty) else account.password,
+                    isViewable = true,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_website),
-                    if (account.website.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.website!!,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_account_website),
+                    data = if (account.website.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.website!!,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_authentication_type),
-                    if (account.authenticationType.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.authenticationType!!
+                    subtitle = getString(R.string.field_account_authentication_type),
+                    data = if (account.authenticationType.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.authenticationType!!
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_2fakeys),
-                    if (account.twoFASecretKeys.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.twoFASecretKeys!!,
-                    isCopyable = View.VISIBLE
+                    subtitle = getString(R.string.field_account_2fakeys),
+                    data = if (account.twoFASecretKeys.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.twoFASecretKeys!!,
+                    isCopyable = true
                 )
             )
             add(
                 CredentialsField(
-                    getString(R.string.field_account_additional),
-                    if (account.accountMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.accountMoreInfo!!
+                    subtitle = getString(R.string.field_account_additional),
+                    data = if (account.accountMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.accountMoreInfo!!
                 )
             )
         }

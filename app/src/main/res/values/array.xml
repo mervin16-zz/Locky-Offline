@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="list_themes">
+        <item>@string/settings_value_display_default</item>
+        <item>@string/settings_value_display_light</item>
+        <item>@string/settings_value_display_dark</item>
+    </string-array>
+</resources>

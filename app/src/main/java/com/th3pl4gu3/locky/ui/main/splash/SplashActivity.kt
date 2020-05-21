@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +15,11 @@ import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivitySplashBinding
 import com.th3pl4gu3.locky.ui.main.main.MainActivity
-import com.th3pl4gu3.locky.ui.main.utils.*
+import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
+import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky.ui.main.utils.openActivity
+import com.th3pl4gu3.locky.ui.main.utils.toast
 
 class SplashActivity : AppCompatActivity() {
 
@@ -40,6 +45,9 @@ class SplashActivity : AppCompatActivity() {
         _viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        /* Updates the app settings*/
+        updateAppSettings()
 
         /* Listener for Get Started Button */
         listenerForGetStartedButton()
@@ -114,9 +122,11 @@ class SplashActivity : AppCompatActivity() {
                 }
                 AuthenticationState.AUTHENTICATED -> {
                     /*
-                    * If the user has already been authenticated, proceed to login
+                    * If the user has already been authenticated,
+                    * We first check if an instance of the user object exists and matches the user trying to log in
+                    * If it matches, we log in the user directly to bypass overhead loading
                     */
-                    login()
+                    if (isUserSessionPresent()) navigateToMain() else login()
                 }
                 else -> return@Observer
             }
@@ -167,13 +177,47 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
+    private fun isUserSessionPresent(): Boolean {
+        /*
+        * Here we check is an instance of the user has already been stored in session
+        */
+        LocalStorageManager.with(application)
+
+        return if (LocalStorageManager.exists(KEY_USER_ACCOUNT)) {
+            /* Is instance exists, we check if it matches the user trying to log in*/
+            val firebaseUserInstance = User.getInstance()
+            val sessionUserInstance = LocalStorageManager.get<User>(KEY_USER_ACCOUNT)
+            /* If it matches, return true, else will return false*/
+            firebaseUserInstance.email == sessionUserInstance?.email
+        } else {
+            /* No isntance exists, therefore we need to proceed with the login process*/
+            false
+        }
+    }
+
     private fun createSessionIfNoPresent(user: User) {
         /* Store user object in shared preferences if not present already */
         LocalStorageManager.with(application)
-        if (!LocalStorageManager.exists(Constants.KEY_USER_ACCOUNT)) LocalStorageManager.put(
-            Constants.KEY_USER_ACCOUNT,
+        if (!LocalStorageManager.exists(KEY_USER_ACCOUNT)) LocalStorageManager.put(
+            KEY_USER_ACCOUNT,
             user
         )
+    }
+
+    private fun updateAppSettings() {
+        LocalStorageManager.with(application)
+
+        when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
+            getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
+            getString(R.string.settings_value_display_light) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            getString(R.string.settings_value_display_dark) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+        }
     }
 
     private fun navigateToMain() {

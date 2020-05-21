@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky.ui.main.utils.AuthenticationState
+import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,11 +53,11 @@ class MainActivity : AppCompatActivity() {
         //Remove the default actionbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        /* Updates the app settings*/
+        updateAppSettings()
+
         //Observer to check if user has been authenticated
         observeAuthenticationState()
-
-        //Update status bar upon current theme
-        //darkModeVerification()
 
         //Setup the navigation components
         navigationUISetup()
@@ -76,14 +78,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
-
-    /*private fun darkModeVerification() =
-        when (this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> window.activateDarkStatusBar()
-            Configuration.UI_MODE_NIGHT_NO -> window.activateLightStatusBar(_binding.root)
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> window.activateLightStatusBar(_binding.root)
-            else -> toast(getString(R.string.error_internal_code_2))
-        }*/
 
     private fun navigationUISetup() {
         //Fetch the Nav Controller
@@ -224,6 +218,22 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    private fun updateAppSettings() {
+        LocalStorageManager.with(application)
+
+        when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
+            getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
+            getString(R.string.settings_value_display_light) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            getString(R.string.settings_value_display_dark) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+        }
+    }
+
     private fun navigateToSearchSheet() = findNavController(R.id.Navigation_Host).navigate(
             R.id.BottomSheet_Fragment_Search, null
         )
@@ -235,4 +245,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToSplashScreen() =
         findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
+
 }

@@ -1,7 +1,6 @@
 package com.th3pl4gu3.locky.ui.main.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -59,17 +58,17 @@ class CardDiffCallback: DiffUtil.ItemCallback<CredentialsField>() {
 
 }
 
-class CopyClickListener(val clickListener: (data: String) -> Unit){
-    fun onClick(data: String) = clickListener(data)
+class CopyClickListener(val clickListener: (actualData: String) -> Unit) {
+    fun onClick(actualData: String) = clickListener(actualData)
 }
 
-class ViewClickListener(val clickListener: () -> Unit) {
-    fun onClick() = clickListener()
+class ViewClickListener(val clickListener: (actualData: String) -> Unit) {
+    fun onClick(actualData: String) = clickListener(actualData)
 }
 
 data class CredentialsField(
     var subtitle: String = Constants.VALUE_EMPTY,
     var data: String = Constants.VALUE_EMPTY,
-    var isCopyable: Int = View.GONE,
-    var isViewable: Int = View.GONE
+    var isCopyable: Boolean = false,
+    var isViewable: Boolean = false
 )

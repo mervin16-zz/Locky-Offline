@@ -8,6 +8,7 @@ class Constants {
             ****    Values    ****
          */
         const val VALUE_EMPTY = ""
+        const val VALUE_HIDDEN = "****"
 
         /*
             ****    Key & Value Pairs    ****
