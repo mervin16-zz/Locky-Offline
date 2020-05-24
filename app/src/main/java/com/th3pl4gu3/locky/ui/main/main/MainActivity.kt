@@ -12,10 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
@@ -78,6 +75,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
+
+    override fun finish() {
+        super.finish()
+
+        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
+    }
 
     private fun navigationUISetup() {
         //Fetch the Nav Controller
@@ -148,12 +151,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSlideNavOptions(): NavOptions? {
+    private fun getFadeNavOptions(): NavOptions? {
         return NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_slide_in_right)
-            .setExitAnim(R.anim.anim_slide_out_left)
-            .setPopEnterAnim(R.anim.anim_slide_in_left)
-            .setPopExitAnim(R.anim.anim_slide_out_right)
+            .setEnterAnim(R.anim.anim_fade_in)
+            .setExitAnim(R.anim.anim_fade_out)
             .build()
     }
 
@@ -202,12 +203,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listenerForAddFab() = _binding.FABAdd.setOnClickListener {
-            navigateToAddCategorySheet()
-        }
+        navigateToAddCategorySheet()
+    }
 
     private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
-            navigateToSearchSheet()
-        }
+        navigateToSearchFragment()
+    }
 
     private fun observeAuthenticationState() =
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
@@ -235,14 +236,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToSearchSheet() = findNavController(R.id.Navigation_Host).navigate(
-            R.id.BottomSheet_Fragment_Search, null
-        )
+    private fun navigateToSearchFragment() = findNavController(R.id.Navigation_Host).navigate(
+        R.id.Fragment_Search, null, getFadeNavOptions()
+    )
 
     private fun navigateToAddCategorySheet() = findNavController(R.id.Navigation_Host).navigate(
-            R.id.BottomSheet_Fragment_Add_Category,
-            null
-        )
+        R.id.BottomSheet_Fragment_Add_Category,
+        null
+    )
 
     private fun navigateToSplashScreen() =
         findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)

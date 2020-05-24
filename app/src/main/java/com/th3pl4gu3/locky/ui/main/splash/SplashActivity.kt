@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActivityNavigator
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -79,6 +80,12 @@ class SplashActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun finish() {
+        super.finish()
+
+        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
     }
 
     private fun observeUser() {
