@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNestedScrollChangeListener() =
         _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY > 0) {
-                _binding.ToolbarMain.elevation = 8F
+                _binding.ToolbarMain.elevation = 12F
             } else {
                 _binding.ToolbarMain.elevation = 0F
             }
@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.Fragment_Settings -> updateToolbar("Settings")
                 R.id.Fragment_Profile -> updateToolbar("Profile")
                 R.id.Fragment_About -> updateToolbar("About")
+                R.id.Fragment_Donate -> updateToolbar("Donation")
                 else -> {
                     //Show the toolbar
                     updateToolbar(null)

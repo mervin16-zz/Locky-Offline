@@ -74,7 +74,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Chip_Sort_Name"
-                style="@style/Locky.Button.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{Sort.name}"
@@ -82,7 +81,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Chip_Sort_Username"
-                style="@style/Locky.Button.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{Sort.username}"
@@ -90,7 +88,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Chip_Sort_email"
-                style="@style/Locky.Button.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{Sort.email}"
@@ -98,7 +95,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Chip_Sort_Website"
-                style="@style/Locky.Button.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{Sort.website}"
@@ -106,7 +102,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Chip_Sort_AuthType"
-                style="@style/Locky.Button.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{Sort.authType}"

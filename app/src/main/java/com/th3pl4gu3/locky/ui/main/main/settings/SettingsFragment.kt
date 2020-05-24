@@ -100,19 +100,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun feedbackPreference() {
         findPreference<Preference>(getString(R.string.settings_key_help_feedback))?.setOnPreferenceClickListener {
 
-            val intent = Intent(ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:")
-                putExtra(
-                    Intent.EXTRA_EMAIL,
-                    arrayOf(getString(R.string.app_support_email_team))
-                ) // recipients
-                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_support_email_subject))
-            }
-
-            if (isIntentSafeToStart(intent)) startActivity(intent) else showEmailDialog()
+            emailIntent()
 
             true
         }
+    }
+
+    private fun emailIntent() {
+        val intent = Intent(ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(
+                Intent.EXTRA_EMAIL,
+                arrayOf(getString(R.string.app_support_email_team))
+            ) // recipients
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_support_email_subject_feedback))
+        }
+
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showEmailDialog()
     }
 
     private fun isIntentSafeToStart(intent: Intent) =

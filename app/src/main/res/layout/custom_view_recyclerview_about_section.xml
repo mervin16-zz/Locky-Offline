@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="AboutItem"
+            type="com.th3pl4gu3.locky.ui.main.main.about.AboutItem" />
+
+        <variable
+            name="ClickListener"
+            type="com.th3pl4gu3.locky.ui.main.main.about.ItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> ClickListener.onClick(AboutItem.item)}"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/Icon"
+            loadIcon="@{AboutItem.icon}"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:tint="@color/colorIconSurface"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Icon_Horizontal"
+            app:layout_constraintEnd_toStartOf="@id/Barrier_Icon_Vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_account" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Icon_Vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="Icon" />
+
+        <TextView
+            android:id="@+id/Title"
+            style="@style/Locky.Text.Title6.List"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{AboutItem.title}"
+            app:layout_constraintBottom_toBottomOf="@+id/Icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Icon_Vertical"
+            app:layout_constraintTop_toTopOf="@+id/Icon"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="This is a very very long title that can overlap" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Icon_Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="Icon" />
+
+        <TextView
+            android:id="@+id/Description"
+            style="@style/Locky.Text.Subtitle.List.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{AboutItem.description}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/Title"
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Icon_Horizontal"
+            tools:text="This can be a very very very very long description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

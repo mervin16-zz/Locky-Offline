@@ -7,8 +7,15 @@
     ****************** Application Specific ******************
     -->
     <string name="app_name">Locky</string>
+    <string name="app_description_short">Manage all your passwords and bank cards on a single secure place.</string>
+    <string name="app_description_long">
+        Locky is a password manager where you can keep all your account passwords and bank card details securely offline.
+        You don\'t need to worry about hackers stealing the info as it is stored securely only on your phone.
+    </string>
+    <string name="app_developer_signature">Developed with \u2764\uFE0F in 🇲🇺</string>
     <string name="app_support_email_team">mervinhemaraju16@gmail.com</string>
-    <string name="app_support_email_subject">Support :: Locky :: Feedback</string>
+    <string name="app_support_email_subject_feedback">Support :: Locky :: Feedback</string>
+    <string name="app_support_email_subject_bug">Support :: Locky :: Bug Report</string>
 
 
     <!--
@@ -31,7 +38,7 @@
     <string name="text_subtitle_forgot_password"><u>Forgot password?</u></string>
 
     <string name="text_title_splash">Welcome to Locky</string>
-    <string name="text_subtitle_splash">Manage all your passwords and bank cards on a single secure place.</string>
+    <string name="text_subtitle_splash">@string/app_description_short</string>
 
     <string name="text_title_login">Get your account now</string>
     <string name="text_subtitle_login">Login with your account. If you don\'t have one, we will create it for you.</string>
@@ -45,7 +52,25 @@
     <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
         application to continue</string>
 
-    <string name="button_action_category_add_item">Add an item</string>
+    <string name="text_subtitle_about_sections_app">About Locky</string>
+    <string name="text_subtitle_about_sections_dev">Support &amp; Development</string>
+    <string name="text_subtitle_about_sections_other">Other</string>
+
+
+    <string name="text_title_about_dev_rate">Rate Locky</string>
+    <string name="text_title_about_dev_donate">Donate</string>
+    <string name="text_title_about_dev_bug">Share a Bug</string>
+    <string name="text_title_about_dev_share">Share Locky</string>
+
+    <string name="text_description_about_dev_rate">"If you love the app, let us know in the Google Play Store and we can make it even better"</string>
+    <string name="text_description_about_dev_donate">If you think i deserve to get paid for my work, you can leave some money here</string>
+    <string name="text_description_about_dev_bug">Any error that is persisting in the app, please send an email by clicking here</string>
+    <string name="text_description_about_dev_share">Do not forget to share the app with your friends and family</string>
+
+    <string name="text_title_about_other_license">Open Source Licenses</string>
+    <string name="text_title_about_other_version">Version</string>
+
+    <string name="text_description_about_other_license">License details for open source software</string>
 
     <!--
    ****************** Menu ******************
@@ -154,6 +179,7 @@
     <string name="button_action_category_add_account">Add account</string>
     <string name="button_action_category_add_card">Add card</string>
     <string name="button_action_category_add_device">Add device</string>
+    <string name="button_action_category_add_item">Add an item</string>
 
     <!--
         ****************** Settings ******************

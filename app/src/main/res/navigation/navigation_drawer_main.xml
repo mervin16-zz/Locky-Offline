@@ -56,7 +56,15 @@
         android:id="@+id/Fragment_About"
         android:name="com.th3pl4gu3.locky.ui.main.main.about.AboutFragment"
         android:label="About"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_Fragment_About_to_Fragment_Libraries"
+            app:destination="@id/Fragment_Donate"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Search"
@@ -204,5 +212,11 @@
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right" />
     </dialog>
+
+    <fragment
+        android:id="@+id/Fragment_Donate"
+        android:name="com.th3pl4gu3.locky.ui.main.main.about.donate.DonateFragment"
+        android:label="Donate"
+        tools:layout="@layout/fragment_donate" />
 
 </navigation>

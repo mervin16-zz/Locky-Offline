@@ -20,7 +20,9 @@
                 android:id="@+id/Toolbar_Main"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorOnSurface">
+                android:background="@color/colorOnSurface"
+                android:outlineAmbientShadowColor="@color/colorShadowColor"
+                android:outlineSpotShadowColor="@color/colorShadowColor">
 
                 <TextView
                     android:id="@+id/Toolbar_Main_Title"

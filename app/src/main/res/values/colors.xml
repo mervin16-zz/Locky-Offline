@@ -2,42 +2,45 @@
 
 <resources>
 
-    <!--
-        Default App Colors
-    -->
+    <!-- =================== -->
+    <!-- Default App Colors -->
+    <!-- =================== -->
     <color name="colorPrimary">@color/purple_300</color>
     <color name="colorPrimaryDark">@android:color/white</color>
     <color name="colorAccent">@color/purple_300</color>
     <color name="colorAccentDark">@color/purple_600</color>
     <color name="colorAccentLight">@color/purple_100</color>
+    <color name="colorAccentVariant">@color/purple_tint_50</color>
     <color name="colorRipple">@color/purple_50</color>
     <color name="colorOnSurface">@android:color/white</color>
+    <color name="colorShadowColor">@color/colorAccentDark</color>
 
-    <!--
-        Gradient Colors
-    -->
-    <color name="background_gradient_accent_start">@color/purple_300</color>
-    <color name="background_gradient_accent_middle">@color/colorAccent</color>
-    <color name="background_gradient_accent_end">@color/colorAccentDark</color>
+    <!-- =================== -->
+    <!-- Iconography Colors -->
+    <!-- =================== -->
+    <color name="colorIcon">@color/grey_600</color>
+    <color name="colorIconSurface">@color/grey_600</color>
+    <color name="colorIconFabNormal">@android:color/white</color>
+    <color name="colorIconFabMini">@color/colorAccentDark</color>
 
+    <!-- ============= -->
     <!-- Button Colors -->
+    <!-- ============= -->
     <color name="colorFabNormal">@color/colorAccent</color>
     <color name="colorFabMini">@color/purple_100</color>
 
     <color name="colorChipDefault">@color/grey_50</color>
     <color name="colorChipChecked">@color/colorAccentLight</color>
 
-    <color name="colorButtonDelete">@color/red_400</color>
-
-    <!--
-        Icon Colors
-    -->
-    <color name="colorIcon">@color/grey_600</color>
-    <color name="colorIconFabNormal">@android:color/white</color>
-    <color name="colorIconFabMini">@color/colorAccentDark</color>
+    <!-- ===================== -->
+    <!-- Material Cards Colors -->
+    <!-- ===================== -->
+    <color name="colorCardBackground">@android:color/white</color>
 
 
-    <!-- TextField Colors -->
+    <!-- ================= -->
+    <!-- Text Field Colors -->
+    <!-- ================= -->
     <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
     <color name="colorTextFieldAccentDefault_Active">@color/purple_300</color>
     <color name="colorTextFieldAccentDefault_Inactive">@color/grey_300</color>
@@ -45,25 +48,29 @@
     <color name="colorTextFieldIconDefault">@color/purple_tint_50</color>
     <color name="colorTextFieldTextDefault">@color/colorAccentDark</color>
 
-    <!--
-        Typography Colors
-    -->
+    <!-- ================= -->
+    <!-- Typography Colors -->
+    <!-- ================= -->
+    <color name="colorTextTitleToolbar">@color/colorAccentDark</color>
     <color name="colorTextTitle">@color/grey_600</color>
     <color name="colorTextSubtitle">@color/grey_200</color>
     <color name="colorTextBody">@color/grey_600</color>
     <color name="colorTextMenu">@color/grey_600</color>
+    <color name="colorTextChip">@color/grey_600</color>
 
-    <color name="colorButtonTextAccentPrimary">@color/colorAccent</color>
-    <color name="colorButtonTextAccentSecondary">@color/colorAccentDark</color>
+    <color name="colorButtonTextAccentDark">@color/colorAccentDark</color>
     <color name="colorButtonTextNegative">@color/grey_400</color>
 
-    <!-- Color Light Palette -->
-    <color name="red_400">#DC061E</color>
+
+    <!-- ======================= -->
+    <!-- Light Theme ONLY Colors -->
+    <!-- ======================= -->
     <color name="red_300">#E57373</color>
 
     <color name="purple_600">#FF3A056E</color>
     <color name="purple_400">#6E4EA7</color>
     <color name="purple_300">#9575CD</color>
+    <color name="purple_200">#B39DDB</color>
     <color name="purple_100">#ece0fd</color>
     <color name="purple_50">#20DB9AFF</color>
     <color name="purple_tint_50">#D35C4B6C</color>
@@ -75,10 +82,15 @@
     <color name="grey_100">#D3D3D3</color>
     <color name="grey_50">#E8E7E7</color>
 
-
-    <!-- Color Dark ONLY Palette -->
     <color name="grey_dark_200">#272727</color>
-    <color name="purple_200">#B39DDB</color>
+    <color name="grey_dark_100">#373737</color>
 
-    <color name="red_100">#FF8795</color>
+
+    <!-- ====================== -->
+    <!-- Dark Theme ONLY Colors -->
+    <!-- ====================== -->
+    <color name="dark_colorAccent">@color/purple_200</color>
+    <color name="dark_colorPrimaryDark">@color/grey_dark_200</color>
+    <color name="dark_colorOnSurface">@color/grey_dark_200</color>
+    <color name="dark_colorOnSecondary">@color/grey_dark_100</color>
 </resources>

@@ -75,3 +75,8 @@ fun ImageView.imageUrl(imageUrl: String, loadingResource: Drawable, errorResourc
             .into(this)
     }
 }
+
+@BindingAdapter("loadIcon")
+fun ImageView.loadIcon(icon: Drawable) {
+    this.setImageDrawable(icon)
+}

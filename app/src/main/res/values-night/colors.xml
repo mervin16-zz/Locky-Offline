@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <!-- Default Colors -->
-    <color name="colorPrimary">@color/grey_dark_200</color>
-    <color name="colorPrimaryDark">@color/grey_dark_200</color>
-    <color name="colorAccent">@color/purple_200</color>
-    <color name="colorOnSurface">@color/grey_dark_200</color>
 
-    <!--
-        Gradient Colors
-    -->
-    <color name="background_gradient_accent_start">@color/purple_300</color>
-    <color name="background_gradient_accent_middle">@color/purple_400</color>
-    <color name="background_gradient_accent_end">@color/purple_600</color>
+    <!-- =================== -->
+    <!-- Default App Colors -->
+    <!-- =================== -->
+    <color name="colorPrimary">@color/dark_colorAccent</color>
+    <color name="colorPrimaryDark">@color/dark_colorPrimaryDark</color>
+    <color name="colorAccent">@color/dark_colorAccent</color>
+    <color name="colorOnSurface">@color/dark_colorOnSurface</color>
+    <color name="colorShadowColor">@color/grey_100</color>
 
-    <!-- TextField Colors -->
-    <color name="colorTextFieldAccentSearch">@color/colorAccent</color>
-    <color name="colorTextFieldAccentDefault_Active">@color/colorAccent</color>
-    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_100</color>
+    <!-- ================= -->
+    <!-- Text Field Colors -->
+    <!-- ================= -->
+    <color name="colorTextFieldTextDefault">@color/colorAccent</color>
 
-    <!-- Icon Colors -->
+    <!-- =================== -->
+    <!-- Iconography Colors -->
+    <!-- =================== -->
     <color name="colorIcon">@color/grey_100</color>
+    <color name="colorIconSurface">@android:color/white</color>
 
-    <!-- Button Colors -->
-    <color name="colorChipDefault">@color/grey_400</color>
+    <!-- ===================== -->
+    <!-- Material Cards Colors -->
+    <!-- ===================== -->
+    <color name="colorCardBackground">@color/dark_colorOnSecondary</color>
 
-    <color name="colorButtonDelete">@color/red_100</color>
-
-    <!--
-        Typography Colors
-    -->
+    <!-- ================= -->
+    <!-- Typography Colors -->
+    <!-- ================= -->
+    <color name="colorTextTitleToolbar">@color/colorAccent</color>
     <color name="colorTextTitle">@color/grey_50</color>
-    <color name="colorTextMenu">@color/grey_300</color>
-
-    <color name="colorButtonTextAccentPrimary">@color/colorAccentDark</color>
-    <color name="colorButtonTextAccentSecondary">@color/colorAccent</color>
+    <color name="colorTextSubtitle">@color/grey_200</color>
+    <color name="colorTextBody">@color/grey_200</color>
+    <color name="colorTextMenu">@color/grey_200</color>
+    <color name="colorButtonTextAccentDark">@color/colorAccent</color>
 
 </resources>

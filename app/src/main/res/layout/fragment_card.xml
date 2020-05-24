@@ -48,7 +48,6 @@
             android:id="@+id/Empty_View_Illustration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/Empty_View_Title"
             app:layout_constraintEnd_toEndOf="parent"
