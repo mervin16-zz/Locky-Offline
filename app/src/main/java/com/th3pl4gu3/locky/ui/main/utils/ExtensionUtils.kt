@@ -8,8 +8,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.Window
-import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Card

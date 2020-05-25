@@ -3,9 +3,9 @@
     <string name="open">open</string>
     <string name="close">close</string>
 
-    <!--
-    ****************** Application Specific ******************
-    -->
+    <!-- ==================== -->
+    <!-- Application Specific  -->
+    <!-- ==================== -->
     <string name="app_name">Locky</string>
     <string name="app_description_short">Manage all your passwords and bank cards on a single secure place.</string>
     <string name="app_description_long">
@@ -18,9 +18,9 @@
     <string name="app_support_email_subject_bug">Support :: Locky :: Bug Report</string>
 
 
-    <!--
-    ****************** Titles & Subtitles ******************
-    -->
+    <!-- ==================== -->
+    <!-- Titles & Subtitles  -->
+    <!-- ==================== -->
     <string name="text_title_sort">Sort</string>
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
@@ -72,9 +72,13 @@
 
     <string name="text_description_about_other_license">License details for open source software</string>
 
-    <!--
-   ****************** Menu ******************
-   -->
+    <string name="text_subtitle_search_accounts">Accounts ("%1$s")</string>
+    <string name="text_subtitle_search_cards">Cards ("%1$s")</string>
+
+
+    <!-- ==================== -->
+    <!-- ======= Menu =======  -->
+    <!-- ==================== -->
     <string name="menu_drawer_subtitle_others">OTHERS</string>
     <string name="menu_drawer_subtitle_user">USER</string>
     <string name="menu_drawer_main_account">Accounts</string>
@@ -98,9 +102,11 @@
     <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
     <string name="menu_card_moreOptions_viewPin">View Pin</string>
 
-    <!--
-        ****************** Data Fields ******************
-    -->
+    <string name="menu_card_searchview_Search">Search</string>
+
+    <!-- =========== -->
+    <!-- Data Fields -->
+    <!-- =========== -->
     <string name="label_required">*Required Fields</string>
     <string name="label_optional">Optional Fields</string>
 
@@ -141,9 +147,9 @@
     <string name="field_card_sort_cardholder">Cardholder</string>
 
 
-    <!--
-        ****************** Messages ******************
-    -->
+    <!-- =============== -->
+    <!-- Notify Messages -->
+    <!-- =============== -->
     <string name="message_copy_successful">Copied successfully.</string>
     <string name="message_credentials_created">"%1$s" has been added successfully.</string>
     <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
@@ -157,16 +163,16 @@
     <string name="message_user_account_status_blocked">This account has been blocked. Please contact your administrator</string>
     <string name="message_user_account_status_inactive">This account has been disabled. Please create another account</string>
 
-    <!--
-        ****************** Error Messages ******************
-    -->
+    <!-- =============== -->
+    <!-- Error Messages -->
+    <!-- =============== -->
     <string name="error_internal_code_1">Error code 1: "%1$s"</string>
     <string name="error_internal_code_2">Error code 2: "%1$s"</string>
     <string name="error_internal_code_3">Error code 3: An error occurred while fetching your profile. Please contact support.</string>
 
-    <!--
-        ****************** Button Actions ******************
-    -->
+    <!-- =============== -->
+    <!-- Button Actions -->
+    <!-- =============== -->
     <string name="button_snack_action_close">Close</string>
     <string name="button_action_save">Save</string>
     <string name="button_action_cancel">Cancel</string>
@@ -181,9 +187,9 @@
     <string name="button_action_category_add_device">Add device</string>
     <string name="button_action_category_add_item">Add an item</string>
 
-    <!--
-        ****************** Settings ******************
-    -->
+    <!-- ========= -->
+    <!-- Settings -->
+    <!-- ========= -->
     <string name="settings_key_category_display">settings_key_category_display</string>
     <string name="settings_key_category_security">settings_key_category_security</string>
     <string name="settings_key_category_backup">settings_key_category_backup</string>
@@ -215,9 +221,9 @@
     <string name="settings_title_help_feedback">Send feedback</string>
     <string name="settings_summary_help_feedback">Report technical issues or suggest new features</string>
 
-    <!--
-   ****************** Dev ******************
-   -->
+    <!-- ==================== -->
+    <!-- ======= DEV =======  -->
+    <!-- ==================== -->
     <string name="dev_feature_implementation_unknown">The feature "%1$s" has not been implemented yet.</string>
     <string name="dev_feature_implementation_soon">This feature is under construction</string>
 

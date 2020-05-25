@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky.ui.main.main.card
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
-import android.widget.PopupMenu
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver

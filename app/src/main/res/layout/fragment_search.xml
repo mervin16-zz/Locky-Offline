@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,9 +14,144 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout_Parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <!-- ==================== -->
+        <!-- Item Recycler Views  -->
+        <!-- ==================== -->
+
+        <LinearLayout
+            android:id="@+id/Layout_Accounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{ViewModel.starterScreenVisibility? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <TextView
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@{ViewModel.accountsSize}"
+                android:textColor="@color/colorAccent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerView_Accounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{ViewModel.isAccountListVisible? View.VISIBLE : View.GONE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/message_loading_item_account_none"
+                android:visibility="@{ViewModel.isAccountListVisible? View.GONE : View.VISIBLE}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Layout_Cards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:visibility="@{ViewModel.starterScreenVisibility? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Layout_Accounts"
+            tools:visibility="gone">
+
+            <TextView
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@{ViewModel.cardsSize}"
+                android:textColor="@color/colorAccent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerView_Cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{ViewModel.isCardListVisible()? View.VISIBLE : View.GONE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/message_loading_item_cards_none"
+                android:visibility="@{ViewModel.isCardListVisible()? View.GONE : View.VISIBLE}" />
+
+        </LinearLayout>
+
+
+        <!-- ============= -->
+        <!-- Starter View  -->
+        <!-- ============= -->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/View_Starter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ViewModel.starterScreenVisibility? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="Starter_Illustration,Starter_Subtitle,Starter_Title"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/Starter_Illustration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/Starter_Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/il_search" />
+
+        <TextView
+            android:id="@+id/Starter_Title"
+            style="@style/Locky.Text.Title6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/text_title_emptyView_item_search"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/Starter_Subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Starter_Illustration" />
+
+        <TextView
+            android:id="@+id/Starter_Subtitle"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:text="@string/text_subtitle_emptyView_item_search"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Starter_Title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
