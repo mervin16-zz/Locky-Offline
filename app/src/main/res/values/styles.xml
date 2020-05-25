@@ -50,6 +50,8 @@
         <!-- Card Style -->
         <item name="materialCardViewStyle">@style/Locky.CardView</item>
 
+        <!-- Bottom Sheet Dialog Fragment Theme -->
+        <item name="bottomSheetDialogTheme">@style/Locky.BottomSheetDialog.Theme</item>
     </style>
 
     <!-- ====================== -->
@@ -86,19 +88,19 @@
         <item name="cornerSize">4dp</item>
     </style>
 
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="Locky.ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">6dp</item>
     </style>
 
-    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">16dp</item>
-    </style>
-
-    <style name="ShapeAppearance.App.MediumComponent.Rounded">
+    <style name="Locky.ShapeAppearance.App.MediumComponent.Rounded">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Locky.ShapeAppearance.BottomSheet" parent="@style/Locky.ShapeAppearance.App.MediumComponent.Rounded">
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeTopRight">6dp</item>
+        <item name="cornerSizeTopLeft">6dp</item>
     </style>
 
     <!-- Navigation View Style -->
@@ -119,14 +121,14 @@
     </style>
 
     <!-- Material Dialog -->
-    <style name="Locky.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+    <style name="Locky.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="alertDialogStyle">@style/Locky.MaterialAlertDialog.App</item>
         <item name="buttonBarPositiveButtonStyle">@style/Locky.Button.TextButton.Positive</item>
         <item name="buttonBarNegativeButtonStyle">@style/Locky.Button.TextButton.Negative</item>
     </style>
 
     <style name="Locky.MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
-        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearance">@style/Locky.ShapeAppearance.App.MediumComponent</item>
     </style>
 
     <!-- Material Date Picker -->
@@ -138,7 +140,7 @@
     </style>
 
     <style name="Locky.MaterialDatePicker.Style" parent="Widget.MaterialComponents.MaterialCalendar">
-        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent.Rounded</item>
+        <item name="shapeAppearance">@style/Locky.ShapeAppearance.App.MediumComponent.Rounded</item>
     </style>
 
     <!-- Settings Preferences -->
@@ -155,6 +157,17 @@
         <item name="contentPadding">8dp</item>
     </style>
 
+    <!-- Bottom Sheet Dialog Fragment -->
+    <style name="Locky.BottomSheetDialog.Theme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:navigationBarColor">@color/colorOnSurface</item>
+        <item name="android:navigationBarDividerColor">@color/colorOnSurface</item>
+        <item name="bottomSheetStyle">@style/Locky.BottomSheetDialog.Style</item>
+    </style>
+
+    <style name="Locky.BottomSheetDialog.Style" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/Locky.ShapeAppearance.BottomSheet</item>
+    </style>
 
     <!-- ===================== -->
     <!-- Text field Styles -->

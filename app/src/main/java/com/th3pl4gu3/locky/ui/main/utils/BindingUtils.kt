@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.core.main.Card
+import java.util.*
 
 
 //TODO: Need to test all functions properly in BindingUtils.kt
@@ -17,11 +18,6 @@ import com.th3pl4gu3.locky.core.main.Card
 @BindingAdapter("cardNumber")
 fun TextView.setCardNumber(number: String) {
     text = number.toCreditCardFormat()
-}
-
-@BindingAdapter("issuedCardDate", "expiryCardDate")
-fun TextView.setCardDate(issued: String, expiry: String) {
-    text = "Issued: $issued | Expiry: $expiry"
 }
 
 @BindingAdapter("cardLogo")
@@ -44,12 +40,13 @@ fun ImageView.setCardLogo(number: String) {
 /********************************* Account Binding Adapters****************************************/
 @BindingAdapter("accountLogin")
 fun TextView.accountLogin(account: Account) {
-    return if (account.username.isNotEmpty() && account.email.isNotEmpty()) {
-        text = "${account.username} | ${account.email}"
-    } else if (account.username.isNotEmpty()) {
-        text = account.username
+    return if (account.username.isNotEmpty() && !(account.username.toLowerCase(Locale.ROOT) == "n/a" || account.username.toLowerCase(
+            Locale.ROOT
+        ) == "none")
+    ) {
+        text = resources.getString(R.string.app_user_username, account.username)
     } else {
-        text = account.email
+        text = resources.getString(R.string.app_user_email, account.email)
     }
 }
 
@@ -57,7 +54,7 @@ fun TextView.accountLogin(account: Account) {
 /********************************* Profile Binding Adapters****************************************/
 @BindingAdapter("memberSince")
 fun TextView.memberSince(dateJoined: String) {
-    this.text = "Member since $dateJoined"
+    this.text = resources.getString(R.string.app_user_member_since, dateJoined)
 }
 
 

@@ -22,7 +22,6 @@ class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         _binding = FragmentBottomSheetAddCategoryBinding.inflate(inflater, container, false)
 
-
         return binding.root
 
     }

@@ -13,9 +13,14 @@
         You don\'t need to worry about hackers stealing the info as it is stored securely only on your phone.
     </string>
     <string name="app_developer_signature">Developed with \u2764\uFE0F in 🇲🇺</string>
+
     <string name="app_support_email_team">mervinhemaraju16@gmail.com</string>
     <string name="app_support_email_subject_feedback">Support :: Locky :: Feedback</string>
     <string name="app_support_email_subject_bug">Support :: Locky :: Bug Report</string>
+
+    <string name="app_user_member_since">Member since "%1$s"</string>
+    <string name="app_user_username">👤 "%1$s"</string>
+    <string name="app_user_email">📧 "%1$s"</string>
 
 
     <!-- ==================== -->
@@ -150,6 +155,7 @@
     <!-- =============== -->
     <!-- Notify Messages -->
     <!-- =============== -->
+    <string name="message_internet_connection_unavailable">Please check your internet connection</string>
     <string name="message_copy_successful">Copied successfully.</string>
     <string name="message_credentials_created">"%1$s" has been added successfully.</string>
     <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
@@ -182,9 +188,9 @@
     <string name="button_action_email_sign_in">email sign in</string>
     <string name="button_action_get_started">get started</string>
 
-    <string name="button_action_category_add_account">Add account</string>
-    <string name="button_action_category_add_card">Add card</string>
-    <string name="button_action_category_add_device">Add device</string>
+    <string name="button_action_category_add_account">Account</string>
+    <string name="button_action_category_add_card">Card</string>
+    <string name="button_action_category_add_device">Device</string>
     <string name="button_action_category_add_item">Add an item</string>
 
     <!-- ========= -->

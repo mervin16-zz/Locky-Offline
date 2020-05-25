@@ -55,7 +55,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
-    implementation "androidx.security:security-crypto:$version_security"
     implementation "androidx.preference:preference:$version_preference"
     implementation "com.google.android.gms:play-services-oss-licenses:$version_oss_licenses"
 

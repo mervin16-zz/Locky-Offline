@@ -5,7 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorOnSurface">
 
         <TextView
             android:id="@+id/Category_Add_Item"
@@ -31,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/Category_Add_Item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/Category_Add_Item"
-            app:srcCompat="@drawable/ic_close" />
+            app:srcCompat="@drawable/ic_arrow_down" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_Header"

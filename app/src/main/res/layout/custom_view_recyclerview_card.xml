@@ -49,44 +49,46 @@
             app:constraint_referenced_ids="Card_Logo" />
 
         <TextView
-            android:id="@+id/Card_Number"
+            android:id="@+id/Card_Entry_Name"
             style="@style/Locky.Text.Title6.List"
-            cardNumber="@{Card.number}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/Card_Date"
-            app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
-            app:layout_constraintTop_toTopOf="@+id/Card_Logo"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            tools:text="4850 XXXX XXXX XXXX" />
-
-        <TextView
-            android:id="@+id/Card_Date"
-            style="@style/Locky.Text.Subtitle.List.Primary"
-            expiryCardDate="@{Card.expiryDate}"
-            issuedCardDate="@{Card.issuedDate}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/Entry_Name"
-            app:layout_constraintStart_toStartOf="@+id/Card_Number"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
-            app:layout_constraintVertical_chainStyle="spread"
-            tools:text="Issued: MM/yy | Expiry: MM/yy" />
-
-        <TextView
-            android:id="@+id/Entry_Name"
-            style="@style/Locky.Text.Subtitle.List.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Card.entryName}"
             android:ellipsize="end"
+            android:ems="11"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/Card_Number"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Card_Logo"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            tools:text="Credit card entry name" />
+
+        <TextView
+            android:id="@+id/Card_Number"
+            style="@style/Locky.Text.Subtitle.List.Primary"
+            cardNumber="@{Card.number}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/Card_Holder_Name"
+            app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Entry_Name"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="49XX XXXX XXXX XXXX XXXX" />
+
+        <TextView
+            android:id="@+id/Card_Holder_Name"
+            style="@style/Locky.Text.Subtitle.List.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Card.cardHolderName}"
+            android:ellipsize="end"
             android:ems="14"
             android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
-            app:layout_constraintStart_toStartOf="@+id/Card_Number"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Date"
+            app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
             app:layout_constraintVertical_chainStyle="spread"
-            tools:text="This can be a really really long long name" />
+            tools:text="John Doe" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_More_Options"

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.User
@@ -69,17 +70,28 @@ class SplashActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SIGN_IN_RESULT_CODE) {
-            when (resultCode) {
-                Activity.RESULT_CANCELED -> toast(getString(R.string.message_user_signin_cancelled))
-                Activity.RESULT_OK -> return
-                else -> toast(
+            if (resultCode != Activity.RESULT_OK) {
+                // Sign in failed
+                val response = IdpResponse.fromResultIntent(data)
+                if (response == null) {
+                    toast(getString(R.string.message_user_signin_cancelled))
+                    return
+                }
+
+                if (response.error?.errorCode == ErrorCodes.NO_NETWORK) {
+                    toast(getString(R.string.message_internet_connection_unavailable))
+                    return
+                }
+
+                toast(
                     getString(
                         R.string.error_internal_code_1,
-                        IdpResponse.fromResultIntent(data)?.error?.errorCode?.toString()
+                        response.error?.errorCode.toString()
                     )
                 )
             }
         }
+
     }
 
     override fun finish() {
