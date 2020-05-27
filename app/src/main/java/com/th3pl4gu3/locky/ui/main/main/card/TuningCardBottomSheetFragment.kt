@@ -39,17 +39,16 @@ class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun listenerForConfirmChanges() {
         binding.ButtonChangesConfirm.setOnClickListener {
-            with(findNavController().previousBackStackEntry?.savedStateHandle) {
-                this?.set(
-                    KEY_CARDS_SORT,
-                    _sort.apply {
-                        sortByName = binding.ChipSortEntryName.isChecked
-                        sortByBank = binding.ChipSortBank.isChecked
-                        sortByType = binding.ChipSortType.isChecked
-                        sortByCardHolderName = binding.ChipSortCardholderName.isChecked
-                    }
-                )
-            }
+
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                KEY_CARDS_SORT,
+                _sort.apply {
+                    sortByName = binding.ChipSortEntryName.isChecked
+                    sortByBank = binding.ChipSortBank.isChecked
+                    sortByType = binding.ChipSortType.isChecked
+                    sortByCardHolderName = binding.ChipSortCardholderName.isChecked
+                }
+            )
 
             dismiss()
         }

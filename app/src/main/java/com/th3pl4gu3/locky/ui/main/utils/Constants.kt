@@ -8,7 +8,6 @@ class Constants {
             ****    Values    ****
          */
         const val VALUE_EMPTY = ""
-        const val VALUE_HIDDEN = "****"
 
         /*
             ****    Key & Value Pairs    ****
@@ -17,7 +16,6 @@ class Constants {
         const val KEY_CARDS_SORT = "KEY_CARD_SORT"
         const val KEY_ACCOUNTS_SORT = "KEY_ACCOUNT_SORT"
         const val KEY_USER_ACCOUNT = "KEY_USER_ACCOUNT"
-        const val KEY_USERS = "KEY_USERS"
 
         /*
             ****    Placeholders    ****

@@ -20,30 +20,35 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Live Data Variables
      **/
-    private var _showSnackbarEvent = MutableLiveData<String>()
-    private var _loadingStatus = MutableLiveData<LoadingStatus>()
+    private var _showSnackBarEvent = MutableLiveData<String>()
     private var _currentAccountsExposed = MediatorLiveData<List<Account>>()
-    private var _sort = MutableLiveData<AccountSort>()
+    private var _loadingStatus = MutableLiveData<LoadingStatus>()
     private var _accountListVisibility = MutableLiveData(false)
     private var _accountEmptyViewVisibility = MutableLiveData(false)
+    private var _sort = MutableLiveData(loadSortObject())
 
     /**
      * Init Clause
      **/
     init {
-        //Set the loading status
+        /*
+        * Here, we define all codes that need to
+        * run on startup.
+        */
+
+        /* We show loading animation */
         _loadingStatus.value = LoadingStatus.LOADING
 
-        //Load the accounts for the first time
+        /* We load the accounts */
         loadAccounts()
-
-        //Set the default value for account sort
-        _sort.value = checkSorting()
     }
 
     /**
      * Live Data Transformations
      **/
+    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
+        it == LoadingStatus.LOADING
+    }
 
     private val sortedByName = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
@@ -84,21 +89,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
-        when (it) {
-            LoadingStatus.LOADING -> {
-                true
-            }
-            LoadingStatus.DONE, LoadingStatus.ERROR -> {
-                false
-            }
-            else -> {
-                false
-            }
-        }
-    }
-
-    val accounts = Transformations.switchMap(_sort) {
+    val accounts: LiveData<List<Account>> = Transformations.switchMap(_sort) {
         when (true) {
             it.name -> sortedByName
             it.username -> sortedByUsername
@@ -113,7 +104,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
      * Properties
      **/
     val showSnackBarEvent: LiveData<String>
-        get() = _showSnackbarEvent
+        get() = _showSnackBarEvent
 
     val accountListVisibility: LiveData<Boolean>
         get() = _accountListVisibility
@@ -121,72 +112,85 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     val accountEmptyViewVisibility: LiveData<Boolean>
         get() = _accountEmptyViewVisibility
 
+
     /**
      * Functions
      **/
-    internal fun alternateAccountListVisibility(accountListSize: Int) {
-        /**
-         * Alternate visibility for account list
-         * and empty view for accounts
-         */
-        if (accountListSize > 0) {
-            _accountListVisibility.value = true
-            _accountEmptyViewVisibility.value = false
 
-            return
-        }
-
-        _accountListVisibility.value = false
-        _accountEmptyViewVisibility.value = true
-    }
-
+    /* Flag to show snack bar message*/
     internal fun setSnackBarMessage(message: String) {
-        _showSnackbarEvent.value = message
+        _showSnackBarEvent.value = message
     }
 
+    /* Flag to stop showing snack bar message */
     internal fun doneShowingSnackBar() {
-        _showSnackbarEvent.value = null
+        _showSnackBarEvent.value = null
     }
 
-    internal fun refresh(sort: AccountSort) {
-        //Store sort to local storage
-        LocalStorageManager.with(getApplication())
-        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
-        _sort.value = sort
-    }
-
+    /* Flag to stop showing the loading animation */
     internal fun doneLoading() {
         _loadingStatus.value = LoadingStatus.DONE
     }
 
-    private fun loadAccounts() {
-        _currentAccountsExposed.addSource(AccountDao().getAll(getUserID())) { snapshot ->
-            _currentAccountsExposed.value = decomposeDataSnapshots(snapshot)
+    /* Alternates the visibility between account list and empty view UI */
+    internal fun alternateAccountListVisibility(accountsSize: Int) {
+        _accountListVisibility.value = accountsSize > 0
+        _accountEmptyViewVisibility.value = accountsSize < 1
+    }
+
+    /* Call function whenever there is a change in sorting */
+    internal fun sortChange(sort: AccountSort) {
+        /*
+        * We first save the sort to session
+        * Then we change the value of sort
+        */
+        if (_sort.value.toString() != sort.toString()) {
+            saveSortToSession(sort)
+            _sort.value = sort
         }
     }
 
-    private fun checkSorting(): AccountSort {
+    /* Load the accounts into a mediator live data */
+    private fun loadAccounts() {
+        _currentAccountsExposed.addSource(AccountDao().getAll(getUserID())) {
+            _currentAccountsExposed.value = decomposeDataSnapshots(it)
+        }
+    }
+
+    /*
+    * Checks if sorting session exists
+    * If sessions exists, we return the sort object
+    * Else we return a new sort object
+    */
+    private fun loadSortObject(): AccountSort {
         LocalStorageManager.with(getApplication())
         return if (LocalStorageManager.exists(KEY_ACCOUNTS_SORT)) {
             LocalStorageManager.get(KEY_ACCOUNTS_SORT)!!
         } else AccountSort()
     }
 
+    /* Save sort data to Session for persistent re-usability*/
+    private fun saveSortToSession(sort: AccountSort) {
+        LocalStorageManager.with(getApplication())
+        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
+    }
+
+    /* Decompose data snap shots of firebase into account objects */
     private fun decomposeDataSnapshots(snapshot: DataSnapshot?): List<Account> =
         if (snapshot != null) {
-            val accountList = ArrayList<Account>()
+            val accounts = ArrayList<Account>()
             snapshot.children.forEach { postSnapshot ->
                 postSnapshot.getValue<Account>()
-                    ?.let { accountList.add(it) }
+                    ?.let { accounts.add(it) }
             }
-            accountList
+            accounts
         } else {
             ArrayList()
         }
 
+    /* Get the ID of the current user */
     private fun getUserID(): String {
         LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id
-            ?: TODO("LiveData to catch errors implementation here.")
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
     }
 }

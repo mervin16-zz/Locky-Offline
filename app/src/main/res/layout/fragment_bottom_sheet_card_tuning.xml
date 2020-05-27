@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="Sort"
             type="com.th3pl4gu3.locky.core.main.CardSort" />
@@ -63,11 +64,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:chipSpacingHorizontal="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Barrier_Title"
-            app:chipSpacingHorizontal="12dp"
+            app:selectionRequired="true"
             app:singleLine="false"
             app:singleSelection="true">
 

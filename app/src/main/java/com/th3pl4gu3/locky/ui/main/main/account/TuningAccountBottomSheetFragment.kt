@@ -39,18 +39,16 @@ class TuningAccountBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun listenerForConfirmChanges() {
         binding.ButtonChangesConfirm.setOnClickListener {
-            with(findNavController().previousBackStackEntry?.savedStateHandle) {
-                this?.set(
-                    KEY_ACCOUNTS_SORT,
-                    _sort.apply {
-                        name = binding.ChipSortName.isChecked
-                        username = binding.ChipSortUsername.isChecked
-                        email = binding.ChipSortEmail.isChecked
-                        website = binding.ChipSortWebsite.isChecked
-                        authType = binding.ChipSortAuthType.isChecked
-                    }
-                )
-            }
+
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                KEY_ACCOUNTS_SORT,
+                _sort.apply {
+                    name = binding.ChipSortName.isChecked
+                    username = binding.ChipSortUsername.isChecked
+                    email = binding.ChipSortEmail.isChecked
+                    website = binding.ChipSortWebsite.isChecked
+                    authType = binding.ChipSortAuthType.isChecked
+                })
 
             dismiss()
         }

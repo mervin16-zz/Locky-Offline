@@ -68,6 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Barrier_Title"
+            app:selectionRequired="true"
             app:chipSpacingHorizontal="12dp"
             app:singleLine="false"
             app:singleSelection="true">

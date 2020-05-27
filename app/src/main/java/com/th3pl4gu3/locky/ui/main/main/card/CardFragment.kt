@@ -52,7 +52,7 @@ class CardFragment : Fragment() {
         observeCardsEvent()
 
         //Observe sort & filter changes
-        observeBackStackEntryForFilterSheet()
+        observeBackStackEntryForSortSheet()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class CardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                navigateToFilterSheet()
+                navigateToSortSheet()
                 true
             }
             else -> false
@@ -105,26 +105,38 @@ class CardFragment : Fragment() {
         }
     }
 
-    private fun observeBackStackEntryForFilterSheet() {
-        val navBackStackEntry = findNavController().currentBackStackEntry!!
-        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (
-                event == Lifecycle.Event.ON_RESUME &&
-                navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
+    private fun observeBackStackEntryForSortSheet() {
+        val navController = findNavController()
+        // After a configuration change or process death, the currentBackStackEntry
+        // points to the dialog destination, so you must use getBackStackEntry()
+        // with the specific ID of your destination to ensure we always
+        // get the right NavBackStackEntry
+        val navBackStackEntry = navController.getBackStackEntry(R.id.Fragment_Card)
+
+        // Create our observer and add it to the NavBackStackEntry's lifecycle
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains(KEY_CARDS_SORT)
             ) {
-                val sort = navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!
 
-                if (sort.hasChanges()) {
-                    viewModel.refreshSort(sort)
-                }
+                viewModel.sortChange(navBackStackEntry.savedStateHandle.get<CardSort>(KEY_CARDS_SORT)!!)
 
-                navBackStackEntry.savedStateHandle.remove<String>(KEY_CARDS_SORT)
+                navBackStackEntry.savedStateHandle.remove<CardSort>(KEY_CARDS_SORT)
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        // As addObserver() does not automatically remove the observer, we
+        // call removeObserver() manually when the view lifecycle is destroyed
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
     }
 
     private fun initiateCardList(): CardAdapter {
-        val cardAdapter = CardAdapter(
+        val adapter = CardAdapter(
             CardClickListener {
                 navigateToSelectedCard(it)
             },
@@ -137,14 +149,14 @@ class CardFragment : Fragment() {
             })
 
         binding.RecyclerViewCard.apply {
-            adapter = cardAdapter
+            this.adapter = adapter
             setHasFixedSize(true)
         }
 
-        return cardAdapter
+        return adapter
     }
 
-    private fun navigateToFilterSheet() {
+    private fun navigateToSortSheet() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
             findNavController().navigate(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())

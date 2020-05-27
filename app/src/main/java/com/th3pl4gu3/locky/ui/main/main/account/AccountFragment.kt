@@ -27,6 +27,10 @@ class AccountFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
+    companion object {
+        const val TAG = "ACCOUNT_FRAGMENT_DEBUG"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,20 +45,21 @@ class AccountFragment : Fragment() {
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Observe data when to show snack bar for "Show Pin"
+        /* Observe snack bar events */
         observeSnackBarEvent()
 
-        //Observe accounts list being updated
-        observeAccountsEvent()
+        /* Observe the account list changes */
+        observeAccounts()
 
-        //Observe sort & filter changes
-        observeBackStackEntryForFilterSheet()
+        /* Observe back stack entry result after navigating from sort sheet */
+        observeBackStackEntryForSortSheet()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +75,7 @@ class AccountFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Toolbar_Filter -> {
-                navigateToFilterSheet()
+                navigateToSort()
                 true
             }
             else -> false
@@ -82,39 +87,39 @@ class AccountFragment : Fragment() {
         _binding = null
     }
 
-    private fun observeBackStackEntryForFilterSheet() {
-        val navBackStackEntry = findNavController().currentBackStackEntry!!
-        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (
-                event == Lifecycle.Event.ON_RESUME &&
-                navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
+    /*
+    * My Functions
+    */
+    private fun observeBackStackEntryForSortSheet() {
+        val navController = findNavController()
+        // After a configuration change or process death, the currentBackStackEntry
+        // points to the dialog destination, so you must use getBackStackEntry()
+        // with the specific ID of your destination to ensure we always
+        // get the right NavBackStackEntry
+        val navBackStackEntry = navController.getBackStackEntry(R.id.Fragment_Account)
+
+        // Create our observer and add it to the NavBackStackEntry's lifecycle
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNTS_SORT)
             ) {
-                val sort =
-                    navBackStackEntry.savedStateHandle.get<AccountSort>(KEY_ACCOUNTS_SORT)!!
 
-                if (sort.hasChanges()) {
-                    viewModel.refresh(sort)
-                }
+                viewModel.sortChange(
+                    navBackStackEntry.savedStateHandle.get<AccountSort>(
+                        KEY_ACCOUNTS_SORT
+                    )!!
+                )
 
-                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNTS_SORT)
+                navBackStackEntry.savedStateHandle.remove<AccountSort>(KEY_ACCOUNTS_SORT)
             }
-        })
-    }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
 
-    private fun observeAccountsEvent() {
-        viewModel.accounts.observe(viewLifecycleOwner, Observer { accounts ->
-            if (accounts != null) {
-
-                with(viewModel) {
-                    //set loading flag to hide progress bar
-                    doneLoading()
-
-                    //Alternate visibility for account list and empty view
-                    alternateAccountListVisibility(accounts.size)
-                }
-
-                //Submit list to recyclerview
-                initiateAccountList().submitList(accounts)
+        // As addObserver() does not automatically remove the observer, we
+        // call removeObserver() manually when the view lifecycle is destroyed
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
     }
@@ -127,42 +132,41 @@ class AccountFragment : Fragment() {
         })
     }
 
-    private fun navigateToFilterSheet() {
-        if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
-            _lastClickTime = SystemClock.elapsedRealtime()
-            findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
+    private fun observeAccounts() {
+        with(viewModel) {
+            accounts.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    //set loading flag to hide loading animation
+                    doneLoading()
+
+                    //Alternate visibility for account list and empty view
+                    alternateAccountListVisibility(it.size)
+
+                    //Submit the cards
+                    initiateAccounts().submitList(it)
+                }
+            })
         }
     }
 
-    private fun initiateAccountList(): AccountAdapter {
-        val accountAdapter =
-            AccountAdapter(
-                AccountClickListener {
-                    navigateToSelectedAccount(it)
-                },
-                AccountOptionsClickListener { view, account ->
-                    //Prevents double click and creating a double instance
-                    view.apply {
-                        isEnabled = false
-                    }
-                    //displaying the popup
-                    createPopupMenu(view, account)
-                })
+    private fun initiateAccounts(): AccountAdapter {
+        val adapter = AccountAdapter(
+            AccountClickListener {
+                navigateToSelectedAccount(it)
+            },
+            AccountOptionsClickListener { view, card ->
+                view.apply {
+                    isEnabled = false
+                }
+                createPopupMenu(view, card)
+            })
 
         binding.RecyclerViewAccount.apply {
-            adapter = accountAdapter
+            this.adapter = adapter
             setHasFixedSize(true)
         }
 
-        return accountAdapter
-    }
-
-    private fun navigateToSelectedAccount(account: Account) {
-        findNavController().navigate(
-            AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
-                account
-            )
-        )
+        return adapter
     }
 
     private fun createPopupMenu(view: View, account: Account) {
@@ -181,6 +185,21 @@ class AccountFragment : Fragment() {
                     isEnabled = true
                 }
             })
+    }
+
+    private fun navigateToSort() {
+        if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
+            _lastClickTime = SystemClock.elapsedRealtime()
+            findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
+        }
+    }
+
+    private fun navigateToSelectedAccount(account: Account) {
+        findNavController().navigate(
+            AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
+                account
+            )
+        )
     }
 
     private fun snackBarAction(message: String) {
