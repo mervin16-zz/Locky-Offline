@@ -57,6 +57,10 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
     implementation "androidx.preference:preference:$version_preference"
     implementation "com.google.android.gms:play-services-oss-licenses:$version_oss_licenses"
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    implementation "androidx.room:room-rxjava2:$version_room"
 
     /** Other Libraries **/
     implementation "com.github.bumptech.glide:glide:$version_glide"
@@ -67,17 +71,13 @@ dependencies {
     implementation "com.google.code.gson:gson:$version_gson"
     implementation "com.airbnb.android:lottie:$version_lottie"
 
-    /** Firebase **/
-    implementation "com.google.firebase:firebase-analytics:$version_firebase_analytics"
-    implementation "com.google.firebase:firebase-database-ktx:$version_firebase_realtime"
-    implementation "com.firebaseui:firebase-ui-auth:$version_firebase_auth_ui"
-
     /** Junit Test Suite **/
     testImplementation "org.junit.jupiter:junit-jupiter:$version_junit"
 
     /** Android Test Suite **/
     androidTestImplementation "androidx.test.ext:junit:$version_junit_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso_core"
+    androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
+    testImplementation "androidx.room:room-testing:$version_room"
 }
 
-apply plugin: 'com.google.gms.google-services'

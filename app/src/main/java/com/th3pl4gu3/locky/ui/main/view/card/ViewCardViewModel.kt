@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Card
-import com.th3pl4gu3.locky.repository.database.CardDao
+import com.th3pl4gu3.locky.repository.database.CardRepository
 import com.th3pl4gu3.locky.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
 
     private suspend fun deleteData(key: String) {
         withContext(Dispatchers.IO) {
-            CardDao().remove(key)
+            CardRepository(getApplication()).delete(key)
         }
     }
 

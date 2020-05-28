@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.firebase.ui.auth.AuthUI
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.exceptions.UserException
 import com.th3pl4gu3.locky.core.main.User
@@ -78,8 +77,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
-        AuthUI.getInstance().signOut(requireContext())
-
         LocalStorageManager.with(requireActivity().application)
         LocalStorageManager.remove(KEY_USER_ACCOUNT)
     }

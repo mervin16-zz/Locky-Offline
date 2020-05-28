@@ -10,7 +10,7 @@ import com.th3pl4gu3.locky.core.exceptions.FormException
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.core.main.Validation
-import com.th3pl4gu3.locky.repository.database.AccountDao
+import com.th3pl4gu3.locky.repository.database.AccountRepository
 import com.th3pl4gu3.locky.ui.main.utils.Constants
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.ObservableViewModel
@@ -143,20 +143,21 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     fun save() {
         viewModelScope.launch {
             _account.apply {
-                this.userID = getUserID()
 
-                val validation = Validation(this)
+
+                /*val validation = Validation(this)*/
                 try {
-                    validation.validateAccountForm()
+                    /*validation.validateAccountForm()*/
                     insertAccountInDatabase(this)
                     _formValidity.value = accountName
                 } catch (ex: FormException) {
-                    assignErrorMessages(validation.errorList)
+                    /*assignErrorMessages(validation.errorList)*/
                 } catch (ex: Exception) {
                     _toastEvent.value = "Error code 2: ${ex.message}"
                 }
             }
         }
+        TODO("FIX")
     }
 
     internal fun setAccount(account: Account?) {
@@ -181,13 +182,15 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
     private suspend fun updateAccountInDatabase(account: Account) {
         withContext(Dispatchers.IO) {
-            AccountDao().update(account)
+            /* AccountRepository(getApplication()).update(account)*/
+            TODO("Fix")
         }
     }
 
     private suspend fun saveAccountToDatabase(account: Account) {
         withContext(Dispatchers.IO) {
-            AccountDao().save(account)
+            /*AccountRepository(getApplication()).insert(account)*/
+            TODO("Fix")
         }
     }
 
@@ -203,8 +206,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     }
 
     private fun getUserID(): String {
-        LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)?.id!!
-        //?: throw UserException(getString(R.string.error_internal_code_6))
+        return ""
+        TODO("FIX")
     }
 }

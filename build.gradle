@@ -16,16 +16,14 @@ buildscript {
     ext.version_preference = "1.1.1"
     ext.version_oss_licenses = "17.0.0"
     ext.version_oss_plugin = "0.10.2"
+    ext.version_room = "2.2.5"
+    ext.version_arch_core = "2.1.0"
     //Testing
     ext.version_junit = "5.6.0"
     ext.version_junit_ext = "1.1.1"
     ext.version_espresso_core = "3.2.0"
     //Google Service
     ext.version_gms = "4.3.3"
-    //Firebase
-    ext.version_firebase_realtime = "19.3.0"
-    ext.version_firebase_analytics = "17.4.0"
-    ext.version_firebase_auth_ui = "6.2.0"
     //Others
     ext.version_retrofit = "2.8.1"
     ext.version_glide = "4.11.0"
@@ -41,7 +39,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$version_gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
-        classpath "com.google.gms:google-services:$version_gms"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
         classpath "com.google.android.gms:oss-licenses-plugin:$version_oss_plugin"
         // NOTE: Do not place your application dependencies here; they belong

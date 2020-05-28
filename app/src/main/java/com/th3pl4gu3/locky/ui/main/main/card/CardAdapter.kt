@@ -49,7 +49,7 @@ class CardAdapter(
 class CardDiffCallback: DiffUtil.ItemCallback<Card>() {
 
     override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.cardID == newItem.cardID
     }
 
 

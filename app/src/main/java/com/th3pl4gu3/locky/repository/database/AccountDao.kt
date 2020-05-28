@@ -1,34 +1,30 @@
 package com.th3pl4gu3.locky.repository.database
 
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.Task
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import androidx.room.*
 import com.th3pl4gu3.locky.core.main.Account
 
-class AccountDao : IFirebaseRepository<Account> {
+@Dao
+interface AccountDao {
 
-    companion object {
-        private const val REFERENCE_ACCOUNT = "ACCOUNTS"
-        private const val FIELD_USER_ID = "userID"
-        private val database = Firebase.database
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(account: Account)
 
-    override fun save(obj: Account): Task<Void> {
-        obj.accountID = database.getReference(REFERENCE_ACCOUNT).push().key!!
-        return database.getReference(REFERENCE_ACCOUNT).child(obj.accountID).setValue(obj)
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(accounts: List<Account>)
 
-    override fun update(obj: Account): Task<Void> =
-        database.getReference(REFERENCE_ACCOUNT).child(obj.accountID).setValue(obj)
+    @Update
+    suspend fun update(account: Account)
 
-    override fun remove(key: String): Task<Void> =
-        database.getReference(REFERENCE_ACCOUNT).child(key).removeValue()
+    @Query("DELETE FROM account_table WHERE accountID = :key")
+    suspend fun remove(key: String)
 
-    override fun getAll(key: String): LiveData<DataSnapshot> =
-        FirebaseFetchLiveData(
-            query = database.getReference(REFERENCE_ACCOUNT)
-                .orderByChild(FIELD_USER_ID).equalTo(key)
-        )
+    @Query("DELETE FROM account_table")
+    suspend fun removeAll()
+
+    @Query("SELECT * FROM account_table WHERE accountID = :key")
+    fun get(key: String): LiveData<Account>
+
+    @Query("SELECT * FROM account_table")
+    fun getAll(): LiveData<List<Account>>
 }

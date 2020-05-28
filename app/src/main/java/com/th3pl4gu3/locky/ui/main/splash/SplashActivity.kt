@@ -9,10 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
-import com.firebase.ui.auth.AuthMethodPickerLayout
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.ErrorCodes
-import com.firebase.ui.auth.IdpResponse
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.databinding.ActivitySplashBinding
@@ -56,10 +52,6 @@ class SplashActivity : AppCompatActivity() {
 
         /* Observer user retrieval event*/
         observeUser()
-
-        /* Observer user authentication event*/
-        observeAuthenticationState()
-
     }
 
     override fun onDestroy() {
@@ -69,28 +61,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SIGN_IN_RESULT_CODE) {
-            if (resultCode != Activity.RESULT_OK) {
-                // Sign in failed
-                val response = IdpResponse.fromResultIntent(data)
-                if (response == null) {
-                    toast(getString(R.string.message_user_signin_cancelled))
-                    return
-                }
-
-                if (response.error?.errorCode == ErrorCodes.NO_NETWORK) {
-                    toast(getString(R.string.message_internet_connection_unavailable))
-                    return
-                }
-
-                toast(
-                    getString(
-                        R.string.error_internal_code_1,
-                        response.error?.errorCode.toString()
-                    )
-                )
-            }
-        }
 
     }
 
@@ -112,50 +82,29 @@ class SplashActivity : AppCompatActivity() {
                 /*
                 * We then check account status of user
                 */
-                when (it.accountStatus) {
+                /*when (it.accountStatus) {
                     User.AccountStatus.INACTIVE -> toast(getString(R.string.message_user_account_status_inactive))
                     User.AccountStatus.BLOCKED -> toast(getString(R.string.message_user_account_status_blocked))
                     User.AccountStatus.ACTIVE -> {
-                        /*
+                        *//*
                         * If the account is active
-                        * /*TODO(Check trial period)*/
+                        *
                         * If everything is fine, we navigate to main.
-                        */
+                        *//*
                         createSessionIfNoPresent(it)
                         navigateToMain()
                     }
-                }
+                }*/
+                TODO("Fix")
             }
         })
     }
-
-    private fun observeAuthenticationState() =
-        viewModel.authenticationState.observe(this, Observer { authenticationState ->
-            when (authenticationState) {
-                AuthenticationState.UNAUTHENTICATED -> {
-                    /*
-                    * If the user is unauthenticated
-                    * We show the get started button by hiding loading
-                    * */
-                    viewModel.finishLoading()
-                }
-                AuthenticationState.AUTHENTICATED -> {
-                    /*
-                    * If the user has already been authenticated,
-                    * We first check if an instance of the user object exists and matches the user trying to log in
-                    * If it matches, we log in the user directly to bypass overhead loading
-                    */
-                    if (isUserSessionPresent()) navigateToMain() else login()
-                }
-                else -> return@Observer
-            }
-        })
 
     private fun login() {
         /*
         * Get instance of user and login
         */
-        viewModel.login(User.getInstance())
+        viewModel.login(User())
     }
 
     private fun listenerForGetStartedButton() {
@@ -165,35 +114,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun launchOAuth() {
-        /** Give users the option to sign in / register with their email
-         *If users choose to register with their email,
-         *they will need to create a password as well
-         * The user also has option to sign in using Google OAuth
-         **/
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
-        )
 
-        /** Create and launch sign-in intent.
-         *We listen to the response of this activity with the
-         *SIGN_IN_RESULT_CODE code
-         **/
-        val customLayout: AuthMethodPickerLayout =
-            AuthMethodPickerLayout.Builder(R.layout.custom_layout_login)
-                .setEmailButtonId(R.id.Button_Email)
-                .setGoogleButtonId(R.id.FAB_Google)
-                .build()
-
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setAuthMethodPickerLayout(customLayout)
-                .setTheme(R.style.Locky_Theme_Launcher_FirebaseUI)
-                .build(),
-            SIGN_IN_RESULT_CODE
-        )
     }
 
     private fun isUserSessionPresent(): Boolean {
@@ -204,7 +125,7 @@ class SplashActivity : AppCompatActivity() {
 
         return if (LocalStorageManager.exists(KEY_USER_ACCOUNT)) {
             /* Is instance exists, we check if it matches the user trying to log in*/
-            val firebaseUserInstance = User.getInstance()
+            val firebaseUserInstance = User()
             val sessionUserInstance = LocalStorageManager.get<User>(KEY_USER_ACCOUNT)
             /* If it matches, return true, else will return false*/
             firebaseUserInstance.email == sessionUserInstance?.email

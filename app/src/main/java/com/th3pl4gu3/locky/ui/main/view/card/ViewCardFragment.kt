@@ -76,9 +76,10 @@ class ViewCardFragment : Fragment() {
                 * When the add screen receives it, it wil perceive it as a new card that needs to be
                 * added to the database
                 */
-                navigateToEditScreen(_card.apply {
+                /*navigateToEditScreen(_card.apply {
                     cardID = VALUE_EMPTY
-                })
+                })*/
+                TODO("FIX")
                 true
             }
 

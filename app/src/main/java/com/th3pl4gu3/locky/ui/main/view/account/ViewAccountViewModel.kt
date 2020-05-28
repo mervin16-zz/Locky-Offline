@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Account
-import com.th3pl4gu3.locky.repository.database.AccountDao
+import com.th3pl4gu3.locky.repository.database.AccountRepository
 import com.th3pl4gu3.locky.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,8 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
 
     private suspend fun deleteAccount(key: String) {
         withContext(Dispatchers.IO) {
-            AccountDao().remove(key)
+            /*AccountRepository(getApplication()).delete(key)*/
+            TODO("Fix")
         }
     }
 

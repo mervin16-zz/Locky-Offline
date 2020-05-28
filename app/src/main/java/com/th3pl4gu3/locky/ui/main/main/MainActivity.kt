@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         updateAppSettings()
 
         //Observer to check if user has been authenticated
-        observeAuthenticationState()
+        /*observeAuthenticationState()*/
 
         //Setup the navigation components
         navigationUISetup()
@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         navigateToSearchFragment()
     }
 
-    private fun observeAuthenticationState() =
+    /*private fun observeAuthenticationState() =
         _viewModel.authenticationState.observe(this, Observer { authenticationState ->
             when (authenticationState) {
                 AuthenticationState.UNAUTHENTICATED -> {
@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> return@Observer
             }
-        })
+        })*/
 
     private fun updateAppSettings() {
         LocalStorageManager.with(application)

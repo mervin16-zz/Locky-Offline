@@ -6,15 +6,15 @@ import com.th3pl4gu3.locky.core.Constants.Companion.ERROR_MESSAGE_FIELD_CANNOT_B
 import com.th3pl4gu3.locky.core.Constants.Companion.EXCEPTION_FORM
 import com.th3pl4gu3.locky.core.exceptions.FormException
 
-class Validation(private val credentials: Credentials) {
+class Validation() {
     enum class ErrorField { NAME, USERNAME, EMAIL, PASSWORD, NUMBER, PIN, BANK, CARD_HOLDER, }
 
     var errorList = HashMap<ErrorField, String>()
         private set
 
     @Throws(Exception::class)
-    fun validateAccountForm() {
-        with(credentials as Account) {
+    fun validateAccountForm(account: Account) {
+        with(account) {
             emptyValueCheck(
                 accountName,
                 ErrorField.NAME
@@ -38,8 +38,8 @@ class Validation(private val credentials: Credentials) {
     }
 
     @Throws(Exception::class)
-    fun validateCardForm() {
-        with(credentials as Card) {
+    fun validateCardForm(card: Card) {
+        with(card) {
             emptyValueCheck(
                 entryName,
                 ErrorField.NAME

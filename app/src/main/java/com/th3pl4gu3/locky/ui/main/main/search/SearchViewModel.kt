@@ -2,14 +2,12 @@ package com.th3pl4gu3.locky.ui.main.main.search
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.R
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.core.main.User
-import com.th3pl4gu3.locky.repository.database.AccountDao
-import com.th3pl4gu3.locky.repository.database.CardDao
+import com.th3pl4gu3.locky.repository.database.AccountRepository
+import com.th3pl4gu3.locky.repository.database.CardRepository
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import java.util.*
@@ -113,8 +111,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         /*
         * Get all cards by the user ID and add to source
         */
-        _cards.addSource(CardDao().getAll(getUserID())) { snapshot ->
-            _cards.value = decomposeCardsSnapshots(snapshot)
+        val liveData = CardRepository(getApplication()).cards
+        _cards.addSource(liveData) { snapshot ->
+            _cards.removeSource(liveData)
+            _cards.value = snapshot
         }
     }
 
@@ -122,36 +122,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         /*
         * Get all accounts by the user ID and add to source
         */
-        val liveData = AccountDao().getAll(getUserID())
+        /*val liveData = AccountRepository(getApplication()).accounts
         _accounts.addSource(liveData) { snapshot ->
             _accounts.removeSource(liveData)
-            _accounts.value = decomposeAccountsSnapshots(snapshot)
-        }
+            _accounts.value =snapshot
+        }*/
+        TODO("Fix")
     }
-
-    private fun decomposeAccountsSnapshots(snapshot: DataSnapshot?): List<Account> =
-        if (snapshot != null) {
-            val accountList = ArrayList<Account>()
-            snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Account>()
-                    ?.let { accountList.add(it) }
-            }
-            filterAccounts(accountList)
-        } else {
-            ArrayList()
-        }
-
-    private fun decomposeCardsSnapshots(snapshot: DataSnapshot?): List<Card> =
-        if (snapshot != null) {
-            val cardList = ArrayList<Card>()
-            snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Card>()
-                    ?.let { cardList.add(it) }
-            }
-            filterCards(cardList)
-        } else {
-            ArrayList()
-        }
 
     private fun filterAccounts(accountList: List<Account>) = accountList.filter {
         filterSearch(it.accountName.toLowerCase(Locale.ROOT))
@@ -165,7 +142,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         name.startsWith(_searchQuery) || name.endsWith(_searchQuery) || name.contains(_searchQuery)
 
     private fun getUserID(): String {
-        LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
+        return ""
+
+        TODO("FIX")
     }
 }

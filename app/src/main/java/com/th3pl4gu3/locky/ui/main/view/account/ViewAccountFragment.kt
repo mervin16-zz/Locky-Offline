@@ -76,9 +76,10 @@ class ViewAccountFragment : Fragment() {
                 * When the add screen receives it, it wil perceive it as a new account that needs to be
                 * added to the database
                 */
-                navigateToEditScreen(_account.apply {
+                /*navigateToEditScreen(_account.apply {
                     accountID = VALUE_EMPTY
-                })
+                })*/
+                TODO("FIX")
                 true
             }
 

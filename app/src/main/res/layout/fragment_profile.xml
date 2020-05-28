@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/Account_Logo"
-            imageUrl="@{User.photoUrl}"
+            imageUrl="@{User.photo}"
             loadingResource="@{@drawable/ic_avatar_placeholder}"
             errorResource="@{@drawable/ic_avatar_placeholder}"
             android:layout_width="wrap_content"

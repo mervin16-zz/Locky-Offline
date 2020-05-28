@@ -2,18 +2,13 @@ package com.th3pl4gu3.locky.ui.main.main.account
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.core.main.Account
 import com.th3pl4gu3.locky.core.main.AccountSort
-import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.repository.LoadingStatus
-import com.th3pl4gu3.locky.repository.database.AccountDao
+import com.th3pl4gu3.locky.repository.database.AccountRepository
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -152,9 +147,12 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     /* Load the accounts into a mediator live data */
     private fun loadAccounts() {
-        _currentAccountsExposed.addSource(AccountDao().getAll(getUserID())) {
-            _currentAccountsExposed.value = decomposeDataSnapshots(it)
-        }
+        /*val liveData = AccountRepository(getApplication()).accounts
+        _currentAccountsExposed.addSource(liveData) {
+            _currentAccountsExposed.value = it
+        }*/
+
+        TODO("Fix")
     }
 
     /*
@@ -175,22 +173,4 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
     }
 
-    /* Decompose data snap shots of firebase into account objects */
-    private fun decomposeDataSnapshots(snapshot: DataSnapshot?): List<Account> =
-        if (snapshot != null) {
-            val accounts = ArrayList<Account>()
-            snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Account>()
-                    ?.let { accounts.add(it) }
-            }
-            accounts
-        } else {
-            ArrayList()
-        }
-
-    /* Get the ID of the current user */
-    private fun getUserID(): String {
-        LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
-    }
 }

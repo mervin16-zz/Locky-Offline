@@ -2,19 +2,14 @@ package com.th3pl4gu3.locky.ui.main.main.card
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.getValue
 import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.core.main.CardSort
-import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.repository.LoadingStatus
-import com.th3pl4gu3.locky.repository.database.CardDao
+import com.th3pl4gu3.locky.repository.database.CardRepository
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
-import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.getCardType
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CardViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -53,7 +48,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
 
     private val sortedByName = Transformations.map(_currentCardsExposed) {
         it.sortedBy { card ->
-            card.name.toLowerCase(
+            card.entryName.toLowerCase(
                 Locale.ROOT
             )
         }
@@ -141,8 +136,9 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
 
     /* Load the card into a mediator live data */
     private fun loadCards() {
-        _currentCardsExposed.addSource(CardDao().getAll(getUserID())) {
-            _currentCardsExposed.value = decomposeDataSnapshots(it)
+        val liveData = CardRepository(getApplication()).cards
+        _currentCardsExposed.addSource(liveData) {
+            _currentCardsExposed.value = it
         }
     }
 
@@ -162,24 +158,5 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     private fun saveSortToSession(sort: CardSort) {
         LocalStorageManager.with(getApplication())
         LocalStorageManager.put(KEY_CARDS_SORT, sort)
-    }
-
-    /* Decompose data snap shots of firebase into card objects */
-    private fun decomposeDataSnapshots(snapshot: DataSnapshot?): List<Card> =
-        if (snapshot != null) {
-            val cards = ArrayList<Card>()
-            snapshot.children.forEach { postSnapshot ->
-                postSnapshot.getValue<Card>()
-                    ?.let { cards.add(it) }
-            }
-            cards
-        } else {
-            ArrayList()
-        }
-
-    /* Get the ID of the current user */
-    private fun getUserID(): String {
-        LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
     }
 }

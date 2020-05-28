@@ -10,7 +10,7 @@ import com.th3pl4gu3.locky.core.exceptions.FormException
 import com.th3pl4gu3.locky.core.main.Card
 import com.th3pl4gu3.locky.core.main.User
 import com.th3pl4gu3.locky.core.main.Validation
-import com.th3pl4gu3.locky.repository.database.CardDao
+import com.th3pl4gu3.locky.repository.database.CardRepository
 import com.th3pl4gu3.locky.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky.ui.main.utils.ObservableViewModel
@@ -141,21 +141,23 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     fun save() {
         viewModelScope.launch {
             _card.apply {
-                userID = getUserID()
+                /*userID = getUserID()
 
-                val validation = Validation(this)
+                val validation = Validation(this)*/
                 try {
-                    validation.validateCardForm()
+                    /*validation.validateCardForm()*/
                     insertCardInDatabase(this)
                     _formValidity.value = entryName
                 } catch (ex: FormException) {
-                    assignErrorMessages(validation.errorList)
+                    /*assignErrorMessages(validation.errorList)*/
                 } catch (ex: Exception) {
                     _toastEvent.value = "Error code 3: ${ex.message}"
                 }
             }
 
         }
+
+        TODO("FIX")
     }
 
     internal fun doneWithToastEvent() {
@@ -194,13 +196,13 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     private suspend fun updateCardInDatabase(card: Card) {
         withContext(Dispatchers.IO) {
-            CardDao().update(card)
+            CardRepository(getApplication()).update(card)
         }
     }
 
     private suspend fun saveCardToDatabase(card: Card) {
         withContext(Dispatchers.IO) {
-            CardDao().save(card)
+            CardRepository(getApplication()).insert(card)
         }
     }
 
@@ -219,8 +221,8 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
 
     private fun getUserID(): String {
-        LocalStorageManager.with(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)?.id!!
+        return ""
+        TODO("FIX")
     }
 
 }

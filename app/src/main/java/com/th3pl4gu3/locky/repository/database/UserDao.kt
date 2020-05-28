@@ -1,32 +1,21 @@
 package com.th3pl4gu3.locky.repository.database
 
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.Task
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import androidx.room.*
 import com.th3pl4gu3.locky.core.main.User
 
-class UserDao : IFirebaseRepository<User> {
+@Dao
+interface UserDao {
 
-    companion object {
-        private const val REFERENCE_USER = "USERS"
-        private const val FIELD_USER_EMAIL = "email"
-        private val database = Firebase.database
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(user: User)
 
-    override fun save(obj: User): Task<Void> {
-        return database.getReference(REFERENCE_USER).child(obj.id).setValue(obj)
-    }
+    @Update
+    suspend fun update(user: User)
 
-    override fun update(obj: User): Task<Void> =
-        database.getReference(REFERENCE_USER).child(obj.id).child(obj.email).setValue(obj)
+    @Query("DELETE FROM user_table WHERE userID = :key")
+    suspend fun remove(key: String)
 
-    override fun remove(key: String): Task<Void> =
-        database.getReference(REFERENCE_USER).child(key).removeValue()
-
-    override fun getAll(key: String): LiveData<DataSnapshot> = FirebaseFetchLiveData(
-        query = database.getReference(REFERENCE_USER)
-            .orderByChild(FIELD_USER_EMAIL).equalTo(key)
-    )
+    @Query("SELECT * FROM user_table WHERE userID = :key")
+    fun get(key: String): LiveData<User>
 }
