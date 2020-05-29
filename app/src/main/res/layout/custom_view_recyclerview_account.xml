@@ -8,15 +8,15 @@
 
         <variable
             name="Account"
-            type="com.th3pl4gu3.locky.core.main.Account" />
+            type="com.th3pl4gu3.locky_offline.core.main.Account" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky.ui.main.main.account.AccountClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountClickListener" />
 
         <variable
             name="OptionsClickListener"
-            type="com.th3pl4gu3.locky.ui.main.main.account.AccountOptionsClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountOptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

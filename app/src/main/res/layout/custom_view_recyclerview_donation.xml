@@ -8,11 +8,11 @@
 
         <variable
             name="Donation"
-            type="com.th3pl4gu3.locky.ui.main.main.about.donate.Donation" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.Donation" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky.ui.main.main.about.donate.DonationClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.DonationClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

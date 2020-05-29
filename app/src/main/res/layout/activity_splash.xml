@@ -9,7 +9,7 @@
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky.ui.main.splash.SplashViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.splash.SplashViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

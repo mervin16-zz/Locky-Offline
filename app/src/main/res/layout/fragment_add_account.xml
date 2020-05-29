@@ -8,7 +8,7 @@
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky.ui.main.add.account.AddAccountViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

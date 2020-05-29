@@ -8,13 +8,13 @@
 
     <fragment
         android:id="@+id/Fragment_Device"
-        android:name="com.th3pl4gu3.locky.ui.main.main.device.DeviceFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceFragment"
         android:label="Devices"
         tools:layout="@layout/fragment_device" />
 
     <fragment
         android:id="@+id/Fragment_Card"
-        android:name="com.th3pl4gu3.locky.ui.main.main.card.CardFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.card.CardFragment"
         android:label="Cards"
         tools:layout="@layout/fragment_card">
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/Fragment_Account"
-        android:name="com.th3pl4gu3.locky.ui.main.main.account.AccountFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountFragment"
         android:label="Accounts"
         tools:layout="@layout/fragment_account">
         <action
@@ -48,13 +48,13 @@
 
     <fragment
         android:id="@+id/Fragment_Settings"
-        android:name="com.th3pl4gu3.locky.ui.main.main.settings.SettingsFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/Fragment_About"
-        android:name="com.th3pl4gu3.locky.ui.main.main.about.AboutFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about">
         <action
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/Fragment_Search"
-        android:name="com.th3pl4gu3.locky.ui.main.main.search.SearchFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search">
         <action
@@ -89,12 +89,12 @@
 
     <fragment
         android:id="@+id/Fragment_View_Card"
-        android:name="com.th3pl4gu3.locky.ui.main.view.card.ViewCardFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardFragment"
         android:label="View Card"
         tools:layout="@layout/fragment_view_card">
         <argument
             android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.main.Card" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Card" />
         <action
             android:id="@+id/action_Fragment_View_Card_to_addCardFragment"
             app:destination="@id/Fragment_Add_Card"
@@ -106,12 +106,12 @@
 
     <fragment
         android:id="@+id/Fragment_View_Account"
-        android:name="com.th3pl4gu3.locky.ui.main.view.account.ViewAccountFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.view.account.ViewAccountFragment"
         android:label="View Account"
         tools:layout="@layout/fragment_view_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky.core.main.Account" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Account" />
         <action
             android:id="@+id/action_Fragment_View_Account_to_Fragment_Add_Account"
             app:destination="@id/Fragment_Add_Account"
@@ -123,12 +123,12 @@
 
     <fragment
         android:id="@+id/Fragment_Add_Card"
-        android:name="com.th3pl4gu3.locky.ui.main.add.card.AddCardFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.card.AddCardFragment"
         android:label="Add Card"
         tools:layout="@layout/fragment_add_card">
         <argument
             android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky.core.main.Card"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Card"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -140,12 +140,12 @@
 
     <fragment
         android:id="@+id/Fragment_Add_Account"
-        android:name="com.th3pl4gu3.locky.ui.main.add.account.AddAccountFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountFragment"
         android:label="Add Account"
         tools:layout="@layout/fragment_add_account">
         <argument
             android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky.core.main.Account"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Account"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -164,36 +164,36 @@
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Card_Filter"
-        android:name="com.th3pl4gu3.locky.ui.main.main.card.TuningCardBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.card.TuningCardBottomSheetFragment"
         android:label="Card Filter"
         tools:layout="@layout/fragment_bottom_sheet_card_tuning" />
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Account_Filter"
-        android:name="com.th3pl4gu3.locky.ui.main.main.account.TuningAccountBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.account.TuningAccountBottomSheetFragment"
         android:label="Account Filter"
         tools:layout="@layout/fragment_bottom_sheet_account_tuning" />
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Account_Logo"
-        android:name="com.th3pl4gu3.locky.ui.main.add.account.LogoBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.LogoBottomSheetFragment"
         android:label="Account Logo"
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
 
     <activity
         android:id="@+id/Activity_Splash"
-        android:name="com.th3pl4gu3.locky.ui.main.splash.SplashActivity"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.SplashActivity"
         android:label="SplashActivity" />
 
     <fragment
         android:id="@+id/Fragment_Profile"
-        android:name="com.th3pl4gu3.locky.ui.main.main.profile.ProfileFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
     <dialog
         android:id="@+id/BottomSheet_Fragment_Add_Category"
-        android:name="com.th3pl4gu3.locky.ui.main.add.AddCategoryBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.AddCategoryBottomSheetFragment"
         android:label="Add Category"
         tools:layout="@layout/fragment_bottom_sheet_add_category">
         <action
@@ -215,7 +215,7 @@
 
     <fragment
         android:id="@+id/Fragment_Donate"
-        android:name="com.th3pl4gu3.locky.ui.main.main.about.donate.DonateFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.DonateFragment"
         android:label="Donate"
         tools:layout="@layout/fragment_donate" />
 

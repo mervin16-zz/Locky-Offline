@@ -7,7 +7,7 @@
 
         <variable
             name="Sort"
-            type="com.th3pl4gu3.locky.core.main.AccountSort" />
+            type="com.th3pl4gu3.locky_offline.core.main.AccountSort" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

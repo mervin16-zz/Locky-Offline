@@ -8,11 +8,11 @@
 
         <variable
             name="Logo"
-            type="com.th3pl4gu3.locky.repository.network.WebsiteLogo" />
+            type="com.th3pl4gu3.locky_offline.repository.network.WebsiteLogo" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky.ui.main.add.account.ClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.add.account.ClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,11 +8,11 @@
 
         <variable
             name="AboutItem"
-            type="com.th3pl4gu3.locky.ui.main.main.about.AboutItem" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.AboutItem" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky.ui.main.main.about.ItemClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.ItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

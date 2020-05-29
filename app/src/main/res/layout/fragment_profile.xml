@@ -8,11 +8,11 @@
 
         <variable
             name="User"
-            type="com.th3pl4gu3.locky.core.main.User" />
+            type="com.th3pl4gu3.locky_offline.core.main.User" />
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky.ui.main.main.profile.ProfileViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

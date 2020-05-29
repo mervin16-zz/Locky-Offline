@@ -8,15 +8,15 @@
 
         <variable
             name="Card"
-            type="com.th3pl4gu3.locky.core.main.Card" />
+            type="com.th3pl4gu3.locky_offline.core.main.Card" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky.ui.main.main.card.CardClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener" />
 
         <variable
             name="ClickOptionsListener"
-            type="com.th3pl4gu3.locky.ui.main.main.card.CardOptionsClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardOptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

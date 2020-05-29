@@ -10,12 +10,11 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.th3pl4gu3.locky"
+        applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 28
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,18 +24,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding= true
     }
     compileOptions {
         targetCompatibility = 1.8
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    viewBinding {
-        enabled = true
     }
 }
 

@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.th3pl4gu3.locky.BuildConfig" />
+        <import type="com.th3pl4gu3.locky_offline.BuildConfig" />
     </data>
 
     <LinearLayout

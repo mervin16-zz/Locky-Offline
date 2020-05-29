@@ -8,7 +8,7 @@
 
         <variable
             name="Account"
-            type="com.th3pl4gu3.locky.core.main.Account" />
+            type="com.th3pl4gu3.locky_offline.core.main.Account" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

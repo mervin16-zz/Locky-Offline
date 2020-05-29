@@ -10,7 +10,7 @@
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky.ui.main.main.search.SearchViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
