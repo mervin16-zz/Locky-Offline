@@ -4,13 +4,12 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.core.TestUtil
-import com.th3pl4gu3.locky_offline.core.getValue
 import com.th3pl4gu3.locky_offline.core.main.User
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.*
 import org.junit.runner.RunWith
 import java.io.IOException
@@ -46,13 +45,27 @@ class UserRepositoryTest {
     @Throws(Exception::class)
     fun get() = runBlocking {
         //Arrange
-        val expectedName = user.name
+        val expectedEmail = user.email
 
         //Act
-        val result = getValue(userDao.get(user.userID)).name
+        val result = userDao.get(user.email).email
 
         //Assert
-        ViewMatchers.assertThat(expectedName, CoreMatchers.equalTo(result))
+        assertThat(result, equalTo(expectedEmail))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun insert() = runBlocking {
+        //Arrange
+        val user = TestUtil.getUser(10)
+
+        //Act
+        userDao.insert(user)
+        val fetchedUser = userDao.get(user.email)
+
+        //Assert
+        assertThat(user.email, equalTo(user.email))
     }
 
     @Test
@@ -61,25 +74,10 @@ class UserRepositoryTest {
         //Arrange
 
         //Act
-        userDao.remove(user.userID)
-        val fetchedUser = getValue(userDao.get(user.userID))
+        userDao.remove(user.email)
+        val fetchedUser = userDao.get(user.email)
 
         //Assert
         Assert.assertNull(fetchedUser)
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun update() = runBlocking {
-        //Arrange
-        val newName = "Usered"
-        user.name = newName
-
-        //Act
-        userDao.update(user)
-        val fetchedUser = getValue(userDao.get(user.userID))
-
-        //Assert
-        ViewMatchers.assertThat(newName, CoreMatchers.equalTo(fetchedUser.name))
     }
 }

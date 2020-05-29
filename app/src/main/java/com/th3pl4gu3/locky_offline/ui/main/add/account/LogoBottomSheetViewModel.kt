@@ -65,10 +65,9 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
 
     private suspend fun loadLogos(query: String) {
         _loadingStatus.value = LoadingStatus.LOADING
-        /*_websites.value = NetworkRepository()
-            .getWebsiteDetails(query)*/
+        _websites.value = NetworkRepository()
+            .getWebsiteDetails(query)
         _loadingStatus.value = LoadingStatus.DONE
-        TODO("FIX")
     }
 
     private fun errorLoadingLogos() {

@@ -19,9 +19,9 @@ class AccountRepository private constructor(application: Application) {
             }
     }
 
-    val accounts = accountDao.getAll()
+    fun getAll(userID: String) = accountDao.getAll(userID)
 
-    fun get(key: String) = accountDao.get(key)
+    suspend fun get(key: String) = accountDao.get(key)
 
     suspend fun insert(account: Account) = accountDao.insert(account)
 
@@ -29,5 +29,5 @@ class AccountRepository private constructor(application: Application) {
 
     suspend fun delete(key: String) = accountDao.remove(key)
 
-    suspend fun wipe() = accountDao.removeAll()
+    suspend fun wipe(userID: String) = accountDao.removeAll(userID)
 }

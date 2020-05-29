@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,8 +21,7 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
 
     private suspend fun deleteAccount(key: String) {
         withContext(Dispatchers.IO) {
-            /*AccountRepository(getApplication()).delete(key)*/
-            TODO("Fix")
+            AccountRepository.getInstance(getApplication()).delete(key)
         }
     }
 

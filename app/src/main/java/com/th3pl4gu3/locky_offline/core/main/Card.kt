@@ -18,6 +18,7 @@ data class Card(
     @ColumnInfo(name = "cardHolderName") var cardHolderName: String = "",
     @ColumnInfo(name = "issuedDate") var issuedDate: String = "01/10",
     @ColumnInfo(name = "expiryDate") var expiryDate: String = "01/12",
+    @ColumnInfo(name = "userID") var user: String = "",
     @ColumnInfo(name = "moreInfo") var cardMoreInfo: String? = null
 ) : Parcelable {
 

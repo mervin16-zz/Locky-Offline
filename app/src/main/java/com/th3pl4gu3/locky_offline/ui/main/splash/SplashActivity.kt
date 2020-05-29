@@ -8,13 +8,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
+import com.google.android.gms.auth.api.signin.*
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.databinding.ActivitySplashBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.openActivity
+import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -24,8 +28,10 @@ class SplashActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
     companion object {
-        const val SIGN_IN_RESULT_CODE = 1001
+        const val RC_SIGN_IN = 1001
         const val TAG = "Splash_Activity_Debug"
     }
 
@@ -41,14 +47,28 @@ class SplashActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        /* Loads google sign in */
+        googleSignInLoading()
+
         /* Updates the app settings*/
         updateAppSettings()
 
-        /* Listener for Get Started Button */
+        /*Listener for Get Started Button*/
         listenerForGetStartedButton()
 
-        /* Observer user retrieval event*/
-        observeUser()
+        /*Listener for Google Button*/
+        listenerForGoogleButton()
+
+        /* Observe sign in state */
+        observeSignInState()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        /*
+        * This function checks if the user is signed in or not
+        */
+        checkIfUserSignedIn()
     }
 
     override fun onDestroy() {
@@ -59,86 +79,91 @@ class SplashActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
     }
 
     override fun finish() {
         super.finish()
-
         ActivityNavigator.applyPopAnimationsToPendingTransition(this)
     }
 
-    private fun observeUser() {
-        viewModel.user.observe(this, Observer {
-            if (it != null) {
-                /*
-                * When the user is retrieved successfully
-                * We reset the user data in view model
-                */
-                viewModel.resetUsers()
+    private fun observeSignInState() = viewModel.isSignInComplete.observe(this, Observer {
+        if (it) {
+            navigateToMain()
+        }
+    })
 
-                /*
-                * We then check account status of user
-                */
-                /*when (it.accountStatus) {
-                    User.AccountStatus.INACTIVE -> toast(getString(R.string.message_user_account_status_inactive))
-                    User.AccountStatus.BLOCKED -> toast(getString(R.string.message_user_account_status_blocked))
-                    User.AccountStatus.ACTIVE -> {
-                        *//*
-                        * If the account is active
-                        *
-                        * If everything is fine, we navigate to main.
-                        *//*
-                        createSessionIfNoPresent(it)
-                        navigateToMain()
-                    }
-                }*/
-                TODO("Fix")
+    private fun listenerForGetStartedButton() = binding.ButtonGetStarted.setOnClickListener {
+        viewModel.showGoogleButton()
+    }
+
+    private fun listenerForGoogleButton() = binding.ButtonGoogle.setOnClickListener {
+        viewModel.showLoading()
+        launchOAuth()
+    }
+
+    private fun launchOAuth() = startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGN_IN)
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)!!
+
+            viewModel.login(User.getInstance(account))
+
+        } catch (e: ApiException) {
+            when (e.statusCode) {
+                GoogleSignInStatusCodes.NETWORK_ERROR -> toast(getString(R.string.message_internet_connection_unavailable))
+                GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> toast(getString(R.string.message_user_signin_cancelled))
+                GoogleSignInStatusCodes.INTERNAL_ERROR -> toast(e.message.toString())
+                else -> toast(getString(R.string.error_internal_code_1, e.message.toString()))
             }
-        })
+        }
+
+        viewModel.showGoogleButton()
     }
 
-    private fun login() {
+    private fun checkIfUserSignedIn() {
         /*
-        * Get instance of user and login
+        * We get the account from Google.
+        * If it returns null, it means the user was not signed in
+        * Else, the user has already been signed in and we can redirect the user to main
         */
-        viewModel.login(User())
-    }
+        val account = GoogleSignIn.getLastSignedInAccount(this)
 
-    private fun listenerForGetStartedButton() {
-        binding.ButtonStarted.setOnClickListener {
-            launchOAuth()
+        when {
+            account != null && viewModel.isUserSavedInSession() -> {
+                navigateToMain()
+            }
+            account != null -> {
+                viewModel.login(User.getInstance(account))
+            }
+            else -> {
+                viewModel.showGetStartedButton()
+            }
         }
     }
 
-    private fun launchOAuth() {
+    private fun googleSignInLoading() {
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
 
-    }
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        val gso = GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
 
-    private fun isUserSessionPresent(): Boolean {
-        /*
-        * Here we check is an instance of the user has already been stored in session
-        */
-        LocalStorageManager.with(application)
-
-        return if (LocalStorageManager.exists(KEY_USER_ACCOUNT)) {
-            /* Is instance exists, we check if it matches the user trying to log in*/
-            val firebaseUserInstance = User()
-            val sessionUserInstance = LocalStorageManager.get<User>(KEY_USER_ACCOUNT)
-            /* If it matches, return true, else will return false*/
-            firebaseUserInstance.email == sessionUserInstance?.email
-        } else {
-            /* No isntance exists, therefore we need to proceed with the login process*/
-            false
-        }
-    }
-
-    private fun createSessionIfNoPresent(user: User) {
-        /* Store user object in shared preferences if not present already */
-        LocalStorageManager.with(application)
-        if (!LocalStorageManager.exists(KEY_USER_ACCOUNT)) LocalStorageManager.put(
-            KEY_USER_ACCOUNT,
-            user
-        )
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
     private fun updateAppSettings() {

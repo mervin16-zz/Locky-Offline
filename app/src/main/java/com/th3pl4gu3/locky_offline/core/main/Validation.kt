@@ -6,7 +6,7 @@ import com.th3pl4gu3.locky_offline.core.Constants.Companion.ERROR_MESSAGE_FIELD_
 import com.th3pl4gu3.locky_offline.core.Constants.Companion.EXCEPTION_FORM
 import com.th3pl4gu3.locky_offline.core.exceptions.FormException
 
-class Validation() {
+class Validation {
     enum class ErrorField { NAME, USERNAME, EMAIL, PASSWORD, NUMBER, PIN, BANK, CARD_HOLDER, }
 
     var errorList = HashMap<ErrorField, String>()

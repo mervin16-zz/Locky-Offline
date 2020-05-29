@@ -135,3 +135,5 @@ fun <T> Context.openActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
     intent.putExtras(Bundle().apply(extras))
     startActivity(intent)
 }
+
+fun generateUniqueID(): String = UUID.randomUUID().toString()

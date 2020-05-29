@@ -6,9 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.exceptions.FormException
 import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
+import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
+import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +31,6 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     private val _usernameErrorMessage = MutableLiveData<String>()
     private val _emailErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
-    private var isEmptyAccount = true
 
     /**
      * Bindable two-way binding
@@ -139,30 +143,28 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     fun save() {
         viewModelScope.launch {
             _account.apply {
-
-
-                /*val validation = Validation(this)*/
+                val validation = Validation()
                 try {
-                    /*validation.validateAccountForm()*/
+                    validation.validateAccountForm(this)
+
+                    /* If validation succeeds, set user ID */
+                    this.user = getUser().email
+
                     insertAccountInDatabase(this)
                     _formValidity.value = accountName
                 } catch (ex: FormException) {
-                    /*assignErrorMessages(validation.errorList)*/
+                    assignErrorMessages(validation.errorList)
                 } catch (ex: Exception) {
-                    _toastEvent.value = "Error code 2: ${ex.message}"
+                    _toastEvent.value = getApplication<Application>().getString(
+                        R.string.error_internal_code_2,
+                        ex.message
+                    )
                 }
             }
         }
-        TODO("FIX")
     }
 
     internal fun setAccount(account: Account?) {
-
-        /** Check if data comes from edit screen
-         *  or data is empty because it comes form add screen
-         *  To do that, test if it is null or not **/
-        isEmptyAccount = account == null || account.accountID.isEmpty()
-
         this._account = account ?: Account()
     }
 
@@ -172,21 +174,28 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
     private suspend fun insertAccountInDatabase(account: Account) {
         withContext(Dispatchers.IO) {
-            if (isEmptyAccount) saveAccountToDatabase(account) else updateAccountInDatabase(account)
+            /*
+            * Firs we try to fetch account to see if it is already present
+            * If already present, it means it is an edit
+            * Else, it means it is an addition
+            */
+            val repository = AccountRepository.getInstance(getApplication())
+            val fetchedAccount = repository.get(account.accountID)
+            if (fetchedAccount == null) saveAccountToDatabase(account) else updateAccountInDatabase(
+                account
+            )
         }
     }
 
     private suspend fun updateAccountInDatabase(account: Account) {
         withContext(Dispatchers.IO) {
-            /* AccountRepository(getApplication()).update(account)*/
-            TODO("Fix")
+            AccountRepository.getInstance(getApplication()).update(account)
         }
     }
 
     private suspend fun saveAccountToDatabase(account: Account) {
         withContext(Dispatchers.IO) {
-            /*AccountRepository(getApplication()).insert(account)*/
-            TODO("Fix")
+            AccountRepository.getInstance(getApplication()).insert(account)
         }
     }
 
@@ -201,8 +210,8 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
     }
 
-    private fun getUserID(): String {
-        return ""
-        TODO("FIX")
+    private fun getUser(): User {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

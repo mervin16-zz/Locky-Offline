@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -59,35 +60,57 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/text_subtitle_splash"
-                app:layout_constraintBottom_toTopOf="@+id/Button_Started"
+                app:layout_constraintBottom_toTopOf="@+id/Barrier_Button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Text_Title" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/Button_Started"
+                android:id="@+id/Button_Get_Started"
                 style="@style/Locky.Button.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:text="@string/button_action_get_started"
                 android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
-                android:visibility="@{ViewModel.isLoading? View.GONE : View.VISIBLE}"
+                android:visibility="@{ViewModel.buttonVisibility==1 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/Button_Google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="32dp"
+                android:visibility="@{ViewModel.buttonVisibility==2 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="gone" />
 
             <ProgressBar
                 android:id="@+id/Progress_Bar"
+                style="@style/Widget.AppCompat.ProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:indeterminate="true"
-                android:visibility="@{ViewModel.isLoading? View.VISIBLE : View.GONE}"
+                android:visibility="@{ViewModel.buttonVisibility==0 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/Widget.AppCompat.ProgressBar" />
+                tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="top"
+                app:constraint_referenced_ids="Button_Get_Started,Progress_Bar,Button_Google" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

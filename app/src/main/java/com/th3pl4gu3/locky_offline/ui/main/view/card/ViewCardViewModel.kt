@@ -21,7 +21,7 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
 
     private suspend fun deleteData(key: String) {
         withContext(Dispatchers.IO) {
-            CardRepository(getApplication()).delete(key)
+            CardRepository.getInstance(getApplication()).delete(key)
         }
     }
 

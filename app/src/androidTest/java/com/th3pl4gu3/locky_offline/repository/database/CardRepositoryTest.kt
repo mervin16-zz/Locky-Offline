@@ -19,7 +19,11 @@ import java.io.IOException
 class CardRepositoryTest {
     private lateinit var cardDao: CardDao
     private lateinit var database: Database
-    private lateinit var cards: List<Card>
+    private lateinit var cardsForUser1: List<Card>
+    private lateinit var cardsForUser2: List<Card>
+    private val user1 = "www.user1.com"
+    private val user2 = "www.user2.com"
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -32,8 +36,10 @@ class CardRepositoryTest {
         cardDao = database.cardDao()
 
         /* Add cards to the database beforehand */
-        cards = TestUtil.createCards(10)
-        cardDao.insertAll(cards)
+        cardsForUser1 = TestUtil.createCards(10, user1)
+        cardsForUser2 = TestUtil.createCards(15, user2)
+        cardDao.insertAll(cardsForUser1)
+        cardDao.insertAll(cardsForUser2)
     }
 
     @After
@@ -46,43 +52,43 @@ class CardRepositoryTest {
     @Throws(Exception::class)
     fun getAll() {
         //Arrange
-        val expectedSize = 10
+        val expectedSize = 15
 
         //Act
-        val result = getValue(cardDao.getAll()).size
+        val result = getValue(cardDao.getAll(user2)).size
 
         //Assert
-        ViewMatchers.assertThat(expectedSize, CoreMatchers.equalTo(result))
+        ViewMatchers.assertThat(result, CoreMatchers.equalTo(expectedSize))
     }
 
     @Test
     @Throws(Exception::class)
-    fun get() {
+    fun get() = runBlocking {
         //Arrange
-        val card = cards[5]
+        val card = cardsForUser1[5]
         val expectedName = card.entryName
 
         //Act
-        val result = getValue(cardDao.get(card.cardID)).entryName
+        val result = cardDao.get(card.cardID)?.entryName
 
         //Assert
-        ViewMatchers.assertThat(expectedName, CoreMatchers.equalTo(result))
+        ViewMatchers.assertThat(result, CoreMatchers.equalTo(expectedName))
     }
 
     @Test
     @Throws(Exception::class)
     fun remove() = runBlocking {
         //Arrange
-        val card = cards[5]
-        val expectedSize = 9
+        val card = cardsForUser2[5]
+        val expectedSize = 14
 
         //Act
         cardDao.remove(card.cardID)
-        val size = getValue(cardDao.getAll()).size
-        val fetchedCard = getValue(cardDao.get(card.cardID))
+        val size = getValue(cardDao.getAll(user2)).size
+        val fetchedCard = cardDao.get(card.cardID)
 
         //Assert
-        ViewMatchers.assertThat(expectedSize, CoreMatchers.equalTo(size))
+        ViewMatchers.assertThat(size, CoreMatchers.equalTo(expectedSize))
         Assert.assertNull(fetchedCard)
     }
 
@@ -90,17 +96,19 @@ class CardRepositoryTest {
     @Throws(Exception::class)
     fun removeAll() = runBlocking {
         //Arrange
-        val card = cards[5]
-        val expectedSize = 0
-        val expectedName = card.entryName
+        val card = cardsForUser1[5]
+        val expectedSize1 = 0
+        val expectedSize2 = 15
 
         //Act
-        cardDao.removeAll()
-        val size = getValue(cardDao.getAll()).size
-        val fetchedCard = getValue(cardDao.get(card.cardID))
+        cardDao.removeAll(user1)
+        val size1 = getValue(cardDao.getAll(user1)).size
+        val size2 = getValue(cardDao.getAll(user2)).size
+        val fetchedCard = cardDao.get(card.cardID)
 
         //Assert
-        ViewMatchers.assertThat(expectedSize, CoreMatchers.equalTo(size))
+        ViewMatchers.assertThat(size1, CoreMatchers.equalTo(expectedSize1))
+        ViewMatchers.assertThat(size2, CoreMatchers.equalTo(expectedSize2))
         Assert.assertNull(fetchedCard)
     }
 
@@ -108,33 +116,33 @@ class CardRepositoryTest {
     @Throws(Exception::class)
     fun insert() = runBlocking {
         //Arrange
-        val card = TestUtil.getCard(20)
-        val expectedSize = 11
+        val card = TestUtil.getCard(20, user2)
+        val expectedSize = 16
         val expectedName = card.entryName
 
         //Act
         cardDao.insert(card)
-        val size = getValue(cardDao.getAll()).size
-        val fetchedCard = getValue(cardDao.get(card.cardID))
+        val size = getValue(cardDao.getAll(user2)).size
+        val fetchedCard = cardDao.get(card.cardID)
 
         //Assert
-        ViewMatchers.assertThat(expectedSize, CoreMatchers.equalTo(size))
-        ViewMatchers.assertThat(expectedName, CoreMatchers.equalTo(fetchedCard.entryName))
+        ViewMatchers.assertThat(size, CoreMatchers.equalTo(expectedSize))
+        ViewMatchers.assertThat(fetchedCard?.entryName, CoreMatchers.equalTo(expectedName))
     }
 
     @Test
     @Throws(Exception::class)
     fun update() = runBlocking {
         //Arrange
-        val card = cards[6]
+        val card = cardsForUser1[6]
         val newName = "Accounting"
         card.entryName = newName
 
         //Act
         cardDao.update(card)
-        val fetchedCard = getValue(cardDao.get(card.cardID))
+        val fetchedCard = cardDao.get(card.cardID)
 
         //Assert
-        ViewMatchers.assertThat(newName, CoreMatchers.equalTo(fetchedCard.entryName))
+        ViewMatchers.assertThat(fetchedCard?.entryName, CoreMatchers.equalTo(newName))
     }
 }

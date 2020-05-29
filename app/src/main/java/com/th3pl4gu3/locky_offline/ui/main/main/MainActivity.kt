@@ -16,6 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
@@ -51,9 +53,6 @@ class MainActivity : AppCompatActivity() {
         /* Updates the app settings*/
         updateAppSettings()
 
-        //Observer to check if user has been authenticated
-        /*observeAuthenticationState()*/
-
         //Setup the navigation components
         navigationUISetup()
 
@@ -78,6 +77,19 @@ class MainActivity : AppCompatActivity() {
         super.finish()
 
         ActivityNavigator.applyPopAnimationsToPendingTransition(this)
+    }
+
+    internal fun logout() {
+        val mGoogleSignInClient = GoogleSignIn.getClient(
+            this, GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+        )
+
+        mGoogleSignInClient.signOut()
+
+        navigateToSplashScreen()
     }
 
     private fun navigationUISetup() {
@@ -207,16 +219,6 @@ class MainActivity : AppCompatActivity() {
     private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
         navigateToSearchFragment()
     }
-
-    /*private fun observeAuthenticationState() =
-        _viewModel.authenticationState.observe(this, Observer { authenticationState ->
-            when (authenticationState) {
-                AuthenticationState.UNAUTHENTICATED -> {
-                    navigateToSplashScreen()
-                }
-                else -> return@Observer
-            }
-        })*/
 
     private fun updateAppSettings() {
         LocalStorageManager.with(application)

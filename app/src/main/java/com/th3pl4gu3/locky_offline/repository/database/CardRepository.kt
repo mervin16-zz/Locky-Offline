@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.repository.database
 import android.app.Application
 import com.th3pl4gu3.locky_offline.core.main.Card
 
-class CardRepository(application: Application) {
+class CardRepository private constructor(application: Application) {
 
     private val database = Database.getDatabase(application)
     private val cardDao = database.cardDao()
@@ -19,9 +19,9 @@ class CardRepository(application: Application) {
             }
     }
 
-    val cards = cardDao.getAll()
+    fun getAll(userID: String) = cardDao.getAll(userID)
 
-    fun get(key: String) = cardDao.get(key)
+    suspend fun get(key: String) = cardDao.get(key)
 
     suspend fun insert(card: Card) = cardDao.insert(card)
 
@@ -29,5 +29,5 @@ class CardRepository(application: Application) {
 
     suspend fun delete(key: String) = cardDao.remove(key)
 
-    suspend fun wipe() = cardDao.removeAll()
+    suspend fun wipe(userID: String) = cardDao.removeAll(userID)
 }

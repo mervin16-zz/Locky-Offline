@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.repository.database.CardRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -107,11 +106,12 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         /*
         * Get all cards by the user ID and add to source
         */
-        val liveData = CardRepository(getApplication()).cards
+        /*val liveData = CardRepository.getInstance(getApplication()).cards
         _cards.addSource(liveData) { snapshot ->
             _cards.removeSource(liveData)
             _cards.value = snapshot
-        }
+        }*/
+        TODO("FIX")
     }
 
     private fun loadAccounts() {

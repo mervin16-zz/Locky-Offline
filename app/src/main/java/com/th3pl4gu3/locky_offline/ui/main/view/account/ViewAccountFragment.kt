@@ -9,10 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.action
-import com.th3pl4gu3.locky_offline.ui.main.utils.copyToClipboard
-import com.th3pl4gu3.locky_offline.ui.main.utils.snackbar
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
@@ -75,10 +72,7 @@ class ViewAccountFragment : Fragment() {
                 * When the add screen receives it, it wil perceive it as a new account that needs to be
                 * added to the database
                 */
-                /*navigateToEditScreen(_account.apply {
-                    accountID = VALUE_EMPTY
-                })*/
-                TODO("FIX")
+                navigateToEditScreen(_account.copy(accountID = generateUniqueID()))
                 true
             }
 

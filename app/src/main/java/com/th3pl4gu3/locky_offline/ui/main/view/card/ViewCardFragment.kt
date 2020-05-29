@@ -9,10 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewCardBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.action
-import com.th3pl4gu3.locky_offline.ui.main.utils.copyToClipboard
-import com.th3pl4gu3.locky_offline.ui.main.utils.snackbar
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
@@ -75,10 +72,7 @@ class ViewCardFragment : Fragment() {
                 * When the add screen receives it, it wil perceive it as a new card that needs to be
                 * added to the database
                 */
-                /*navigateToEditScreen(_card.apply {
-                    cardID = VALUE_EMPTY
-                })*/
-                TODO("FIX")
+                navigateToEditScreen(_card.copy(cardID = generateUniqueID()))
                 true
             }
 

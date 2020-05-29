@@ -19,12 +19,12 @@ interface CardDao {
     @Query("DELETE FROM card_table WHERE cardID = :key")
     suspend fun remove(key: String)
 
-    @Query("DELETE FROM card_table")
-    suspend fun removeAll()
+    @Query("DELETE FROM card_table WHERE userID = :userID")
+    suspend fun removeAll(userID: String)
 
     @Query("SELECT * FROM card_table WHERE cardID = :key")
-    fun get(key: String): LiveData<Card>
+    suspend fun get(key: String): Card?
 
-    @Query("SELECT * FROM card_table")
-    fun getAll(): LiveData<List<Card>>
+    @Query("SELECT * FROM card_table WHERE userID = :userID")
+    fun getAll(userID: String): LiveData<List<Card>>
 }

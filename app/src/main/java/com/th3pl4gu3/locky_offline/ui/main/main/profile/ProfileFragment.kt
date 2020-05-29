@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.exceptions.UserException
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
+import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -62,7 +62,7 @@ class ProfileFragment : Fragment() {
         viewModel.signUserOut.observe(viewLifecycleOwner, Observer {
             if (it) {
                 /* Log the user out from firebase and clear session*/
-                logout()
+                (requireActivity() as MainActivity).logout()
 
                 /* Show a toast for the user */
                 toast(getString(R.string.message_user_account_status_signed_out))
@@ -72,13 +72,7 @@ class ProfileFragment : Fragment() {
 
     private fun getUser(): User {
         LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)
-            ?: throw UserException(getString(R.string.error_internal_code_3))
-    }
-
-    private fun logout() {
-        LocalStorageManager.with(requireActivity().application)
-        LocalStorageManager.remove(KEY_USER_ACCOUNT)
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 
     private fun toast(message: String) = requireContext().toast(message)

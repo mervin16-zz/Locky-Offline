@@ -17,6 +17,7 @@ data class Account(
     @ColumnInfo(name = "email") var email: String = "",
     @ColumnInfo(name = "password") var password: String = "",
     @ColumnInfo(name = "logoUrl") var logoUrl: String = "",
+    @ColumnInfo(name = "userID") var user: String = "",
     @ColumnInfo(name = "website") var website: String? = null,
     @ColumnInfo(name = "moreInfo") var accountMoreInfo: String? = null,
     @ColumnInfo(name = "authType") var authenticationType: String? = null,

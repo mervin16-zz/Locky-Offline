@@ -6,10 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.exceptions.FormException
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.CardRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
+import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringForCard
 import kotlinx.coroutines.Dispatchers
@@ -138,23 +142,26 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     fun save() {
         viewModelScope.launch {
             _card.apply {
-                /*userID = getUserID()
-
-                val validation = Validation(this)*/
+                val validation = Validation()
                 try {
-                    /*validation.validateCardForm()*/
+                    validation.validateCardForm(this)
+
+                    /* If validation succeeds, set user ID */
+                    this.user = getUser().email
+
                     insertCardInDatabase(this)
                     _formValidity.value = entryName
                 } catch (ex: FormException) {
-                    /*assignErrorMessages(validation.errorList)*/
+                    assignErrorMessages(validation.errorList)
                 } catch (ex: Exception) {
-                    _toastEvent.value = "Error code 3: ${ex.message}"
+                    _toastEvent.value = getApplication<Application>().getString(
+                        R.string.error_internal_code_3,
+                        ex.message
+                    )
                 }
             }
 
         }
-
-        TODO("FIX")
     }
 
     internal fun doneWithToastEvent() {
@@ -167,7 +174,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
          *  or data is empty because it comes form add screen
          *  To do that, test if card is null
          **/
-        isEmptyCard = card == null || card.cardID.isEmpty()
+        isEmptyCard = card == null
 
         this._card = card ?: Card()
     }
@@ -187,19 +194,26 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     private suspend fun insertCardInDatabase(card: Card) {
         withContext(Dispatchers.IO) {
-            if (isEmptyCard) saveCardToDatabase(card) else updateCardInDatabase(card)
+            /*
+            * Firs we try to fetch card to see if it is already present
+            * If already present, it means it is an edit
+            * Else, it means it is an addition
+            */
+            val repository = CardRepository.getInstance(getApplication())
+            val fetchedCard = repository.get(card.cardID)
+            if (fetchedCard == null) saveCardToDatabase(card) else updateCardInDatabase(card)
         }
     }
 
     private suspend fun updateCardInDatabase(card: Card) {
         withContext(Dispatchers.IO) {
-            CardRepository(getApplication()).update(card)
+            CardRepository.getInstance(getApplication()).update(card)
         }
     }
 
     private suspend fun saveCardToDatabase(card: Card) {
         withContext(Dispatchers.IO) {
-            CardRepository(getApplication()).insert(card)
+            CardRepository.getInstance(getApplication()).insert(card)
         }
     }
 
@@ -216,10 +230,8 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
             if (errorList.containsKey(Validation.ErrorField.CARD_HOLDER)) errorList[Validation.ErrorField.CARD_HOLDER] else null
     }
 
-
-    private fun getUserID(): String {
-        return ""
-        TODO("FIX")
+    private fun getUser(): User {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
-
 }

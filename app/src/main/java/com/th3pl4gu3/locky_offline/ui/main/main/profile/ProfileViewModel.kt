@@ -24,6 +24,4 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         /* Set value to true to sign user out from firebase*/
         _signUserOut.value = true
     }
-
-    private fun getString(res: Int) = getApplication<Application>().getString(res)
 }

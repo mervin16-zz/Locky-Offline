@@ -19,12 +19,12 @@ interface AccountDao {
     @Query("DELETE FROM account_table WHERE accountID = :key")
     suspend fun remove(key: String)
 
-    @Query("DELETE FROM account_table")
-    suspend fun removeAll()
+    @Query("DELETE FROM account_table WHERE userID = :userID")
+    suspend fun removeAll(userID: String)
 
     @Query("SELECT * FROM account_table WHERE accountID = :key")
-    fun get(key: String): LiveData<Account>
+    suspend fun get(key: String): Account?
 
-    @Query("SELECT * FROM account_table")
-    fun getAll(): LiveData<List<Account>>
+    @Query("SELECT * FROM account_table WHERE userID = :userID")
+    fun getAll(userID: String): LiveData<List<Account>>
 }

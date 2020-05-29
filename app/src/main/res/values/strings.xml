@@ -172,9 +172,9 @@
     <!-- =============== -->
     <!-- Error Messages -->
     <!-- =============== -->
-    <string name="error_internal_code_1">Error code 1: "%1$s"</string>
-    <string name="error_internal_code_2">Error code 2: "%1$s"</string>
-    <string name="error_internal_code_3">Error code 3: An error occurred while fetching your profile. Please contact support.</string>
+    <string name="error_internal_code_1">An error occurred. Code 1: "%1$s"</string>
+    <string name="error_internal_code_2">An error occurred. Code 2: "%1$s"</string>
+    <string name="error_internal_code_3">An error occurred. Code 3: "%1$s"</string>
 
     <!-- =============== -->
     <!-- Button Actions -->

@@ -19,11 +19,9 @@ class UserRepository private constructor(application: Application) {
             }
     }
 
-    fun get(key: String) = userDao.get(key)
+    suspend fun get(key: String) = userDao.get(key)
 
     suspend fun insert(user: User) = userDao.insert(user)
-
-    suspend fun update(user: User) = userDao.update(user)
 
     suspend fun delete(key: String) = userDao.remove(key)
 }

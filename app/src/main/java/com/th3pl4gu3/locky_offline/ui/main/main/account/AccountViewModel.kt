@@ -4,8 +4,11 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
+import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.LoadingStatus
+import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import java.util.*
 
@@ -146,12 +149,11 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     /* Load the accounts into a mediator live data */
     private fun loadAccounts() {
-        /*val liveData = AccountRepository(getApplication()).accounts
-        _currentAccountsExposed.addSource(liveData) {
+        _currentAccountsExposed.addSource(
+            AccountRepository.getInstance(getApplication()).getAll(getUser().email)
+        ) {
             _currentAccountsExposed.value = it
-        }*/
-
-        TODO("Fix")
+        }
     }
 
     /*
@@ -172,4 +174,8 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
     }
 
+    private fun getUser(): User {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
+    }
 }
