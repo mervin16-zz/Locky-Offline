@@ -48,7 +48,7 @@ class UserRepositoryTest {
         val expectedEmail = user.email
 
         //Act
-        val result = userDao.get(user.email).email
+        val result = userDao.get(user.email)?.email
 
         //Assert
         assertThat(result, equalTo(expectedEmail))

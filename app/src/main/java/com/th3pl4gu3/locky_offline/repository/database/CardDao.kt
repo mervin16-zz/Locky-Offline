@@ -27,4 +27,10 @@ interface CardDao {
 
     @Query("SELECT * FROM card_table WHERE userID = :userID")
     fun getAll(userID: String): LiveData<List<Card>>
+
+    @Query("SELECT * FROM card_table WHERE userID = :userID AND (entryName LIKE :query OR number LIKE :query OR bank LIKE :query)")
+    fun search(query: String, userID: String): LiveData<List<Card>>
+
+    @Query("SELECT COUNT(entryName) FROM card_table WHERE userID = :userID")
+    fun size(userID: String): LiveData<Int>
 }

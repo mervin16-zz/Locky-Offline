@@ -53,12 +53,15 @@ class CardRepositoryTest {
     fun getAll() {
         //Arrange
         val expectedSize = 15
+        val expectedSize2 = 0
 
         //Act
         val result = getValue(cardDao.getAll(user2)).size
+        val result2 = getValue(cardDao.getAll("no match")).size
 
         //Assert
         ViewMatchers.assertThat(result, CoreMatchers.equalTo(expectedSize))
+        ViewMatchers.assertThat(result2, CoreMatchers.equalTo(expectedSize2))
     }
 
     @Test
@@ -70,9 +73,11 @@ class CardRepositoryTest {
 
         //Act
         val result = cardDao.get(card.cardID)?.entryName
+        val result2 = cardDao.get("No Match")
 
         //Assert
         ViewMatchers.assertThat(result, CoreMatchers.equalTo(expectedName))
+        Assert.assertNull(result2)
     }
 
     @Test
@@ -144,5 +149,43 @@ class CardRepositoryTest {
 
         //Assert
         ViewMatchers.assertThat(fetchedCard?.entryName, CoreMatchers.equalTo(newName))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun search() {
+        //Arrange
+        val query1 = "%1%"
+        val query2 = "%Card%"
+        val query3 = "%nomatch%"
+        val expectedSize1 = 2
+        val expectedSize2 = 10
+        val expectedSize3 = 0
+
+        //Act
+        val results1 = getValue(cardDao.search(query1, user1)).size
+        val results2 = getValue(cardDao.search(query2, user1)).size
+        val results3 = getValue(cardDao.search(query3, user1)).size
+
+        //Assert
+        ViewMatchers.assertThat(results1, CoreMatchers.equalTo(expectedSize1))
+        ViewMatchers.assertThat(results2, CoreMatchers.equalTo(expectedSize2))
+        ViewMatchers.assertThat(results3, CoreMatchers.equalTo(expectedSize3))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun size() {
+        //Arrange
+        val expectedSize1 = 10
+        val expectedSize2 = 15
+
+        //Act
+        val results1 = getValue(cardDao.size(user1))
+        val results2 = getValue(cardDao.size(user2))
+
+        //Assert
+        ViewMatchers.assertThat(results1, CoreMatchers.equalTo(expectedSize1))
+        ViewMatchers.assertThat(results2, CoreMatchers.equalTo(expectedSize2))
     }
 }

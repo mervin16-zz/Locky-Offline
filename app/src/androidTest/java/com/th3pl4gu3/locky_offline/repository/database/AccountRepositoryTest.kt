@@ -56,13 +56,16 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun getAll() {
         //Arrange
-        val expectedSize = 15
+        val expectedSize1 = 15
+        val expectedSize2 = 0
 
         //Act
-        val result = getValue(accountDao.getAll(user1)).size
+        val result1 = getValue(accountDao.getAll(user1)).size
+        val result2 = getValue(accountDao.getAll("no match")).size
 
         //Assert
-        assertThat(result, equalTo(expectedSize))
+        assertThat(result1, equalTo(expectedSize1))
+        assertThat(result2, equalTo(expectedSize2))
     }
 
     @Test
@@ -73,10 +76,12 @@ class AccountRepositoryTest {
         val expectedName = account.accountName
 
         //Act
-        val result = accountDao.get(account.accountID)?.accountName
+        val result1 = accountDao.get(account.accountID)?.accountName
+        val result2 = accountDao.get("No Match")
 
         //Assert
-        assertThat(result, equalTo(expectedName))
+        assertThat(result1, equalTo(expectedName))
+        Assert.assertNull(result2)
     }
 
     @Test
@@ -150,4 +155,41 @@ class AccountRepositoryTest {
         assertThat(fetchedAccount?.accountName, equalTo(newName))
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun search() {
+        //Arrange
+        val query1 = "%1%"
+        val query2 = "%Account%"
+        val query3 = "%nomatch%"
+        val expectedSize1 = 7
+        val expectedSize2 = 15
+        val expectedSize3 = 0
+
+        //Act
+        val results1 = getValue(accountDao.search(query1, user1)).size
+        val results2 = getValue(accountDao.search(query2, user1)).size
+        val results3 = getValue(accountDao.search(query3, user1)).size
+
+        //Assert
+        assertThat(results1, equalTo(expectedSize1))
+        assertThat(results2, equalTo(expectedSize2))
+        assertThat(results3, equalTo(expectedSize3))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun size() {
+        //Arrange
+        val expectedSize1 = 15
+        val expectedSize2 = 10
+
+        //Act
+        val results1 = getValue(accountDao.size(user1))
+        val results2 = getValue(accountDao.size(user2))
+
+        //Assert
+        assertThat(results1, equalTo(expectedSize1))
+        assertThat(results2, equalTo(expectedSize2))
+    }
 }

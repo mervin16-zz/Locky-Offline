@@ -218,15 +218,6 @@
         <item name="fabSize">mini</item>
     </style>
 
-    <style name="Locky.FloatingActionButton.Authentication" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:backgroundTint">@color/colorOnSurface</item>
-        <item name="fabSize">normal</item>
-        <item name="borderWidth">2dp</item>
-        <item name="backgroundTint">@color/colorAccent</item>
-        <item name="tint">@color/colorAccent</item>
-        <item name="elevation">0dp</item>
-    </style>
-
     <style name="Locky.FloatingActionButton.Normal.Display">
         <item name="elevation">0dp</item>
         <item name="android:clickable">false</item>

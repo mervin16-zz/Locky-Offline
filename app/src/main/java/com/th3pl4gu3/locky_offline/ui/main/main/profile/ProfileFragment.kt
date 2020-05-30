@@ -8,11 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 class ProfileFragment : Fragment() {
@@ -34,7 +31,7 @@ class ProfileFragment : Fragment() {
         /*
         * Fetch the user details from session
         */
-        val user = getUser()
+        val user = viewModel.getUser()
 
         /* Bind user details to layout*/
         binding.user = user
@@ -68,11 +65,6 @@ class ProfileFragment : Fragment() {
                 toast(getString(R.string.message_user_account_status_signed_out))
             }
         })
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.with(requireActivity().application)
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 
     private fun toast(message: String) = requireContext().toast(message)

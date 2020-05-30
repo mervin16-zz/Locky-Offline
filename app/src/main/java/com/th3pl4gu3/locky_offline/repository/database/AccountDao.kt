@@ -27,4 +27,10 @@ interface AccountDao {
 
     @Query("SELECT * FROM account_table WHERE userID = :userID")
     fun getAll(userID: String): LiveData<List<Account>>
+
+    @Query("SELECT * FROM account_table WHERE userID = :userID AND (accountName LIKE :query OR username LIKE :query OR website LIKE :query)")
+    fun search(query: String, userID: String): LiveData<List<Account>>
+
+    @Query("SELECT COUNT(accountName) FROM account_table WHERE userID = :userID")
+    fun size(userID: String): LiveData<Int>
 }

@@ -39,15 +39,8 @@
     <string name="text_title_emptyView_accounts">An Account a day, keeps Hackers away!</string>
     <string name="text_subtitle_emptyView_accounts">Save all your account details here.</string>
 
-    <string name="text_subtitle_register_with">Or register with</string>
-    <string name="text_subtitle_forgot_password"><u>Forgot password?</u></string>
-
     <string name="text_title_splash">Welcome to Locky</string>
     <string name="text_subtitle_splash">@string/app_description_short</string>
-
-    <string name="text_title_login">Get your account now</string>
-    <string name="text_subtitle_login">Login with your account. If you don\'t have one, we will create it for you.</string>
-
 
     <string name="text_title_alert_delete">Delete "%1$s"</string>
     <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>

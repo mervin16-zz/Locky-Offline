@@ -14,6 +14,7 @@
     <!-- ================= -->
     <!-- Text Field Colors -->
     <!-- ================= -->
+    <color name="colorTextFieldAccentSearch">@color/colorAccent</color>
     <color name="colorTextFieldTextDefault">@color/colorAccent</color>
 
     <!-- =================== -->

@@ -1,20 +1,25 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.search
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
+import com.th3pl4gu3.locky_offline.repository.database.CardRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
+import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _showSnackbarEvent = MutableLiveData<String>()
     private val _starterScreenVisibility = MutableLiveData(true)
-    private val _cards = MediatorLiveData<List<Card>>()
-    private val _accounts = MediatorLiveData<List<Account>>()
-    private var _searchQuery = ""
+    private var _searchQuery = MutableLiveData<String>()
 
 
     val showSnackBarEvent: LiveData<String>
@@ -23,31 +28,33 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val starterScreenVisibility: LiveData<Boolean>
         get() = _starterScreenVisibility
 
-    val accounts: LiveData<List<Account>>
-        get() = _accounts
+    val accounts: LiveData<List<Account>> = Transformations.switchMap(_searchQuery) {
+        AccountRepository.getInstance(getApplication()).search(it, getUser().email)
+    }
 
-    val cards: LiveData<List<Card>>
-        get() = _cards
+    val cards: LiveData<List<Card>> = Transformations.switchMap(_searchQuery) {
+        CardRepository.getInstance(getApplication()).search(it, getUser().email)
+    }
 
-    val accountsSize: LiveData<String> = Transformations.map(_accounts) {
+    val accountsSize: LiveData<String> = Transformations.map(accounts) {
         getApplication<Application>().getString(
             R.string.text_subtitle_search_accounts,
             it.size.toString()
         )
     }
 
-    val cardsSize: LiveData<String> = Transformations.map(_cards) {
+    val cardsSize: LiveData<String> = Transformations.map(cards) {
         getApplication<Application>().getString(
             R.string.text_subtitle_search_cards,
             it.size.toString()
         )
     }
 
-    val isAccountListVisible: LiveData<Boolean> = Transformations.map(_accounts) {
+    val isAccountListVisible: LiveData<Boolean> = Transformations.map(accounts) {
         it.isNotEmpty()
     }
 
-    val isCardListVisible: LiveData<Boolean> = Transformations.map(_cards) {
+    val isCardListVisible: LiveData<Boolean> = Transformations.map(cards) {
         it.isNotEmpty()
     }
 
@@ -66,9 +73,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         */
         hideStarterScreen()
 
-        _searchQuery = query.trim().toLowerCase(Locale.ROOT)
-
-        contentLoadingCheck(_searchQuery)
+        _searchQuery.value = "%${query.trim().toLowerCase(Locale.ROOT)}%"
     }
 
     internal fun cancel() {
@@ -92,54 +97,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    private fun contentLoadingCheck(value: String) {
-        if (value.isNotEmpty()) {
-            loadCards()
-            loadAccounts()
-        } else {
-            _accounts.value = ArrayList()
-            _cards.value = ArrayList()
-        }
-    }
-
-    private fun loadCards() {
-        /*
-        * Get all cards by the user ID and add to source
-        */
-        /*val liveData = CardRepository.getInstance(getApplication()).cards
-        _cards.addSource(liveData) { snapshot ->
-            _cards.removeSource(liveData)
-            _cards.value = snapshot
-        }*/
-        TODO("FIX")
-    }
-
-    private fun loadAccounts() {
-        /*
-        * Get all accounts by the user ID and add to source
-        */
-        /*val liveData = AccountRepository(getApplication()).accounts
-        _accounts.addSource(liveData) { snapshot ->
-            _accounts.removeSource(liveData)
-            _accounts.value =snapshot
-        }*/
-        TODO("Fix")
-    }
-
-    private fun filterAccounts(accountList: List<Account>) = accountList.filter {
-        filterSearch(it.accountName.toLowerCase(Locale.ROOT))
-    }
-
-    private fun filterCards(cardList: List<Card>) = cardList.filter {
-        filterSearch(it.entryName.toLowerCase(Locale.ROOT))
-    }
-
-    private fun filterSearch(name: String) =
-        name.startsWith(_searchQuery) || name.endsWith(_searchQuery) || name.contains(_searchQuery)
-
-    private fun getUserID(): String {
-        return ""
-
-        TODO("FIX")
+    private fun getUser(): User {
+        LocalStorageManager.with(getApplication())
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

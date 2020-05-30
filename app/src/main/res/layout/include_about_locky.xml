@@ -20,13 +20,12 @@
                 android:text="@string/text_subtitle_about_sections_app" />
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:scaleType="centerCrop"
-                android:tint="@color/colorAccentDark"
-                app:srcCompat="@drawable/ic_account" />
+                app:srcCompat="@drawable/ic_locky_with_background_square" />
 
             <TextView
                 style="@style/Locky.Text.Body"
