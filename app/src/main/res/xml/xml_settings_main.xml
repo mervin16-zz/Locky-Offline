@@ -24,8 +24,8 @@
         app:title="@string/settings_title_category_security">
 
         <SwitchPreferenceCompat
-            app:key="@string/settings_key_security_fingerprint"
-            app:title="@string/settings_title_security_fingerprint"
+            app:key="@string/settings_key_security_biometric"
+            app:title="@string/settings_title_security_biometric"
             app:icon="@drawable/ic_fingerprint" />
 
     </PreferenceCategory>

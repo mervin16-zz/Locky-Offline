@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.Intent.ACTION_SENDTO
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_SECURITY_SETTINGS
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -14,39 +16,39 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
+
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var _biometricManager: BiometricManager
+
+    companion object {
+        const val TAG = "SETTINGS_FRAGMENT"
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.xml_settings_main, rootKey)
     }
 
-
-    /*private var _binding: FragmentSettingsBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }*/
-
     override fun onStart() {
         super.onStart()
 
+        /*
+        * Here, we initialize biometric manager
+        * Then we check if biometric is available or hardware is available to determine
+        * whether to show the biometric option in settings
+        */
+        biometricInitialCheck()
+
+        /* Preference config for app theme */
         appThemePreference()
 
-        fingerprintPreference()
-
+        /* Preference settings for backup */
         backupPreference()
 
+        /* Preference settings for restore */
         restorePreference()
 
+        /* Preference settings for feedback */
         feedbackPreference()
     }
 
@@ -72,14 +74,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun fingerprintPreference() {
-        findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_security_fingerprint))?.setOnPreferenceChangeListener { _, _ ->
-            toast(
-                getString(
-                    R.string.dev_feature_implementation_unknown,
-                    "Fingerprint Authentication"
-                )
-            )
-            true
+        findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_security_biometric))?.setOnPreferenceChangeListener { preference, newValue ->
+
+            /*
+            * Here we perform another check to see if biometric has bee a success
+            * or if any biometric has been enrolled
+            */
+            when (_biometricManager.canAuthenticate()) {
+                BiometricManager.BIOMETRIC_SUCCESS -> {
+                    save(preference.key, newValue)
+
+                    if (newValue as Boolean) toast(getString(R.string.message_settings_biometric_enabled))
+
+                    true
+                }
+                BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                    biometricEnrollmentConfirmation()
+                    false
+                }
+
+                else -> false
+            }
         }
     }
 
@@ -137,4 +152,35 @@ class SettingsFragment : PreferenceFragmentCompat() {
         LocalStorageManager.withSettings(requireActivity().application)
         LocalStorageManager.put(key, value)
     }
+
+    private fun enrollBiometricIntent() {
+        requireActivity().startActivity(Intent(ACTION_SECURITY_SETTINGS))
+    }
+
+    private fun biometricEnrollmentConfirmation() =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_alert_biometric))
+            .setMessage(getString(R.string.text_title_alert_biometric_message))
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.button_action_okay) { _, _ ->
+                enrollBiometricIntent()
+            }
+            .show()
+
+    private fun biometricInitialCheck() {
+        _biometricManager = BiometricManager.from(requireContext())
+
+        when (_biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+                preferenceScreen.removePreference(findPreference<ListPreference>(getString(R.string.settings_key_display_theme)))
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+                findPreference<ListPreference>(getString(R.string.settings_key_display_theme))?.isEnabled =
+                    false
+
+            else -> fingerprintPreference()
+        }
+    }
+
 }

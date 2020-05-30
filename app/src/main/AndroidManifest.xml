@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.th3pl4gu3.locky_offline">
 
+    <!-- For fingerprint authentication to log into the app if enabled -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!-- For internet connection such as Google OAuth, etc... -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

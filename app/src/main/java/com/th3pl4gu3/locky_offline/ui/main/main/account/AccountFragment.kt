@@ -45,7 +45,6 @@ class AccountFragment : Fragment() {
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
-
         return binding.root
     }
 

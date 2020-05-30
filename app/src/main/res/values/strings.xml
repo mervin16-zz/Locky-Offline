@@ -46,6 +46,16 @@
     <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>
     <string name="text_title_alert_delete_message_card">Are you sure you want to delete the card \'"%1$s"\'</string>
 
+    <string name="text_title_alert_biometric">No biometric entries</string>
+    <string name="text_title_alert_biometric_message">
+        You currently don\'t have any biometric entries. Do you want to add a biometric entry?
+    </string>
+
+    <string name="text_title_alert_biometric_authentication">Unlock to proceed</string>
+    <string name="text_title_alert_biometric_authentication_message">
+        Please authenticate yourself with your biometric or screen lock credentials to access Locky
+    </string>
+
     <string name="text_title_alert_intent_none">Unable to open "%1$s" app</string>
     <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
         application to continue</string>
@@ -161,6 +171,7 @@
     <string name="message_user_account_status_signed_out">You\'ve been signed out</string>
     <string name="message_user_account_status_blocked">This account has been blocked. Please contact your administrator</string>
     <string name="message_user_account_status_inactive">This account has been disabled. Please create another account</string>
+    <string name="message_settings_biometric_enabled">Biometric authentication has been enabled</string>
 
     <!-- =============== -->
     <!-- Error Messages -->
@@ -168,6 +179,9 @@
     <string name="error_internal_code_1">An error occurred. Code 1: "%1$s"</string>
     <string name="error_internal_code_2">An error occurred. Code 2: "%1$s"</string>
     <string name="error_internal_code_3">An error occurred. Code 3: "%1$s"</string>
+
+    <string name="error_biometric_authentication_failed">Biometric authentication failed</string>
+    <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>
 
     <!-- =============== -->
     <!-- Button Actions -->
@@ -205,8 +219,8 @@
     <string name="settings_value_display_light">Light</string>
     <string name="settings_value_display_dark">Dark</string>
 
-    <string name="settings_key_security_fingerprint">settings_key_security_fingerprint</string>
-    <string name="settings_title_security_fingerprint">Enable Fingerprint Authentication</string>
+    <string name="settings_key_security_biometric">settings_key_security_fingerprint</string>
+    <string name="settings_title_security_biometric">Enable Fingerprint Authentication</string>
 
     <string name="settings_key_backup_backup">settings_key_backup_backup</string>
     <string name="settings_title_backup_backup">Backup</string>

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,7 @@ import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.openActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import java.util.concurrent.Executor
 
 
 class SplashActivity : AppCompatActivity() {
@@ -29,6 +32,9 @@ class SplashActivity : AppCompatActivity() {
     private val viewModel get() = _viewModel!!
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var _executor: Executor
+    private lateinit var _biometricPrompt: BiometricPrompt
+    private lateinit var _promptInfo: BiometricPrompt.PromptInfo
 
     companion object {
         const val RC_SIGN_IN = 1001
@@ -97,7 +103,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun observeSignInState() = viewModel.isSignInComplete.observe(this, Observer {
         if (it) {
-            navigateToMain()
+            prepareToNavigateToMainScreen()
         }
     })
 
@@ -140,7 +146,7 @@ class SplashActivity : AppCompatActivity() {
 
         when {
             account != null && viewModel.isUserSavedInSession() -> {
-                navigateToMain()
+                prepareToNavigateToMainScreen()
             }
             account != null -> {
                 viewModel.login(User.getInstance(account))
@@ -182,7 +188,66 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMain() {
+    private fun prepareToNavigateToMainScreen() {
+        /*
+        * Before navigation, we need to check if biometrics prompt has been enabled on the app
+        * If biometrics has been enabled, we need to prompt the user.
+        * If not, we then navigate to main screen
+        */
+        biometricVerification()
+    }
+
+    private fun biometricVerification() {
+        LocalStorageManager.withSettings(application)
+        val exists = LocalStorageManager.exists(getString(R.string.settings_key_security_biometric))
+        val isEnabled =
+            LocalStorageManager.get<Boolean>(getString(R.string.settings_key_security_biometric))
+
+        if (exists && isEnabled!!) promptBiometric() else navigateToMainScreen()
+    }
+
+    private fun promptBiometric() {
+        _executor = ContextCompat.getMainExecutor(this)
+        _biometricPrompt = BiometricPrompt(this, _executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    /* Error occurred while authenticating */
+                    toast(getString(R.string.error_biometric_authentication_error, errString))
+                    /* Close the app */
+                    finish()
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    /* Biometric has succeeded */
+                    navigateToMainScreen()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    /* Biometric has failed */
+                    toast(getString(R.string.error_biometric_authentication_failed))
+                    /* Close the app */
+                    finish()
+                }
+            })
+
+        _promptInfo = BiometricPrompt.PromptInfo
+            .Builder()
+            .setTitle(getString(R.string.text_title_alert_biometric_authentication))
+            .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
+            .setDeviceCredentialAllowed(true)
+            .build()
+
+
+        /* Prompts the user for biometric authentication */
+        _biometricPrompt.authenticate(_promptInfo)
+    }
+
+    private fun navigateToMainScreen() {
         /* Navigate to main screen */
         openActivity(MainActivity::class.java)
         finish()
