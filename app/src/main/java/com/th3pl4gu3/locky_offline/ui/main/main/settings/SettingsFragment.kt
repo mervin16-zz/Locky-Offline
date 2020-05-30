@@ -72,7 +72,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun fingerprintPreference() {
-        findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_security_fingerprint))?.setOnPreferenceChangeListener { preference, newValue ->
+        findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_security_fingerprint))?.setOnPreferenceChangeListener { _, _ ->
             toast(
                 getString(
                     R.string.dev_feature_implementation_unknown,
@@ -134,7 +134,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun toast(message: String) = requireContext().toast(message)
 
     private fun save(key: String, value: Any) {
-        LocalStorageManager.with(requireActivity().application)
+        LocalStorageManager.withSettings(requireActivity().application)
         LocalStorageManager.put(key, value)
     }
 }

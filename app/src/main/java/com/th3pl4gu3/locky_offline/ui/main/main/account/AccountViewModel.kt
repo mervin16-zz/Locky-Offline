@@ -162,7 +162,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     * Else we return a new sort object
     */
     private fun loadSortObject(): AccountSort {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return if (LocalStorageManager.exists(KEY_ACCOUNTS_SORT)) {
             LocalStorageManager.get(KEY_ACCOUNTS_SORT)!!
         } else AccountSort()
@@ -170,12 +170,12 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     /* Save sort data to Session for persistent re-usability*/
     private fun saveSortToSession(sort: AccountSort) {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
     }
 
     private fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

@@ -167,7 +167,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun updateAppSettings() {
-        LocalStorageManager.with(application)
+        LocalStorageManager.withSettings(application)
 
         when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
             getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(

@@ -151,7 +151,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     * Else we return a new sort object
     */
     private fun loadSortObject(): CardSort {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return if (LocalStorageManager.exists(KEY_CARDS_SORT)) {
             LocalStorageManager.get(KEY_CARDS_SORT)!!
         } else CardSort()
@@ -159,12 +159,12 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
 
     /* Save sort data to Session for persistent re-usability*/
     private fun saveSortToSession(sort: CardSort) {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_CARDS_SORT, sort)
     }
 
     private fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

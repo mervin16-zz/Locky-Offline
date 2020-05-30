@@ -25,7 +25,7 @@ class TuningAccountBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = FragmentBottomSheetAccountTuningBinding.inflate(inflater, container, false)
 
         with(binding) {
-            LocalStorageManager.with(requireActivity().application)
+            LocalStorageManager.withLogin(requireActivity().application)
             sort = LocalStorageManager.get<AccountSort>(KEY_ACCOUNTS_SORT) ?: _sort
             return root
         }

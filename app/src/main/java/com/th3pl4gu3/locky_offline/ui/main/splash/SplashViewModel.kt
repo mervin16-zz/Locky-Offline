@@ -56,13 +56,13 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
     internal fun isUserSavedInSession(): Boolean {
         /* Returns boolean on whether user already exists or not.*/
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.exists(KEY_USER_ACCOUNT)
     }
 
     private fun saveToSession(user: User) {
         //Store user object in shared preferences
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_USER_ACCOUNT, user)
     }
 

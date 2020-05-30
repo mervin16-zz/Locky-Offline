@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<full-backup-content>
+    <exclude
+        domain="external"
+        path="." />
+
+    <exclude
+        domain="file"
+        path="." />
+
+    <exclude
+        domain="sharedpref"
+        path="com.th3pl4gu3.locky.PREF_LOGIN_DETAILS.xml" />
+</full-backup-content>

@@ -24,7 +24,6 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
@@ -123,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun navigationDestinationChangeListener_ToolbarTitle(navController: NavController) {
-        navController.addOnDestinationChangedListener { nc, nd, _ ->
+        navController.addOnDestinationChangedListener { _, nd, _ ->
             when (nd.id) {
                 R.id.Fragment_Account -> updateToolbar("Accounts")
                 R.id.Fragment_Card -> updateToolbar("Cards")
@@ -221,7 +220,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateAppSettings() {
-        LocalStorageManager.with(application)
+        LocalStorageManager.withSettings(application)
 
         when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
             getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(

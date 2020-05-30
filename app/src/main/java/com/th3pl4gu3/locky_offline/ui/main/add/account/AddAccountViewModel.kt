@@ -211,7 +211,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     }
 
     private fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

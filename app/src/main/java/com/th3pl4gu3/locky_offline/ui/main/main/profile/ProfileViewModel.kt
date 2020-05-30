@@ -32,7 +32,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         /*
         * Removes the user session
         */
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.remove(KEY_USER_ACCOUNT)
 
         /* Set value to true to sign user out from firebase*/
@@ -41,7 +41,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
 
     internal fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

@@ -98,7 +98,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

@@ -25,7 +25,7 @@ class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = FragmentBottomSheetCardTuningBinding.inflate(inflater, container, false)
 
         with(binding) {
-            LocalStorageManager.with(requireActivity().application)
+            LocalStorageManager.withLogin(requireActivity().application)
             sort = LocalStorageManager.get<CardSort>(KEY_CARDS_SORT) ?: _sort
             return root
         }

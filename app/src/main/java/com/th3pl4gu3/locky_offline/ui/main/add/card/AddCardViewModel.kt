@@ -231,7 +231,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     }
 
     private fun getUser(): User {
-        LocalStorageManager.with(getApplication())
+        LocalStorageManager.withLogin(getApplication())
         return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }
