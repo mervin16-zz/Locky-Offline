@@ -22,6 +22,7 @@
     <color name="colorIconSurface">@color/grey_600</color>
     <color name="colorIconFabNormal">@android:color/white</color>
     <color name="colorIconFabMini">@color/colorAccentDark</color>
+    <color name="colorIconLauncherBackground">@color/purple_300</color>
 
     <!-- ============= -->
     <!-- Button Colors -->
@@ -45,7 +46,7 @@
     <color name="colorTextFieldAccentDefault_Active">@color/purple_300</color>
     <color name="colorTextFieldAccentDefault_Inactive">@color/grey_300</color>
     <color name="colorTextFieldErrorDefault">@color/red_300</color>
-    <color name="colorTextFieldIconDefault">@color/purple_tint_50</color>
+    <color name="colorTextFieldIconDefault">@color/colorAccentVariant</color>
     <color name="colorTextFieldTextDefault">@color/colorAccentDark</color>
 
     <!-- ================= -->
@@ -72,6 +73,7 @@
     <color name="purple_300">#9575CD</color>
     <color name="purple_200">#B39DDB</color>
     <color name="purple_100">#ece0fd</color>
+    <color name="purple_100_transparent">#BEE7DDF6</color>
     <color name="purple_50">#20DB9AFF</color>
     <color name="purple_tint_50">#D35C4B6C</color>
 

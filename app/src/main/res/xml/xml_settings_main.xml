@@ -40,12 +40,6 @@
             app:title="@string/settings_title_backup_backup"
             app:icon="@drawable/ic_backup" />
 
-        <Preference
-            app:key="@string/settings_key_backup_restore"
-            app:summary="@string/settings_summary_backup_restore"
-            app:title="@string/settings_title_backup_restore"
-            app:icon="@drawable/ic_restore" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

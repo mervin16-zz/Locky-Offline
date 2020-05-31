@@ -5,6 +5,7 @@ import android.content.Intent.ACTION_SENDTO
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings.ACTION_SECURITY_SETTINGS
+import android.provider.Settings.ACTION_SETTINGS
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.preference.ListPreference
@@ -44,9 +45,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         /* Preference settings for backup */
         backupPreference()
-
-        /* Preference settings for restore */
-        restorePreference()
 
         /* Preference settings for feedback */
         feedbackPreference()
@@ -100,14 +98,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun backupPreference() {
         findPreference<Preference>(getString(R.string.settings_key_backup_backup))?.setOnPreferenceClickListener {
-            toast(getString(R.string.dev_feature_implementation_unknown, "Backup"))
-            true
-        }
-    }
-
-    private fun restorePreference() {
-        findPreference<Preference>(getString(R.string.settings_key_backup_restore))?.setOnPreferenceClickListener {
-            toast(getString(R.string.dev_feature_implementation_unknown, "Restore"))
+            backupDialog()
             true
         }
     }
@@ -183,4 +174,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun backupDialog() =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_alert_backup))
+            .setMessage(getString(R.string.text_title_alert_backup_message))
+            .setNegativeButton(R.string.button_action_backup_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.button_action_backup_proceed) { _, _ ->
+                startActivity(Intent(ACTION_SETTINGS))
+            }
+            .show()
 }

@@ -7,7 +7,6 @@
     <item android:drawable="@color/colorOnSurface" />
 
     <item
-        android:drawable="@drawable/ic_locky_with_background_square"
+        android:drawable="@drawable/ic_locky_with_background_circle"
         android:gravity="center" />
-
 </layer-list>

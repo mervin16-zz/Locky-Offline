@@ -6,7 +6,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp">
+        android:layout_margin="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_locky_with_background_square" />
+                app:srcCompat="@drawable/ic_locky_with_background_circle" />
 
             <TextView
                 style="@style/Locky.Text.Body"

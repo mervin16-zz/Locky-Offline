@@ -71,16 +71,21 @@ class AboutFragment : Fragment() {
 
             AboutItem.Item.OTHER_LICENSES -> licensesRedirection()
 
+            AboutItem.Item.OTHER_POLICY -> policyRedirection()
+
             else -> return
         }
     }
 
     private fun ratingRedirection() {
-        TODO("Need to implement")
     }
 
     private fun donationRedirection() {
         findNavController().navigate(AboutFragmentDirections.actionFragmentAboutToFragmentLibraries())
+    }
+
+    private fun policyRedirection() {
+        findNavController().navigate(AboutFragmentDirections.actionFragmentAboutToFragmentPrivacy())
     }
 
     private fun licensesRedirection() {

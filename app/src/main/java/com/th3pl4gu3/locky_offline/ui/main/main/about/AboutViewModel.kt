@@ -55,6 +55,14 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
         )
         add(
             AboutItem(
+                getApplication<Application>().getString(R.string.text_title_about_other_terms),
+                getApplication<Application>().getString(R.string.text_title_about_other_terms),
+                getApplication<Application>().getDrawable(R.drawable.ic_policy)!!,
+                AboutItem.Item.OTHER_POLICY
+            )
+        )
+        add(
+            AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_other_version),
                 BuildConfig.VERSION_NAME,
                 getApplication<Application>().getDrawable(R.drawable.ic_version)!!,

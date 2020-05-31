@@ -71,5 +71,5 @@ data class AboutItem(
     var icon: Drawable,
     var item: Item
 ) {
-    enum class Item { DEV_RATE_US, DEV_DONATE, DEV_REPORT_BUG, DEV_SHARE, OTHER_VERSION, OTHER_LICENSES }
+    enum class Item { DEV_RATE_US, DEV_DONATE, DEV_REPORT_BUG, DEV_SHARE, OTHER_VERSION, OTHER_LICENSES, OTHER_POLICY }
 }
