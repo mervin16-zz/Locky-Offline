@@ -45,6 +45,9 @@ class CardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* Hides the soft keyboard */
+        hideSoftInput()
+
         //Observe snack bar event for any trigger
         observeSnackBarEvent()
 
@@ -159,12 +162,12 @@ class CardFragment : Fragment() {
     private fun navigateToSortSheet() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
-            findNavController().navigate(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
+            navigateTo(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
         }
     }
 
     private fun navigateToSelectedCard(card: Card) {
-        findNavController().navigate(
+        navigateTo(
             CardFragmentDirections.actionFragmentCardToFragmentViewCard(
                 card
             )
@@ -206,6 +209,8 @@ class CardFragment : Fragment() {
         toast(getString(R.string.message_copy_successful))
         return true
     }
+
+    private fun hideSoftInput() = requireActivity().hideSoftKeyboard(binding.root)
 
     private fun toast(message: String) = requireContext().toast(message)
 }

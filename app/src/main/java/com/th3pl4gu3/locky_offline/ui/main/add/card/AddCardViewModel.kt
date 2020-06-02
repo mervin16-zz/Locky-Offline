@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.exceptions.FormException
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
@@ -143,21 +142,17 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         viewModelScope.launch {
             _card.apply {
                 val validation = Validation()
-                try {
-                    validation.validateCardForm(this)
+                if (validation.isCardFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
 
                     insertCardInDatabase(this)
+
                     _formValidity.value = entryName
-                } catch (ex: FormException) {
+
+                } else {
                     assignErrorMessages(validation.errorList)
-                } catch (ex: Exception) {
-                    _toastEvent.value = getApplication<Application>().getString(
-                        R.string.error_internal_code_3,
-                        ex.message
-                    )
                 }
             }
 
@@ -217,17 +212,27 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         }
     }
 
-    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
+    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, Validation.ErrorType>) {
         _nameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NAME)) errorList[Validation.ErrorField.NAME] else null
+            if (errorList.containsKey(Validation.ErrorField.NAME)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
         _numberErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NUMBER)) errorList[Validation.ErrorField.NUMBER] else null
+            if (errorList.containsKey(Validation.ErrorField.NUMBER)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
         _pinErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.PIN)) errorList[Validation.ErrorField.PIN] else null
+            if (errorList.containsKey(Validation.ErrorField.PIN)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
         _bankErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.BANK)) errorList[Validation.ErrorField.BANK] else null
+            if (errorList.containsKey(Validation.ErrorField.BANK)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
         _cardHolderErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.CARD_HOLDER)) errorList[Validation.ErrorField.CARD_HOLDER] else null
+            if (errorList.containsKey(Validation.ErrorField.CARD_HOLDER)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
     }
 
     private fun getUser(): User {

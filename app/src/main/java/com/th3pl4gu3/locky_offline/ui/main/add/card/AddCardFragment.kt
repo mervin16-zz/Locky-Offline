@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 
@@ -124,7 +124,7 @@ class AddCardFragment : Fragment() {
 
     private fun showToastAndNavigateToCardList(toastMessage: String) {
         toast(getString(R.string.message_credentials_created, toastMessage))
-        findNavController().navigate(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
+        navigateTo(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
     }
 
     private fun showIssuedDatePickerDialog() {

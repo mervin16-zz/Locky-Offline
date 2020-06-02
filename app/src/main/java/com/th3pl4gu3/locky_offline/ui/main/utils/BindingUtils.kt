@@ -11,9 +11,6 @@ import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
 import java.util.*
 
-
-//TODO: Need to test all functions properly in BindingUtils.kt
-
 /********************************* Card Binding Adapters****************************************/
 @BindingAdapter("cardNumber")
 fun TextView.setCardNumber(number: String) {
@@ -40,14 +37,22 @@ fun ImageView.setCardLogo(number: String) {
 /********************************* Account Binding Adapters****************************************/
 @BindingAdapter("accountLogin")
 fun TextView.accountLogin(account: Account) {
-    return if (account.username.isNotEmpty() && !(account.username.toLowerCase(Locale.ROOT) == "n/a" || account.username.toLowerCase(
+
+    if (account.username.isEmpty() && account.email.isEmpty()) {
+        text = resources.getString(R.string.field_account_blank_login)
+        return
+    }
+
+    if (account.username.isNotEmpty() &&
+        !(account.username.toLowerCase(Locale.ROOT) == resources.getString(R.string.field_placeholder_na) || account.username.toLowerCase(
             Locale.ROOT
-        ) == "none")
+        ) == resources.getString(R.string.field_placeholder_empty))
     ) {
         text = resources.getString(R.string.app_user_username, account.username)
-    } else {
-        text = resources.getString(R.string.app_user_email, account.email)
+        return
     }
+
+    text = resources.getString(R.string.app_user_email, account.email)
 }
 
 

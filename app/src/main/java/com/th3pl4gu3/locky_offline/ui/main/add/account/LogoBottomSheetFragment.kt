@@ -14,8 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAccountLogoBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
+import com.th3pl4gu3.locky_offline.ui.main.utils.isOnline
+import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 
 class LogoBottomSheetFragment : BottomSheetDialogFragment() {
@@ -89,7 +92,12 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
             TextfieldSearch.clearFocus()
             (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(TextfieldSearch.windowToken, 0)
-            viewModel?.getWebsiteLogoProperties(TextfieldSearch.text.toString())
+
+            if (requireActivity().isOnline()) {
+                viewModel?.getWebsiteLogoProperties(TextfieldSearch.text.toString())
+            } else {
+                toast(getString(R.string.message_internet_connection_unavailable))
+            }
         }
     }
 
@@ -115,4 +123,6 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         )
         dismiss()
     }
+
+    private fun toast(message: String) = requireContext().toast(message)
 }

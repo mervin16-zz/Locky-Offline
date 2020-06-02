@@ -51,6 +51,9 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* Hides the soft keyboard */
+        hideSoftInput()
+
         /* Observe snack bar events */
         observeSnackBarEvent()
 
@@ -189,12 +192,12 @@ class AccountFragment : Fragment() {
     private fun navigateToSort() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
-            findNavController().navigate(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
+            navigateTo(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
         }
     }
 
     private fun navigateToSelectedAccount(account: Account) {
-        findNavController().navigate(
+        navigateTo(
             AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
                 account
             )
@@ -218,6 +221,8 @@ class AccountFragment : Fragment() {
         toast(getString(R.string.message_copy_successful))
         return true
     }
+
+    private fun hideSoftInput() = requireActivity().hideSoftKeyboard(binding.root)
 
     private fun toast(message: String) = requireContext().toast(message)
 }

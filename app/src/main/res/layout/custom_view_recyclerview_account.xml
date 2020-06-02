@@ -30,9 +30,9 @@
 
         <ImageView
             android:id="@+id/Account_Logo"
+            errorResource="@{@drawable/ic_account_placeholder}"
             imageUrl="@{Account.logoUrl}"
             loadingResource="@{@drawable/ic_image_loading}"
-            errorResource="@{@drawable/ic_account_placeholder}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
@@ -89,7 +89,7 @@
             android:ellipsize="end"
             android:ems="15"
             android:singleLine="true"
-            android:text="@{Account.website}"
+            android:text="@{Account.website.isEmpty() ? @string/field_account_blank_website : Account.website}"
             android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"

@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.exceptions.FormException
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
@@ -28,8 +27,6 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     private var _toastEvent = MutableLiveData<String>()
     private val _formValidity = MutableLiveData<String>()
     private val _nameErrorMessage = MutableLiveData<String>()
-    private val _usernameErrorMessage = MutableLiveData<String>()
-    private val _emailErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
 
     /**
@@ -71,7 +68,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             notifyPropertyChanged(BR.password)
         }
 
-    var website: String?
+    var website: String
         @Bindable get() {
             return _account.website
         }
@@ -125,12 +122,6 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
 
-    val usernameErrorMessage: LiveData<String>
-        get() = _usernameErrorMessage
-
-    val emailErrorMessage: LiveData<String>
-        get() = _emailErrorMessage
-
     val passwordErrorMessage: LiveData<String>
         get() = _passwordErrorMessage
 
@@ -143,23 +134,19 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     fun save() {
         viewModelScope.launch {
             _account.apply {
-                val validation = Validation()
-                try {
-                    validation.validateAccountForm(this)
 
+                val validation = Validation()
+                if (validation.isAccountFormValid(this)) {
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
 
                     insertAccountInDatabase(this)
+
                     _formValidity.value = accountName
-                } catch (ex: FormException) {
+                } else {
                     assignErrorMessages(validation.errorList)
-                } catch (ex: Exception) {
-                    _toastEvent.value = getApplication<Application>().getString(
-                        R.string.error_internal_code_2,
-                        ex.message
-                    )
                 }
+
             }
         }
     }
@@ -199,15 +186,15 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         }
     }
 
-    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
+    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, Validation.ErrorType>) {
         _nameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NAME)) errorList[Validation.ErrorField.NAME] else null
-        _usernameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.USERNAME)) errorList[Validation.ErrorField.USERNAME] else null
-        _emailErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
+            if (errorList.containsKey(Validation.ErrorField.NAME)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
         _passwordErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
+            if (errorList.containsKey(Validation.ErrorField.PASSWORD)) getApplication<Application>().getString(
+                R.string.error_field_validation_blank
+            ) else null
     }
 
     private fun getUser(): User {

@@ -1,15 +1,21 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
-import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
@@ -22,20 +28,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDI
 import java.text.SimpleDateFormat
 import java.util.*
 
-//TODO: Need to test all functions properly in ExtensionUtils.kt
-
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, text, duration).show()
-
-fun Window.activateLightStatusBar(view: View) {
-    var flags: Int = view.systemUiVisibility
-    flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    view.systemUiVisibility = flags
-    this.statusBarColor = Color.WHITE
-}
-
-fun Window.activateDarkStatusBar() {
-    this.statusBarColor = context.getColor(R.color.colorPrimary)
-}
 
 fun String.getCardType(): Card.CardType {
 
@@ -122,14 +115,6 @@ fun String.toFormattedCalendarForCard(): Calendar {
     return cal
 }
 
-fun String.toFormattedCalendarDefault(): Calendar {
-    val sd = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
-    val date = sd.parse(this)
-    val cal = Calendar.getInstance()
-    cal.time = date!!
-    return cal
-}
-
 fun <T> Context.openActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
     val intent = Intent(this, it)
     intent.putExtras(Bundle().apply(extras))
@@ -137,3 +122,30 @@ fun <T> Context.openActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
 }
 
 fun generateUniqueID(): String = UUID.randomUUID().toString()
+
+fun Activity.isOnline(): Boolean {
+    val connectivityManager =
+        this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val nw = connectivityManager.activeNetwork ?: return false
+    val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
+    return when {
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        //for other device how are able to connect with Ethernet
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+        else -> false
+    }
+}
+
+fun Activity.navigateTo(destination: Int) {
+    this.findNavController(R.id.Navigation_Host).navigate(destination)
+}
+
+fun Fragment.navigateTo(directions: NavDirections) {
+    this.findNavController().navigate(directions)
+}
+
+fun Activity.hideSoftKeyboard(rootView: View) {
+    (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .hideSoftInputFromWindow(rootView.windowToken, 0)
+}

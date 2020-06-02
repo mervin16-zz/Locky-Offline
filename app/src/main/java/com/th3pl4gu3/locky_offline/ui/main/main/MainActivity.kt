@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 
 class MainActivity : AppCompatActivity() {
 
@@ -239,12 +240,11 @@ class MainActivity : AppCompatActivity() {
         R.id.Fragment_Search, null, getFadeNavOptions()
     )
 
-    private fun navigateToAddCategorySheet() = findNavController(R.id.Navigation_Host).navigate(
-        R.id.BottomSheet_Fragment_Add_Category,
-        null
-    )
+    private fun navigateToAddCategorySheet() = navigateTo(R.id.BottomSheet_Fragment_Add_Category)
 
-    private fun navigateToSplashScreen() =
-        findNavController(R.id.Navigation_Host).navigate(R.id.Activity_Splash)
+    private fun navigateToSplashScreen() {
+        navigateTo(R.id.Activity_Splash)
+        finish()
+    }
 
 }

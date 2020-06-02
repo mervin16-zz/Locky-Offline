@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAboutBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 
 class AboutFragment : Fragment() {
 
@@ -81,11 +81,11 @@ class AboutFragment : Fragment() {
     }
 
     private fun donationRedirection() {
-        findNavController().navigate(AboutFragmentDirections.actionFragmentAboutToFragmentLibraries())
+        navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentLibraries())
     }
 
     private fun policyRedirection() {
-        findNavController().navigate(AboutFragmentDirections.actionFragmentAboutToFragmentPrivacy())
+        navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentPrivacy())
     }
 
     private fun licensesRedirection() {

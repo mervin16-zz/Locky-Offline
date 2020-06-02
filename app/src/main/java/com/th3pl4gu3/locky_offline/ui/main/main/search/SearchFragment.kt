@@ -7,7 +7,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
@@ -164,7 +163,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun navigateToSelectedAccount(account: Account) {
-        findNavController().navigate(
+        navigateTo(
             SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
                 account
             )
@@ -172,7 +171,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun navigateToSelectedCard(card: Card) {
-        findNavController().navigate(
+        navigateTo(
             SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(
                 card
             )

@@ -116,7 +116,7 @@ class ViewAccountFragment : Fragment() {
     }
 
     private fun navigateToEditScreen(account: Account) {
-        findNavController().navigate(
+        navigateTo(
             ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
                 .setPARCELCREDACCOUNT(account)
         )

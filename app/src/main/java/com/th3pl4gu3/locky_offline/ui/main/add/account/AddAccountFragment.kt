@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 class AddAccountFragment : Fragment() {
@@ -87,14 +88,6 @@ class AddAccountFragment : Fragment() {
                 binding.AccountName.error = it
             })
 
-            usernameErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.AccountUsername.error = it
-            })
-
-            emailErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.AccountEmail.error = it
-            })
-
             passwordErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.AccountPassword.error = it
             })
@@ -128,11 +121,11 @@ class AddAccountFragment : Fragment() {
 
     private fun showToastAndNavigateToAccountList(toastMessage: String) {
         toast(getString(R.string.message_credentials_created, toastMessage))
-        findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
+        navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
     }
 
     private fun navigateToLogoSearch() {
-        findNavController().navigate(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
+        navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
     }
 
     private fun toast(message: String) = requireContext().toast(message)

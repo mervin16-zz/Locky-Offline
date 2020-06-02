@@ -2,6 +2,7 @@ package com.th3pl4gu3.locky_offline.ui.main.utils
 
 import com.th3pl4gu3.locky_offline.core.main.Card
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
@@ -16,8 +17,22 @@ internal class ExtensionUtilsTest {
         "485098635623,4850 9863 5623",
         " 485098635623 ,4850 9863 5623"
     )
-    fun creditCardFormatConversion(number: String, expectedResult: String?) {
+    fun creditCardFormatConversion_NormalValues(number: String, expectedResult: String?) {
         //Arrange
+        val result: String?
+
+        //Act
+        result = number.toCreditCardFormat()
+
+        //Assert
+        assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun creditCardFormatConversion_Empty() {
+        //Arrange
+        val number = ""
+        val expectedResult = ""
         val result: String?
 
         //Act
@@ -254,9 +269,6 @@ internal class ExtensionUtilsTest {
             "6011256325632147",
             "6221266325632147",
             "6229256325632147",
-            "6240006325632147",
-            "6269996325632147",
-            "6282006325632147",
             "6448993325632147",
             "6495256325632147",
             "6595256325632147"
@@ -323,5 +335,65 @@ internal class ExtensionUtilsTest {
 
         //Assert
         assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun calendarToString_MonthAndYear() {
+        //Arrange
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, 4)
+        calendar.set(Calendar.YEAR, 2023)
+        val expectedResult = "05/23"
+        val result: String?
+
+        //Act
+        result = calendar.toFormattedStringForCard()
+
+        //Assert
+        assertEquals(expectedResult, result)
+    }
+
+    @Test
+    fun calendarToString_Default() {
+        //Arrange
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.DAY_OF_MONTH, 20)
+        calendar.set(Calendar.MONTH, 4)
+        calendar.set(Calendar.YEAR, 2023)
+        val expectedResult = "20/05/2023"
+        val result: String?
+
+        //Act
+        result = calendar.toFormattedStringDefault()
+
+        //Assert
+        assertEquals(expectedResult, result)
+    }
+
+
+    @Test
+    fun uniqueIDGeneration() {
+        //Arrange
+        var id: String = generateUniqueID()
+        var counter = 0
+        val flag = 1000000
+        var result = true
+
+        //Act
+
+        while (counter != flag) {
+            val local = generateUniqueID()
+
+            if (local == id) {
+                result = false
+                counter = flag
+            } else {
+                id = local
+                counter += 1
+            }
+        }
+
+        //Assert
+        assertTrue(result)
     }
 }

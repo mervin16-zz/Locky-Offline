@@ -90,7 +90,7 @@ class ViewCardFragment : Fragment() {
     }
 
     private fun navigateToEditScreen(card: Card) {
-        findNavController().navigate(
+        navigateTo(
             ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
                 .setPARCELCREDCARD(card)
         )
