@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.about
 
+import android.app.SearchManager
 import android.content.Intent
 import android.content.Intent.ACTION_SENDTO
 import android.net.Uri
@@ -85,7 +86,10 @@ class AboutFragment : Fragment() {
     }
 
     private fun policyRedirection() {
-        navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentPrivacy())
+        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+            putExtra(SearchManager.QUERY, getString(R.string.app_url_privacy_policy))
+        }
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
     }
 
     private fun licensesRedirection() {
@@ -111,15 +115,15 @@ class AboutFragment : Fragment() {
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_support_email_subject_bug))
         }
 
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showEmailDialog()
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("email")
     }
 
     private fun isIntentSafeToStart(intent: Intent) =
         intent.resolveActivity(requireActivity().packageManager) != null
 
-    private fun showEmailDialog() =
+    private fun showDialog(app: String) =
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.text_title_alert_intent_none, "email"))
+            .setTitle(getString(R.string.text_title_alert_intent_none, app))
             .setMessage(getString(R.string.text_message_alert_intent_none, "an email"))
             .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
                 dialog.dismiss()

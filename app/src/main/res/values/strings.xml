@@ -19,33 +19,7 @@
     <string name="app_user_username">👤 "%1$s"</string>
     <string name="app_user_email">📧 "%1$s"</string>
 
-
-    <string name="app_terms_title_privacy">Privacy</string>
-    <string name="app_terms_title_user_data">User data</string>
-    <string name="app_terms_title_disclaimer">Disclaimer</string>
-    <string name="app_terms_title_copyright">Copyright</string>
-    <string name="app_terms_title_legal">Legal</string>
-
-    <string name="app_terms_message_privacy">This software does not collect, use or share any personal information of you or your stored data.</string>
-    <string name="app_terms_message_user_data">
-            User data is stored in the user\'s own device or in user\'s personal Google Drive account configured on the phone.
-            The software does not share, send or transfer the user data to anyone else.
-    </string>
-    <string name="app_terms_message_disclaimer">
-            The user acknowledges that the software may not be free from defects and may not satisfy all needs.
-            Installation and usage of the software is at users own risk. The user is responsible for any possible data loss.
-            In no event will the application owner be held liable for any damages arising from the use of or inability to the use the software.
-    </string>
-    <string name="app_terms_message_copyright">
-        This software is owned by Mervin Hemaraju. You are not allowed to modify, translate or decompile the software or even attempt to
-        derive source code or create derivative works.
-    </string>
-    <string name="app_terms_message_legal">
-        All product names, logos and brands are property of their respective owners. All company, product and service names used in this application
-        are for identification purposes only. Use of these names, logos and brands does not imply endorsement.
-    </string>
-
-    <string name="app_terms_copyright">\u00A9 2020 by Mervin Hemaraju. All rights reserved</string>
+    <string name="app_url_privacy_policy">"https://sites.google.com/view/locky/"</string>
 
     <!-- ==================== -->
     <!-- Titles & Subtitles  -->

@@ -64,9 +64,6 @@
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right" />
-        <action
-            android:id="@+id/action_Fragment_About_to_Fragment_Privacy"
-            app:destination="@id/Fragment_Privacy" />
     </fragment>
 
     <fragment
@@ -221,11 +218,5 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.DonateFragment"
         android:label="Donate"
         tools:layout="@layout/fragment_donate" />
-
-    <fragment
-        android:id="@+id/Fragment_Privacy"
-        android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.privacy.PrivacyFragment"
-        android:label="Privacy"
-        tools:layout="@layout/fragment_privacy" />
 
 </navigation>
