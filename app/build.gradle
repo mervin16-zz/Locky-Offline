@@ -21,8 +21,8 @@ android {
         applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 2
-        versionName "1.0-alpha01"
+        versionCode 3
+        versionName "1.0-alpha02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -76,6 +76,8 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$version_room"
     implementation "com.google.android.gms:play-services-auth:$version_gms_services"
     implementation "androidx.biometric:biometric:$version_biometric"
+    implementation "com.android.billingclient:billing:$version_play_billing"
+    implementation "com.android.billingclient:billing-ktx:$version_play_billing"
 
     /** Other Libraries **/
     implementation "com.github.bumptech.glide:glide:$version_glide"

@@ -1,17 +1,17 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.about.donate
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.android.billingclient.api.SkuDetails
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewDonationBinding
 
 
 class DonationItemAdapter(
     private val itemClickListener: DonationClickListener
-) : ListAdapter<Donation, DonationItemAdapter.ViewHolder>(
+) : ListAdapter<SkuDetails, DonationItemAdapter.ViewHolder>(
     DonationDiffCallback()
 ) {
 
@@ -29,9 +29,9 @@ class DonationItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             clickListener: DonationClickListener,
-            donation: Donation
+            skuDetails: SkuDetails
         ) {
-            binding.donation = donation
+            binding.skuDetails = skuDetails
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -49,24 +49,18 @@ class DonationItemAdapter(
     }
 }
 
-class DonationDiffCallback : DiffUtil.ItemCallback<Donation>() {
+class DonationDiffCallback : DiffUtil.ItemCallback<SkuDetails>() {
 
-    override fun areItemsTheSame(oldItem: Donation, newItem: Donation): Boolean {
-        return oldItem.title == newItem.title
+    override fun areItemsTheSame(oldItem: SkuDetails, newItem: SkuDetails): Boolean {
+        return oldItem.sku == newItem.sku
     }
 
-    override fun areContentsTheSame(oldItem: Donation, newItem: Donation): Boolean {
+    override fun areContentsTheSame(oldItem: SkuDetails, newItem: SkuDetails): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class DonationClickListener(val clickListener: (donation: Donation) -> Unit) {
-    fun onClick(donation: Donation) = clickListener(donation)
+class DonationClickListener(val clickListener: (skuDetails: SkuDetails) -> Unit) {
+    fun onClick(skuDetails: SkuDetails) = clickListener(skuDetails)
 }
-
-data class Donation(
-    var title: String,
-    var price: String,
-    var icon: Drawable
-)

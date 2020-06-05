@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="Donation"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.Donation" />
+            name="SkuDetails"
+            type="com.android.billingclient.api.SkuDetails" />
 
         <variable
             name="ClickListener"
@@ -21,7 +21,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="12dp"
-        android:onClick="@{() -> ClickListener.onClick(Donation)}">
+        android:onClick="@{() -> ClickListener.onClick(SkuDetails)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{Donation.price}"
+                android:text="@{SkuDetails.sku}"
                 app:layout_constraintBottom_toTopOf="@id/Icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,9 @@
 
             <ImageView
                 android:id="@+id/Icon"
-                loadIcon="@{Donation.icon}"
+                errorResource="@{@drawable/ic_account_placeholder}"
+                imageUrl="@{SkuDetails.iconUrl}"
+                loadingResource="@{@drawable/ic_image_loading}"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:tint="@color/colorIconSurface"
@@ -60,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{Donation.title}"
+                android:text="@{SkuDetails.title}"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

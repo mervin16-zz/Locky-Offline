@@ -21,6 +21,7 @@ buildscript {
     ext.version_gms_services = "18.0.0"
     ext.version_biometric = "1.0.1"
     ext.version_amitshekar_debug = "1.0.6"
+    ext.version_play_billing = "2.2.1"
     //Testing
     ext.version_junit = '5.6.2'
     ext.version_junit_ext = "1.1.1"

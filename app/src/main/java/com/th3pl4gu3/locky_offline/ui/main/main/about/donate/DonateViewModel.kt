@@ -2,65 +2,50 @@ package com.th3pl4gu3.locky_offline.ui.main.main.about.donate
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.th3pl4gu3.locky_offline.R
 
 class DonateViewModel(application: Application) : AndroidViewModel(application) {
-    internal fun getDonations() = ArrayList<Donation>().apply {
+    /*internal fun getDonations() = ArrayList<Donation>().apply {
         add(
             Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
+                "Cookie",
+                "\$1.00",
+                getApplication<Application>().getDrawable(R.drawable.ic_cookie)!!
             )
         )
         add(
             Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
+                "Milkshake",
+                "\$2.00",
+                getApplication<Application>().getDrawable(R.drawable.ic_soda)!!
             )
         )
         add(
             Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
+                "Sandwich",
+                "\$4.00",
+                getApplication<Application>().getDrawable(R.drawable.ic_sandwich)!!
             )
         )
         add(
             Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
+                "Burger",
+                "\$5.00",
+                getApplication<Application>().getDrawable(R.drawable.ic_burger)!!
             )
         )
         add(
             Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
+                "Gift",
+                "\$7.00",
+                getApplication<Application>().getDrawable(R.drawable.ic_gift)!!
             )
         )
         add(
             Donation(
-                "Cookies",
+                "Star",
                 "\$10.00",
                 getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
             )
         )
-        add(
-            Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
-            )
-        )
-        add(
-            Donation(
-                "Cookies",
-                "\$10.00",
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!
-            )
-        )
-    }
+    }*/
 }
