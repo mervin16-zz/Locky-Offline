@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
@@ -69,12 +68,7 @@ fun TextView.memberSince(dateJoined: String) {
 fun ImageView.imageUrl(imageUrl: String, loadingResource: Drawable, errorResource: Drawable) {
     imageUrl.let {
         val imgUri = it.toUri().buildUpon().scheme("https").build()
-        Glide.with(this.context)
-            .load(imgUri)
-            .circleCrop()
-            .placeholder(loadingResource)
-            .error(errorResource)
-            .into(this)
+        loadImageUrl(imgUri, loadingResource, errorResource)
     }
 }
 

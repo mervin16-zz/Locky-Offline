@@ -2,6 +2,7 @@ package com.th3pl4gu3.locky_offline.ui.main.add.card
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -18,6 +20,7 @@ class AddCardFragment : Fragment() {
 
     private var _binding: FragmentAddCardBinding? = null
     private var _viewModel: AddCardViewModel? = null
+    private var _unEditedCard: Card? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -34,8 +37,10 @@ class AddCardFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        //Fetch card if exists
-        viewModel.setCard(AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard)
+        val card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
+        _unEditedCard = card.copy()
+
+        viewModel.setCard(card)
 
         return binding.root
     }
@@ -65,6 +70,21 @@ class AddCardFragment : Fragment() {
 
         /* Observe if form has errors*/
         observeIfHasErrors()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            if (_unEditedCard != null) {
+                viewModel.resetChanges(_unEditedCard!!)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

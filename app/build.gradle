@@ -21,8 +21,8 @@ android {
         applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.0-alpha02"
+        versionCode 5
+        versionName "1.0-alpha04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }
@@ -87,6 +87,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
     implementation "com.google.code.gson:gson:$version_gson"
     implementation "com.airbnb.android:lottie:$version_lottie"
+    implementation "com.shobhitpuri.custombuttons:google-signin:$version_googlebutton"
 
     /** Junit Test Suite **/
     testImplementation "org.junit.jupiter:junit-jupiter:$version_junit"

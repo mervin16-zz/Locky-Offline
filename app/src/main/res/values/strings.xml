@@ -56,6 +56,12 @@
         settings can be automatically backup on your Google Drive.
     </string>
 
+    <string name="text_title_alert_biometric_enrolments">No biometric enrolments</string>
+    <string name="text_title_alert_biometric_enrolments_message">
+        You no longer have biometric enrolments configured which was available upon activating the biometric
+        authentication in Locky. Please re-configure your biometrics to be able to access Locky.
+    </string>
+
     <string name="text_title_alert_biometric_authentication">Unlock to proceed</string>
     <string name="text_title_alert_biometric_authentication_message">
         Please authenticate yourself with your biometric or screen lock credentials to access Locky
@@ -211,6 +217,7 @@
     <string name="button_action_backup_proceed">Open Backup</string>
     <string name="button_action_backup_cancel">I\'ll do it later</string>
     <string name="button_action_email_sign_in">email sign in</string>
+    <string name="button_action_google_sign_in">Sign in with Google</string>
     <string name="button_action_get_started">get started</string>
 
     <string name="button_action_category_add_account">Account</string>

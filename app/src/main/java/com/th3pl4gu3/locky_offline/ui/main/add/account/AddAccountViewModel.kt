@@ -79,13 +79,13 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             notifyPropertyChanged(BR.website)
         }
 
-    var twoFa: String?
+    var authType: String?
         @Bindable get() {
             return _account.authenticationType
         }
         set(value) {
             _account.authenticationType = value
-            notifyPropertyChanged(BR.twoFa)
+            notifyPropertyChanged(BR.authType)
         }
 
     var twoFaKeys: String?
@@ -157,6 +157,18 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
             }
         }
+    }
+
+    internal fun resetChanges(unEditedAccount: Account) {
+        accountName = unEditedAccount.accountName
+        username = unEditedAccount.username
+        email = unEditedAccount.email
+        password = unEditedAccount.password
+        logoUrl = unEditedAccount.logoUrl
+        website = unEditedAccount.website
+        accountMoreInfo = unEditedAccount.accountMoreInfo
+        authType = unEditedAccount.authenticationType
+        twoFaKeys = unEditedAccount.twoFASecretKeys
     }
 
     internal fun resetErrorsFlag() {

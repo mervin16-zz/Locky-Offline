@@ -2,8 +2,10 @@ package com.th3pl4gu3.locky_offline.ui.main.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -13,6 +15,7 @@ import androidx.navigation.ActivityNavigator
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.databinding.ActivitySplashBinding
@@ -207,8 +210,24 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun promptBiometric() {
+        if (!hasEnrollments()) {
+
+            /*
+             * This means that a user that previously has enrolled
+             * biometrics, no longer have them
+             * we hence cannot let the user proceed until
+             * new enrolments are configured.
+             * We then show a dialog to the user explaining the situation
+            */
+
+            biometricEnrolmentDialog()
+
+            return
+        }
+
         _executor = ContextCompat.getMainExecutor(this)
-        _biometricPrompt = BiometricPrompt(this, _executor,
+        _biometricPrompt = BiometricPrompt(
+            this, _executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
@@ -240,6 +259,7 @@ class SplashActivity : AppCompatActivity() {
             .setTitle(getString(R.string.text_title_alert_biometric_authentication))
             .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
             .setDeviceCredentialAllowed(true)
+            .setConfirmationRequired(false)
             .build()
 
 
@@ -247,9 +267,25 @@ class SplashActivity : AppCompatActivity() {
         _biometricPrompt.authenticate(_promptInfo)
     }
 
+    private fun hasEnrollments() = (BiometricManager.from(this)
+        .canAuthenticate()) != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+
     private fun navigateToMainScreen() {
         /* Navigate to main screen */
         openActivity(MainActivity::class.java)
         finish()
     }
+
+    private fun biometricEnrolmentDialog() =
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.text_title_alert_biometric_enrolments))
+            .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+                finish()
+            }
+            .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
+                startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
+            }
+            .show()
 }

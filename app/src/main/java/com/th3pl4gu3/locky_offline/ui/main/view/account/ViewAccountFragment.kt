@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.view.account
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -37,6 +38,11 @@ class ViewAccountFragment : Fragment() {
         //Fetch the account clicked on the previous screen
         _account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
 
+        Log.i(
+            "OBJECT_RETAIN_BUG",
+            "View_Account onCreateView() accountName: ${_account.accountName}"
+        )
+
         with(_account) {
 
             //Bind the account to the layout for displaying
@@ -58,6 +64,10 @@ class ViewAccountFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.i(
+            "OBJECT_RETAIN_BUG",
+            "View_account onDestroyView() accountName: ${_account.accountName}"
+        )
         _binding = null
     }
 

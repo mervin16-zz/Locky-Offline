@@ -162,6 +162,17 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         }
     }
 
+    internal fun resetChanges(unEditedCard: Card) {
+        entryName = unEditedCard.entryName
+        cardNumber = unEditedCard.number
+        pin = unEditedCard.pin
+        bank = unEditedCard.bank
+        cardHolderName = unEditedCard.cardHolderName
+        issuedDate = unEditedCard.issuedDate
+        expiryDate = unEditedCard.expiryDate
+        moreInfo = unEditedCard.cardMoreInfo
+    }
+
     internal fun doneWithToastEvent() {
         _toastEvent.value = null
     }
@@ -186,7 +197,6 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         cal.timeInMillis = timeInMillis
         issuedDate = cal.toFormattedStringForCard()
     }
-
 
     internal fun updateExpiryDateText(timeInMillis: Long) {
         val cal = Calendar.getInstance()

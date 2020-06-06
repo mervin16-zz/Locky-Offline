@@ -23,7 +23,8 @@
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_Fragment_Card_to_BottomSheet_Fragment_Card_Filter"
             app:destination="@id/BottomSheet_Fragment_Card_Filter" />
@@ -134,8 +135,8 @@
         <action
             android:id="@+id/action_Fragment_Add_Card_to_Fragment_Card"
             app:destination="@id/Fragment_Card"
-            app:popUpTo="@id/navigation_drawer_main"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/Fragment_Card"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -158,8 +159,8 @@
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right"
-            app:popUpTo="@id/navigation_drawer_main"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/Fragment_Account"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog

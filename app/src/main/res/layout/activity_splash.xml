@@ -80,14 +80,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:visibility="visible" />
 
-            <com.google.android.gms.common.SignInButton
+            <com.shobhitpuri.custombuttons.GoogleSignInButton
                 android:id="@+id/Button_Google"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="32dp"
-                android:textAlignment="center"
+                android:text="@string/button_action_google_sign_in"
                 android:visibility="@{ViewModel.buttonVisibility==2 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
