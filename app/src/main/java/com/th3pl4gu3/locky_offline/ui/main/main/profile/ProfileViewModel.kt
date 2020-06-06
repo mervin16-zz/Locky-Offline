@@ -8,7 +8,7 @@ import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {

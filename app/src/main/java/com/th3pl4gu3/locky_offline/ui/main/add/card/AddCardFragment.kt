@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -62,6 +62,9 @@ class AddCardFragment : Fragment() {
          * Observe toast event
          */
         observeToastEvent()
+
+        /* Observe if form has errors*/
+        observeIfHasErrors()
     }
 
     override fun onDestroyView() {
@@ -114,6 +117,15 @@ class AddCardFragment : Fragment() {
         }
     }
 
+    private fun observeIfHasErrors() {
+        viewModel.hasErrors.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                scrollToTop()
+                viewModel.resetErrorsFlag()
+            }
+        })
+    }
+
     private fun observeFormValidityEvent() {
         viewModel.formValidity.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -123,7 +135,7 @@ class AddCardFragment : Fragment() {
     }
 
     private fun showToastAndNavigateToCardList(toastMessage: String) {
-        toast(getString(R.string.message_credentials_created, toastMessage))
+        toast(toastMessage)
         navigateTo(AddCardFragmentDirections.actionFragmentAddCardToFragmentCard())
     }
 
@@ -150,6 +162,13 @@ class AddCardFragment : Fragment() {
 
         picker.show(requireActivity().supportFragmentManager, picker.toString())
     }
+
+    private fun scrollToTop() {
+        getParentScrollView().fling(0)
+        getParentScrollView().smoothScrollTo(0, 0)
+    }
+
+    private fun getParentScrollView() = binding.root.parent.parent as NestedScrollView
 
     private fun toast(message: String) = requireContext().toast(message)
 }

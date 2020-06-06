@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.core.main.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetCardTuningBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 
 class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
@@ -29,6 +30,13 @@ class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
             sort = LocalStorageManager.get<CardSort>(KEY_CARDS_SORT) ?: _sort
             return root
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //This forces the sheet to appear at max height even on landscape
+        BottomSheetBehavior.from(requireView().parent as View).state =
+            BottomSheetBehavior.STATE_EXPANDED
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

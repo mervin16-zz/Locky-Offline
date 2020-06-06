@@ -15,7 +15,7 @@ import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 
 class CardFragment : Fragment() {
 

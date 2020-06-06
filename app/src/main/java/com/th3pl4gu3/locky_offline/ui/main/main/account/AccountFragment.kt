@@ -15,7 +15,7 @@ import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 
 
 class AccountFragment : Fragment() {

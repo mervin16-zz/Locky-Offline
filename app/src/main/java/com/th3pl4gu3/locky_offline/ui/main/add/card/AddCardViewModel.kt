@@ -27,6 +27,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
      **/
     private var _toastEvent = MutableLiveData<String>()
     private val _formValidity = MutableLiveData<String>()
+    private val _hasErrors = MutableLiveData(false)
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _numberErrorMessage = MutableLiveData<String>()
     private val _pinErrorMessage = MutableLiveData<String>()
@@ -116,6 +117,9 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     val formValidity: LiveData<String>
         get() = _formValidity
 
+    val hasErrors: LiveData<Boolean>
+        get() = _hasErrors
+
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
 
@@ -147,11 +151,10 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
 
-                    insertCardInDatabase(this)
-
-                    _formValidity.value = entryName
+                    _formValidity.value = insertCardInDatabase(this)
 
                 } else {
+                    _hasErrors.value = true
                     assignErrorMessages(validation.errorList)
                 }
             }
@@ -161,6 +164,10 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     internal fun doneWithToastEvent() {
         _toastEvent.value = null
+    }
+
+    internal fun resetErrorsFlag() {
+        _hasErrors.value = false
     }
 
     internal fun setCard(card: Card?) {
@@ -187,7 +194,10 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         expiryDate = cal.toFormattedStringForCard()
     }
 
-    private suspend fun insertCardInDatabase(card: Card) {
+    private suspend fun insertCardInDatabase(card: Card): String {
+
+        var message = ""
+
         withContext(Dispatchers.IO) {
             /*
             * Firs we try to fetch card to see if it is already present
@@ -196,8 +206,22 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
             */
             val repository = CardRepository.getInstance(getApplication())
             val fetchedCard = repository.get(card.cardID)
-            if (fetchedCard == null) saveCardToDatabase(card) else updateCardInDatabase(card)
+            if (fetchedCard == null) {
+                message = getApplication<Application>().getString(
+                    R.string.message_credentials_modified,
+                    card.entryName
+                )
+                saveCardToDatabase(card)
+            } else {
+                message = getApplication<Application>().getString(
+                    R.string.message_credentials_modified,
+                    card.entryName
+                )
+                updateCardInDatabase(card)
+            }
         }
+
+        return message
     }
 
     private suspend fun updateCardInDatabase(card: Card) {

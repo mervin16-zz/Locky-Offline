@@ -1,8 +1,10 @@
 package com.th3pl4gu3.locky_offline.core.main
 
+import android.util.Patterns
+
 class Validation {
-    enum class ErrorField { NAME, PASSWORD, NUMBER, PIN, BANK, CARD_HOLDER, }
-    enum class ErrorType { BLANK_FIELD }
+    enum class ErrorField { NAME, PASSWORD, EMAIL, NUMBER, PIN, BANK, CARD_HOLDER, }
+    enum class ErrorType { BLANK_FIELD, EMAIL_FORMAT }
 
     var errorList = HashMap<ErrorField, ErrorType>()
         private set
@@ -16,6 +18,9 @@ class Validation {
             emptyValueCheck(
                 password,
                 ErrorField.PASSWORD
+            )
+            validateEmail(
+                email
             )
         }
 
@@ -51,5 +56,12 @@ class Validation {
 
     private fun emptyValueCheck(data: String, field: ErrorField) {
         if (data.isEmpty()) errorList[field] = ErrorType.BLANK_FIELD
+    }
+
+    private fun validateEmail(email: String) {
+        if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email)
+                .matches()
+        ) errorList[ErrorField.EMAIL] =
+            ErrorType.EMAIL_FORMAT
     }
 }

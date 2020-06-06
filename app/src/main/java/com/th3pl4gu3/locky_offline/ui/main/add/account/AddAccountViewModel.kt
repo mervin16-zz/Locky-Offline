@@ -26,8 +26,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     private lateinit var _account: Account
     private var _toastEvent = MutableLiveData<String>()
     private val _formValidity = MutableLiveData<String>()
+    private val _hasErrors = MutableLiveData(false)
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
+    private val _emailErrorMessage = MutableLiveData<String>()
 
     /**
      * Bindable two-way binding
@@ -104,12 +106,12 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             notifyPropertyChanged(BR.accountMoreInfo)
         }
 
-    var logoUrl: String
+    var logoUrl: String?
         @Bindable get() {
             return _account.logoUrl
         }
         set(value) {
-            _account.logoUrl = value
+            _account.logoUrl = value ?: ""
             notifyPropertyChanged(BR.logoUrl)
         }
 
@@ -119,11 +121,17 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     val formValidity: LiveData<String>
         get() = _formValidity
 
+    val hasErrors: LiveData<Boolean>
+        get() = _hasErrors
+
     val nameErrorMessage: LiveData<String>
         get() = _nameErrorMessage
 
     val passwordErrorMessage: LiveData<String>
         get() = _passwordErrorMessage
+
+    val emailErrorMessage: LiveData<String>
+        get() = _emailErrorMessage
 
     val toastEvent: LiveData<String>
         get() = _toastEvent
@@ -140,15 +148,19 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
 
-                    insertAccountInDatabase(this)
+                    _formValidity.value = insertAccountInDatabase(this)
 
-                    _formValidity.value = accountName
                 } else {
+                    _hasErrors.value = true
                     assignErrorMessages(validation.errorList)
                 }
 
             }
         }
+    }
+
+    internal fun resetErrorsFlag() {
+        _hasErrors.value = false
     }
 
     internal fun setAccount(account: Account?) {
@@ -159,7 +171,9 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         _toastEvent.value = null
     }
 
-    private suspend fun insertAccountInDatabase(account: Account) {
+    private suspend fun insertAccountInDatabase(account: Account): String {
+        var message = ""
+
         withContext(Dispatchers.IO) {
             /*
             * Firs we try to fetch account to see if it is already present
@@ -168,10 +182,22 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             */
             val repository = AccountRepository.getInstance(getApplication())
             val fetchedAccount = repository.get(account.accountID)
-            if (fetchedAccount == null) saveAccountToDatabase(account) else updateAccountInDatabase(
-                account
-            )
+            if (fetchedAccount == null) {
+                message = getApplication<Application>().getString(
+                    R.string.message_credentials_created,
+                    account.accountName
+                )
+                saveAccountToDatabase(account)
+            } else {
+                message = getApplication<Application>().getString(
+                    R.string.message_credentials_modified,
+                    account.accountName
+                )
+                updateAccountInDatabase(account)
+            }
         }
+
+        return message
     }
 
     private suspend fun updateAccountInDatabase(account: Account) {
@@ -194,6 +220,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         _passwordErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) getApplication<Application>().getString(
                 R.string.error_field_validation_blank
+            ) else null
+        _emailErrorMessage.value =
+            if (errorList.containsKey(Validation.ErrorField.EMAIL)) getApplication<Application>().getString(
+                R.string.error_field_validation_email_format
             ) else null
     }
 

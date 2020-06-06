@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="com.th3pl4gu3.locky_offline.ui.main.utils.Constants" />
+
         <variable
             name="ViewModel"
             type="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountViewModel" />
@@ -37,8 +39,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_account_placeholder" />
 
+
         <ImageButton
-            android:id="@+id/Account_Log_Edit"
+            android:id="@+id/Account_Logo_Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:onClick="@{() -> ViewModel.setLogoUrl(Constants.VALUE_EMPTY)}"
+            app:layout_constraintBottom_toTopOf="@id/Account_Logo_Edit"
+            app:layout_constraintStart_toStartOf="@id/Account_Logo_Edit"
+            app:srcCompat="@drawable/ic_reset" />
+
+        <ImageButton
+            android:id="@+id/Account_Logo_Edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -52,21 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Logo,Account_Log_Edit" />
-
-        <!--
-        **************** Require Label ****************
-        -->
-        <TextView
-            android:id="@+id/Label_Required"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_required"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo" />
-
+            app:constraint_referenced_ids="Account_Logo,Account_Logo_Reset,Account_Logo_Edit" />
 
         <!--
         **************** Require Text Fields ****************
@@ -76,12 +76,13 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/field_account_name"
             app:endIconMode="clear_text"
+            app:helperText="@string/label_required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Required"
+            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo"
             app:startIconDrawable="@drawable/ic_profile">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +141,7 @@
             android:layout_marginTop="10dp"
             android:hint="@string/field_account_password"
             app:endIconMode="password_toggle"
+            app:helperText="@string/label_required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Account_Email"
@@ -177,20 +179,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Username,Account_Email,Label_Required,Account_Name,Account_Password,Account_Website"
+            app:constraint_referenced_ids="Account_Username,Account_Email,Account_Name,Account_Password,Account_Website"
             tools:layout_editor_absoluteX="16dp" />
 
         <!--
         **************** Optional Label ****************
         -->
         <TextView
-            android:id="@+id/Label_Optional"
+            android:id="@+id/Label_Other"
             style="@style/Locky.Text.Subtitle.Smaller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/label_optional"
-            app:layout_constraintStart_toStartOf="@+id/Label_Required"
+            android:text="@string/label_others"
             app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
 
         <!--
@@ -206,7 +207,7 @@
             app:helperText="@string/field_helper_account_authentication_type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
+            app:layout_constraintTop_toBottomOf="@+id/Label_Other">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -264,7 +265,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Comments,Account_Auth,Account_2FA_Keys,Label_Optional"
+            app:constraint_referenced_ids="Account_Comments,Account_Auth,Account_2FA_Keys,Label_Other"
             tools:layout_editor_absoluteX="16dp" />
 
         <!--

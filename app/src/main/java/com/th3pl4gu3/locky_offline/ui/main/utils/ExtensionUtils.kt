@@ -19,12 +19,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_AMEX
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_DINNERSCLUB
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_DISCOVER
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_JCB
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_MASTERCARD
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.REGEX_CREDIT_CARD_VISA
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_AMEX
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DINNERSCLUB
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DISCOVER
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_JCB
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_MASTERCARD
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_VISA
 import java.text.SimpleDateFormat
 import java.util.*
 

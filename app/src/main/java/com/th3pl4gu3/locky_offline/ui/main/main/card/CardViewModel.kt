@@ -8,7 +8,7 @@ import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.LoadingStatus
 import com.th3pl4gu3.locky_offline.repository.database.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_CARDS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.getCardType
 import java.util.*

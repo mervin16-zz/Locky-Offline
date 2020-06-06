@@ -7,8 +7,8 @@ import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.LoadingStatus
 import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_USER_ACCOUNT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import java.util.*
 
@@ -73,7 +73,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
 
     private val sortedByWebsite = Transformations.map(_currentAccountsExposed) {
         it.sortedBy { account ->
-            account.website?.toLowerCase(
+            account.website.toLowerCase(
                 Locale.ROOT
             )
         }

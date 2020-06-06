@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.Companion.KEY_ACCOUNT_LOGO
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
@@ -59,6 +59,9 @@ class AddAccountFragment : Fragment() {
 
         //Observe back stack entry for logo result
         observeBackStackEntryForLogoResult()
+
+        //Observe if form has errors
+        observeIfHasErrors()
     }
 
     override fun onDestroyView() {
@@ -82,6 +85,15 @@ class AddAccountFragment : Fragment() {
         })
     }
 
+    private fun observeIfHasErrors() {
+        viewModel.hasErrors.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                scrollToTop()
+                viewModel.resetErrorsFlag()
+            }
+        })
+    }
+
     private fun observeFormErrorMessageEvents() {
         with(viewModel) {
             nameErrorMessage.observe(viewLifecycleOwner, Observer {
@@ -90,6 +102,10 @@ class AddAccountFragment : Fragment() {
 
             passwordErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.AccountPassword.error = it
+            })
+
+            emailErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.AccountEmail.error = it
             })
         }
     }
@@ -114,13 +130,20 @@ class AddAccountFragment : Fragment() {
     }
 
     private fun listenerLogoClick() {
-        binding.AccountLogEdit.setOnClickListener {
+        binding.AccountLogoEdit.setOnClickListener {
             navigateToLogoSearch()
         }
     }
 
+    private fun scrollToTop() {
+        getParentScrollView().fling(0)
+        getParentScrollView().smoothScrollTo(0, 0)
+    }
+
+    private fun getParentScrollView() = binding.root.parent.parent as NestedScrollView
+
     private fun showToastAndNavigateToAccountList(toastMessage: String) {
-        toast(getString(R.string.message_credentials_created, toastMessage))
+        toast(toastMessage)
         navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
     }
 

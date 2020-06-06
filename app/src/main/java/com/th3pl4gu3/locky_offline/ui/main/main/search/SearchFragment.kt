@@ -62,7 +62,9 @@ class SearchFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_searchview, menu)
 
-        (menu.findItem(R.id.Menu_Search).actionView as SearchView).apply {
+        val searchView = menu.findItem(R.id.Menu_Search).actionView as SearchView
+
+        (searchView).apply {
 
             isIconified = false
             isFocusable = true
@@ -74,6 +76,7 @@ class SearchFragment : Fragment() {
                 }
 
                 override fun onQueryTextSubmit(query: String): Boolean {
+                    searchView.clearFocus()
                     return true
                 }
             })

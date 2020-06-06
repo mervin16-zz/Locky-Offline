@@ -49,6 +49,13 @@ class ViewAccountFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /* Hides the soft keyboard */
+        hideSoftInput()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -147,4 +154,6 @@ class ViewAccountFragment : Fragment() {
             .show()
 
     private fun toast(message: String) = requireContext().toast(message)
+
+    private fun hideSoftInput() = requireActivity().hideSoftKeyboard(binding.root)
 }
