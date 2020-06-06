@@ -125,13 +125,13 @@ class MainActivity : AppCompatActivity() {
     private fun navigationDestinationChangeListener_ToolbarTitle(navController: NavController) {
         navController.addOnDestinationChangedListener { _, nd, _ ->
             when (nd.id) {
-                R.id.Fragment_Account -> updateToolbar("Accounts")
-                R.id.Fragment_Card -> updateToolbar("Cards")
-                R.id.Fragment_Device -> updateToolbar("Devices")
-                R.id.Fragment_Settings -> updateToolbar("Settings")
-                R.id.Fragment_Profile -> updateToolbar("Profile")
-                R.id.Fragment_About -> updateToolbar("About")
-                R.id.Fragment_Donate -> updateToolbar("Donation")
+                R.id.Fragment_Account -> updateToolbar(getString(R.string.text_title_screen_accounts))
+                R.id.Fragment_Card -> updateToolbar(getString(R.string.text_title_screen_cards))
+                R.id.Fragment_Device -> updateToolbar(getString(R.string.text_title_screen_devices))
+                R.id.Fragment_Settings -> updateToolbar(getString(R.string.text_title_screen_settings))
+                R.id.Fragment_Profile -> updateToolbar(getString(R.string.text_title_screen_profile))
+                R.id.Fragment_About -> updateToolbar(getString(R.string.text_title_screen_about))
+                R.id.Fragment_Donate -> updateToolbar(getString(R.string.text_title_screen_donate))
                 else -> {
                     //Show the toolbar
                     updateToolbar(null)
