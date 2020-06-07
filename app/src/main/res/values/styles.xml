@@ -300,7 +300,7 @@
     <style name="Locky.Text.Caption" parent="TextAppearance.MaterialComponents.Caption" />
 
     <style name="Locky.Text.Subtitle.Smaller">
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Locky.Text.Title6.Splash">

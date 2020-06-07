@@ -1,18 +1,20 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.about.donate
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.android.billingclient.api.*
-import com.android.billingclient.api.BillingClient.SkuType.INAPP
+import com.android.billingclient.api.SkuDetails
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentDonateBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.action
+import com.th3pl4gu3.locky_offline.ui.main.utils.snackbar
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
-class DonateFragment : Fragment(), PurchasesUpdatedListener {
+class DonateFragment : Fragment() {
 
     private var _binding: FragmentDonateBinding? = null
     private var _viewModel: DonateViewModel? = null
@@ -20,17 +22,8 @@ class DonateFragment : Fragment(), PurchasesUpdatedListener {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
-    private lateinit var _billingClient: BillingClient
-    private lateinit var _skuList: List<SkuDetails>
-
     companion object {
         const val TAG = "DONATE_FRAGMENT_TEST"
-        private val _skus = listOf(
-            "android.test.purchased",
-            "android.test.purchased",
-            "android.test.canceled",
-            "android.test.item_unavailable"
-        )
     }
 
     override fun onCreateView(
@@ -40,14 +33,25 @@ class DonateFragment : Fragment(), PurchasesUpdatedListener {
     ): View? {
         _binding = FragmentDonateBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(DonateViewModel::class.java)
-
+        // Bind viewModel
+        binding.viewModel = viewModel
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
-        /* Setup billing client */
-        setupBillingClient()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /* Observe donations event */
+        observeDonations()
+
+        /* Observe error messages returned by billing repo */
+        observeErrorMessage()
+
+        /* Observe response codes returned by billing repo */
+        observeResponseCodeMessage()
     }
 
     override fun onDestroyView() {
@@ -55,10 +59,10 @@ class DonateFragment : Fragment(), PurchasesUpdatedListener {
         _binding = null
     }
 
-    private fun loadDonations(list: List<SkuDetails>) {
+    private fun loadProductsToRecyclerView(skuList: List<SkuDetails>) {
         val donationAdapter = DonationItemAdapter(
             DonationClickListener {
-                launchBillingFlow(it)
+                viewModel.launchBillingFlow(requireActivity(), it)
             })
 
         binding.RecyclerViewDonation.apply {
@@ -66,99 +70,37 @@ class DonateFragment : Fragment(), PurchasesUpdatedListener {
             setHasFixedSize(true)
         }
 
-        donationAdapter.submitList(list)
-
-    }
-
-    override fun onPurchasesUpdated(
-        billingResult: BillingResult?,
-        purchases: MutableList<Purchase>?
-    ) {
-        if (billingResult?.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (purchase in purchases) {
-                Log.i(TAG, "Purchase updated: ${purchase.sku} Price: ${purchase.purchaseToken}")
-            }
-        } else if (billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-            Log.i(TAG, "Purchase cancelled.")
-        } else {
-            when (billingResult?.responseCode) {
-                BillingClient.BillingResponseCode.BILLING_UNAVAILABLE -> Log.i(
-                    TAG,
-                    "Billing currently unavailable"
-                )
-                BillingClient.BillingResponseCode.SERVICE_DISCONNECTED -> Log.i(
-                    TAG,
-                    "Billing service has been disconnected."
-                )
-                BillingClient.BillingResponseCode.SERVICE_TIMEOUT -> Log.i(
-                    TAG,
-                    "Billing service timeout."
-                )
-                else -> {
-                }
-            }
-        }
-    }
-
-
-    private fun setupBillingClient() {
-        _billingClient = BillingClient
-            .newBuilder(requireContext())
-            .enablePendingPurchases()
-            .setListener(this)
-            .build()
-
-        _billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingServiceDisconnected() {
-                Log.i(TAG, "You've been disconnected.")
-            }
-
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.i(TAG, "Success to connect.")
-
-                    /* Load in-app products */
-                    loadProducts()
-
-                } else {
-                    Log.i(TAG, "Error: ${billingResult.responseCode}")
-                }
-            }
-
+        donationAdapter.submitList(skuList.sortedBy {
+            it.price
         })
     }
 
+    private fun observeDonations() {
+        viewModel.donations.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                loadProductsToRecyclerView(it)
+            }
+        })
+    }
 
-    private fun loadProducts() {
-        if (_billingClient.isReady) {
-            val params = SkuDetailsParams
-                .newBuilder()
-                .setSkusList(_skus)
-                .setType(INAPP)
-                .build()
-
-            _billingClient.querySkuDetailsAsync(params) { billingResult, list ->
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    loadProductsToRecyclerView(list)
-                } else {
-                    Log.i(TAG, "Error querying products")
+    private fun observeErrorMessage() {
+        viewModel.errorOccurred.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                binding.LayoutParent.snackbar(it) {
+                    action(getString(R.string.button_action_retry)) {
+                        viewModel.retryConnectingToBilling()
+                    }
                 }
             }
-        } else {
-            Log.i(TAG, "Billing client is not ready")
-        }
+        })
     }
 
-    private fun launchBillingFlow(skuDetails: SkuDetails) {
-        val params = BillingFlowParams.newBuilder()
-            .setSkuDetails(skuDetails)
-            .build()
-
-        _billingClient.launchBillingFlow(requireActivity(), params)
-    }
-
-    private fun loadProductsToRecyclerView(skuList: List<SkuDetails>) {
-        loadDonations(skuList)
+    private fun observeResponseCodeMessage() {
+        viewModel.responseCode.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                toast(it)
+            }
+        })
     }
 
     private fun toast(message: String) = requireContext().toast(message)

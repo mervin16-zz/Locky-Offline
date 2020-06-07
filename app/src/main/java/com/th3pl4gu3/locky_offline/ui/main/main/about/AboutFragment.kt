@@ -79,10 +79,18 @@ class AboutFragment : Fragment() {
     }
 
     private fun ratingRedirection() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(
+                getString(R.string.app_play_link, requireContext().applicationContext.packageName)
+            )
+            setPackage(getString(R.string.app_play_package))
+        }
+        startActivity(intent)
     }
 
+
     private fun donationRedirection() {
-        navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentLibraries())
+        navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentDonate())
     }
 
     private fun policyRedirection() {
@@ -99,7 +107,10 @@ class AboutFragment : Fragment() {
     private fun shareRedirection() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Download Locky")
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.app_play_share, requireContext().applicationContext.packageName)
+            )
             type = "text/plain"
         }
         startActivity(Intent.createChooser(sendIntent, null))

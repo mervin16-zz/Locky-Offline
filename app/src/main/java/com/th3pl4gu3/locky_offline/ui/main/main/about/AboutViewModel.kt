@@ -17,15 +17,14 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
                 AboutItem.Item.DEV_RATE_US
             )
         )
-        /* Disabling Donate due to Billing Issues. Will implement in upcoming build */
-        /*add(
+        add(
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_donate),
                 getApplication<Application>().getString(R.string.text_description_about_dev_donate),
                 getApplication<Application>().getDrawable(R.drawable.ic_donate)!!,
                 AboutItem.Item.DEV_DONATE
             )
-        )*/
+        )
         add(
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_bug),

@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{SkuDetails.sku}"
+                android:text="@{SkuDetails.title}"
                 app:layout_constraintBottom_toTopOf="@id/Icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,9 +43,7 @@
 
             <ImageView
                 android:id="@+id/Icon"
-                errorResource="@{@drawable/ic_account_placeholder}"
-                imageUrl="@{SkuDetails.iconUrl}"
-                loadingResource="@{@drawable/ic_image_loading}"
+                loadDonationIcon="@{SkuDetails.sku}"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:tint="@color/colorIconSurface"
@@ -62,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{SkuDetails.title}"
+                android:text="@{String.valueOf(SkuDetails.price)}"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

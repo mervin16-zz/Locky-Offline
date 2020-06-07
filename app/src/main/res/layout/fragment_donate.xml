@@ -3,7 +3,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.DonateViewModel" />
+    </data>
+
     <LinearLayout
+        android:id="@+id/Layout_Parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -14,15 +24,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
-            android:text="Buy me a:" />
+            android:text="@string/text_subtitle_about_buymea" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerView_Donation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:visibility="@{ViewModel.isDonationVisible? View.VISIBLE : View.GONE}"
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+        <!--
+            Progress Bar
+        -->
+        <include
+            android:id="@+id/Progress_Bar"
+            layout="@layout/custom_view_list_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{ViewModel.isDonationVisible? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 

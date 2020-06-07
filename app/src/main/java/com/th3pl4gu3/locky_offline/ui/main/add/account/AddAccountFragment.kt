@@ -40,7 +40,7 @@ class AddAccountFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val account = AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
-        _unEditedAccount = account.copy()
+        _unEditedAccount = account?.copy()
         //Fetch account if exists
         viewModel.setAccount(account)
 

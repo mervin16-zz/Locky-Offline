@@ -11,6 +11,13 @@
     </string>
     <string name="app_developer_signature" translatable="false">Developed with \u2764\uFE0F in 🇲🇺</string>
 
+    <string name="app_play_link" translatable="false">https://play.google.com/store/apps/details?id="%1$s"</string>
+    <string name="app_play_package" translatable="false">com.android.vending</string>
+
+    <string name="app_play_share" translatable="false">
+        Hey, check out this nice password manager as: ttps://play.google.com/store/apps/details?id="%1$s"
+    </string>
+
     <string name="app_support_email_team" translatable="false">locky.application@gmail.com</string>
     <string name="app_support_email_subject_feedback" translatable="false">Support :: Locky :: Feedback</string>
     <string name="app_support_email_subject_bug" translatable="false">Support :: Locky :: Bug Report</string>
@@ -102,6 +109,9 @@
 
     <string name="text_subtitle_search_accounts" translatable="false">Accounts ("%1$s")</string>
     <string name="text_subtitle_search_cards" translatable="false">Cards ("%1$s")</string>
+
+
+    <string name="text_subtitle_about_buymea" translatable="false">Buy me a:</string>
 
 
     <!-- ==================== -->
@@ -202,16 +212,29 @@
     <string name="message_user_account_status_inactive" translatable="false">This account has been disabled. Please create another account</string>
     <string name="message_settings_biometric_enabled" translatable="false">Biometric authentication has been enabled</string>
 
+    <string name="message_about_donations_cancelled" translatable="false">Purchase cancelled.</string>
+    <string name="message_about_donations_unavailable" translatable="false">This item is unavailable</string>
+    <string name="message_about_donations_billing_unavailable" translatable="false">Billing is unavailable. Please try again</string>
+    <string name="message_about_donations_billing_disconnected" translatable="false">
+        Billing service has been disconnected
+    </string>
+
+
     <!-- =============== -->
     <!-- Error Messages -->
     <!-- =============== -->
     <string name="error_field_validation_blank" translatable="false">This field cannot be empty</string>
     <string name="error_field_validation_email_format" translatable="false">Please enter a valid email</string>
 
-    <string name="error_internal_code_1" translatable="false">An error occurred. Code 1: "%1$s"</string>
-
     <string name="error_biometric_authentication_failed" translatable="false">Biometric authentication failed</string>
     <string name="error_biometric_authentication_error" translatable="false">Biometric authentication error: "%1$s"</string>
+
+    <string name="error_about_donations_querying_products" translatable="false">
+        Error while querying the donations
+    </string>
+
+    <string name="error_internal_code_1" translatable="false">An internal error occurred. Code 1: "%1$s"</string>
+    <string name="error_internal_code_2" translatable="false">An internal error occurred. Error Code 2</string>
 
     <!-- =============== -->
     <!-- Button Actions -->
@@ -222,6 +245,7 @@
     <string name="button_action_delete" translatable="false">Delete</string>
     <string name="button_action_logout" translatable="false">Logout</string>
     <string name="button_action_okay" translatable="false">OK</string>
+    <string name="button_action_retry" translatable="false">RETRY</string>
     <string name="button_action_backup_proceed" translatable="false">Open Backup</string>
     <string name="button_action_backup_cancel" translatable="false">I\'ll do it later</string>
     <string name="button_action_email_sign_in" translatable="false">email sign in</string>

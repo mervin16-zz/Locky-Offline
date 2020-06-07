@@ -21,8 +21,8 @@ android {
         applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 5
-        versionName "1.0-alpha04"
+        versionCode 6
+        versionName "1.0-alpha05"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
     }

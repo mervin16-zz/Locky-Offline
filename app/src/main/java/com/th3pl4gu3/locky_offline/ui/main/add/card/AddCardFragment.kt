@@ -38,7 +38,7 @@ class AddCardFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
-        _unEditedCard = card.copy()
+        _unEditedCard = card?.copy()
 
         viewModel.setCard(card)
 
