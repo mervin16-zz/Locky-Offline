@@ -213,11 +213,15 @@
     <string name="message_settings_biometric_enabled" translatable="false">Biometric authentication has been enabled</string>
 
     <string name="message_about_donations_cancelled" translatable="false">Purchase cancelled.</string>
+    <string name="message_about_donations_item_owned" translatable="false">You\'ve already donated this item</string>
     <string name="message_about_donations_unavailable" translatable="false">This item is unavailable</string>
     <string name="message_about_donations_billing_unavailable" translatable="false">Billing is unavailable. Please try again</string>
+    <string name="message_about_donations_billing_pending" translatable="false">Payment pending</string>
+    <string name="message_about_donations_billing_declined" translatable="false">Payment declined.</string>
     <string name="message_about_donations_billing_disconnected" translatable="false">
         Billing service has been disconnected
     </string>
+    <string name="message_about_donations_billing_completed" translatable="false">Thank you for contributing</string>
 
 
     <!-- =============== -->

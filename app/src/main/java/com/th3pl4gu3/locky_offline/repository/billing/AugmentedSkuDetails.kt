@@ -6,8 +6,8 @@ import com.android.billingclient.api.SkuDetails
 
 @Entity(tableName = "augmented_skuDetails")
 data class AugmentedSkuDetails(
-    val isAvailable: Boolean, /* Not in SkuDetails; it's the augmentation */
     @PrimaryKey val sku: String,
+    var purchased: Boolean, /* Not in SkuDetails; it's the augmentation */
     val type: String?,
     val price: String?,
     val title: String?,
@@ -16,9 +16,9 @@ data class AugmentedSkuDetails(
 ) {
 
     companion object {
-        fun translate(isAvailable: Boolean, skuDetails: SkuDetails) = AugmentedSkuDetails(
-            isAvailable,
+        fun translate(purchased: Boolean, skuDetails: SkuDetails) = AugmentedSkuDetails(
             skuDetails.sku,
+            purchased,
             skuDetails.type,
             skuDetails.price,
             skuDetails.title,
@@ -27,4 +27,5 @@ data class AugmentedSkuDetails(
         )
     }
 
+    internal fun getSkuDetails() = SkuDetails(this.originalJson)
 }

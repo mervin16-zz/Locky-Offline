@@ -10,7 +10,7 @@ object TestUtil {
         for (number in 1..size) {
             add(
                 AugmentedSkuDetails(
-                    isAvailable = true,
+                    purchased = true,
                     sku = "cookie$number",
                     type = "COOKIE$number",
                     price = "$$number.00",
@@ -24,7 +24,7 @@ object TestUtil {
 
     fun getAugmentedSkuDetails(number: Int) =
         AugmentedSkuDetails(
-            isAvailable = true,
+            purchased = true,
             sku = "cookie$number",
             type = "COOKIE$number",
             price = "$$number.00",

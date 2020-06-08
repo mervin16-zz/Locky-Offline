@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.billingclient.api.SkuDetails
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewDonationBinding
+import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 
 
 class DonationItemAdapter(
     private val itemClickListener: DonationClickListener
-) : ListAdapter<SkuDetails, DonationItemAdapter.ViewHolder>(
+) : ListAdapter<AugmentedSkuDetails, DonationItemAdapter.ViewHolder>(
     DonationDiffCallback()
 ) {
 
@@ -29,7 +29,7 @@ class DonationItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             clickListener: DonationClickListener,
-            skuDetails: SkuDetails
+            skuDetails: AugmentedSkuDetails
         ) {
             binding.skuDetails = skuDetails
             binding.clickListener = clickListener
@@ -49,18 +49,24 @@ class DonationItemAdapter(
     }
 }
 
-class DonationDiffCallback : DiffUtil.ItemCallback<SkuDetails>() {
+class DonationDiffCallback : DiffUtil.ItemCallback<AugmentedSkuDetails>() {
 
-    override fun areItemsTheSame(oldItem: SkuDetails, newItem: SkuDetails): Boolean {
+    override fun areItemsTheSame(
+        oldItem: AugmentedSkuDetails,
+        newItem: AugmentedSkuDetails
+    ): Boolean {
         return oldItem.sku == newItem.sku
     }
 
-    override fun areContentsTheSame(oldItem: SkuDetails, newItem: SkuDetails): Boolean {
+    override fun areContentsTheSame(
+        oldItem: AugmentedSkuDetails,
+        newItem: AugmentedSkuDetails
+    ): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class DonationClickListener(val clickListener: (skuDetails: SkuDetails) -> Unit) {
-    fun onClick(skuDetails: SkuDetails) = clickListener(skuDetails)
+class DonationClickListener(val clickListener: (skuDetails: AugmentedSkuDetails) -> Unit) {
+    fun onClick(skuDetails: AugmentedSkuDetails) = clickListener(skuDetails)
 }

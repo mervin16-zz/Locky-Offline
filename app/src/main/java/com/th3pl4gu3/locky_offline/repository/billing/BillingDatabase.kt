@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.th3pl4gu3.locky_offline.core.main.*
 
 @Database(
-    entities = [Cookie::class, Sandwich::class, Milkshake::class, Burger::class, Gift::class, Star::class, AugmentedSkuDetails::class],
+    entities = [AugmentedSkuDetails::class],
     version = 1,
     exportSchema = false
 )

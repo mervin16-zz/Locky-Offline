@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.android.billingclient.api.SkuDetails
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentDonateBinding
+import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 import com.th3pl4gu3.locky_offline.ui.main.utils.action
 import com.th3pl4gu3.locky_offline.ui.main.utils.snackbar
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -47,6 +47,9 @@ class DonateFragment : Fragment() {
         /* Observe donations event */
         observeDonations()
 
+        /* Observe purchases */
+        observePurchases()
+
         /* Observe error messages returned by billing repo */
         observeErrorMessage()
 
@@ -59,7 +62,7 @@ class DonateFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadProductsToRecyclerView(skuList: List<SkuDetails>) {
+    private fun loadProductsToRecyclerView(skuList: List<AugmentedSkuDetails>) {
         val donationAdapter = DonationItemAdapter(
             DonationClickListener {
                 viewModel.launchBillingFlow(requireActivity(), it)
@@ -79,6 +82,14 @@ class DonateFragment : Fragment() {
         viewModel.donations.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 loadProductsToRecyclerView(it)
+            }
+        })
+    }
+
+    private fun observePurchases() {
+        viewModel.purchases.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                toast(it)
             }
         })
     }

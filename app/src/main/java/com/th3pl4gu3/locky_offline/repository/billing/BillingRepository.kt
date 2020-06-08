@@ -5,17 +5,17 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.*
+
 
 class BillingRepository constructor(private val application: Application) :
-    PurchasesUpdatedListener, BillingClientStateListener, PurchaseHistoryResponseListener {
+    PurchasesUpdatedListener, BillingClientStateListener {
 
-    private val database = BillingDatabase.getInstance(application)
-    private val donationDao = database.donationDao()
+    /*private val database = BillingDatabase.getInstance(application)
+    private val donationDao = database.donationDao()*/
     private lateinit var _billingClient: BillingClient
 
-    var skuDetails = MutableLiveData<List<SkuDetails>>()
-    var purchase = MutableLiveData<List<Purchase>>()
+    var skuDetails = MutableLiveData<List<AugmentedSkuDetails>>()
+    var isPurchaseCompleted = MutableLiveData<Boolean>()
     var errorOccurred = MutableLiveData<String>()
     var responseCode = MutableLiveData<Int>()
 
@@ -46,19 +46,13 @@ class BillingRepository constructor(private val application: Application) :
         purchases: MutableList<Purchase>?
     ) {
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            purchase.value = purchases
-        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED && purchases != null) {
-            purchase.value = purchases
+            for (purchase in purchases) {
+                isPurchaseCompleted.value =
+                    purchase.purchaseState == Purchase.PurchaseState.PURCHASED
+            }
         } else {
             responseCode.value = billingResult.responseCode
         }
-    }
-
-    override fun onPurchaseHistoryResponse(
-        billingResult: BillingResult?,
-        purchases: MutableList<PurchaseHistoryRecord>?
-    ) {
-        TODO("Not yet implemented")
     }
 
     override fun onBillingSetupFinished(billingResult: BillingResult?) {
@@ -72,11 +66,10 @@ class BillingRepository constructor(private val application: Application) :
     }
 
     override fun onBillingServiceDisconnected() {
-        errorOccurred.value =
-            application.getString(R.string.message_about_donations_billing_disconnected)
+        errorOccurred(application.getString(R.string.message_about_donations_billing_disconnected))
     }
 
-    fun connectBillingClient() {
+    internal fun connectBillingClient() {
         _billingClient = BillingClient
             .newBuilder(application.applicationContext)
             .enablePendingPurchases()
@@ -86,25 +79,13 @@ class BillingRepository constructor(private val application: Application) :
         _billingClient.startConnection(this)
     }
 
-    fun launchBillingFlow(activity: Activity, skuDetails: SkuDetails) {
+    internal fun launchBillingFlow(activity: Activity, augmentedSkuDetails: AugmentedSkuDetails) {
         val params = BillingFlowParams.newBuilder()
-            .setSkuDetails(skuDetails)
+            .setSkuDetails(augmentedSkuDetails.getSkuDetails())
             .build()
 
         _billingClient.launchBillingFlow(activity, params)
     }
-
-    suspend fun add(cookie: Cookie) = donationDao.insert(cookie)
-
-    suspend fun add(sandwich: Sandwich) = donationDao.insert(sandwich)
-
-    suspend fun add(milkshake: Milkshake) = donationDao.insert(milkshake)
-
-    suspend fun add(burger: Burger) = donationDao.insert(burger)
-
-    suspend fun add(gift: Gift) = donationDao.insert(gift)
-
-    suspend fun add(star: Star) = donationDao.insert(star)
 
     private fun loadProducts() {
         if (_billingClient.isReady) {
@@ -116,15 +97,31 @@ class BillingRepository constructor(private val application: Application) :
 
             _billingClient.querySkuDetailsAsync(params) { billingResult, list ->
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    skuDetails.value = list
+                    skuDetails.value = translateSkuDetailsToAugmented(list)
                 } else {
-                    errorOccurred.value =
-                        application.getString(R.string.error_about_donations_querying_products)
+                    errorOccurred(application.getString(R.string.error_about_donations_querying_products))
                 }
             }
         } else {
-            errorOccurred.value =
-                application.getString(R.string.message_about_donations_billing_disconnected)
+            errorOccurred(application.getString(R.string.message_about_donations_billing_disconnected))
         }
+    }
+
+    /* Converts Sku Details to Augmented Sku Details*/
+    private fun translateSkuDetailsToAugmented(list: List<SkuDetails>) =
+        ArrayList<AugmentedSkuDetails>().apply {
+            for (skuDetails in list) {
+                add(
+                    AugmentedSkuDetails.translate(
+                        false,
+                        skuDetails
+                    )
+                )
+            }
+        }
+
+    /* Other functions */
+    private fun errorOccurred(errorMessage: String) {
+        errorOccurred.value = errorMessage
     }
 }
