@@ -8,13 +8,14 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.*
 
 class BillingRepository constructor(private val application: Application) :
-    PurchasesUpdatedListener, BillingClientStateListener {
+    PurchasesUpdatedListener, BillingClientStateListener, PurchaseHistoryResponseListener {
 
     private val database = BillingDatabase.getInstance(application)
     private val donationDao = database.donationDao()
     private lateinit var _billingClient: BillingClient
 
     var skuDetails = MutableLiveData<List<SkuDetails>>()
+    var purchase = MutableLiveData<List<Purchase>>()
     var errorOccurred = MutableLiveData<String>()
     var responseCode = MutableLiveData<Int>()
 
@@ -45,31 +46,19 @@ class BillingRepository constructor(private val application: Application) :
         purchases: MutableList<Purchase>?
     ) {
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            handlePurchase(purchases)
+            purchase.value = purchases
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED && purchases != null) {
-            handlePurchase(purchases)
+            purchase.value = purchases
         } else {
             responseCode.value = billingResult.responseCode
         }
     }
 
-    private fun handlePurchase(purchases: MutableList<Purchase>) {
-        for (purchase in purchases) {
-            when (purchase.sku) {
-                COOKIE -> donationDao.insert(Cookie(true))
-                MILKSHAKE -> donationDao.insert(Milkshake(true))
-                SANDWICH -> donationDao.insert(Sandwich(true))
-                BURGER -> donationDao.insert(Burger(true))
-                GIFT -> donationDao.insert(Gift(true))
-                STAR -> donationDao.insert(Star(true))
-                else -> return
-            }
-        }
-    }
-
-    override fun onBillingServiceDisconnected() {
-        errorOccurred.value =
-            application.getString(R.string.message_about_donations_billing_disconnected)
+    override fun onPurchaseHistoryResponse(
+        billingResult: BillingResult?,
+        purchases: MutableList<PurchaseHistoryRecord>?
+    ) {
+        TODO("Not yet implemented")
     }
 
     override fun onBillingSetupFinished(billingResult: BillingResult?) {
@@ -80,6 +69,11 @@ class BillingRepository constructor(private val application: Application) :
             errorOccurred.value =
                 application.getString(R.string.error_about_donations_querying_products)
         }
+    }
+
+    override fun onBillingServiceDisconnected() {
+        errorOccurred.value =
+            application.getString(R.string.message_about_donations_billing_disconnected)
     }
 
     fun connectBillingClient() {
@@ -99,6 +93,18 @@ class BillingRepository constructor(private val application: Application) :
 
         _billingClient.launchBillingFlow(activity, params)
     }
+
+    suspend fun add(cookie: Cookie) = donationDao.insert(cookie)
+
+    suspend fun add(sandwich: Sandwich) = donationDao.insert(sandwich)
+
+    suspend fun add(milkshake: Milkshake) = donationDao.insert(milkshake)
+
+    suspend fun add(burger: Burger) = donationDao.insert(burger)
+
+    suspend fun add(gift: Gift) = donationDao.insert(gift)
+
+    suspend fun add(star: Star) = donationDao.insert(star)
 
     private fun loadProducts() {
         if (_billingClient.isReady) {

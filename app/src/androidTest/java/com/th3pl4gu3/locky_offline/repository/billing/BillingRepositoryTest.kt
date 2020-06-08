@@ -5,8 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.th3pl4gu3.locky_offline.core.main.Cookie
-import com.th3pl4gu3.locky_offline.core.main.Sandwich
+import com.th3pl4gu3.locky_offline.TestUtil
 import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.junit.runner.RunWith
@@ -36,6 +35,70 @@ internal class BillingRepositoryTest {
     }
 
     @Test
+    @Throws(Exception::class)
+    fun verifyAugmentedSku_WhenNoPreviousRecordsExist() = runBlocking {
+        //Arrange
+        val fakeSku = "cookie1"
+
+        //Act
+        val exists = donationDao.getAugmentedSkuDetails(fakeSku) != null
+
+        //Assert
+        Assert.assertFalse(exists)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun verifyAugmentedSku_WhenPreviousRecordsExist_RealSku() = runBlocking {
+        //Arrange
+        val augmentedSkuDetails1 = TestUtil.getAugmentedSkuDetails(1)
+        val augmentedSkuDetails2 = TestUtil.getAugmentedSkuDetails(2)
+        val augmentedSkuDetails3 = TestUtil.getAugmentedSkuDetails(3)
+
+        //Act
+        donationDao.insert(augmentedSkuDetails1)
+        donationDao.insert(augmentedSkuDetails2)
+        donationDao.insert(augmentedSkuDetails3)
+        val exists = donationDao.getAugmentedSkuDetails(augmentedSkuDetails2.sku) != null
+
+        //Assert
+        Assert.assertTrue(exists)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun verifyAugmentedSku_WhenPreviousRecordsExist_FakeSku() = runBlocking {
+        //Arrange
+        val fakeSku = "asdas"
+        val augmentedSkuDetails1 = TestUtil.getAugmentedSkuDetails(1)
+        val augmentedSkuDetails2 = TestUtil.getAugmentedSkuDetails(2)
+        val augmentedSkuDetails3 = TestUtil.getAugmentedSkuDetails(3)
+
+        //Act
+        donationDao.insert(augmentedSkuDetails1)
+        donationDao.insert(augmentedSkuDetails2)
+        donationDao.insert(augmentedSkuDetails3)
+        val exists = donationDao.getAugmentedSkuDetails(fakeSku) != null
+
+        //Assert
+        Assert.assertFalse(exists)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun insertAugmentedSku_WhenNoPreviousRecordsExist() = runBlocking {
+        //Arrange
+        val augmentedSkuDetails = TestUtil.getAugmentedSkuDetails(1)
+
+        //Act
+        donationDao.insert(augmentedSkuDetails)
+        val exists = donationDao.getAugmentedSkuDetails(augmentedSkuDetails.sku) != null
+
+        //Assert
+        Assert.assertTrue(exists)
+    }
+
+    /*@Test
     @Throws(Exception::class)
     fun getCookie_NoCookiePurchasedBefore() = runBlocking {
         //Arrange
@@ -100,5 +163,5 @@ internal class BillingRepositoryTest {
         Assert.assertTrue(hasPurchase!!)
         Assert.assertTrue(cookieExists)
         Assert.assertTrue(sandwichExists)
-    }
+    }*/
 }

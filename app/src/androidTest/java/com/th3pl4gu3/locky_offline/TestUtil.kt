@@ -1,10 +1,37 @@
-package com.th3pl4gu3.locky_offline.core
+package com.th3pl4gu3.locky_offline
 
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 
 object TestUtil {
+    fun createAugmentedSkuDetails(size: Int) = ArrayList<AugmentedSkuDetails>().apply {
+        for (number in 1..size) {
+            add(
+                AugmentedSkuDetails(
+                    isAvailable = true,
+                    sku = "cookie$number",
+                    type = "COOKIE$number",
+                    price = "$$number.00",
+                    title = "Cookie$number",
+                    description = "This is a cookie$number",
+                    originalJson = "{'title':'Cookie$number'}"
+                )
+            )
+        }
+    }
+
+    fun getAugmentedSkuDetails(number: Int) =
+        AugmentedSkuDetails(
+            isAvailable = true,
+            sku = "cookie$number",
+            type = "COOKIE$number",
+            price = "$$number.00",
+            title = "Cookie$number",
+            description = "This is a cookie$number",
+            originalJson = "{'title':'Cookie$number'}"
+        )
 
 
     fun getAccount(number: Int, user: String) = Account(

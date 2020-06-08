@@ -7,39 +7,46 @@ import com.th3pl4gu3.locky_offline.core.main.*
 interface DonationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(cookie: Cookie)
+    suspend fun insert(augmentedSkuDetails: AugmentedSkuDetails)
+
+    @Query("SELECT * FROM augmented_skuDetails WHERE sku = :sku")
+    suspend fun getAugmentedSkuDetails(sku: String): AugmentedSkuDetails?
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(cookie: Cookie)
 
     @Query("SELECT * FROM donation_cookie LIMIT 1")
     fun getCookie(): Cookie?
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(sandwich: Sandwich)
+    suspend fun insert(sandwich: Sandwich)
 
     @Query("SELECT * FROM donation_sandwich LIMIT 1")
     fun getSandwich(): Sandwich?
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(milkshake: Milkshake)
+    suspend fun insert(milkshake: Milkshake)
 
     @Query("SELECT * FROM donation_milkshake LIMIT 1")
     fun getMilkshake(): Milkshake?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(burger: Burger)
+    suspend fun insert(burger: Burger)
 
     @Query("SELECT * FROM donation_burger LIMIT 1")
     fun getBurger(): Burger?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(gift: Gift)
+    suspend fun insert(gift: Gift)
 
     @Query("SELECT * FROM donation_gift LIMIT 1")
     fun getGift(): Gift?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(star: Star)
+    suspend fun insert(star: Star)
 
     @Query("SELECT * FROM donation_star LIMIT 1")
     fun getStar(): Star?
