@@ -218,10 +218,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        requireContext().copyToClipboard(message)
+        copyToClipboard(message)
         toast(getString(R.string.message_copy_successful))
         return true
     }
-
-    private fun toast(message: String) = requireContext().toast(message)
 }

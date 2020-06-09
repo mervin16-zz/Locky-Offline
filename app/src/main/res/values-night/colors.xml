@@ -10,6 +10,13 @@
     <color name="colorAccent">@color/dark_colorAccent</color>
     <color name="colorOnSurface">@color/dark_colorOnSurface</color>
     <color name="colorShadowColor">@color/grey_100</color>
+    <color name="dark_colorOnSecondary">@color/grey_dark_100</color>
+
+    <!-- ============= -->
+    <!-- Button Colors -->
+    <!-- ============= -->
+    <color name="colorFabNormal">@color/dark_colorOnSecondary</color>
+    <color name="colorFabMini">@color/dark_colorOnSecondary</color>
 
     <!-- ================= -->
     <!-- Text Field Colors -->
@@ -22,6 +29,8 @@
     <!-- =================== -->
     <color name="colorIcon">@color/grey_100</color>
     <color name="colorIconSurface">@android:color/white</color>
+    <color name="colorIconFabMini">@android:color/white</color>
+    <color name="colorIconFabNormal">@color/colorAccent</color>
 
     <!-- ===================== -->
     <!-- Material Cards Colors -->

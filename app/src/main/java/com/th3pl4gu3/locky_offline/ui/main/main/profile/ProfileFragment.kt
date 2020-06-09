@@ -66,6 +66,4 @@ class ProfileFragment : Fragment() {
             }
         })
     }
-
-    private fun toast(message: String) = requireContext().toast(message)
 }

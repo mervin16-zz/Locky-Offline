@@ -189,6 +189,4 @@ class AddCardFragment : Fragment() {
     }
 
     private fun getParentScrollView() = binding.root.parent.parent as NestedScrollView
-
-    private fun toast(message: String) = requireContext().toast(message)
 }

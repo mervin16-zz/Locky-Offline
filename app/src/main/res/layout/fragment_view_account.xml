@@ -18,9 +18,9 @@
 
         <ImageView
             android:id="@+id/Account_Logo"
+            errorResource="@{@drawable/ic_account_placeholder}"
             imageUrl="@{Account.logoUrl}"
             loadingResource="@{@drawable/ic_image_loading}"
-            errorResource="@{@drawable/ic_account_placeholder}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +36,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:textAlignment="center"
             android:text="@{Account.accountName}"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Account_Logo"

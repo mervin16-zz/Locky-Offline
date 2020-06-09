@@ -1,8 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.settings
 
 import android.content.Intent
-import android.content.Intent.ACTION_SENDTO
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings.ACTION_SECURITY_SETTINGS
 import android.provider.Settings.ACTION_SETTINGS
@@ -15,6 +13,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.openMail
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 
@@ -113,14 +112,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun emailIntent() {
-        val intent = Intent(ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(
-                Intent.EXTRA_EMAIL,
-                arrayOf(getString(R.string.app_support_email_team))
-            ) // recipients
-            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_support_email_subject_feedback))
-        }
+        val intent = openMail(
+            arrayOf(getString(R.string.app_support_email_team)),
+            getString(R.string.app_support_email_subject_feedback)
+        )
 
         if (isIntentSafeToStart(intent)) startActivity(intent) else showEmailDialog()
     }
@@ -136,8 +131,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 dialog.dismiss()
             }
             .show()
-
-    private fun toast(message: String) = requireContext().toast(message)
 
     private fun save(key: String, value: Any) {
         LocalStorageManager.withSettings(requireActivity().application)

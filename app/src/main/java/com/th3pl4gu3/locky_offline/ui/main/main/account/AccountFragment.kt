@@ -52,7 +52,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /* Hides the soft keyboard */
-        hideSoftInput()
+        hideSoftKeyboard(binding.root)
 
         /* Observe snack bar events */
         observeSnackBarEvent()
@@ -217,12 +217,8 @@ class AccountFragment : Fragment() {
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        requireContext().copyToClipboard(message)
+        copyToClipboard(message)
         toast(getString(R.string.message_copy_successful))
         return true
     }
-
-    private fun hideSoftInput() = requireActivity().hideSoftKeyboard(binding.root)
-
-    private fun toast(message: String) = requireContext().toast(message)
 }

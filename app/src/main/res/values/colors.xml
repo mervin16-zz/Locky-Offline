@@ -86,6 +86,7 @@
 
     <color name="grey_dark_200">#272727</color>
     <color name="grey_dark_100">#373737</color>
+    <color name="grey_dark_75">#474747</color>
 
 
     <!-- ====================== -->
@@ -94,5 +95,5 @@
     <color name="dark_colorAccent">@color/purple_200</color>
     <color name="dark_colorPrimaryDark">@color/grey_dark_200</color>
     <color name="dark_colorOnSurface">@color/grey_dark_200</color>
-    <color name="dark_colorOnSecondary">@color/grey_dark_100</color>
+    <color name="dark_colorOnSecondary">@color/grey_dark_75</color>
 </resources>

@@ -171,6 +171,4 @@ class AddAccountFragment : Fragment() {
     private fun navigateToLogoSearch() {
         navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
     }
-
-    private fun toast(message: String) = requireContext().toast(message)
 }

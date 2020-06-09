@@ -53,7 +53,7 @@ class ViewAccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /* Hides the soft keyboard */
-        hideSoftInput()
+        hideSoftKeyboard(binding.root)
     }
 
     override fun onDestroyView() {
@@ -110,7 +110,6 @@ class ViewAccountFragment : Fragment() {
             adapter = credentialsAdapter
             setHasFixedSize(true)
         }
-
         return credentialsAdapter
     }
 
@@ -136,7 +135,7 @@ class ViewAccountFragment : Fragment() {
     }
 
     private fun copyToClipboardAndToast(message: String): Boolean {
-        requireContext().copyToClipboard(message)
+        copyToClipboard(message)
         toast(getString(R.string.message_copy_successful))
         return true
     }
@@ -152,8 +151,4 @@ class ViewAccountFragment : Fragment() {
                 deleteAndNavigateBackToAccountList()
             }
             .show()
-
-    private fun toast(message: String) = requireContext().toast(message)
-
-    private fun hideSoftInput() = requireActivity().hideSoftKeyboard(binding.root)
 }

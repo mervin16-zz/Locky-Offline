@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
 import android.app.Activity
+import android.app.SearchManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -33,8 +34,20 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_VIS
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, text, duration).show()
 
+/*
+* Toast functions
+* - can call directly from fragment
+*/
+fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) =
+    Toast.makeText(requireContext(), text, duration).show()
+
+fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) =
+    Toast.makeText(this, text, duration).show()
+
+/*
+* Credit card helpers
+*/
 fun String.getCardType(): Card.CardType {
 
     val number = this.replace(",", "")
@@ -43,19 +56,19 @@ fun String.getCardType(): Card.CardType {
         Regex(pattern = REGEX_CREDIT_CARD_VISA).containsMatchIn(number) -> {
             Card.CardType.VISA
         }
-        Regex(pattern = REGEX_CREDIT_CARD_MASTERCARD).containsMatchIn(number)  -> {
+        Regex(pattern = REGEX_CREDIT_CARD_MASTERCARD).containsMatchIn(number) -> {
             Card.CardType.MASTERCARD
         }
-        Regex(pattern = REGEX_CREDIT_CARD_AMEX).containsMatchIn(number)  -> {
+        Regex(pattern = REGEX_CREDIT_CARD_AMEX).containsMatchIn(number) -> {
             Card.CardType.AMERICAN_EXPRESS
         }
-        Regex(pattern = REGEX_CREDIT_CARD_DINNERSCLUB).containsMatchIn(number)  -> {
+        Regex(pattern = REGEX_CREDIT_CARD_DINNERSCLUB).containsMatchIn(number) -> {
             Card.CardType.DINNERS_CLUB
         }
-        Regex(pattern = REGEX_CREDIT_CARD_DISCOVER).containsMatchIn(number)  -> {
+        Regex(pattern = REGEX_CREDIT_CARD_DISCOVER).containsMatchIn(number) -> {
             Card.CardType.DISCOVER
         }
-        Regex(pattern = REGEX_CREDIT_CARD_JCB).containsMatchIn(number)  -> {
+        Regex(pattern = REGEX_CREDIT_CARD_JCB).containsMatchIn(number) -> {
             Card.CardType.JCB
         }
         else -> {
@@ -78,7 +91,15 @@ fun String.toCreditCardFormat(): String {
     return result.toString()
 }
 
-inline fun View.snackbar(message: String, length: Int = Snackbar.LENGTH_INDEFINITE, f: Snackbar.() -> Unit) {
+
+/*
+* SnackBar helpers
+*/
+inline fun View.snackbar(
+    message: String,
+    length: Int = Snackbar.LENGTH_INDEFINITE,
+    f: Snackbar.() -> Unit
+) {
     val snack = Snackbar.make(this, message, length)
     snack.f()
     snack.show()
@@ -88,9 +109,20 @@ fun Snackbar.action(action: String, listener: (View) -> Unit) {
     setAction(action, listener)
 }
 
-fun Context.copyToClipboard(data: String)
-        = (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("text", data))
+/*
+* Copy to clipboard
+*/
+fun Fragment.copyToClipboard(data: String) =
+    (requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(
+        ClipData.newPlainText(
+            "text",
+            data
+        )
+    )
 
+/*
+* Popup menu
+*/
 fun Context.createPopUpMenu(
     view: View,
     menu: Int,
@@ -106,6 +138,9 @@ fun Context.createPopUpMenu(
     popup.show()
 }
 
+/*
+* Calendar formatting
+*/
 fun Calendar.toFormattedStringForCard(): String =
     SimpleDateFormat("MM/yy", Locale.ENGLISH).format(this.timeInMillis)
 
@@ -120,14 +155,19 @@ fun String.toFormattedCalendarForCard(): Calendar {
     return cal
 }
 
+/*
+* Open an activity
+*/
 fun <T> Context.openActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
     val intent = Intent(this, it)
     intent.putExtras(Bundle().apply(extras))
     startActivity(intent)
 }
 
-fun generateUniqueID(): String = UUID.randomUUID().toString()
 
+/*
+* Checks if connected to the internet
+*/
 fun Activity.isOnline(): Boolean {
     val connectivityManager =
         this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -142,6 +182,9 @@ fun Activity.isOnline(): Boolean {
     }
 }
 
+/*
+* JetPack navigation made easy
+*/
 fun Activity.navigateTo(destination: Int) {
     this.findNavController(R.id.Navigation_Host).navigate(destination)
 }
@@ -150,11 +193,18 @@ fun Fragment.navigateTo(directions: NavDirections) {
     this.findNavController().navigate(directions)
 }
 
-fun Activity.hideSoftKeyboard(rootView: View) {
-    (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+/*
+* Hides soft keyboard
+*/
+fun Fragment.hideSoftKeyboard(rootView: View) {
+    (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
         .hideSoftInputFromWindow(rootView.windowToken, 0)
 }
 
+
+/*
+* Load an image from URL
+*/
 fun ImageView.loadImageUrl(uri: Uri, loadingResource: Drawable, errorResource: Drawable) {
     Glide.with(this.context)
         .load(uri)
@@ -164,3 +214,34 @@ fun ImageView.loadImageUrl(uri: Uri, loadingResource: Drawable, errorResource: D
         .error(errorResource)
         .into(this)
 }
+
+
+/*
+* Intents facilities
+*/
+fun openUrl(url: String) = Intent(Intent.ACTION_WEB_SEARCH).apply {
+    putExtra(SearchManager.QUERY, url)
+}
+
+fun openMail(recipient: Array<String>, subject: String) = Intent(Intent.ACTION_SENDTO).apply {
+    data = Uri.parse("mailto:")
+    putExtra(
+        Intent.EXTRA_EMAIL,
+        recipient
+    ) // recipients
+    putExtra(Intent.EXTRA_SUBJECT, subject)
+}
+
+fun share(message: String) = Intent(Intent.ACTION_SEND).apply {
+    putExtra(
+        Intent.EXTRA_TEXT,
+        message
+    )
+    type = "text/plain"
+}
+
+
+/*
+* Others
+*/
+fun generateUniqueID(): String = UUID.randomUUID().toString()

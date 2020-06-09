@@ -1,8 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.about
 
-import android.app.SearchManager
 import android.content.Intent
-import android.content.Intent.ACTION_SENDTO
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +13,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAboutBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.openMail
+import com.th3pl4gu3.locky_offline.ui.main.utils.openUrl
+import com.th3pl4gu3.locky_offline.ui.main.utils.share
 
 class AboutFragment : Fragment() {
 
@@ -94,9 +95,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun policyRedirection() {
-        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
-            putExtra(SearchManager.QUERY, getString(R.string.app_url_privacy_policy))
-        }
+        val intent = openUrl(getString(R.string.app_url_privacy_policy))
         if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
     }
 
@@ -105,26 +104,20 @@ class AboutFragment : Fragment() {
     }
 
     private fun shareRedirection() {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT,
-                getString(R.string.app_play_share, requireContext().applicationContext.packageName)
+        val sendIntent: Intent = share(
+            getString(
+                R.string.app_play_share,
+                requireContext().applicationContext.packageName
             )
-            type = "text/plain"
-        }
+        )
         startActivity(Intent.createChooser(sendIntent, null))
     }
 
     private fun bugReportRedirection() {
-        val intent = Intent(ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(
-                Intent.EXTRA_EMAIL,
-                arrayOf(getString(R.string.app_support_email_team))
-            ) // recipients
-            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_support_email_subject_bug))
-        }
+        val intent = openMail(
+            arrayOf(getString(R.string.app_support_email_team)),
+            getString(R.string.app_support_email_subject_bug)
+        )
 
         if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("email")
     }

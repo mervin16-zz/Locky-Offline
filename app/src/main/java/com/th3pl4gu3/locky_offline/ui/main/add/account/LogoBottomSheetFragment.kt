@@ -131,6 +131,4 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
         )
         dismiss()
     }
-
-    private fun toast(message: String) = requireContext().toast(message)
 }
