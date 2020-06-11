@@ -73,10 +73,10 @@ class AccountRepositoryTest {
     fun get() = runBlocking {
         //Arrange
         val account = accountsForUser1[5]
-        val expectedName = account.accountName
+        val expectedName = account.entryName
 
         //Act
-        val result1 = accountDao.get(account.accountID)?.accountName
+        val result1 = accountDao.get(account.id)?.entryName
         val result2 = accountDao.get("No Match")
 
         //Assert
@@ -92,9 +92,9 @@ class AccountRepositoryTest {
         val expectedSize = 9
 
         //Act
-        accountDao.remove(account.accountID)
+        accountDao.remove(account.id)
         val size = getValue(accountDao.getAll(user2)).size
-        val fetchedAccount = accountDao.get(account.accountID)
+        val fetchedAccount = accountDao.get(account.id)
 
         //Assert
         assertThat(size, equalTo(expectedSize))
@@ -113,7 +113,7 @@ class AccountRepositoryTest {
         accountDao.removeAll(user1)
         val size1 = getValue(accountDao.getAll(user1)).size
         val size2 = getValue(accountDao.getAll(user2)).size
-        val fetchedAccount = accountDao.get(account.accountID)
+        val fetchedAccount = accountDao.get(account.id)
 
         //Assert
         assertThat(expectedSize1, equalTo(size1))
@@ -127,16 +127,16 @@ class AccountRepositoryTest {
         //Arrange
         val account = TestUtil.getAccount(20, user1)
         val expectedSize = 16
-        val expectedName = account.accountName
+        val expectedName = account.entryName
 
         //Act
         accountDao.insert(account)
         val size = getValue(accountDao.getAll(user1)).size
-        val fetchedAccount = accountDao.get(account.accountID)
+        val fetchedAccount = accountDao.get(account.id)
 
         //Assert
         assertThat(size, equalTo(expectedSize))
-        assertThat(fetchedAccount?.accountName, equalTo(expectedName))
+        assertThat(fetchedAccount?.entryName, equalTo(expectedName))
     }
 
     @Test
@@ -145,14 +145,14 @@ class AccountRepositoryTest {
         //Arrange
         val account = accountsForUser1[6]
         val newName = "Accounting"
-        account.accountName = newName
+        account.entryName = newName
 
         //Act
         accountDao.update(account)
-        val fetchedAccount = accountDao.get(account.accountID)
+        val fetchedAccount = accountDao.get(account.id)
 
         //Assert
-        assertThat(fetchedAccount?.accountName, equalTo(newName))
+        assertThat(fetchedAccount?.entryName, equalTo(newName))
     }
 
     @Test

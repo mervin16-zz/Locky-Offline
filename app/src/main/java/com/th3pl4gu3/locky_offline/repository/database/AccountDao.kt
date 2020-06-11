@@ -16,21 +16,21 @@ interface AccountDao {
     @Update
     suspend fun update(account: Account)
 
-    @Query("DELETE FROM account_table WHERE accountID = :key")
-    suspend fun remove(key: String)
+    @Query("DELETE FROM account_table WHERE id = :key")
+    suspend fun remove(key: Int)
 
     @Query("DELETE FROM account_table WHERE userID = :userID")
     suspend fun removeAll(userID: String)
 
-    @Query("SELECT * FROM account_table WHERE accountID = :key")
-    suspend fun get(key: String): Account?
+    @Query("SELECT * FROM account_table WHERE id = :key")
+    suspend fun get(key: Int): Account?
 
     @Query("SELECT * FROM account_table WHERE userID = :userID")
     fun getAll(userID: String): LiveData<List<Account>>
 
-    @Query("SELECT * FROM account_table WHERE userID = :userID AND (accountName LIKE :query OR username LIKE :query OR website LIKE :query)")
+    @Query("SELECT * FROM account_table WHERE userID = :userID AND (entryName LIKE :query OR username LIKE :query OR website LIKE :query)")
     fun search(query: String, userID: String): LiveData<List<Account>>
 
-    @Query("SELECT COUNT(accountName) FROM account_table WHERE userID = :userID")
+    @Query("SELECT COUNT(entryName) FROM account_table WHERE userID = :userID")
     fun size(userID: String): LiveData<Int>
 }

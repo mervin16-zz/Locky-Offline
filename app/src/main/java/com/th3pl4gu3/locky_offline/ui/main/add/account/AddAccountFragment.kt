@@ -2,7 +2,6 @@ package com.th3pl4gu3.locky_offline.ui.main.add.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
@@ -12,7 +11,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
@@ -22,7 +20,6 @@ class AddAccountFragment : Fragment() {
 
     private var _binding: FragmentAddAccountBinding? = null
     private var _viewModel: AddAccountViewModel? = null
-    private var _unEditedAccount: Account? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -32,18 +29,25 @@ class AddAccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /* Binds the UI */
         _binding = FragmentAddAccountBinding.inflate(inflater, container, false)
+        /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(AddAccountViewModel::class.java)
-
-        //Bind view model and lifecycle owner
-        binding.viewModel = _viewModel
+        /* Bind view model to layout */
+        binding.viewModel = viewModel
+        /* Bind lifecycle owner to this */
         binding.lifecycleOwner = this
 
-        val account = AddAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
-        _unEditedAccount = account?.copy()
-        //Fetch account if exists
-        viewModel.setAccount(account)
+        /*
+        * Fetch the key from argument
+        * And set it to view model for fetching
+        */
+        viewModel.loadAccount(
+            AddAccountFragmentArgs.fromBundle(requireArguments()).keyaccount,
+            AddAccountFragmentArgs.fromBundle(requireArguments()).keyaccountprevious
+        )
 
+        /* Returns the root view */
         return binding.root
     }
 
@@ -69,24 +73,9 @@ class AddAccountFragment : Fragment() {
         observeIfHasErrors()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            if (_unEditedAccount != null) {
-                viewModel.resetChanges(_unEditedAccount!!)
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
+
         _binding = null
     }
 
@@ -152,7 +141,7 @@ class AddAccountFragment : Fragment() {
 
     private fun listenerLogoClick() {
         binding.AccountLogoEdit.setOnClickListener {
-            navigateToLogoSearch()
+            navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
         }
     }
 
@@ -166,9 +155,5 @@ class AddAccountFragment : Fragment() {
     private fun showToastAndNavigateToAccountList(toastMessage: String) {
         toast(toastMessage)
         navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentAccount())
-    }
-
-    private fun navigateToLogoSearch() {
-        navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
     }
 }

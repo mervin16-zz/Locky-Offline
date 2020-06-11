@@ -5,9 +5,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
@@ -18,7 +18,6 @@ class ViewAccountFragment : Fragment() {
 
     private var _binding: FragmentViewAccountBinding? = null
     private var _viewModel: ViewAccountViewModel? = null
-    private lateinit var _account: Account
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -28,25 +27,29 @@ class ViewAccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //Fetch the layout and do the binding
+        /* Binds the UI */
         _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
-        //Instantiate view model
+        /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(ViewAccountViewModel::class.java)
+        /* Bind lifecycle owner to this */
         binding.lifecycleOwner = this
 
-        //Fetch the account clicked on the previous screen
-        _account = ViewAccountFragmentArgs.fromBundle(requireArguments()).parcelcredaccount
+        /*
+        * Fetch the account object from argument
+        * Then bind account object to layout
+        */
+        binding.account = ViewAccountFragmentArgs.fromBundle(requireArguments()).accountToVIEW
 
-        with(_account) {
-
-            //Bind the account to the layout for displaying
-            binding.account = this
-
-            //Submit the account details to the recyclerview
-            initiateCredentialsFieldList().submitList(viewModel.fieldList(this))
-        }
-
+        /* Returns the root view */
         return binding.root
+    }
+
+    /*
+    * Overridden functions
+    */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +57,9 @@ class ViewAccountFragment : Fragment() {
 
         /* Hides the soft keyboard */
         hideSoftKeyboard(binding.root)
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        /* Load user data */
+        subscribeUi()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,73 +72,60 @@ class ViewAccountFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
             R.id.Action_Duplicate -> {
-                /*
-                * We set the account id to empty here
-                * When the add screen receives it, it wil perceive it as a new account that needs to be
-                * added to the database
-                */
-                navigateToEditScreen(_account.copy(accountID = generateUniqueID()))
+                navigateTo(
+                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
+                        .setKEYACCOUNT(0).setKEYACCOUNTPREVIOUS(binding.account!!.id)
+                )
                 true
             }
-
             R.id.Action_Edit -> {
-                navigateToEditScreen(_account)
+                navigateTo(
+                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
+                        .setKEYACCOUNT(
+                            binding.account!!.id
+                        )
+                )
                 true
             }
-
             R.id.Action_Delete -> {
-                deleteConfirmationDialog(_account.accountName)
+                deleteConfirmationDialog(binding.account!!.entryName)
                 true
             }
             else -> false
         }
-    }
 
-    private fun initiateCredentialsFieldList(): CredentialsViewAdapter {
-        val credentialsAdapter =
-            CredentialsViewAdapter(
-                CopyClickListener { data ->
-                    copyToClipboardAndToast(data)
-                },
-                ViewClickListener { data ->
-                    snackBarAction(data)
-                })
+
+    /*
+    * Private functions
+    */
+    private fun subscribeUi() {
+        val adapter = CredentialsViewAdapter(
+            CopyClickListener {
+                copyToClipboardAndToast(it)
+            },
+            ViewClickListener {
+                snackBarAction(it)
+            }
+        )
 
         binding.RecyclerViewCredentialsField.apply {
-            adapter = credentialsAdapter
+            /*
+            * State that layout size will not change for better performance
+            */
             setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
-        return credentialsAdapter
-    }
 
-    private fun deleteAndNavigateBackToAccountList() {
-        with(_account) {
-            viewModel.delete(accountID)
-            toast(getString(R.string.message_credentials_deleted, accountName))
-            findNavController().popBackStack()
-        }
-    }
-
-    private fun navigateToEditScreen(account: Account) {
-        navigateTo(
-            ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
-                .setPARCELCREDACCOUNT(account)
-        )
-    }
-
-    private fun snackBarAction(message: String) {
-        binding.LayoutCredentialView.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
-        }
-    }
-
-    private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
-        return true
+        /* Submits the list for displaying */
+        adapter.submitList(viewModel.fieldList(binding.account!!))
     }
 
     private fun deleteConfirmationDialog(name: String) =
@@ -151,4 +139,24 @@ class ViewAccountFragment : Fragment() {
                 deleteAndNavigateBackToAccountList()
             }
             .show()
+
+    private fun deleteAndNavigateBackToAccountList() {
+        with(binding.account!!) {
+            viewModel.delete(id)
+            toast(getString(R.string.message_credentials_deleted, entryName))
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun snackBarAction(message: String) {
+        binding.LayoutCredentialView.snackbar(message) {
+            action(getString(R.string.button_snack_action_close)) { dismiss() }
+        }
+    }
+
+    private fun copyToClipboardAndToast(message: String): Boolean {
+        copyToClipboard(message)
+        toast(getString(R.string.message_copy_successful))
+        return true
+    }
 }

@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.add.account
 import android.app.Application
 import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.repository.LoadingStatus
+import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.network.NetworkRepository
 import com.th3pl4gu3.locky_offline.repository.network.WebsiteLogo
 import kotlinx.coroutines.launch
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _websites = MutableLiveData<List<WebsiteLogo>>()
-    private val _loadingStatus = MutableLiveData<LoadingStatus?>()
+    private val _loadingStatus = MutableLiveData<Loading.Status?>()
 
     init {
         //Set to null to hit else clause
@@ -23,13 +23,13 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
      **/
     val logoTitle = Transformations.map(_loadingStatus) {
         when (it) {
-            LoadingStatus.LOADING -> {
+            Loading.Status.LOADING -> {
                 getString(R.string.message_loading_logo)
             }
-            LoadingStatus.DONE -> {
+            Loading.Status.DONE -> {
                 null
             }
-            LoadingStatus.ERROR -> {
+            Loading.Status.ERROR -> {
                 getString(R.string.message_loading_logo_none)
             }
             else -> {
@@ -52,7 +52,7 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
      * Functions
      **/
     internal fun setErrorLoadingStatus() {
-        _loadingStatus.value = LoadingStatus.ERROR
+        _loadingStatus.value = Loading.Status.ERROR
     }
 
     internal fun getWebsiteLogoProperties(query: String) = viewModelScope.launch {
@@ -64,10 +64,10 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private suspend fun loadLogos(query: String) {
-        _loadingStatus.value = LoadingStatus.LOADING
+        _loadingStatus.value = Loading.Status.LOADING
         _websites.value = NetworkRepository()
             .getWebsiteDetails(query)
-        _loadingStatus.value = LoadingStatus.DONE
+        _loadingStatus.value = Loading.Status.DONE
     }
 
     private fun errorLoadingLogos() {

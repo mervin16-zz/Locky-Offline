@@ -13,13 +13,13 @@ import kotlinx.coroutines.withContext
 
 class ViewCardViewModel(application: Application) : AndroidViewModel(application) {
 
-    internal fun delete(key: String) {
+    internal fun delete(key: Int) {
         viewModelScope.launch {
             deleteData(key)
         }
     }
 
-    private suspend fun deleteData(key: String) {
+    private suspend fun deleteData(key: Int) {
         withContext(Dispatchers.IO) {
             CardRepository.getInstance(getApplication()).delete(key)
         }
@@ -73,7 +73,7 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
             add(
                 CredentialsField(
                     subtitle = getString(R.string.field_card_additional),
-                    data = if (card.cardMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else card.cardMoreInfo!!
+                    data = if (card.additionalInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else card.additionalInfo!!
                 )
             )
         }

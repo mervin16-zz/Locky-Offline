@@ -72,7 +72,7 @@ class CardRepositoryTest {
         val expectedName = card.entryName
 
         //Act
-        val result = cardDao.get(card.cardID)?.entryName
+        val result = cardDao.get(card.id)?.entryName
         val result2 = cardDao.get("No Match")
 
         //Assert
@@ -88,9 +88,9 @@ class CardRepositoryTest {
         val expectedSize = 14
 
         //Act
-        cardDao.remove(card.cardID)
+        cardDao.remove(card.id)
         val size = getValue(cardDao.getAll(user2)).size
-        val fetchedCard = cardDao.get(card.cardID)
+        val fetchedCard = cardDao.get(card.id)
 
         //Assert
         ViewMatchers.assertThat(size, CoreMatchers.equalTo(expectedSize))
@@ -109,7 +109,7 @@ class CardRepositoryTest {
         cardDao.removeAll(user1)
         val size1 = getValue(cardDao.getAll(user1)).size
         val size2 = getValue(cardDao.getAll(user2)).size
-        val fetchedCard = cardDao.get(card.cardID)
+        val fetchedCard = cardDao.get(card.id)
 
         //Assert
         ViewMatchers.assertThat(size1, CoreMatchers.equalTo(expectedSize1))
@@ -128,7 +128,7 @@ class CardRepositoryTest {
         //Act
         cardDao.insert(card)
         val size = getValue(cardDao.getAll(user2)).size
-        val fetchedCard = cardDao.get(card.cardID)
+        val fetchedCard = cardDao.get(card.id)
 
         //Assert
         ViewMatchers.assertThat(size, CoreMatchers.equalTo(expectedSize))
@@ -145,7 +145,7 @@ class CardRepositoryTest {
 
         //Act
         cardDao.update(card)
-        val fetchedCard = cardDao.get(card.cardID)
+        val fetchedCard = cardDao.get(card.id)
 
         //Assert
         ViewMatchers.assertThat(fetchedCard?.entryName, CoreMatchers.equalTo(newName))

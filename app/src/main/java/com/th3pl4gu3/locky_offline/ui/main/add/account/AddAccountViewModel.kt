@@ -23,23 +23,24 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     /**
      * Variables
      **/
-    private lateinit var _account: Account
     private var _toastEvent = MutableLiveData<String>()
     private val _formValidity = MutableLiveData<String>()
     private val _hasErrors = MutableLiveData(false)
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
     private val _emailErrorMessage = MutableLiveData<String>()
+    private var _account = Account()
+    private var _isNewAccount = false
 
     /**
      * Bindable two-way binding
      **/
     var accountName: String
         @Bindable get() {
-            return _account.accountName
+            return _account.entryName
         }
         set(value) {
-            _account.accountName = value
+            _account.entryName = value
             notifyPropertyChanged(BR.accountName)
         }
 
@@ -99,10 +100,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
     var accountMoreInfo: String?
         @Bindable get() {
-            return _account.accountMoreInfo
+            return _account.additionalInfo
         }
         set(value) {
-            _account.accountMoreInfo = value
+            _account.additionalInfo = value
             notifyPropertyChanged(BR.accountMoreInfo)
         }
 
@@ -159,24 +160,44 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         }
     }
 
-    internal fun resetChanges(unEditedAccount: Account) {
-        accountName = unEditedAccount.accountName
-        username = unEditedAccount.username
-        email = unEditedAccount.email
-        password = unEditedAccount.password
-        logoUrl = unEditedAccount.logoUrl
-        website = unEditedAccount.website
-        accountMoreInfo = unEditedAccount.accountMoreInfo
-        authType = unEditedAccount.authenticationType
-        twoFaKeys = unEditedAccount.twoFASecretKeys
-    }
-
     internal fun resetErrorsFlag() {
         _hasErrors.value = false
     }
 
-    internal fun setAccount(account: Account?) {
-        this._account = account ?: Account()
+    internal fun loadAccount(currentKey: Int, previousKey: Int) {
+        viewModelScope.launch {
+            if (currentKey == -1 && previousKey == -1) {
+                /*
+                * This means it is an addition
+                */
+                _isNewAccount = true
+                return@launch
+            }
+
+            val repository = AccountRepository.getInstance(getApplication())
+
+            if (currentKey == 0 && previousKey > 0) {
+                /*
+                * This means it is a duplicate
+                */
+                _account = repository.get(previousKey)!!.apply {
+                    id = 0
+                }
+
+                notifyChange()
+
+                /*
+                * We need to set new account to true
+                * So that it is added instead of updated
+                */
+                _isNewAccount = true
+
+            } else if (currentKey > 0) {
+                /* This means it is an edit */
+                _account = repository.get(currentKey)!!
+                notifyChange()
+            }
+        }
     }
 
     internal fun doneWithToastEvent() {
@@ -192,18 +213,16 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             * If already present, it means it is an edit
             * Else, it means it is an addition
             */
-            val repository = AccountRepository.getInstance(getApplication())
-            val fetchedAccount = repository.get(account.accountID)
-            if (fetchedAccount == null) {
+            if (_isNewAccount) {
                 message = getApplication<Application>().getString(
                     R.string.message_credentials_created,
-                    account.accountName
+                    account.entryName
                 )
                 saveAccountToDatabase(account)
             } else {
                 message = getApplication<Application>().getString(
                     R.string.message_credentials_modified,
-                    account.accountName
+                    account.entryName
                 )
                 updateAccountInDatabase(account)
             }

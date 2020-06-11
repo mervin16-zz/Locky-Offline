@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
@@ -17,51 +18,51 @@ import com.th3pl4gu3.locky_offline.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 
-
 class AccountFragment : Fragment() {
 
+    /*
+    * Private variables
+    */
     private var _binding: FragmentAccountBinding? = null
     private var _viewModel: AccountViewModel? = null
     private var _lastClickTime: Long = 0
 
+    /*
+    * Private properties
+    */
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
+    /*
+    * Companion object
+    */
     companion object {
         const val TAG = "ACCOUNT_FRAGMENT_DEBUG"
     }
 
+    /*
+    * Overridden methods
+    */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /* Binds the UI */
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
-        // Fetch view model
+        /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
-        //Bind view model to layout
-        binding.viewModel = _viewModel
-        // Bind lifecycle owner
+        /* Bind the view model to the layout */
+        binding.viewModel = viewModel
+        /* Bind lifecycle owner to this */
         binding.lifecycleOwner = this
-
+        /* Returns the root view */
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /* Hides the soft keyboard */
-        hideSoftKeyboard(binding.root)
-
-        /* Observe snack bar events */
-        observeSnackBarEvent()
-
-        /* Observe the account list changes */
-        observeAccounts()
-
-        /* Observe back stack entry result after navigating from sort sheet */
-        observeBackStackEntryForSortSheet()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,14 +85,48 @@ class AccountFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /* Hides the soft keyboard */
+        hideSoftKeyboard(binding.root)
+
+        /* Observe the account event changes */
+        observeAccounts()
+
+        /* Observe the snack bar event changes*/
+        observeSnackBarEvent()
+
+        /* Observe back stack entry for sort changes */
+        observeBackStackEntryForSortSheet()
     }
 
     /*
-    * My Functions
+    * Explicit private functions
     */
+    private fun observeSnackBarEvent() {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                snackBarAction(it)
+            }
+        })
+    }
+
+    private fun observeAccounts() {
+        viewModel.accounts.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                /*
+                 * If accounts is not null
+                 * Update the ui and
+                 * Load recyclerview
+                 */
+                updateUI(it.size)
+
+                subscribeAccounts(it)
+            }
+        })
+    }
+
     private fun observeBackStackEntryForSortSheet() {
         val navController = findNavController()
         // After a configuration change or process death, the currentBackStackEntry
@@ -126,53 +161,49 @@ class AccountFragment : Fragment() {
         })
     }
 
-    private fun observeSnackBarEvent() {
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                snackBarAction(it)
-            }
-        })
-    }
-
-    private fun observeAccounts() {
-        with(viewModel) {
-            accounts.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    //set loading flag to hide loading animation
-                    doneLoading()
-
-                    //Alternate visibility for account list and empty view
-                    alternateAccountListVisibility(it.size)
-
-                    //Submit the cards
-                    initiateAccounts().submitList(it)
-                }
-            })
-        }
-    }
-
-    private fun initiateAccounts(): AccountAdapter {
+    private fun subscribeAccounts(accounts: List<Account>) {
         val adapter = AccountAdapter(
+            /* The click listener to handle account on clicks */
             AccountClickListener {
-                navigateToSelectedAccount(it)
+                navigateTo(AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(it))
             },
-            AccountOptionsClickListener { view, card ->
+            /* The click listener to handle popup menu for each accounts */
+            AccountOptionsClickListener { view, account ->
                 view.apply {
                     isEnabled = false
                 }
-                createPopupMenu(view, card)
-            })
+                createPopupMenu(view, account)
+            }
+        )
 
         binding.RecyclerViewAccount.apply {
-            this.adapter = adapter
+            /*
+            * State that layout size will not change for better performance
+            */
             setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
 
-        return adapter
+        /* Submits the list for displaying */
+        adapter.submitList(accounts)
+    }
+
+    private fun updateUI(listSize: Int) {
+        /*
+        * Hide the loading animation
+        * Alternate visibility between
+        * Recyclerview & Empty View
+        */
+        viewModel.doneLoading(listSize)
     }
 
     private fun createPopupMenu(view: View, account: Account) {
-        requireContext().createPopUpMenu(
+        createPopUpMenu(
             view,
             R.menu.menu_moreoptions_account,
             PopupMenu.OnMenuItemClickListener {
@@ -194,14 +225,6 @@ class AccountFragment : Fragment() {
             _lastClickTime = SystemClock.elapsedRealtime()
             navigateTo(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
         }
-    }
-
-    private fun navigateToSelectedAccount(account: Account) {
-        navigateTo(
-            AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
-                account
-            )
-        )
     }
 
     private fun snackBarAction(message: String) {

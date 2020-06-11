@@ -36,15 +36,11 @@
         android:label="Accounts"
         tools:layout="@layout/fragment_account">
         <action
-            android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
-            app:destination="@id/Fragment_View_Account"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
-        <action
             android:id="@+id/action_Fragment_Account_to_BottomSheet_Fragment_Account_Filter"
             app:destination="@id/BottomSheet_Fragment_Account_Filter" />
+        <action
+            android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
+            app:destination="@id/Fragment_View_Account" />
     </fragment>
 
     <fragment
@@ -90,7 +86,7 @@
         android:label="View Card"
         tools:layout="@layout/fragment_view_card">
         <argument
-            android:name="PARCEL_CRED_CARD"
+            android:name="CARD_toVIEW"
             app:argType="com.th3pl4gu3.locky_offline.core.main.Card" />
         <action
             android:id="@+id/action_Fragment_View_Card_to_addCardFragment"
@@ -106,16 +102,12 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.view.account.ViewAccountFragment"
         android:label="View Account"
         tools:layout="@layout/fragment_view_account">
-        <argument
-            android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Account" />
         <action
             android:id="@+id/action_Fragment_View_Account_to_Fragment_Add_Account"
-            app:destination="@id/Fragment_Add_Account"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
+            app:destination="@id/Fragment_Add_Account" />
+        <argument
+            android:name="ACCOUNT_toVIEW"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Account" />
     </fragment>
 
     <fragment
@@ -123,16 +115,19 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.card.AddCardFragment"
         android:label="Add Card"
         tools:layout="@layout/fragment_add_card">
-        <argument
-            android:name="PARCEL_CRED_CARD"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Card"
-            app:nullable="true"
-            android:defaultValue="@null" />
         <action
             android:id="@+id/action_Fragment_Add_Card_to_Fragment_Card"
             app:destination="@id/Fragment_Card"
             app:popUpTo="@id/Fragment_Card"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="KEY_CARD"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="KEY_CARD_PREVIOUS"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 
     <fragment
@@ -140,23 +135,22 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountFragment"
         android:label="Add Account"
         tools:layout="@layout/fragment_add_account">
-        <argument
-            android:name="PARCEL_CRED_ACCOUNT"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Account"
-            app:nullable="true"
-            android:defaultValue="@null" />
         <action
             android:id="@+id/action_Fragment_Add_Account_to_BottomSheet_Fragment_Account_Logo"
             app:destination="@id/BottomSheet_Fragment_Account_Logo" />
+        <argument
+            android:name="KEY_ACCOUNT"
+            app:argType="integer"
+            android:defaultValue="-1" />
         <action
             android:id="@+id/action_Fragment_Add_Account_to_Fragment_Account"
             app:destination="@id/Fragment_Account"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="KEY_ACCOUNT_PREVIOUS"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 
     <dialog

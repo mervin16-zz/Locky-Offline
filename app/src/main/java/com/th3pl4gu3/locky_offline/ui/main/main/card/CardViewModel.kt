@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
 import com.th3pl4gu3.locky_offline.core.main.User
-import com.th3pl4gu3.locky_offline.repository.LoadingStatus
+import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
@@ -19,11 +19,18 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
      * Live Data Variables
      **/
     private val _showSnackBarEvent = MutableLiveData<String>()
-    private val _loadingStatus = MutableLiveData<LoadingStatus>()
+    private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
     private var _currentCardsExposed = MediatorLiveData<List<Card>>()
     private var _sort = MutableLiveData(loadSortObject())
-    private var _cardListVisibility = MutableLiveData(false)
-    private var _cardEmptyViewVisibility = MutableLiveData(false)
+
+    /**
+     * Properties
+     **/
+    val showSnackBarEvent: LiveData<String>
+        get() = _showSnackBarEvent
+
+    val loadingStatus: LiveData<Loading.List>
+        get() = _loadingStatus
 
     /**
      * Init Clause
@@ -34,9 +41,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         * run on startup.
         */
 
-        /* We show loading animation */
-        _loadingStatus.value = LoadingStatus.LOADING
-
         /* We load the cards */
         loadCards()
     }
@@ -44,10 +48,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Live Data Transformations
      **/
-    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
-        it == LoadingStatus.LOADING
-    }
-
     private val sortedByName = Transformations.map(_currentCardsExposed) {
         it.sortedBy { card ->
             card.entryName.toLowerCase(
@@ -86,23 +86,9 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    /**
-     * Properties
-     **/
-    val showSnackBarEvent: LiveData<String>
-        get() = _showSnackBarEvent
-
-    val cardListVisibility: LiveData<Boolean>
-        get() = _cardListVisibility
-
-    val cardEmptyViewVisibility: LiveData<Boolean>
-        get() = _cardEmptyViewVisibility
-
-
-    /**
-     * Functions
-     **/
-
+    /*
+     * Accessible Functions
+     */
     /* Flag to show snack bar message*/
     internal fun setSnackBarMessage(message: String) {
         _showSnackBarEvent.value = message
@@ -114,14 +100,8 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /* Flag to stop showing the loading animation */
-    internal fun doneLoading() {
-        _loadingStatus.value = LoadingStatus.DONE
-    }
-
-    /* Alternates the visibility between account list and empty view UI */
-    internal fun alternateCardListVisibility(cardsSize: Int) {
-        _cardListVisibility.value = cardsSize > 0
-        _cardEmptyViewVisibility.value = cardsSize < 1
+    internal fun doneLoading(size: Int) {
+        _loadingStatus.value = if (size > 0) Loading.List.LIST else Loading.List.EMPTY_VIEW
     }
 
     /* Call function whenever there is a change in sorting */
@@ -136,6 +116,10 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
+    /*
+    * In-accessible functions
+    */
     /* Load the card into a mediator live data */
     private fun loadCards() {
         _currentCardsExposed.addSource(

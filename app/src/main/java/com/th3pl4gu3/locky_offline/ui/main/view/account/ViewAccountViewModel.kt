@@ -13,18 +13,10 @@ import kotlinx.coroutines.withContext
 
 class ViewAccountViewModel(application: Application) : AndroidViewModel(application) {
 
-    internal fun delete(key: String) {
-        viewModelScope.launch {
-            deleteAccount(key)
-        }
-    }
 
-    private suspend fun deleteAccount(key: String) {
-        withContext(Dispatchers.IO) {
-            AccountRepository.getInstance(getApplication()).delete(key)
-        }
-    }
-
+    /*
+    * Accessible functions
+    */
     internal fun fieldList(account: Account): ArrayList<CredentialsField> =
         ArrayList<CredentialsField>().apply {
             add(
@@ -72,11 +64,26 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
             add(
                 CredentialsField(
                     subtitle = getString(R.string.field_account_additional),
-                    data = if (account.accountMoreInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.accountMoreInfo!!
+                    data = if (account.additionalInfo.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.additionalInfo!!
                 )
             )
         }
 
+
+    /*
+    * In-accessible functions
+    */
+    internal fun delete(key: Int) {
+        viewModelScope.launch {
+            deleteAccount(key)
+        }
+    }
+
+    private suspend fun deleteAccount(key: Int) {
+        withContext(Dispatchers.IO) {
+            AccountRepository.getInstance(getApplication()).delete(key)
+        }
+    }
 
     private fun getString(res: Int) = getApplication<Application>().getString(res)
 }

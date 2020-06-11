@@ -12,7 +12,7 @@ class Validation {
     fun isAccountFormValid(account: Account): Boolean {
         with(account) {
             emptyValueCheck(
-                accountName,
+                entryName,
                 ErrorField.NAME
             )
             emptyValueCheck(

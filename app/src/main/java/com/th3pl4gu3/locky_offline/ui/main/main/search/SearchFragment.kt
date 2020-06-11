@@ -182,7 +182,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun createCardPopupMenu(view: View, card: Card) {
-        requireContext().createPopUpMenu(
+        createPopUpMenu(
             view,
             R.menu.menu_moreoptions_card,
             PopupMenu.OnMenuItemClickListener {
@@ -200,7 +200,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun createActionPopupMenu(view: View, account: Account) {
-        requireContext().createPopUpMenu(
+        createPopUpMenu(
             view,
             R.menu.menu_moreoptions_account,
             PopupMenu.OnMenuItemClickListener {

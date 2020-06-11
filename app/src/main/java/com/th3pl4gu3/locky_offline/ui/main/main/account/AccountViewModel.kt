@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.core.main.User
-import com.th3pl4gu3.locky_offline.repository.LoadingStatus
+import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
@@ -14,48 +14,46 @@ import java.util.*
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
-    /**
+    /*
      * Live Data Variables
-     **/
+     */
     private var _showSnackBarEvent = MutableLiveData<String>()
-    private var _currentAccountsExposed = MediatorLiveData<List<Account>>()
-    private var _loadingStatus = MutableLiveData<LoadingStatus>()
-    private var _accountListVisibility = MutableLiveData(false)
-    private var _accountEmptyViewVisibility = MutableLiveData(false)
+    private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
+    private var _accounts = MediatorLiveData<List<Account>>()
     private var _sort = MutableLiveData(loadSortObject())
 
-    /**
-     * Init Clause
-     **/
+    /*
+    * Properties
+    */
+    val showSnackBarEvent: LiveData<String>
+        get() = _showSnackBarEvent
+
+    val loadingStatus: LiveData<Loading.List>
+        get() = _loadingStatus
+
+    /*
+    * Init clause
+    */
     init {
+
         /*
-        * Here, we define all codes that need to
-        * run on startup.
+        * We load the accounts on startup
         */
-
-        /* We show loading animation */
-        _loadingStatus.value = LoadingStatus.LOADING
-
-        /* We load the accounts */
         loadAccounts()
     }
 
-    /**
-     * Live Data Transformations
-     **/
-    val loadingStatus: LiveData<Boolean> = Transformations.map(_loadingStatus) {
-        it == LoadingStatus.LOADING
-    }
-
-    private val sortedByName = Transformations.map(_currentAccountsExposed) {
+    /*
+    * Transformations
+    */
+    private val sortedByName = Transformations.map(_accounts) {
         it.sortedBy { account ->
-            account.accountName.toLowerCase(
+            account.entryName.toLowerCase(
                 Locale.ROOT
             )
         }
     }
 
-    private val sortedByUsername = Transformations.map(_currentAccountsExposed) {
+    private val sortedByUsername = Transformations.map(_accounts) {
         it.sortedBy { account ->
             account.username.toLowerCase(
                 Locale.ROOT
@@ -63,7 +61,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private val sortedByEmail = Transformations.map(_currentAccountsExposed) {
+    private val sortedByEmail = Transformations.map(_accounts) {
         it.sortedBy { account ->
             account.email.toLowerCase(
                 Locale.ROOT
@@ -71,14 +69,14 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private val sortedByWebsite = Transformations.map(_currentAccountsExposed) {
+    private val sortedByWebsite = Transformations.map(_accounts) {
         it.sortedBy { account ->
             account.website.toLowerCase(
                 Locale.ROOT
             )
         }
     }
-    private val sortedByAuthType = Transformations.map(_currentAccountsExposed) {
+    private val sortedByAuthType = Transformations.map(_accounts) {
         it.sortedBy { account ->
             account.authenticationType?.toLowerCase(
                 Locale.ROOT
@@ -93,26 +91,16 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
             it.email -> sortedByEmail
             it.website -> sortedByWebsite
             it.authType -> sortedByAuthType
-            else -> _currentAccountsExposed
+            else -> _accounts
         }
     }
 
-    /**
-     * Properties
-     **/
-    val showSnackBarEvent: LiveData<String>
-        get() = _showSnackBarEvent
-
-    val accountListVisibility: LiveData<Boolean>
-        get() = _accountListVisibility
-
-    val accountEmptyViewVisibility: LiveData<Boolean>
-        get() = _accountEmptyViewVisibility
-
-
-    /**
-     * Functions
-     **/
+    /*
+    * Accessible functions
+    */
+    internal fun doneLoading(size: Int) {
+        _loadingStatus.value = if (size > 0) Loading.List.LIST else Loading.List.EMPTY_VIEW
+    }
 
     /* Flag to show snack bar message*/
     internal fun setSnackBarMessage(message: String) {
@@ -122,17 +110,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /* Flag to stop showing snack bar message */
     internal fun doneShowingSnackBar() {
         _showSnackBarEvent.value = null
-    }
-
-    /* Flag to stop showing the loading animation */
-    internal fun doneLoading() {
-        _loadingStatus.value = LoadingStatus.DONE
-    }
-
-    /* Alternates the visibility between account list and empty view UI */
-    internal fun alternateAccountListVisibility(accountsSize: Int) {
-        _accountListVisibility.value = accountsSize > 0
-        _accountEmptyViewVisibility.value = accountsSize < 1
     }
 
     /* Call function whenever there is a change in sorting */
@@ -147,12 +124,14 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    /* Load the accounts into a mediator live data */
+    /*
+    * Non-accessible functions
+    */
     private fun loadAccounts() {
-        _currentAccountsExposed.addSource(
+        _accounts.addSource(
             AccountRepository.getInstance(getApplication()).getAll(getUser().email)
         ) {
-            _currentAccountsExposed.value = it
+            _accounts.value = it
         }
     }
 

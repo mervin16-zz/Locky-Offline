@@ -20,13 +20,13 @@ class AccountRepository private constructor(application: Application) {
             }
     }
 
-    suspend fun get(key: String) = accountDao.get(key)
+    suspend fun get(key: Int) = accountDao.get(key)
 
     suspend fun insert(account: Account) = accountDao.insert(account)
 
     suspend fun update(account: Account) = accountDao.update(account)
 
-    suspend fun delete(key: String) = accountDao.remove(key)
+    suspend fun delete(key: Int) = accountDao.remove(key)
 
     suspend fun wipe(userID: String) = accountDao.removeAll(userID)
 

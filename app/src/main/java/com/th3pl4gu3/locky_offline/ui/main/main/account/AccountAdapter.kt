@@ -49,7 +49,7 @@ class AccountAdapter(
 class AccountDiffCallback: DiffUtil.ItemCallback<Account>() {
 
     override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
-        return oldItem.accountID == newItem.accountID
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {

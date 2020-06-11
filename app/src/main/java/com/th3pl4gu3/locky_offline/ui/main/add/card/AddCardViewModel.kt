@@ -33,8 +33,8 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     private val _pinErrorMessage = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
     private val _cardHolderErrorMessage = MutableLiveData<String>()
-    private var isEmptyCard = true
     private var _card = Card()
+    private var _isNewCard = false
 
     /**
      * Bindable two-way binding
@@ -104,10 +104,10 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     var moreInfo: String?
         @Bindable get() {
-            return _card.cardMoreInfo
+            return _card.additionalInfo
         }
         set(value) {
-            _card.cardMoreInfo = value
+            _card.additionalInfo = value
             notifyPropertyChanged(BR.moreInfo)
         }
 
@@ -162,17 +162,6 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         }
     }
 
-    internal fun resetChanges(unEditedCard: Card) {
-        entryName = unEditedCard.entryName
-        cardNumber = unEditedCard.number
-        pin = unEditedCard.pin
-        bank = unEditedCard.bank
-        cardHolderName = unEditedCard.cardHolderName
-        issuedDate = unEditedCard.issuedDate
-        expiryDate = unEditedCard.expiryDate
-        moreInfo = unEditedCard.cardMoreInfo
-    }
-
     internal fun doneWithToastEvent() {
         _toastEvent.value = null
     }
@@ -181,15 +170,41 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         _hasErrors.value = false
     }
 
-    internal fun setCard(card: Card?) {
+    internal fun loadCard(currentKey: Int, previousKey: Int) {
+        viewModelScope.launch {
 
-        /** Check if data comes from edit screen
-         *  or data is empty because it comes form add screen
-         *  To do that, test if card is null
-         **/
-        isEmptyCard = card == null
+            if (currentKey == -1 && previousKey == -1) {
+                /*
+                * This means it is an addition
+                */
+                _isNewCard = true
+                return@launch
+            }
 
-        this._card = card ?: Card()
+            val repository = CardRepository.getInstance(getApplication())
+
+            if (currentKey == 0 && previousKey > 0) {
+                /*
+                * This means it is a duplicate
+                */
+                _card = repository.get(previousKey)!!.apply {
+                    id = 0
+                }
+
+                notifyChange()
+
+                /*
+                * We need to set new account to true
+                * So that it is added instead of updated
+                */
+                _isNewCard = true
+
+            } else if (currentKey > 0) {
+                /* This means it is an edit */
+                _card = repository.get(currentKey)!!
+                notifyChange()
+            }
+        }
     }
 
     internal fun updateIssuedDateText(timeInMillis: Long) {
@@ -214,9 +229,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
             * If already present, it means it is an edit
             * Else, it means it is an addition
             */
-            val repository = CardRepository.getInstance(getApplication())
-            val fetchedCard = repository.get(card.cardID)
-            if (fetchedCard == null) {
+            if (_isNewCard) {
                 message = getApplication<Application>().getString(
                     R.string.message_credentials_modified,
                     card.entryName

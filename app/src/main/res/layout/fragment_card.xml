@@ -8,6 +8,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.th3pl4gu3.locky_offline.repository.Loading.List" />
+
         <variable
             name="ViewModel"
             type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardViewModel" />
@@ -26,7 +28,7 @@
             android:id="@+id/RecyclerView_Card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{ViewModel.cardListVisibility? View.VISIBLE : View.GONE}"
+            android:visibility="@{ViewModel.loadingStatus == List.LIST ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
             android:id="@+id/Empty_View"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{ViewModel.cardEmptyViewVisibility? View.VISIBLE : View.GONE}"
+            android:visibility="@{ViewModel.loadingStatus == List.EMPTY_VIEW ? View.VISIBLE : View.GONE}"
             app:constraint_referenced_ids="Empty_View_Illustration,Empty_View_Title,Empty_View_Subtitle" />
 
         <ImageView
@@ -100,7 +102,7 @@
             layout="@layout/custom_view_list_loading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{ViewModel.loadingStatus? View.VISIBLE : View.GONE}"
+            android:visibility="@{ViewModel.loadingStatus == List.LOADING ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

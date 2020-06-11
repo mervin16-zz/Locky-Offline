@@ -97,6 +97,6 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso_core"
     androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
     testImplementation "androidx.room:room-testing:$version_room"
-    /*debugImplementation "com.amitshekhar.android:debug-db:$version_amitshekar_debug"*/
+    debugImplementation "com.amitshekhar.android:debug-db:$version_amitshekar_debug"
 }
 

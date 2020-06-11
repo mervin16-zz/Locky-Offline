@@ -20,13 +20,13 @@ class CardRepository private constructor(application: Application) {
             }
     }
 
-    suspend fun get(key: String) = cardDao.get(key)
+    suspend fun get(key: Int) = cardDao.get(key)
 
     suspend fun insert(card: Card) = cardDao.insert(card)
 
     suspend fun update(card: Card) = cardDao.update(card)
 
-    suspend fun delete(key: String) = cardDao.remove(key)
+    suspend fun delete(key: Int) = cardDao.remove(key)
 
     suspend fun wipe(userID: String) = cardDao.removeAll(userID)
 

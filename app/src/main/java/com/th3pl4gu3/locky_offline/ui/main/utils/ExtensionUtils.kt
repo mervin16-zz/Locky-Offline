@@ -123,13 +123,13 @@ fun Fragment.copyToClipboard(data: String) =
 /*
 * Popup menu
 */
-fun Context.createPopUpMenu(
+fun Fragment.createPopUpMenu(
     view: View,
     menu: Int,
     itemListener: PopupMenu.OnMenuItemClickListener,
     dismissListener: PopupMenu.OnDismissListener
 ) {
-    val popup = PopupMenu(this, view)
+    val popup = PopupMenu(requireContext(), view)
     //inflating menu from xml resource
     popup.inflate(menu)
     //adding click & on dismiss listener

@@ -59,7 +59,7 @@
             android:ellipsize="end"
             android:ems="11"
             android:singleLine="true"
-            android:text="@{Account.accountName}"
+            android:text="@{Account.entryName}"
             app:layout_constraintBottom_toTopOf="@+id/Account_Login"
             app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
             app:layout_constraintTop_toTopOf="@+id/Account_Logo"

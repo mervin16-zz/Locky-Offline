@@ -2,7 +2,6 @@ package com.th3pl4gu3.locky_offline.ui.main.add.card
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -20,28 +18,34 @@ class AddCardFragment : Fragment() {
 
     private var _binding: FragmentAddCardBinding? = null
     private var _viewModel: AddCardViewModel? = null
-    private var _unEditedCard: Card? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /* Binds the UI */
         _binding = FragmentAddCardBinding.inflate(inflater, container, false)
+        /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(AddCardViewModel::class.java)
-
-        //Bind view model and lifecycle owner
+        /* Bind view model to layout */
         binding.viewModel = viewModel
+        /* Bind lifecycle owner to this */
         binding.lifecycleOwner = this
 
-        val card = AddCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
-        _unEditedCard = card?.copy()
+        /*
+        * Fetch the key from argument
+        * And set it to view model for fetching
+        */
+        viewModel.loadCard(
+            AddCardFragmentArgs.fromBundle(requireArguments()).keycard,
+            AddCardFragmentArgs.fromBundle(requireArguments()).keycardprevious
+        )
 
-        viewModel.setCard(card)
-
+        /* Returns the root view */
         return binding.root
     }
 
@@ -75,16 +79,6 @@ class AddCardFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            if (_unEditedCard != null) {
-                viewModel.resetChanges(_unEditedCard!!)
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

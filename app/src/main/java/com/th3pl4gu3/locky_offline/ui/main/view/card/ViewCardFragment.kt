@@ -5,9 +5,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
@@ -18,7 +18,6 @@ class ViewCardFragment : Fragment() {
 
     private var _binding: FragmentViewCardBinding? = null
     private var _viewModel: ViewCardViewModel? = null
-    private lateinit var _card: Card
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -28,24 +27,15 @@ class ViewCardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //Fetch the layout and do the binding
+        /*Fetch the layout and do the binding*/
         _binding = FragmentViewCardBinding.inflate(inflater, container, false)
-        //Instantiate view model
+        /*Instantiate view model*/
         _viewModel = ViewModelProvider(this).get(ViewCardViewModel::class.java)
+        /*Bind lifecycle owner to this*/
         binding.lifecycleOwner = this
-
-        //Fetch the account clicked on the previous screen
-        _card = ViewCardFragmentArgs.fromBundle(requireArguments()).parcelcredcard
-
-        with(_card) {
-
-            //Bind the card to the layout for displaying
-            binding.card = this
-
-            //Submit the card details to the recyclerview
-            initiateCredentialsFieldList().submitList(viewModel.fieldList(this))
-        }
-
+        /*Fetch the account clicked on the previous screen*/
+        binding.card = ViewCardFragmentArgs.fromBundle(requireArguments()).cardToVIEW
+        /* Return root view */
         return binding.root
     }
 
@@ -54,6 +44,9 @@ class ViewCardFragment : Fragment() {
 
         /* Hides the soft keyboard */
         hideSoftKeyboard(binding.root)
+
+        /* Load user data */
+        subscribeUi()
     }
 
     override fun onDestroyView() {
@@ -74,45 +67,41 @@ class ViewCardFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Duplicate -> {
-                /*
-                * We set the card id to empty here
-                * When the add screen receives it, it wil perceive it as a new card that needs to be
-                * added to the database
-                */
-                navigateToEditScreen(_card.copy(cardID = generateUniqueID()))
+                navigateTo(
+                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
+                        .setKEYCARD(0).setKEYCARDPREVIOUS(binding.card!!.id)
+                )
                 true
             }
 
             R.id.Action_Edit -> {
-                navigateToEditScreen(_card)
+                navigateTo(
+                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
+                        .setKEYCARD(
+                            binding.card!!.id
+                        )
+                )
                 true
             }
 
             R.id.Action_Delete -> {
-                deleteConfirmationDialog(_card.entryName)
+                deleteConfirmationDialog(binding.card!!.entryName)
                 true
             }
             else -> false
         }
     }
 
-    private fun navigateToEditScreen(card: Card) {
-        navigateTo(
-            ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
-                .setPARCELCREDCARD(card)
-        )
-    }
-
     private fun deleteCardAndNavigateBackToCardList() {
-        with(_card) {
-            viewModel.delete(cardID)
+        with(binding.card!!) {
+            viewModel.delete(id)
             toast(getString(R.string.message_credentials_deleted, entryName))
             findNavController().popBackStack()
         }
     }
 
-    private fun initiateCredentialsFieldList(): CredentialsViewAdapter {
-        val credentialsAdapter =
+    private fun subscribeUi() {
+        val adapter =
             CredentialsViewAdapter(
                 CopyClickListener { data ->
                     copyToClipboardAndToast(data)
@@ -122,11 +111,19 @@ class ViewCardFragment : Fragment() {
                 })
 
         binding.RecyclerViewCredentialsField.apply {
-            adapter = credentialsAdapter
+            /*
+            * State that layout size will not change for better performance
+            */
             setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
 
-        return credentialsAdapter
+        adapter.submitList(viewModel.fieldList(binding.card!!))
     }
 
     private fun snackBarAction(message: String) {

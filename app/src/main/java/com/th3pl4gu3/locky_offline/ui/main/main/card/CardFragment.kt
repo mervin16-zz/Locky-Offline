@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
@@ -30,15 +31,14 @@ class CardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /*Inflate the layout for this fragment*/
         _binding = FragmentCardBinding.inflate(inflater, container, false)
-        // Fetch view model
+        /*Fetch view model*/
         _viewModel = ViewModelProvider(this).get(CardViewModel::class.java)
-        //Bind view model to layout
+        /*Bind view model to layout*/
         binding.viewModel = _viewModel
-        // Bind lifecycle owner
+        /*Bind lifecycle owner*/
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
@@ -48,13 +48,13 @@ class CardFragment : Fragment() {
         /* Hides the soft keyboard */
         hideSoftKeyboard(binding.root)
 
-        //Observe snack bar event for any trigger
+        /*Observe snack bar event for any trigger*/
         observeSnackBarEvent()
 
-        //Observe cards list being updated
+        /*Observe cards list being updated*/
         observeCardsEvent()
 
-        //Observe sort & filter changes
+        /*Observe sort & filter changes*/
         observeBackStackEntryForSortSheet()
     }
 
@@ -95,17 +95,23 @@ class CardFragment : Fragment() {
         with(viewModel) {
             cards.observe(viewLifecycleOwner, Observer { cards ->
                 if (cards != null) {
-                    //set loading flag to hide progress bar
-                    doneLoading()
-
-                    //Alternate visibility for account list and empty view
-                    alternateCardListVisibility(cards.size)
+                    //Update UI
+                    updateUI(cards.size)
 
                     //Submit the cards
-                    initiateCardList().submitList(cards)
+                    subscribeUi(cards)
                 }
             })
         }
+    }
+
+    private fun updateUI(listSize: Int) {
+        /*
+        * Hide the loading animation
+        * Alternate visibility between
+        * Recyclerview & Empty View
+        */
+        viewModel.doneLoading(listSize)
     }
 
     private fun observeBackStackEntryForSortSheet() {
@@ -138,7 +144,7 @@ class CardFragment : Fragment() {
         })
     }
 
-    private fun initiateCardList(): CardAdapter {
+    private fun subscribeUi(cards: List<Card>) {
         val adapter = CardAdapter(
             CardClickListener {
                 navigateToSelectedCard(it)
@@ -152,11 +158,19 @@ class CardFragment : Fragment() {
             })
 
         binding.RecyclerViewCard.apply {
-            this.adapter = adapter
+            /*
+            * State that layout size will not change for better performance
+            */
             setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
 
-        return adapter
+        adapter.submitList(cards)
     }
 
     private fun navigateToSortSheet() {
@@ -175,7 +189,7 @@ class CardFragment : Fragment() {
     }
 
     private fun createPopupMenu(view: View, card: Card) {
-        requireContext().createPopUpMenu(
+        createPopUpMenu(
             view,
             R.menu.menu_moreoptions_card,
             PopupMenu.OnMenuItemClickListener {
