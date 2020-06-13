@@ -15,7 +15,7 @@
     <string name="app_play_package" translatable="false">com.android.vending</string>
 
     <string name="app_play_share" translatable="false">
-        Hey, check out this nice password manager as: ttps://play.google.com/store/apps/details?id="%1$s"
+        Hey, check out this nice password manager on: https://play.google.com/store/apps/details?id="%1$s"
     </string>
 
     <string name="app_support_email_team" translatable="false">locky.application@gmail.com</string>
@@ -149,6 +149,10 @@
     <string name="menu_bank_account_moreOptions_copyIban" translatable="false">Copy Iban</string>
     <string name="menu_bank_account_moreOptions_copySwift" translatable="false">Copy Swift</string>
 
+    <string name="menu_search_filters_account" translatable="false">Accounts</string>
+    <string name="menu_search_filters_card" translatable="false">Cards</string>
+    <string name="menu_search_filters_bank_account" translatable="false">Bank Accounts</string>
+
     <string name="menu_card_searchview_Search" translatable="false">Search</string>
 
     <!-- =========== -->
@@ -246,6 +250,8 @@
     </string>
     <string name="message_about_donations_billing_completed" translatable="false">Thank you for contributing</string>
 
+    <string name="message_search_results" translatable="false">Search returned "%1$s" results</string>
+
 
     <!-- =============== -->
     <!-- Error Messages -->
@@ -278,6 +284,7 @@
     <string name="button_action_email_sign_in" translatable="false">email sign in</string>
     <string name="button_action_google_sign_in" translatable="false">Sign in with Google</string>
     <string name="button_action_get_started" translatable="false">get started</string>
+    <string name="button_action_filter" translatable="false">Filter</string>
 
     <string name="button_action_category_add_account" translatable="false">Account</string>
     <string name="button_action_category_add_card" translatable="false">Card</string>

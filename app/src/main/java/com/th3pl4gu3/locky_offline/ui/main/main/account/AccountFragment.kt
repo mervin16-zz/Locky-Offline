@@ -173,7 +173,8 @@ class AccountFragment : Fragment() {
                     isEnabled = false
                 }
                 createPopupMenu(view, account)
-            }
+            },
+            false
         )
 
         binding.RecyclerViewAccount.apply {

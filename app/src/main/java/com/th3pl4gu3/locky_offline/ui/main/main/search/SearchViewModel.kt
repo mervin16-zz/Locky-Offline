@@ -6,64 +6,77 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
+import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import java.util.*
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _showSnackbarEvent = MutableLiveData<String>()
+    //TODO(Refactor project enums)
+    //TODO(Add comments for Walk-through)
+    //TODO(Update Strings localization)
+    enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS }
+
+    /*
+    * Private variables
+    */
     private val _starterScreenVisibility = MutableLiveData(true)
+    private var _filter = MutableLiveData(CREDENTIALS.ACCOUNTS)
     private var _searchQuery = MutableLiveData<String>()
+    private var _resultSize = MutableLiveData<Int>()
 
 
-    val showSnackBarEvent: LiveData<String>
-        get() = _showSnackbarEvent
-
+    /*
+    * Properties
+    */
     val starterScreenVisibility: LiveData<Boolean>
         get() = _starterScreenVisibility
 
-    val accounts: LiveData<List<Account>> = Transformations.switchMap(_searchQuery) {
-        AccountRepository.getInstance(getApplication()).search(it, getUser().email)
+    /*
+    *Transformations
+    */
+    val accounts = Transformations.switchMap(_searchQuery) {
+        if (_filter.value == CREDENTIALS.ACCOUNTS) {
+            AccountRepository.getInstance(getApplication()).search(it, getUser().email)
+        } else {
+            null
+        }
     }
 
-    val cards: LiveData<List<Card>> = Transformations.switchMap(_searchQuery) {
-        CardRepository.getInstance(getApplication()).search(it, getUser().email)
+    val cards = Transformations.switchMap(_searchQuery) {
+        if (_filter.value == CREDENTIALS.CARDS) {
+            CardRepository.getInstance(getApplication()).search(it, getUser().email)
+        } else {
+            null
+        }
     }
 
-    val accountsSize: LiveData<String> = Transformations.map(accounts) {
-        getApplication<Application>().getString(
-            R.string.text_subtitle_search_accounts,
-            it.size.toString()
-        )
+    val bankAccounts = Transformations.switchMap(_searchQuery) {
+        if (_filter.value == CREDENTIALS.BANK_ACCOUNTS) {
+            BankAccountRepository.getInstance(getApplication()).search(it, getUser().email)
+        } else {
+            null
+        }
     }
 
-    val cardsSize: LiveData<String> = Transformations.map(cards) {
-        getApplication<Application>().getString(
-            R.string.text_subtitle_search_cards,
-            it.size.toString()
-        )
+    val resultSize = Transformations.map(_resultSize) {
+        getApplication<Application>().getString(R.string.message_search_results, it.toString())
     }
 
-    val isAccountListVisible: LiveData<Boolean> = Transformations.map(accounts) {
-        it.isNotEmpty()
+    /*
+    * Accessible functions
+    */
+    internal fun updateResultSize(newSize: Int) {
+        _resultSize.value = newSize
     }
 
-    val isCardListVisible: LiveData<Boolean> = Transformations.map(cards) {
-        it.isNotEmpty()
-    }
-
-    internal fun setSnackBarMessage(message: String) {
-        _showSnackbarEvent.value = message
-    }
-
-    internal fun doneShowingSnackBar() {
-        _showSnackbarEvent.value = null
+    internal fun setFilter(value: CREDENTIALS) {
+        _filter.value = value
+        _searchQuery.value = _searchQuery.value //To trigger transformations
     }
 
     internal fun search(query: String) {
@@ -74,6 +87,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         hideStarterScreen()
 
         _searchQuery.value = "%${query.trim().toLowerCase(Locale.ROOT)}%"
+        _filter.value = _filter.value //To trigger filter
     }
 
     internal fun cancel() {
@@ -85,6 +99,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         showStarterScreen()
     }
 
+
+    /*
+    * In-accessible functions
+    */
     private fun showStarterScreen() {
         if (!_starterScreenVisibility.value!!) {
             _starterScreenVisibility.value = true
@@ -99,6 +117,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun getUser(): User {
         LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
+        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

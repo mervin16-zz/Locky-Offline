@@ -7,18 +7,20 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentSearchBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountOptionsClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.card.CardOptionsClickListener
-import com.th3pl4gu3.locky_offline.ui.main.utils.*
-
+import com.th3pl4gu3.locky_offline.ui.main.utils.createPopUpMenu
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 
 class SearchFragment : Fragment() {
 
@@ -46,11 +48,18 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeAccountsEvent()
+        binding.ButtonFilter.setOnClickListener {
+            it.apply {
+                isEnabled = false
+            }
+            createFilterPopUpMenu(it)
+        }
 
-        observeCardListEvent()
+        observeAccounts()
 
-        observeSnackBarEvent()
+        observeCards()
+
+        observeBankAccounts()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,132 +103,134 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun observeSnackBarEvent() {
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                snackBarAction(it)
-            }
-        })
-    }
-
-    private fun observeAccountsEvent() {
+    private fun observeAccounts() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                initiateAccountList().submitList(it)
+                viewModel.updateResultSize(it.size)
+                subscribeAccountsUi(it)
             }
         })
     }
 
-    private fun observeCardListEvent() {
+    private fun observeCards() {
         viewModel.cards.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                initiateCardList().submitList(it)
+                viewModel.updateResultSize(it.size)
+                subscribeCardsUi(it)
             }
         })
     }
 
-    private fun initiateAccountList(): AccountAdapter {
-        val accountAdapter =
-            AccountAdapter(
-                AccountClickListener {
-                    navigateToSelectedAccount(it)
-                },
-                AccountOptionsClickListener { view, account ->
-                    createActionPopupMenu(view, account)
-                })
-
-        binding.RecyclerViewAccounts.apply {
-            adapter = accountAdapter
-            setHasFixedSize(true)
-        }
-
-        return accountAdapter
+    private fun observeBankAccounts() {
+        viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                viewModel.updateResultSize(it.size)
+                subscribeBankAccountsUi(it)
+            }
+        })
     }
 
-    private fun initiateCardList(): CardAdapter {
-        val cardAdapter = CardAdapter(
-            CardClickListener {
-                navigateToSelectedCard(it)
+    private fun createFilterPopUpMenu(view: View) {
+        createPopUpMenu(
+            view,
+            R.menu.menu_search_filters,
+            PopupMenu.OnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.Menu_Account -> {
+                        viewModel.setFilter(SearchViewModel.CREDENTIALS.ACCOUNTS)
+                        true
+                    }
+                    R.id.Menu_Card -> {
+                        viewModel.setFilter(SearchViewModel.CREDENTIALS.CARDS)
+                        true
+                    }
+                    R.id.Menu_Bank_Account -> {
+                        viewModel.setFilter(SearchViewModel.CREDENTIALS.BANK_ACCOUNTS)
+                        true
+                    }
+                    else -> false
+                }
+            }, PopupMenu.OnDismissListener {
+                view.apply {
+                    isEnabled = true
+                }
+            })
+    }
+
+    private fun subscribeAccountsUi(accounts: List<Account>) {
+        val adapter = AccountAdapter(
+            /* The click listener to handle account on clicks */
+            AccountClickListener {
+                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(it))
             },
-            CardOptionsClickListener { view, card ->
-                createCardPopupMenu(view, card)
-            })
+            null,
+            true
+        )
 
-        binding.RecyclerViewCards.apply {
-            adapter = cardAdapter
+        binding.RecyclerViewLists.apply {
+            /*
+            * State that layout size will not change for better performance
+            */
             setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
 
-        return cardAdapter
+        /* Submits the list for displaying */
+        adapter.submitList(accounts)
     }
 
-    private fun snackBarAction(message: String) {
-        binding.LayoutParent.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
+    private fun subscribeCardsUi(cards: List<Card>) {
+        val adapter = CardAdapter(
+            CardClickListener {
+                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(it))
+            },
+            null,
+            true
+        )
+
+        binding.RecyclerViewLists.apply {
+            /*
+            * State that layout size will not change for better performance
+            */
+            setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
         }
-        viewModel.doneShowingSnackBar()
+
+        adapter.submitList(cards)
     }
 
-    private fun triggerSnackBarAction(message: String): Boolean {
-        viewModel.setSnackBarMessage(message)
-        return true
-    }
-
-    private fun navigateToSelectedAccount(account: Account) {
-        navigateTo(
-            SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
-                account
-            )
+    private fun subscribeBankAccountsUi(bankAccounts: List<BankAccount>) {
+        val adapter = BankAccountAdapter(
+            BankAccountClickListener {
+                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(it))
+            },
+            null,
+            true
         )
-    }
 
-    private fun navigateToSelectedCard(card: Card) {
-        navigateTo(
-            SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(
-                card
-            )
-        )
-    }
+        binding.RecyclerViewLists.apply {
+            /*
+            * State that layout size will not change for better performance
+            */
+            setHasFixedSize(true)
 
-    private fun createCardPopupMenu(view: View, card: Card) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_card,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
-                    R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin)
-                    R.id.Menu_ShowPin -> triggerSnackBarAction(card.pin)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
 
-    private fun createActionPopupMenu(view: View, account: Account) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_account,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyUsername -> copyToClipboardAndToast(account.username)
-                    R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
-                    R.id.Menu_ShowPass -> triggerSnackBarAction(account.password)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
+            /* Bind the adapter */
+            this.adapter = adapter
+        }
 
-    private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
-        return true
+        adapter.submitList(bankAccounts)
     }
 }

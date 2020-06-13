@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="IsSimplifiedVersion"
+            type="Boolean" />
+
         <variable
             name="BankAccount"
             type="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
@@ -30,12 +36,12 @@
 
         <ImageView
             android:id="@+id/Bank_Account_Logo"
+            iconColor="@{BankAccount.accent}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            iconColor="@{BankAccount.accent}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +117,7 @@
             android:onClick="@{(view) -> OptionsClickListener.onClick(view, BankAccount)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
+            android:visibility="@{IsSimplifiedVersion ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/Bank_Account_Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/Barrier_Options"

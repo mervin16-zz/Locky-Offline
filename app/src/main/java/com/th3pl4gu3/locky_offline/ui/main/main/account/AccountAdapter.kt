@@ -11,13 +11,19 @@ import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewAccountBind
 
 class AccountAdapter(
     private val accountClickListener: AccountClickListener,
-    private val accountOptionsClickListener: AccountOptionsClickListener
-    ) : ListAdapter<Account, AccountAdapter.ViewHolder>(
+    private val accountOptionsClickListener: AccountOptionsClickListener?,
+    private val isSimplified: Boolean
+) : ListAdapter<Account, AccountAdapter.ViewHolder>(
     AccountDiffCallback()
 ) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(accountClickListener, accountOptionsClickListener, getItem(position))
+        holder.bind(
+            accountClickListener,
+            accountOptionsClickListener,
+            getItem(position),
+            isSimplified
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,10 +33,16 @@ class AccountAdapter(
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewAccountBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: AccountClickListener, optionsClickListener: AccountOptionsClickListener, Account: Account) {
+        fun bind(
+            clickListener: AccountClickListener,
+            optionsClickListener: AccountOptionsClickListener?,
+            Account: Account,
+            isSimplified: Boolean
+        ) {
             binding.account = Account
             binding.clickListener = clickListener
             binding.optionsClickListener = optionsClickListener
+            binding.isSimplifiedVersion = isSimplified
             binding.executePendingBindings()
         }
 

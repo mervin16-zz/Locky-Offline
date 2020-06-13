@@ -40,7 +40,11 @@
             app:destination="@id/BottomSheet_Fragment_Account_Filter" />
         <action
             android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
-            app:destination="@id/Fragment_View_Account" />
+            app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
@@ -56,7 +60,11 @@
         tools:layout="@layout/fragment_about">
         <action
             android:id="@+id/action_Fragment_About_to_Fragment_Donate"
-            app:destination="@id/Fragment_Donate" />
+            app:destination="@id/Fragment_Donate"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
@@ -74,6 +82,13 @@
         <action
             android:id="@+id/action_Fragment_Search_to_Fragment_View_Account"
             app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+        <action
+            android:id="@+id/action_Fragment_Search_to_Fragment_View_Bank_Account"
+            app:destination="@id/Fragment_View_Bank_Account"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
@@ -104,7 +119,11 @@
         tools:layout="@layout/fragment_view_account">
         <action
             android:id="@+id/action_Fragment_View_Account_to_Fragment_Add_Account"
-            app:destination="@id/Fragment_Add_Account" />
+            app:destination="@id/Fragment_Add_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <argument
             android:name="ACCOUNT_toVIEW"
             app:argType="com.th3pl4gu3.locky_offline.core.main.Account" />
@@ -223,7 +242,11 @@
             app:destination="@id/BottomSheet_Fragment_BankAccount_Filter" />
         <action
             android:id="@+id/action_Fragment_Bank_Account_to_Fragment_View_Bank_Account"
-            app:destination="@id/Fragment_View_Bank_Account" />
+            app:destination="@id/Fragment_View_Bank_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <dialog
@@ -242,7 +265,11 @@
             app:argType="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
         <action
             android:id="@+id/action_Fragment_View_Bank_Account_to_Fragment_Add_Bank_Account"
-            app:destination="@id/Fragment_Add_Bank_Account" />
+            app:destination="@id/Fragment_Add_Bank_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment

@@ -16,7 +16,6 @@ import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountFragmentDirections
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
 
@@ -168,7 +167,8 @@ class BankAccountFragment : Fragment() {
                     isEnabled = false
                 }
                 createPopupMenu(view, account)
-            }
+            },
+            false
         )
 
         binding.RecyclerViewBankAccount.apply {

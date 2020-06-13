@@ -7,12 +7,7 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     signingConfigs {
-        release {
-            storeFile file('C:\\Users\\mervi\\android keystore\\upload-keystore.jks')
-            storePassword 'mervinst34lfph4nt0m'
-            keyAlias 'upload'
-            keyPassword 'mervinth3pl4gu3'
-        }
+        release
     }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -21,10 +16,9 @@ android {
         applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.0-alpha06"
+        versionCode 9
+        versionName "1.0-beta02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.debug
     }
 
     buildTypes {
@@ -51,6 +45,26 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+def props = new Properties()
+def propFile = new File("keystore.properties")
+if (propFile.canRead()){
+    props.load(new FileInputStream(propFile))
+
+    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+            props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+        println 'signing.properties found but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+}else {
+    println 'signing.properties not found'
+    android.buildTypes.release.signingConfig = null
 }
 
 dependencies {

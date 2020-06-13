@@ -11,13 +11,14 @@ import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCardBinding
 
 class CardAdapter(
     private val cardClickListener: CardClickListener,
-    private val cardOptionsClickListener: CardOptionsClickListener
+    private val cardOptionsClickListener: CardOptionsClickListener?,
+    private var isSimplified: Boolean
 ) : ListAdapter<Card, CardAdapter.ViewHolder>(
     CardDiffCallback()
 ) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cardClickListener, cardOptionsClickListener, getItem(position))
+        holder.bind(cardClickListener, cardOptionsClickListener, getItem(position), isSimplified)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,10 +28,16 @@ class CardAdapter(
     }
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewCardBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: CardClickListener, cardOptionsClickListener: CardOptionsClickListener, card: Card) {
+        fun bind(
+            clickListener: CardClickListener,
+            cardOptionsClickListener: CardOptionsClickListener?,
+            card: Card,
+            isSimplified: Boolean
+        ) {
             binding.card = card
             binding.clickListener = clickListener
             binding.clickOptionsListener = cardOptionsClickListener
+            binding.isSimplifiedVersion = isSimplified
             binding.executePendingBindings()
         }
 

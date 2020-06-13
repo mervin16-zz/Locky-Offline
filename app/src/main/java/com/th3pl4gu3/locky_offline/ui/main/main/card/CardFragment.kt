@@ -155,7 +155,9 @@ class CardFragment : Fragment() {
                     isEnabled = false
                 }
                 createPopupMenu(view, card)
-            })
+            },
+            false
+        )
 
         binding.RecyclerViewCard.apply {
             /*

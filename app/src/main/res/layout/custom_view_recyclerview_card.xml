@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="IsSimplifiedVersion"
+            type="Boolean" />
+
         <variable
             name="Card"
             type="com.th3pl4gu3.locky_offline.core.main.Card" />
@@ -107,6 +113,7 @@
             android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
+            android:visibility="@{IsSimplifiedVersion ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/Barrier_More_Options"
