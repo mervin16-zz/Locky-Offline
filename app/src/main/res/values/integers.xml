@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- =================== -->
+    <!-- Fields Restrictions -->
+    <!-- =================== -->
+    <integer name="restriction_field_extra_long">400</integer>
+    <integer name="restriction_field_long">200</integer>
+    <integer name="restriction_field_normal">100</integer>
+
+    <integer name="restriction_field_entry_name">50</integer>
+    <integer name="restriction_field_card_number">20</integer>
+    <integer name="restriction_field_pin">5</integer>
+
+
+    <integer name="restriction_lines_comments_min">2</integer>
+    <integer name="restriction_lines_comments_max">15</integer>
+</resources>

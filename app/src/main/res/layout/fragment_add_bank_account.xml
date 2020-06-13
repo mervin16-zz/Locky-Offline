@@ -10,7 +10,7 @@
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.AddBankAccountViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,12 +24,9 @@
         <!--
         **************** Logo Part ****************
         -->
-
         <ImageView
             android:id="@+id/Account_Logo"
-            errorResource="@{@drawable/ic_account_placeholder}"
-            imageUrl="@{ViewModel.logoUrl}"
-            loadingResource="@{@drawable/ic_image_loading}"
+            iconColor="@{ViewModel.accent}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="16dp"
@@ -37,49 +34,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_account_placeholder" />
-
-
-        <ImageButton
-            android:id="@+id/Account_Logo_Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:onClick="@{() -> ViewModel.setLogoUrl(Constants.VALUE_EMPTY)}"
-            app:layout_constraintBottom_toTopOf="@id/Account_Logo_Edit"
-            app:layout_constraintStart_toStartOf="@id/Account_Logo_Edit"
-            app:srcCompat="@drawable/ic_reset" />
-
-        <ImageButton
-            android:id="@+id/Account_Logo_Edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
-            app:layout_constraintStart_toEndOf="@+id/Account_Logo"
-            app:srcCompat="@drawable/ic_edit" />
+            app:srcCompat="@drawable/ic_bank" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_Logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Logo,Account_Logo_Reset,Account_Logo_Edit" />
+            app:constraint_referenced_ids="Account_Logo" />
 
+        <!--
+        **************** Require Label ****************
+        -->
+        <TextView
+            android:id="@+id/Label_Required"
+            style="@style/Locky.Text.Subtitle.Smaller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_required"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo" />
+
+        <!--
+        **************** Require Text Fields ****************
+        -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Account_Name"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/field_account_name"
+            android:layout_marginTop="8dp"
+            android:hint="@string/field_bank_account_name"
             app:endIconMode="clear_text"
-            app:helperText="@string/label_required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo"
+            app:layout_constraintTop_toBottomOf="@+id/Label_Required"
             app:startIconDrawable="@drawable/ic_profile">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -87,16 +77,16 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:maxLength="@integer/restriction_field_entry_name"
-                android:text="@={ViewModel.accountName}" />
+                android:text="@={ViewModel.entryName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_Username"
+            android:id="@+id/Account_Number"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="@string/field_account_username"
+            android:hint="@string/field_bank_account_number"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,76 +96,53 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLength="@integer/restriction_field_normal"
-                android:text="@={ViewModel.username}" />
+                android:text="@={ViewModel.number}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_Email"
+            android:id="@+id/Account_Bank"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="@string/field_account_email"
+            android:hint="@string/field_bank_account_bank"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Username"
-            app:startIconDrawable="@drawable/ic_email">
+            app:layout_constraintTop_toBottomOf="@+id/Account_Number"
+            app:startIconDrawable="@drawable/ic_bank">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.email}" />
+                android:inputType="text"
+                android:maxLength="@integer/restriction_field_normal"
+                android:text="@={ViewModel.bank}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_Password"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_account_password"
-            app:endIconMode="password_toggle"
-            app:helperText="@string/label_required"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Email"
-            app:startIconDrawable="@drawable/ic_account">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.password}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_Website"
+            android:id="@+id/Account_Owner"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="30dp"
-            android:hint="@string/field_account_website"
+            android:hint="@string/field_bank_account_owner"
             app:endIconMode="clear_text"
             app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Password"
-            app:startIconDrawable="@drawable/ic_web">
+            app:layout_constraintTop_toBottomOf="@+id/Account_Bank"
+            app:startIconDrawable="@drawable/ic_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textWebEditText"
+                android:inputType="text"
                 android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.website}" />
+                android:text="@={ViewModel.owner}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.Barrier
@@ -183,67 +150,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Username,Account_Email,Account_Name,Account_Password,Account_Website"
+            app:constraint_referenced_ids="Account_Number,Account_Owner,Account_Bank,Account_Name"
             tools:layout_editor_absoluteX="16dp" />
 
+
         <!--
-        **************** Extra Fields Label ****************
+        **************** Optional Label ****************
         -->
         <TextView
-            android:id="@+id/Label_Other"
+            android:id="@+id/Label_Optional"
             style="@style/Locky.Text.Subtitle.Smaller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_others"
-            app:layout_constraintStart_toStartOf="@id/Account_Auth"
+            android:text="@string/label_optional"
+            app:layout_constraintStart_toStartOf="@+id/Label_Required"
             app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
 
-        <!--
-        **************** Extra Text Fields ****************
-        -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_Auth"
+            android:id="@+id/Account_Iban"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/field_account_authentication_type"
-            app:helperText="@string/field_helper_account_authentication_type"
+            android:layout_marginTop="10dp"
+            android:hint="@string/field_bank_account_iban"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Other"
+            app:layout_constraintTop_toBottomOf="@+id/Label_Optional"
             app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textShortMessage|textCapWords"
-                android:maxLength="@integer/restriction_field_normal"
-                android:text="@={ViewModel.authType}" />
+                android:inputType="text"
+                android:maxLength="@integer/restriction_field_long"
+                android:text="@={ViewModel.iban}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Account_2FA_Keys"
+            android:id="@+id/Account_Swift_Code"
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="@string/field_account_2fakeys"
+            android:hint="@string/field_bank_account_swift"
             app:endIconMode="clear_text"
-            app:helperText="@string/field_helper_account_2fakeys"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Auth"
-            app:startIconDrawable="@drawable/ic_key">
+            app:layout_constraintTop_toBottomOf="@+id/Account_Iban"
+            app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:maxLength="@integer/restriction_field_extra_long"
-                android:maxLines="15"
-                android:minLines="2"
-                android:text="@={ViewModel.twoFaKeys}" />
+                android:inputType="text"
+                android:maxLength="@integer/restriction_field_long"
+                android:text="@={ViewModel.swiftCode}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -252,12 +214,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="24dp"
             android:hint="@string/field_account_additional"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Extra_Fields"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_2FA_Keys"
+            app:layout_constraintTop_toBottomOf="@+id/Account_Swift_Code"
             app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -267,21 +229,21 @@
                 android:maxLength="@integer/restriction_field_extra_long"
                 android:maxLines="@integer/restriction_lines_comments_max"
                 android:minLines="@integer/restriction_lines_comments_min"
-                android:text="@={ViewModel.accountMoreInfo}" />
-
+                android:text="@={ViewModel.moreInfo}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Extra_Fields"
+            android:id="@+id/Barrier_Optional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Comments,Account_Auth,Account_2FA_Keys,Label_Other" />
+            app:constraint_referenced_ids=",Account_Comments,Account_Swift_Code,Account_Iban" />
+
 
         <!--
         **************** Save Button ****************
         -->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Button_Save"
             style="@style/Locky.Button.Filled"
@@ -296,7 +258,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Barrier_Extra_Fields" />
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Optional" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

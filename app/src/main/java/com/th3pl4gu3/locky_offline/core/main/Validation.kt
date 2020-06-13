@@ -3,11 +3,34 @@ package com.th3pl4gu3.locky_offline.core.main
 import android.util.Patterns
 
 class Validation {
-    enum class ErrorField { NAME, PASSWORD, EMAIL, NUMBER, PIN, BANK, CARD_HOLDER, }
+    enum class ErrorField { NAME, PASSWORD, EMAIL, NUMBER, PIN, BANK, OWNER, }
     enum class ErrorType { BLANK_FIELD, EMAIL_FORMAT }
 
     var errorList = HashMap<ErrorField, ErrorType>()
         private set
+
+    fun isBankAccountFormValid(account: BankAccount): Boolean {
+        with(account) {
+            emptyValueCheck(
+                entryName,
+                ErrorField.NAME
+            )
+            emptyValueCheck(
+                accountNumber,
+                ErrorField.NUMBER
+            )
+            emptyValueCheck(
+                bank,
+                ErrorField.BANK
+            )
+            emptyValueCheck(
+                accountOwner,
+                ErrorField.OWNER
+            )
+        }
+
+        return errorList.isEmpty()
+    }
 
     fun isAccountFormValid(account: Account): Boolean {
         with(account) {
@@ -47,7 +70,7 @@ class Validation {
             )
             emptyValueCheck(
                 cardHolderName,
-                ErrorField.CARD_HOLDER
+                ErrorField.OWNER
             )
         }
 

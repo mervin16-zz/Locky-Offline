@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.*
@@ -17,7 +18,7 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class UserRepositoryTest {
     private lateinit var userDao: UserDao
-    private lateinit var database: Database
+    private lateinit var database: LockyDatabase
     private lateinit var user: User
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -26,7 +27,7 @@ class UserRepositoryTest {
     fun createDb() = runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(
-            context, Database::class.java
+            context, LockyDatabase::class.java
         ).build()
         userDao = database.userDao()
 

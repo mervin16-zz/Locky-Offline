@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.repository.database
+package com.th3pl4gu3.locky_offline.repository.database.daos
 
 import androidx.room.Dao
 import androidx.room.Insert

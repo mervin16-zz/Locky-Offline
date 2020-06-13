@@ -75,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:maxLength="@integer/restriction_field_entry_name"
                 android:text="@={ViewModel.entryName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +88,7 @@
             android:layout_marginTop="10dp"
             android:hint="@string/field_card_number"
             app:counterEnabled="true"
-            app:counterMaxLength="20"
+            app:counterMaxLength="@integer/restriction_field_card_number"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="20"
+                android:maxLength="@integer/restriction_field_card_number"
                 android:text="@={ViewModel.cardNumber}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,10 +108,10 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/field_card_pin"
             app:counterEnabled="true"
-            app:counterMaxLength="5"
+            app:counterMaxLength="@integer/restriction_field_pin"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberPassword"
-                android:maxLength="5"
+                android:maxLength="@integer/restriction_field_pin"
                 android:text="@={ViewModel.pin}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +131,7 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/field_card_bank"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:maxLength="@integer/restriction_field_normal"
                 android:text="@={ViewModel.bank}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,12 +158,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Card_Bank"
-            app:startIconDrawable="@drawable/ic_profile">
+            app:startIconDrawable="@drawable/ic_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:maxLength="@integer/restriction_field_long"
                 android:text="@={ViewModel.cardHolderName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,6 +177,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:hint="@string/field_card_date_issued"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
             app:layout_constraintEnd_toStartOf="@+id/Card_Expiry_Date"
             app:layout_constraintStart_toStartOf="@+id/Card_Holder"
             app:layout_constraintTop_toBottomOf="@+id/Card_Holder"
@@ -193,12 +197,12 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
             android:hint="@string/field_card_date_expiry"
-            app:layout_constraintBottom_toBottomOf="@+id/Card_Issued_Date"
+            app:layout_constraintBottom_toTopOf="@+id/Barrier_Required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
-            app:layout_constraintTop_toTopOf="@+id/Card_Issued_Date"
+            app:layout_constraintTop_toBottomOf="@+id/Card_Holder"
             app:startIconDrawable="@drawable/ic_date">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -227,12 +231,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/field_helper_account_2fakeys"
+            android:text="@string/label_optional"
             app:layout_constraintStart_toStartOf="@+id/Label_Required"
             app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
 
         <!--
-        **************** Require Text Fields ****************
+        **************** Optional Text Fields ****************
         -->
 
         <com.google.android.material.textfield.TextInputLayout
@@ -241,20 +245,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:hint="@string/field_card_additional"
             app:counterEnabled="true"
-            app:counterMaxLength="300"
+            app:counterMaxLength="@integer/restriction_field_extra_long"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Optional">
+            app:layout_constraintTop_toBottomOf="@+id/Label_Optional"
+            app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine|textCapSentences"
-                android:maxLength="300"
-                android:maxLines="15"
-                android:minLines="2"
+                android:maxLength="@integer/restriction_field_extra_long"
+                android:maxLines="@integer/restriction_lines_comments_max"
+                android:minLines="@integer/restriction_lines_comments_min"
                 android:text="@={ViewModel.moreInfo}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -274,7 +281,6 @@
             style="@style/Locky.Button.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:onClick="@{() -> ViewModel.save()}"
             android:text="@string/button_action_save"
             android:textAlignment="center"

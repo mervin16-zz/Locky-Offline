@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAddCategoryBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 
 class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -42,15 +40,15 @@ class AddCategoryBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.ButtonAddAccount.setOnClickListener {
-            findNavController().navigate(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddAccount())
+            navigateTo(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddAccount())
         }
 
         binding.ButtonAddCard.setOnClickListener {
-            findNavController().navigate(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddCard())
+            navigateTo(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddCard())
         }
 
-        binding.ButtonAddDevice.setOnClickListener {
-            toast(getString(R.string.dev_feature_implementation_unknown, "Add device"))
+        binding.ButtonAddBankAccount.setOnClickListener {
+            navigateTo(AddCategoryBottomSheetFragmentDirections.actionBottomSheetFragmentAddCategoryToFragmentAddBankAccount())
         }
     }
 

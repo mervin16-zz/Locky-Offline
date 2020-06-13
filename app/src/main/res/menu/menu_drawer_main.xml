@@ -12,6 +12,10 @@
             android:icon="@drawable/ic_credit_card"
             android:title="@string/menu_drawer_main_card" />
         <item
+            android:id="@+id/Fragment_Bank_Account"
+            android:icon="@drawable/ic_bank"
+            android:title="@string/menu_drawer_main_bank_account" />
+        <item
             android:id="@+id/Fragment_Device"
             android:icon="@drawable/ic_device"
             android:title="@string/menu_drawer_main_device" />

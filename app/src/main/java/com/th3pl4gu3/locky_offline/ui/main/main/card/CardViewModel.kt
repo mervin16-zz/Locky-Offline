@@ -6,7 +6,7 @@ import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.Loading
-import com.th3pl4gu3.locky_offline.repository.database.CardRepository
+import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager

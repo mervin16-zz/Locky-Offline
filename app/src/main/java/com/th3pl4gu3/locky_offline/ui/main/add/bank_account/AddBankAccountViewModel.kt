@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.add.card
+package com.th3pl4gu3.locky_offline.ui.main.add.bank_account
 
 import android.app.Application
 import androidx.databinding.Bindable
@@ -7,107 +7,104 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
-import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
+import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringForCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class AddCardViewModel(application: Application) : ObservableViewModel(application) {
+class AddBankAccountViewModel(application: Application) : ObservableViewModel(application) {
 
-    /**
-     * Variables
-     **/
+    /* Private Variables */
     private var _toastEvent = MutableLiveData<String>()
     private val _formValidity = MutableLiveData<String>()
     private val _hasErrors = MutableLiveData(false)
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _numberErrorMessage = MutableLiveData<String>()
-    private val _pinErrorMessage = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
-    private val _cardHolderErrorMessage = MutableLiveData<String>()
-    private var _card = Card()
-    private var _isNewCard = false
+    private val _ownerErrorMessage = MutableLiveData<String>()
+    private var _bankAccount = BankAccount()
+    private var _isNewAccount = false
+
 
     /**
      * Bindable two-way binding
      **/
     var entryName: String
         @Bindable get() {
-            return _card.entryName
+            return _bankAccount.entryName
         }
         set(value) {
-            _card.entryName = value
+            _bankAccount.entryName = value
             notifyPropertyChanged(BR.entryName)
         }
 
-    var cardNumber: String
+    var number: String
         @Bindable get() {
-            return _card.number
+            return _bankAccount.accountNumber
         }
         set(value) {
-            _card.number = value
-            notifyPropertyChanged(BR.cardNumber)
+            _bankAccount.accountNumber = value
+            notifyPropertyChanged(BR.number)
         }
 
-    var pin: String
+    var owner: String
         @Bindable get() {
-            return _card.pin
+            return _bankAccount.accountOwner
         }
         set(value) {
-            _card.pin = value
-            notifyPropertyChanged(BR.pin)
+            _bankAccount.accountOwner = value
+            notifyPropertyChanged(BR.owner)
         }
 
     var bank: String
         @Bindable get() {
-            return _card.bank
+            return _bankAccount.bank
         }
         set(value) {
-            _card.bank = value
+            _bankAccount.bank = value
             notifyPropertyChanged(BR.bank)
         }
 
-    var cardHolderName: String
+    var accent: String
         @Bindable get() {
-            return _card.cardHolderName
+            return _bankAccount.accent
         }
         set(value) {
-            _card.cardHolderName = value
-            notifyPropertyChanged(BR.cardHolderName)
+            _bankAccount.accent = value
+            notifyPropertyChanged(BR.accent)
         }
 
-    var issuedDate: String
+    var iban: String?
         @Bindable get() {
-            return _card.issuedDate
+            return _bankAccount.iban
         }
         set(value) {
-            _card.issuedDate = value
-            notifyPropertyChanged(BR.issuedDate)
+            _bankAccount.iban = value
+            notifyPropertyChanged(BR.iban)
         }
 
-    var expiryDate: String
+    var swiftCode: String?
         @Bindable get() {
-            return _card.expiryDate
+            return _bankAccount.swiftCode
         }
         set(value) {
-            _card.expiryDate = value
-            notifyPropertyChanged(BR.expiryDate)
+            _bankAccount.swiftCode = value
+            notifyPropertyChanged(BR.swiftCode)
         }
 
     var moreInfo: String?
         @Bindable get() {
-            return _card.additionalInfo
+            return _bankAccount.additionalInfo
         }
         set(value) {
-            _card.additionalInfo = value
+            _bankAccount.additionalInfo = value
             notifyPropertyChanged(BR.moreInfo)
         }
 
@@ -126,32 +123,28 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     val numberErrorMessage: LiveData<String>
         get() = _numberErrorMessage
 
-    val pinErrorMessage: LiveData<String>
-        get() = _pinErrorMessage
-
     val bankErrorMessage: LiveData<String>
         get() = _bankErrorMessage
 
-    val cardHolderErrorMessage: LiveData<String>
-        get() = _cardHolderErrorMessage
+    val ownerErrorMessage: LiveData<String>
+        get() = _ownerErrorMessage
 
     val toastEvent: LiveData<String>
         get() = _toastEvent
 
-
-    /**
-     * Functions
-     **/
+    /*
+    * Accessible Functions
+    */
     fun save() {
         viewModelScope.launch {
-            _card.apply {
+            _bankAccount.apply {
                 val validation = Validation()
-                if (validation.isCardFormValid(this)) {
+                if (validation.isBankAccountFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
 
-                    _formValidity.value = insertCardInDatabase(this)
+                    _formValidity.value = insertBankAccountInDatabase(this)
 
                 } else {
                     _hasErrors.value = true
@@ -170,24 +163,23 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         _hasErrors.value = false
     }
 
-    internal fun loadCard(currentKey: Int, previousKey: Int) {
+    internal fun loadBankAccount(currentKey: Int, previousKey: Int) {
         viewModelScope.launch {
-
             if (currentKey == -1 && previousKey == -1) {
                 /*
                 * This means it is an addition
                 */
-                _isNewCard = true
+                _isNewAccount = true
                 return@launch
             }
 
-            val repository = CardRepository.getInstance(getApplication())
+            val repository = BankAccountRepository.getInstance(getApplication())
 
             if (currentKey == 0 && previousKey > 0) {
                 /*
                 * This means it is a duplicate
                 */
-                _card = repository.get(previousKey)!!.apply {
+                _bankAccount = repository.get(previousKey)!!.apply {
                     id = 0
                 }
 
@@ -197,60 +189,51 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
                 * We need to set new account to true
                 * So that it is added instead of updated
                 */
-                _isNewCard = true
+                _isNewAccount = true
 
             } else if (currentKey > 0) {
                 /* This means it is an edit */
-                _card = repository.get(currentKey)!!
+                _bankAccount = repository.get(currentKey)!!
                 notifyChange()
             }
         }
     }
 
-    internal fun updateIssuedDateText(timeInMillis: Long) {
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = timeInMillis
-        issuedDate = cal.toFormattedStringForCard()
-    }
-
-    internal fun updateExpiryDateText(timeInMillis: Long) {
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = timeInMillis
-        expiryDate = cal.toFormattedStringForCard()
-    }
-
-    private suspend fun insertCardInDatabase(card: Card): String {
+    /*
+    * In-accessible functions
+    */
+    private suspend fun insertBankAccountInDatabase(account: BankAccount): String {
 
         var message = ""
 
         withContext(Dispatchers.IO) {
-            if (_isNewCard) {
+            if (_isNewAccount) {
                 message = getApplication<Application>().getString(
                     R.string.message_credentials_modified,
-                    card.entryName
+                    account.entryName
                 )
-                saveCardToDatabase(card)
+                saveAccountToDatabase(account)
             } else {
                 message = getApplication<Application>().getString(
                     R.string.message_credentials_modified,
-                    card.entryName
+                    account.entryName
                 )
-                updateCardInDatabase(card)
+                updateAccountInDatabase(account)
             }
         }
 
         return message
     }
 
-    private suspend fun updateCardInDatabase(card: Card) {
+    private suspend fun updateAccountInDatabase(account: BankAccount) {
         withContext(Dispatchers.IO) {
-            CardRepository.getInstance(getApplication()).update(card)
+            BankAccountRepository.getInstance(getApplication()).update(account)
         }
     }
 
-    private suspend fun saveCardToDatabase(card: Card) {
+    private suspend fun saveAccountToDatabase(account: BankAccount) {
         withContext(Dispatchers.IO) {
-            CardRepository.getInstance(getApplication()).insert(card)
+            BankAccountRepository.getInstance(getApplication()).insert(account)
         }
     }
 
@@ -263,15 +246,11 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
             if (errorList.containsKey(Validation.ErrorField.NUMBER)) getApplication<Application>().getString(
                 R.string.error_field_validation_blank
             ) else null
-        _pinErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.PIN)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
         _bankErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.BANK)) getApplication<Application>().getString(
                 R.string.error_field_validation_blank
             ) else null
-        _cardHolderErrorMessage.value =
+        _ownerErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.OWNER)) getApplication<Application>().getString(
                 R.string.error_field_validation_blank
             ) else null

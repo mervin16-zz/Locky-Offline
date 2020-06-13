@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Menu_CopyNumber"
+        android:title="@string/menu_card_moreOptions_copyNumber"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_CopyIban"
+        android:title="@string/menu_bank_account_moreOptions_copyIban"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_CopySwift"
+        android:title="@string/menu_bank_account_moreOptions_copySwift"
+        app:showAsAction="ifRoom" />
+</menu>

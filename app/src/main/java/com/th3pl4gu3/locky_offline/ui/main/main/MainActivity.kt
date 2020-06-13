@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val _navigationFragments = setOf(
         R.id.Fragment_Card,
         R.id.Fragment_Account,
+        R.id.Fragment_Bank_Account,
         R.id.Fragment_Device
     )
 
@@ -127,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             when (nd.id) {
                 R.id.Fragment_Account -> updateToolbar(getString(R.string.text_title_screen_accounts))
                 R.id.Fragment_Card -> updateToolbar(getString(R.string.text_title_screen_cards))
+                R.id.Fragment_Bank_Account -> updateToolbar(getString(R.string.text_title_screen_bank_account))
                 R.id.Fragment_Device -> updateToolbar(getString(R.string.text_title_screen_devices))
                 R.id.Fragment_Settings -> updateToolbar(getString(R.string.text_title_screen_settings))
                 R.id.Fragment_Profile -> updateToolbar(getString(R.string.text_title_screen_profile))
@@ -145,6 +147,7 @@ class MainActivity : AppCompatActivity() {
             when (nd.id) {
                 nc.graph.startDestination,
                 R.id.Fragment_Card,
+                R.id.Fragment_Bank_Account,
                 R.id.Fragment_Device -> {
                     _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
 

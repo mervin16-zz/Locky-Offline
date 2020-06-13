@@ -33,6 +33,7 @@
     <!-- ==================== -->
     <string name="text_title_screen_accounts" translatable="false">Accounts</string>
     <string name="text_title_screen_cards" translatable="false">Cards</string>
+    <string name="text_title_screen_bank_account" translatable="false">Bank Accounts</string>
     <string name="text_title_screen_devices" translatable="false">Devices</string>
     <string name="text_title_screen_settings" translatable="false">Settings</string>
     <string name="text_title_screen_profile" translatable="false">Profile</string>
@@ -51,6 +52,9 @@
 
     <string name="text_title_emptyView_accounts" translatable="false">An Account a day, keeps Hackers away!</string>
     <string name="text_subtitle_emptyView_accounts" translatable="false">Save all your account details here.</string>
+
+    <string name="text_title_emptyView_bank_accounts" translatable="false">Save your Bank Accounts</string>
+    <string name="text_subtitle_emptyView_bank_accounts" translatable="false">Don\'t forget to save all your bank accounts.</string>
 
     <string name="text_title_splash" translatable="false">Welcome to Locky</string>
     <string name="text_subtitle_splash" translatable="false">@string/app_description_short</string>
@@ -122,6 +126,7 @@
     <string name="menu_drawer_main_account" translatable="false">Accounts</string>
     <string name="menu_drawer_main_card" translatable="false">Cards</string>
     <string name="menu_drawer_main_device" translatable="false">Devices</string>
+    <string name="menu_drawer_main_bank_account" translatable="false">Bank Accounts</string>
     <string name="menu_drawer_main_profile" translatable="false">Profile</string>
     <string name="menu_drawer_main_settings" translatable="false">Settings</string>
     <string name="menu_drawer_main_about" translatable="false">About</string>
@@ -140,12 +145,17 @@
     <string name="menu_card_moreOptions_copyPin" translatable="false">Copy Pin</string>
     <string name="menu_card_moreOptions_viewPin" translatable="false">View Pin</string>
 
+    <string name="menu_bank_account_moreOptions_copyNumber" translatable="false">Copy Number</string>
+    <string name="menu_bank_account_moreOptions_copyIban" translatable="false">Copy Iban</string>
+    <string name="menu_bank_account_moreOptions_copySwift" translatable="false">Copy Swift</string>
+
     <string name="menu_card_searchview_Search" translatable="false">Search</string>
 
     <!-- =========== -->
     <!-- Data Fields -->
     <!-- =========== -->
     <string name="label_required" translatable="false">*Required Field</string>
+    <string name="label_optional" translatable="false">*Optional Field</string>
     <string name="label_others" translatable="false">*Extra Fields</string>
 
     <string name="field_account_name" translatable="false">Name</string>
@@ -175,6 +185,16 @@
     <string name="field_card_date_expiry" translatable="false">Expiry Date</string>
     <string name="field_card_additional" translatable="false">Additional Comments</string>
 
+
+    <string name="field_bank_account_name" translatable="false">Name</string>
+    <string name="field_bank_account_number" translatable="false">Number</string>
+    <string name="field_bank_account_owner" translatable="false">Owner</string>
+    <string name="field_bank_account_bank" translatable="false">Bank</string>
+    <string name="field_bank_account_iban" translatable="false">Iban</string>
+    <string name="field_bank_account_swift" translatable="false">Swift Code</string>
+    <string name="field_bank_account_additional" translatable="false">Additional Comments</string>
+
+
     <string name="field_hint_search" translatable="false">Search</string>
 
     <string name="field_placeholder_empty" translatable="false">None</string>
@@ -192,6 +212,9 @@
     <string name="field_card_sort_type" translatable="false">Card Brand</string>
     <string name="field_card_sort_cardholder" translatable="false">Name on Card</string>
 
+    <string name="field_bank_account_sort_entry" translatable="false">Name</string>
+    <string name="field_bank_account_sort_owner" translatable="false">Account Owner</string>
+    <string name="field_bank_account_sort_bank" translatable="false">Bank</string>
 
     <!-- =============== -->
     <!-- Notify Messages -->
@@ -258,6 +281,7 @@
 
     <string name="button_action_category_add_account" translatable="false">Account</string>
     <string name="button_action_category_add_card" translatable="false">Card</string>
+    <string name="button_action_category_add_bank_account" translatable="false">Bank Account</string>
     <string name="button_action_category_add_device" translatable="false">Device</string>
     <string name="button_action_category_add_item" translatable="false">Add an item</string>
 
@@ -295,6 +319,6 @@
     <!-- ======= DEV =======  -->
     <!-- ==================== -->
     <string name="dev_feature_implementation_unknown" translatable="false">The feature "%1$s" has not been implemented yet.</string>
-    <string name="dev_feature_implementation_soon" translatable="false">This feature is under construction</string>
+    <string name="dev_feature_implementation_soon" translatable="false">Coming Soon!</string>
 
 </resources>

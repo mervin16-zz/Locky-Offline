@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
@@ -56,6 +57,13 @@ fun TextView.accountLogin(account: Account) {
     text = resources.getString(R.string.app_user_email, account.email)
 }
 
+/********************************* Bank Account Binding Adapters****************************************/
+@BindingAdapter("iconColor")
+fun ImageView.iconColor(hexColor: String) {
+    if (hexColor.isNotEmpty()) {
+        this.setColorFilter(Color.parseColor(hexColor))
+    }
+}
 
 /********************************* Profile Binding Adapters****************************************/
 @BindingAdapter("memberSince")

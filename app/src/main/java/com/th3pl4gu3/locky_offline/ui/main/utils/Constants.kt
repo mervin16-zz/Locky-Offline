@@ -14,6 +14,7 @@ object Constants {
     const val KEY_ACCOUNT_LOGO = "KEY_ACCOUNT_LOGO"
     const val KEY_CARDS_SORT = "KEY_CARD_SORT"
     const val KEY_ACCOUNTS_SORT = "KEY_ACCOUNT_SORT"
+    const val KEY_BANK_ACCOUNTS_SORT = "KEY_BANK_ACCOUNT_SORT"
     const val KEY_USER_ACCOUNT = "KEY_USER_ACCOUNT"
 
     /*

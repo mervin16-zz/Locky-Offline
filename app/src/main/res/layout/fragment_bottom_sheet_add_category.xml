@@ -69,13 +69,13 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Add_Device"
+            android:id="@+id/Button_Add_Bank_Account"
             style="@style/Locky.Button.TextButton.Icon.MenuItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/button_action_category_add_device"
-            app:icon="@drawable/ic_device"
+            android:text="@string/button_action_category_add_bank_account"
+            app:icon="@drawable/ic_bank"
             app:layout_constraintEnd_toEndOf="@+id/Button_Add_Account"
             app:layout_constraintStart_toStartOf="@+id/Button_Add_Account"
             app:layout_constraintTop_toBottomOf="@id/Button_Add_Card" />

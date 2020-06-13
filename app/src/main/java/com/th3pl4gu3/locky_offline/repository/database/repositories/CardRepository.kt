@@ -1,12 +1,16 @@
-package com.th3pl4gu3.locky_offline.repository.database
+package com.th3pl4gu3.locky_offline.repository.database.repositories
 
 import android.app.Application
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.repository.database.LockyDatabase
 import java.util.*
 
 class CardRepository private constructor(application: Application) {
 
-    private val database = Database.getDatabase(application)
+    private val database =
+        LockyDatabase.getDatabase(
+            application
+        )
     private val cardDao = database.cardDao()
 
     companion object {
@@ -15,9 +19,14 @@ class CardRepository private constructor(application: Application) {
         private var instance: CardRepository? = null
 
         fun getInstance(application: Application) =
-            instance ?: synchronized(this) {
-                instance ?: CardRepository(application).also { instance = it }
-            }
+            instance
+                ?: synchronized(this) {
+                    instance
+                        ?: CardRepository(
+                            application
+                        )
+                            .also { instance = it }
+                }
     }
 
     suspend fun get(key: Int) = cardDao.get(key)
