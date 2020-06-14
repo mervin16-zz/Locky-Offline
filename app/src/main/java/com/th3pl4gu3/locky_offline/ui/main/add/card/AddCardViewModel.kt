@@ -11,10 +11,7 @@ import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringForCard
+import com.th3pl4gu3.locky_offline.ui.main.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,6 +30,8 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     private val _pinErrorMessage = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
     private val _cardHolderErrorMessage = MutableLiveData<String>()
+    private val _issuedDateErrorMessage = MutableLiveData<String>()
+    private val _expiryDateErrorMessage = MutableLiveData<String>()
     private var _card = Card()
     private var _isNewCard = false
 
@@ -135,6 +134,12 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     val cardHolderErrorMessage: LiveData<String>
         get() = _cardHolderErrorMessage
 
+    val issuedDateErrorMessage: LiveData<String>
+        get() = _issuedDateErrorMessage
+
+    val expiryDateErrorMessage: LiveData<String>
+        get() = _expiryDateErrorMessage
+
     val toastEvent: LiveData<String>
         get() = _toastEvent
 
@@ -145,7 +150,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     fun save() {
         viewModelScope.launch {
             _card.apply {
-                val validation = Validation()
+                val validation = Validation(getApplication())
                 if (validation.isCardFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
@@ -208,15 +213,36 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     }
 
     internal fun updateIssuedDateText(timeInMillis: Long) {
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = timeInMillis
-        issuedDate = cal.toFormattedStringForCard()
+        val id = Calendar.getInstance()
+        id.timeInMillis = timeInMillis
+        val ed = expiryDate.toFormattedCalendarForCard()
+
+        cardDatesVerification(id, ed)
+
+        issuedDate = id.toFormattedStringForCard()
     }
 
     internal fun updateExpiryDateText(timeInMillis: Long) {
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = timeInMillis
-        expiryDate = cal.toFormattedStringForCard()
+        val ed = Calendar.getInstance()
+        ed.timeInMillis = timeInMillis
+        val id = expiryDate.toFormattedCalendarForCard()
+
+        cardDatesVerification(id, ed)
+
+        expiryDate = ed.toFormattedStringForCard()
+    }
+
+    private fun cardDatesVerification(id: Calendar, ed: Calendar) {
+
+        val validation = Validation(getApplication())
+        validation.isCardDateValid(id, ed)
+
+        if (!validation.isCardDateValid(id, ed)) {
+            assignErrorMessages(validation.errorList)
+        } else {
+            _issuedDateErrorMessage.value = null
+            _expiryDateErrorMessage.value = null
+        }
     }
 
     private suspend fun insertCardInDatabase(card: Card): String {
@@ -254,27 +280,23 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         }
     }
 
-    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, Validation.ErrorType>) {
+    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
         _nameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NAME)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.NAME)) errorList[Validation.ErrorField.NAME] else null
         _numberErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NUMBER)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.NUMBER)) errorList[Validation.ErrorField.NUMBER] else null
         _pinErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.PIN)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.PIN)) errorList[Validation.ErrorField.PIN] else null
         _bankErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.BANK)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.BANK)) errorList[Validation.ErrorField.BANK] else null
         _cardHolderErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.OWNER)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.OWNER)) errorList[Validation.ErrorField.OWNER] else null
+
+        _issuedDateErrorMessage.value =
+            if (errorList.containsKey(Validation.ErrorField.ISSUED_DATE)) errorList[Validation.ErrorField.ISSUED_DATE] else null
+
+        _expiryDateErrorMessage.value =
+            if (errorList.containsKey(Validation.ErrorField.EXPIRY_DATE)) errorList[Validation.ErrorField.EXPIRY_DATE] else null
     }
 
     private fun getUser(): User {

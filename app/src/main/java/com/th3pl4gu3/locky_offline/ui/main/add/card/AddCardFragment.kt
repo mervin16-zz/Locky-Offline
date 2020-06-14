@@ -128,6 +128,14 @@ class AddCardFragment : Fragment() {
             cardHolderErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.CardHolder.error = it
             })
+
+            issuedDateErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardIssuedDate.error = it
+            })
+
+            expiryDateErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardExpiryDate.error = it
+            })
         }
     }
 

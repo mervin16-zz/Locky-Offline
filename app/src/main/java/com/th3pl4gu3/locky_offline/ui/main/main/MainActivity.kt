@@ -11,7 +11,10 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.*
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
@@ -164,13 +167,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getFadeNavOptions(): NavOptions? {
-        return NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_fade_in)
-            .setExitAnim(R.anim.anim_fade_out)
-            .build()
-    }
-
     private fun updateToolbar(title: String?) {
         if (title != null) {
             updateToolbarTitle(title)
@@ -240,7 +236,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToSearchFragment() = findNavController(R.id.Navigation_Host).navigate(
-        R.id.Fragment_Search, null, getFadeNavOptions()
+        R.id.Fragment_Search, null
     )
 
     private fun navigateToAddCategorySheet() = navigateTo(R.id.BottomSheet_Fragment_Add_Category)

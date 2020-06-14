@@ -138,7 +138,7 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
     fun save() {
         viewModelScope.launch {
             _bankAccount.apply {
-                val validation = Validation()
+                val validation = Validation(getApplication())
                 if (validation.isBankAccountFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
@@ -237,23 +237,15 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
         }
     }
 
-    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, Validation.ErrorType>) {
+    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
         _nameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NAME)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.NAME)) errorList[Validation.ErrorField.NAME] else null
         _numberErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NUMBER)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.NUMBER)) errorList[Validation.ErrorField.NUMBER] else null
         _bankErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.BANK)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.BANK)) errorList[Validation.ErrorField.BANK] else null
         _ownerErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.OWNER)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.OWNER)) errorList[Validation.ErrorField.OWNER] else null
     }
 
     private fun getUser(): User {

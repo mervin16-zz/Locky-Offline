@@ -144,7 +144,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         viewModelScope.launch {
             _account.apply {
 
-                val validation = Validation()
+                val validation = Validation(getApplication())
                 if (validation.isAccountFormValid(this)) {
                     /* If validation succeeds, set user ID */
                     this.user = getUser().email
@@ -243,19 +243,13 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         }
     }
 
-    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, Validation.ErrorType>) {
+    private fun assignErrorMessages(errorList: HashMap<Validation.ErrorField, String>) {
         _nameErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.NAME)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.NAME)) errorList[Validation.ErrorField.NAME] else null
         _passwordErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.PASSWORD)) getApplication<Application>().getString(
-                R.string.error_field_validation_blank
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
         _emailErrorMessage.value =
-            if (errorList.containsKey(Validation.ErrorField.EMAIL)) getApplication<Application>().getString(
-                R.string.error_field_validation_email_format
-            ) else null
+            if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
     }
 
     private fun getUser(): User {

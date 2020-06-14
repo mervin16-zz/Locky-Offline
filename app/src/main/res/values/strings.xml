@@ -4,293 +4,288 @@
     <!-- Application Specific  -->
     <!-- ==================== -->
     <string name="app_name">Locky</string>
-    <string name="app_description_short" translatable="false">Manage all your passwords and bank cards on a single secure place.</string>
-    <string name="app_description_long" translatable="false">
+    <string name="app_description_short">Manage all your passwords and bank cards on a single secure place.</string>
+    <string name="app_description_long">
         Locky is a password manager where you can keep all your account passwords and bank card details securely offline.
         You don\'t need to worry about hackers stealing the info as it is stored securely only on your phone.
     </string>
-    <string name="app_developer_signature" translatable="false">Developed with \u2764\uFE0F in 🇲🇺</string>
+    <string name="app_developer_signature">Developed with \u2764\uFE0F in 🇲🇺</string>
 
     <string name="app_play_link" translatable="false">https://play.google.com/store/apps/details?id="%1$s"</string>
     <string name="app_play_package" translatable="false">com.android.vending</string>
 
-    <string name="app_play_share" translatable="false">
-        Hey, check out this nice password manager on: https://play.google.com/store/apps/details?id="%1$s"
-    </string>
+    <string name="app_play_share">Hey, check out this nice password manager on: https://play.google.com/store/apps/details?id=%1$s</string>
 
     <string name="app_support_email_team" translatable="false">locky.application@gmail.com</string>
     <string name="app_support_email_subject_feedback" translatable="false">Support :: Locky :: Feedback</string>
     <string name="app_support_email_subject_bug" translatable="false">Support :: Locky :: Bug Report</string>
 
-    <string name="app_user_member_since" translatable="false">Member since "%1$s"</string>
+    <string name="app_user_member_since">Member since "%1$s"</string>
     <string name="app_user_username" translatable="false">👤 "%1$s"</string>
     <string name="app_user_email" translatable="false">📧 "%1$s"</string>
 
-    <string name="app_url_privacy_policy" translatable="false">"https://sites.google.com/view/locky/"</string>
+    <string name="app_url_privacy_policy" translatable="false">https://sites.google.com/view/locky/</string>
+    <string name="app_url_developer_api" translatable="false">https://sites.google.com/view/locky/api</string>
 
     <!-- ==================== -->
     <!-- Titles & Subtitles  -->
     <!-- ==================== -->
-    <string name="text_title_screen_accounts" translatable="false">Accounts</string>
-    <string name="text_title_screen_cards" translatable="false">Cards</string>
-    <string name="text_title_screen_bank_account" translatable="false">Bank Accounts</string>
-    <string name="text_title_screen_devices" translatable="false">Devices</string>
-    <string name="text_title_screen_settings" translatable="false">Settings</string>
-    <string name="text_title_screen_profile" translatable="false">Profile</string>
-    <string name="text_title_screen_about" translatable="false">About</string>
-    <string name="text_title_screen_donate" translatable="false">Donate</string>
+    <string name="text_title_screen_accounts">Accounts</string>
+    <string name="text_title_screen_cards">Cards</string>
+    <string name="text_title_screen_bank_account">Bank Accounts</string>
+    <string name="text_title_screen_devices">Devices</string>
+    <string name="text_title_screen_settings">Settings</string>
+    <string name="text_title_screen_profile">Profile</string>
+    <string name="text_title_screen_about">About</string>
+    <string name="text_title_screen_donate">Donate</string>
 
     <string name="text_title_sort">Sort</string>
-    <string name="text_title_emptyView_logo_search" translatable="false">Search it. Love it. Keep it.</string>
-    <string name="text_subtitle_emptyView_logo_search" translatable="false">Search a logo for your account</string>
+    <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
+    <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
 
-    <string name="text_title_emptyView_item_search" translatable="false">Find your items!</string>
-    <string name="text_subtitle_emptyView_item_search" translatable="false">Search for your cards, accounts and devices</string>
+    <string name="text_title_emptyView_item_search">Find your items!</string>
+    <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and devices</string>
 
-    <string name="text_title_emptyView_cards" translatable="false">Save you Card. Ease your Mind</string>
-    <string name="text_subtitle_emptyView_cards" translatable="false">Save all your card details here.</string>
+    <string name="text_title_emptyView_cards">Save your Card. Ease your Mind</string>
+    <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
 
-    <string name="text_title_emptyView_accounts" translatable="false">An Account a day, keeps Hackers away!</string>
-    <string name="text_subtitle_emptyView_accounts" translatable="false">Save all your account details here.</string>
+    <string name="text_title_emptyView_accounts">An Account a day, keeps Hackers away!</string>
+    <string name="text_subtitle_emptyView_accounts">Save all your account details here.</string>
 
-    <string name="text_title_emptyView_bank_accounts" translatable="false">Save your Bank Accounts</string>
-    <string name="text_subtitle_emptyView_bank_accounts" translatable="false">Don\'t forget to save all your bank accounts.</string>
+    <string name="text_title_emptyView_bank_accounts">Save your Bank Accounts</string>
+    <string name="text_subtitle_emptyView_bank_accounts">Don\'t forget to save all your bank accounts.</string>
 
-    <string name="text_title_splash" translatable="false">Welcome to Locky</string>
-    <string name="text_subtitle_splash" translatable="false">@string/app_description_short</string>
+    <string name="text_title_splash">Welcome to Locky</string>
+    <string name="text_subtitle_splash">@string/app_description_short</string>
 
-    <string name="text_title_alert_delete" translatable="false">Delete "%1$s"</string>
-    <string name="text_title_alert_delete_message_account" translatable="false">Are you sure you want to delete the account \'"%1$s"\'</string>
-    <string name="text_title_alert_delete_message_card" translatable="false">Are you sure you want to delete the card \'"%1$s"\'</string>
+    <string name="text_title_alert_delete">Delete "%1$s"</string>
+    <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>
+    <string name="text_title_alert_delete_message_card">Are you sure you want to delete the card \'"%1$s"\'</string>
 
-    <string name="text_title_alert_biometric" translatable="false">No biometric entries</string>
-    <string name="text_title_alert_biometric_message" translatable="false">
+    <string name="text_title_alert_biometric">No biometric enrolments</string>
+    <string name="text_title_alert_biometric_message">
         You currently don\'t have any biometric entries. Do you want to add a biometric entry?
     </string>
 
-    <string name="text_title_alert_backup" translatable="false">Backup Locky</string>
-    <string name="text_title_alert_backup_message" translatable="false">
-        Locky performs backup automatically on its users\' app data and settings preferences.
-        If you don\'t have backup option enable on your phone, please turn it on so that you\'re app data and
-        settings can be automatically backup on your Google Drive.
+    <string name="text_title_alert_backup">Backup Locky</string>
+    <string name="text_title_alert_backup_message">"Locky performs backup automatically on its users\' app data and settings preferences.
+        If you don't have backup option enable on your phone, please turn it on so that you're app data and settings can be automatically backup on your Google Drive.
     </string>
 
-    <string name="text_title_alert_biometric_enrolments" translatable="false">No biometric enrolments</string>
-    <string name="text_title_alert_biometric_enrolments_message" translatable="false">
-        You no longer have biometric enrolments configured which was available upon activating the biometric
-        authentication in Locky. Please re-configure your biometrics to be able to access Locky.
+    <string name="text_title_alert_biometric_enrolments_message">
+        You no longer have biometric enrolments configured which was available upon activating the biometric authentication in Locky. P
+        lease re-configure your biometrics to be able to access Locky.
     </string>
 
-    <string name="text_title_alert_biometric_authentication" translatable="false">Unlock to proceed</string>
-    <string name="text_title_alert_biometric_authentication_message" translatable="false">
+    <string name="text_title_alert_biometric_authentication">Unlock to proceed</string>
+    <string name="text_title_alert_biometric_authentication_message">
         Please authenticate yourself with your biometric or screen lock credentials to access Locky
     </string>
 
-    <string name="text_title_alert_intent_none" translatable="false">Unable to open "%1$s" app</string>
-    <string name="text_message_alert_intent_none" translatable="false">There are no application installed to process this request. Please consider installing "%1$s"
+    <string name="text_title_alert_intent_none">Unable to open "%1$s" app</string>
+    <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
         application to continue</string>
 
-    <string name="text_subtitle_about_sections_app" translatable="false">About Locky</string>
-    <string name="text_subtitle_about_sections_dev" translatable="false">Support &amp; Development</string>
-    <string name="text_subtitle_about_sections_other" translatable="false">Other</string>
+    <string name="text_subtitle_about_sections_app">About Locky</string>
+    <string name="text_subtitle_about_sections_dev">Support &amp; Development</string>
+    <string name="text_subtitle_about_sections_other">Other</string>
 
 
-    <string name="text_title_about_dev_rate" translatable="false">Rate Locky</string>
-    <string name="text_title_about_dev_donate" translatable="false">Donate</string>
-    <string name="text_title_about_dev_bug" translatable="false">Report a Bug</string>
-    <string name="text_title_about_dev_share" translatable="false">Share Locky</string>
+    <string name="text_title_about_dev_rate">Rate Locky</string>
+    <string name="text_title_about_dev_donate">Donate</string>
+    <string name="text_title_about_dev_bug">Report a Bug</string>
+    <string name="text_title_about_dev_share">Share Locky</string>
 
-    <string name="text_description_about_dev_rate" translatable="false">"If you love the app, let us know in the Google Play Store and we can make it even better"</string>
-    <string name="text_description_about_dev_donate" translatable="false">If you think i deserve to get paid for my work, you can leave some money here</string>
-    <string name="text_description_about_dev_bug" translatable="false">Any error that is persisting in the app, please send an email by clicking here</string>
-    <string name="text_description_about_dev_share" translatable="false">Do not forget to share the app with your friends and family</string>
+    <string name="text_description_about_dev_rate">"If you love the app, let us know in the Google Play Store and we can make it even better"</string>
+    <string name="text_description_about_dev_donate">If you think i deserve to get paid for my work, you can leave some money here</string>
+    <string name="text_description_about_dev_bug">Any error that is persisting in the app, please send an email by clicking here</string>
+    <string name="text_description_about_dev_share">Do not forget to share the app with your friends and family</string>
 
-    <string name="text_title_about_other_license" translatable="false">Open Source Licenses</string>
-    <string name="text_title_about_other_terms" translatable="false">Terms &amp; Privacy Policy</string>
-    <string name="text_title_about_other_version" translatable="false">Version</string>
+    <string name="text_title_about_other_license">Open Source Licenses</string>
+    <string name="text_title_about_other_terms">Terms &amp; Privacy Policy</string>
+    <string name="text_title_about_other_version">Version</string>
+    <string name="text_title_about_other_developer">Developer API</string>
 
-    <string name="text_description_about_other_license" translatable="false">License details for open source software</string>
+    <string name="text_description_about_other_license">License details for open source software</string>
+    <string name="text_description_about_other_developer">Application Program Interface (API) used in Locky</string>
 
-    <string name="text_subtitle_search_accounts" translatable="false">Accounts ("%1$s")</string>
-    <string name="text_subtitle_search_cards" translatable="false">Cards ("%1$s")</string>
+    <string name="text_subtitle_search_accounts">Accounts ("%1$s")</string>
+    <string name="text_subtitle_search_cards">Cards ("%1$s")</string>
 
 
-    <string name="text_subtitle_about_buymea" translatable="false">Buy me a:</string>
+    <string name="text_subtitle_about_buymea">Buy me a:</string>
 
 
     <!-- ==================== -->
     <!-- ======= Menu =======  -->
     <!-- ==================== -->
-    <string name="menu_drawer_subtitle_others" translatable="false">OTHERS</string>
-    <string name="menu_drawer_subtitle_user" translatable="false">USER</string>
-    <string name="menu_drawer_main_account" translatable="false">Accounts</string>
-    <string name="menu_drawer_main_card" translatable="false">Cards</string>
-    <string name="menu_drawer_main_device" translatable="false">Devices</string>
-    <string name="menu_drawer_main_bank_account" translatable="false">Bank Accounts</string>
-    <string name="menu_drawer_main_profile" translatable="false">Profile</string>
-    <string name="menu_drawer_main_settings" translatable="false">Settings</string>
-    <string name="menu_drawer_main_about" translatable="false">About</string>
+    <string name="menu_drawer_subtitle_others">OTHERS</string>
+    <string name="menu_drawer_subtitle_user">USER</string>
+    <string name="menu_drawer_main_account">Accounts</string>
+    <string name="menu_drawer_main_card">Cards</string>
+    <string name="menu_drawer_main_device">Devices</string>
+    <string name="menu_drawer_main_bank_account">Bank Accounts</string>
+    <string name="menu_drawer_main_profile">Profile</string>
+    <string name="menu_drawer_main_settings">Settings</string>
+    <string name="menu_drawer_main_about">About</string>
 
-    <string name="menu_credentials_actions_duplicate" translatable="false">Duplicate</string>
-    <string name="menu_credentials_actions_edit" translatable="false">Edit</string>
-    <string name="menu_credentials_actions_delete" translatable="false">Delete</string>
+    <string name="menu_credentials_actions_duplicate">Duplicate</string>
+    <string name="menu_credentials_actions_edit">Edit</string>
+    <string name="menu_credentials_actions_delete">Delete</string>
 
-    <string name="menu_toolbar_filter" translatable="false">Filter</string>
+    <string name="menu_toolbar_filter">Filter</string>
 
-    <string name="menu_account_moreOptions_copyUsername" translatable="false">Copy Username</string>
-    <string name="menu_account_moreOptions_copyPassword" translatable="false">Copy Password</string>
-    <string name="menu_account_moreOptions_viewPassword" translatable="false">View Password</string>
+    <string name="menu_account_moreOptions_copyUsername">Copy Username</string>
+    <string name="menu_account_moreOptions_copyPassword">Copy Password</string>
+    <string name="menu_account_moreOptions_viewPassword">View Password</string>
 
-    <string name="menu_card_moreOptions_copyNumber" translatable="false">Copy Number</string>
-    <string name="menu_card_moreOptions_copyPin" translatable="false">Copy Pin</string>
-    <string name="menu_card_moreOptions_viewPin" translatable="false">View Pin</string>
+    <string name="menu_card_moreOptions_copyNumber">Copy Number</string>
+    <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
+    <string name="menu_card_moreOptions_viewPin">View Pin</string>
 
-    <string name="menu_bank_account_moreOptions_copyNumber" translatable="false">Copy Number</string>
-    <string name="menu_bank_account_moreOptions_copyIban" translatable="false">Copy Iban</string>
-    <string name="menu_bank_account_moreOptions_copySwift" translatable="false">Copy Swift</string>
+    <string name="menu_bank_account_moreOptions_copyNumber">Copy Number</string>
+    <string name="menu_bank_account_moreOptions_copyIban">Copy Iban</string>
+    <string name="menu_bank_account_moreOptions_copySwift">Copy Swift</string>
 
-    <string name="menu_search_filters_account" translatable="false">Accounts</string>
-    <string name="menu_search_filters_card" translatable="false">Cards</string>
-    <string name="menu_search_filters_bank_account" translatable="false">Bank Accounts</string>
+    <string name="menu_search_filters_account">Accounts</string>
+    <string name="menu_search_filters_card">Cards</string>
+    <string name="menu_search_filters_bank_account">Bank Accounts</string>
 
-    <string name="menu_card_searchview_Search" translatable="false">Search</string>
+    <string name="menu_card_searchview_Search" translatable="false">i.e facebook.com</string>
 
     <!-- =========== -->
     <!-- Data Fields -->
     <!-- =========== -->
-    <string name="label_required" translatable="false">*Required Field</string>
-    <string name="label_optional" translatable="false">*Optional Field</string>
-    <string name="label_others" translatable="false">*Extra Fields</string>
+    <string name="label_required">*Required Field</string>
+    <string name="label_optional">*Optional Field</string>
+    <string name="label_others">*Extra Fields</string>
 
-    <string name="field_account_name" translatable="false">Name</string>
-    <string name="field_account_username" translatable="false">Username</string>
+    <string name="field_account_name">Name</string>
+    <string name="field_account_username">Username</string>
     <string name="field_account_email" translatable="false">Email</string>
-    <string name="field_account_password" translatable="false">Password</string>
-    <string name="field_account_website" translatable="false">Website</string>
-    <string name="field_account_authentication_type" translatable="false">Authentication Type</string>
-    <string name="field_account_2fakeys" translatable="false">Two-Factor Backup Codes</string>
-    <string name="field_account_additional" translatable="false">Additional Comments</string>
+    <string name="field_account_password">Password</string>
+    <string name="field_account_website">Website</string>
+    <string name="field_account_authentication_type">Authentication Type</string>
+    <string name="field_account_2fakeys">Two-Factor Backup Codes</string>
+    <string name="field_account_additional">Additional Comments</string>
 
 
-    <string name="field_account_blank_website" translatable="false"><i>No websites entered</i></string>
-    <string name="field_account_blank_login" translatable="false"><i>No login entered</i></string>
+    <string name="field_account_blank_website"><i>No websites entered</i></string>
+    <string name="field_account_blank_login"><i>No login entered</i></string>
 
     <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
-    <string name="field_helper_account_2fakeys" translatable="false">Store your Two Factor Authentication backup codes here</string>
+    <string name="field_helper_account_2fakeys">Store your Two Factor Authentication backup codes here</string>
 
 
-    <string name="field_card_name" translatable="false">Entry Name</string>
-    <string name="field_card_number" translatable="false">Number</string>
-    <string name="field_card_type" translatable="false">Card Type</string>
-    <string name="field_card_holder" translatable="false">Name on Card</string>
-    <string name="field_card_bank" translatable="false">Bank</string>
-    <string name="field_card_pin" translatable="false">Pin</string>
-    <string name="field_card_date_issued" translatable="false">Date Issued</string>
-    <string name="field_card_date_expiry" translatable="false">Expiry Date</string>
-    <string name="field_card_additional" translatable="false">Additional Comments</string>
+    <string name="field_card_name">Entry Name</string>
+    <string name="field_card_number">Number</string>
+    <string name="field_card_type">Card Type</string>
+    <string name="field_card_holder">Name on Card</string>
+    <string name="field_card_bank">Bank</string>
+    <string name="field_card_pin">Pin</string>
+    <string name="field_card_date_issued">Date Issued</string>
+    <string name="field_card_date_expiry">Expiry Date</string>
+    <string name="field_card_additional">Additional Comments</string>
 
 
-    <string name="field_bank_account_name" translatable="false">Name</string>
-    <string name="field_bank_account_number" translatable="false">Number</string>
-    <string name="field_bank_account_owner" translatable="false">Owner</string>
-    <string name="field_bank_account_bank" translatable="false">Bank</string>
-    <string name="field_bank_account_iban" translatable="false">Iban</string>
-    <string name="field_bank_account_swift" translatable="false">Swift Code</string>
-    <string name="field_bank_account_additional" translatable="false">Additional Comments</string>
+    <string name="field_bank_account_name">Name</string>
+    <string name="field_bank_account_number">Number</string>
+    <string name="field_bank_account_owner">Owner</string>
+    <string name="field_bank_account_bank">Bank</string>
+    <string name="field_bank_account_iban">Iban</string>
+    <string name="field_bank_account_swift">Swift Code</string>
+    <string name="field_bank_account_additional">Additional Comments</string>
 
 
-    <string name="field_hint_search" translatable="false">Search</string>
+    <string name="field_hint_search">Search</string>
 
-    <string name="field_placeholder_empty" translatable="false">None</string>
+    <string name="field_placeholder_empty">None</string>
     <string name="field_placeholder_na" translatable="false">n/a</string>
     <string name="field_placeholder_hidden" translatable="false">******</string>
 
-    <string name="field_account_sort_name" translatable="false">Name</string>
-    <string name="field_account_sort_username" translatable="false">Username</string>
+    <string name="field_account_sort_name">Name</string>
+    <string name="field_account_sort_username">Username</string>
     <string name="field_account_sort_email" translatable="false">Email</string>
-    <string name="field_account_sort_website" translatable="false">Website</string>
-    <string name="field_account_sort_authentication_type" translatable="false">Auth Type</string>
+    <string name="field_account_sort_website">Website</string>
+    <string name="field_account_sort_authentication_type">Auth Type</string>
 
-    <string name="field_card_sort_name" translatable="false">Entry Name</string>
-    <string name="field_card_sort_bank" translatable="false">Bank</string>
-    <string name="field_card_sort_type" translatable="false">Card Brand</string>
-    <string name="field_card_sort_cardholder" translatable="false">Name on Card</string>
+    <string name="field_card_sort_name">Entry Name</string>
+    <string name="field_card_sort_bank">Bank</string>
+    <string name="field_card_sort_type">Card Brand</string>
+    <string name="field_card_sort_cardholder">Name on Card</string>
 
-    <string name="field_bank_account_sort_entry" translatable="false">Name</string>
-    <string name="field_bank_account_sort_owner" translatable="false">Account Owner</string>
-    <string name="field_bank_account_sort_bank" translatable="false">Bank</string>
+    <string name="field_bank_account_sort_entry">Name</string>
+    <string name="field_bank_account_sort_owner">Account Owner</string>
+    <string name="field_bank_account_sort_bank">Bank</string>
 
     <!-- =============== -->
     <!-- Notify Messages -->
     <!-- =============== -->
-    <string name="message_internet_connection_unavailable" translatable="false">Please check your internet connection</string>
-    <string name="message_copy_successful" translatable="false">Copied successfully.</string>
-    <string name="message_credentials_created" translatable="false">"%1$s" has been added successfully.</string>
-    <string name="message_credentials_modified" translatable="false">"%1$s" has been modified successfully.</string>
-    <string name="message_credentials_deleted" translatable="false">"%1$s" has been deleted.</string>
-    <string name="message_user_signin_cancelled" translatable="false">Sign-in has been cancelled</string>
-    <string name="message_loading_logo" translatable="false">Loading your logos…</string>
-    <string name="message_loading_logo_none" translatable="false">No logos found</string>
-    <string name="message_loading_item_search" translatable="false">Fetching your items…</string>
-    <string name="message_loading_item_account_none" translatable="false">No accounts found</string>
-    <string name="message_loading_item_cards_none" translatable="false">No cards found</string>
-    <string name="message_user_account_status_signed_out" translatable="false">You\'ve been signed out</string>
-    <string name="message_user_account_status_blocked" translatable="false">This account has been blocked. Please contact your administrator</string>
-    <string name="message_user_account_status_inactive" translatable="false">This account has been disabled. Please create another account</string>
-    <string name="message_settings_biometric_enabled" translatable="false">Biometric authentication has been enabled</string>
+    <string name="message_internet_connection_unavailable">Please check your internet connection</string>
+    <string name="message_copy_successful">Copied successfully.</string>
+    <string name="message_credentials_created">"%1$s" has been added successfully.</string>
+    <string name="message_credentials_modified">"%1$s" has been modified successfully.</string>
+    <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
+    <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
+    <string name="message_loading_logo">Loading your logos…</string>
+    <string name="message_loading_logo_none">No logos found</string>
+    <string name="message_loading_item_search">Fetching your items…</string>
+    <string name="message_loading_item_account_none">No accounts found</string>
+    <string name="message_loading_item_cards_none">No cards found</string>
+    <string name="message_user_account_status_signed_out">You\'ve been signed out</string>
+    <string name="message_settings_biometric_enabled">Biometric authentication has been enabled</string>
 
-    <string name="message_about_donations_cancelled" translatable="false">Purchase cancelled.</string>
-    <string name="message_about_donations_item_owned" translatable="false">You\'ve already donated this item</string>
-    <string name="message_about_donations_unavailable" translatable="false">This item is unavailable</string>
-    <string name="message_about_donations_billing_unavailable" translatable="false">Billing is unavailable. Please try again</string>
-    <string name="message_about_donations_billing_pending" translatable="false">Payment pending</string>
-    <string name="message_about_donations_billing_declined" translatable="false">Payment declined.</string>
-    <string name="message_about_donations_billing_disconnected" translatable="false">
+    <string name="message_about_donations_cancelled">Purchase cancelled.</string>
+    <string name="message_about_donations_item_owned">You\'ve already donated this item</string>
+    <string name="message_about_donations_unavailable">This item is unavailable</string>
+    <string name="message_about_donations_billing_unavailable">Billing is unavailable. Please try again</string>
+    <string name="message_about_donations_billing_pending">Payment pending</string>
+    <string name="message_about_donations_billing_declined">Payment declined.</string>
+    <string name="message_about_donations_billing_disconnected">
         Billing service has been disconnected
     </string>
-    <string name="message_about_donations_billing_completed" translatable="false">Thank you for contributing</string>
+    <string name="message_about_donations_billing_completed">Thank you for contributing</string>
 
-    <string name="message_search_results" translatable="false">Search returned "%1$s" results</string>
+    <string name="message_search_results">Search returned "%1$s" results</string>
 
 
     <!-- =============== -->
     <!-- Error Messages -->
     <!-- =============== -->
-    <string name="error_field_validation_blank" translatable="false">This field cannot be empty</string>
-    <string name="error_field_validation_email_format" translatable="false">Please enter a valid email</string>
+    <string name="error_field_validation_blank">This field cannot be empty</string>
+    <string name="error_field_validation_email_format">Please enter a valid email</string>
 
-    <string name="error_biometric_authentication_failed" translatable="false">Biometric authentication failed</string>
-    <string name="error_biometric_authentication_error" translatable="false">Biometric authentication error: "%1$s"</string>
+    <string name="error_biometric_authentication_failed">Biometric authentication failed</string>
+    <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>
 
-    <string name="error_about_donations_querying_products" translatable="false">
+    <string name="error_about_donations_querying_products">
         Error while querying the donations
     </string>
 
-    <string name="error_internal_code_1" translatable="false">An internal error occurred. Code 1: "%1$s"</string>
-    <string name="error_internal_code_2" translatable="false">An internal error occurred. Error Code 2</string>
+    <string name="error_internal_code_1">An internal error occurred. Code 1: "%1$s"</string>
+    <string name="error_internal_code_2">An internal error occurred. Error Code 2</string>
 
     <!-- =============== -->
     <!-- Button Actions -->
     <!-- =============== -->
-    <string name="button_snack_action_close" translatable="false">Close</string>
-    <string name="button_action_save" translatable="false">Save</string>
-    <string name="button_action_cancel" translatable="false">Cancel</string>
-    <string name="button_action_delete" translatable="false">Delete</string>
-    <string name="button_action_logout" translatable="false">Logout</string>
+    <string name="button_snack_action_close">Close</string>
+    <string name="button_action_save">Save</string>
+    <string name="button_action_cancel">Cancel</string>
+    <string name="button_action_delete">Delete</string>
+    <string name="button_action_logout">Logout</string>
     <string name="button_action_okay" translatable="false">OK</string>
-    <string name="button_action_retry" translatable="false">RETRY</string>
-    <string name="button_action_backup_proceed" translatable="false">Open Backup</string>
-    <string name="button_action_backup_cancel" translatable="false">I\'ll do it later</string>
-    <string name="button_action_email_sign_in" translatable="false">email sign in</string>
-    <string name="button_action_google_sign_in" translatable="false">Sign in with Google</string>
-    <string name="button_action_get_started" translatable="false">get started</string>
-    <string name="button_action_filter" translatable="false">Filter</string>
+    <string name="button_action_retry">RETRY</string>
+    <string name="button_action_backup_proceed">Open Backup</string>
+    <string name="button_action_backup_cancel">I\'ll do it later</string>
+    <string name="button_action_google_sign_in">Sign in with Google</string>
+    <string name="button_action_get_started">get started</string>
+    <string name="button_action_filter">Filter</string>
 
-    <string name="button_action_category_add_account" translatable="false">Account</string>
-    <string name="button_action_category_add_card" translatable="false">Card</string>
-    <string name="button_action_category_add_bank_account" translatable="false">Bank Account</string>
-    <string name="button_action_category_add_device" translatable="false">Device</string>
-    <string name="button_action_category_add_item" translatable="false">Add an item</string>
+    <string name="button_action_category_add_account">Account</string>
+    <string name="button_action_category_add_card">Card</string>
+    <string name="button_action_category_add_bank_account">Bank Account</string>
+    <string name="button_action_category_add_device">Device</string>
+    <string name="button_action_category_add_item">Add an item</string>
 
     <!-- ========= -->
     <!-- Settings -->
@@ -300,32 +295,32 @@
     <string name="settings_key_category_backup" translatable="false">settings_key_category_backup</string>
     <string name="settings_key_category_help" translatable="false">settings_key_category_help</string>
 
-    <string name="settings_title_category_display" translatable="false">Display</string>
-    <string name="settings_title_category_security" translatable="false">Security</string>
-    <string name="settings_title_category_backup" translatable="false">Backup</string>
-    <string name="settings_title_category_help" translatable="false">Help</string>
+    <string name="settings_title_category_display">Display</string>
+    <string name="settings_title_category_security">Security</string>
+    <string name="settings_title_category_backup">Backup</string>
+    <string name="settings_title_category_help">Help</string>
 
     <string name="settings_key_display_theme" translatable="false">settings_title_display_theme</string>
-    <string name="settings_title_display_theme" translatable="false">App Theme</string>
-    <string name="settings_value_display_default" translatable="false">Default</string>
-    <string name="settings_value_display_light" translatable="false">Light</string>
-    <string name="settings_value_display_dark" translatable="false">Dark</string>
+    <string name="settings_title_display_theme">App Theme</string>
+    <string name="settings_value_display_default">Default</string>
+    <string name="settings_value_display_light">Light</string>
+    <string name="settings_value_display_dark">Dark</string>
 
     <string name="settings_key_security_biometric" translatable="false">settings_key_security_fingerprint</string>
-    <string name="settings_title_security_biometric" translatable="false">Enable Fingerprint Authentication</string>
+    <string name="settings_title_security_biometric">Enable Biometric Authentication</string>
 
     <string name="settings_key_backup_backup" translatable="false">settings_key_backup_backup</string>
-    <string name="settings_title_backup_backup" translatable="false">Backup</string>
-    <string name="settings_summary_backup_backup" translatable="false">Backup app data for Locky</string>
+    <string name="settings_title_backup_backup">Backup</string>
+    <string name="settings_summary_backup_backup">Backup app data for Locky</string>
 
     <string name="settings_key_help_feedback" translatable="false">settings_key_help_feedback</string>
-    <string name="settings_title_help_feedback" translatable="false">Send feedback</string>
-    <string name="settings_summary_help_feedback" translatable="false">Report technical issues or suggest new features</string>
+    <string name="settings_title_help_feedback">Send feedback</string>
+    <string name="settings_summary_help_feedback">Report technical issues or suggest new features</string>
 
     <!-- ==================== -->
     <!-- ======= DEV =======  -->
     <!-- ==================== -->
-    <string name="dev_feature_implementation_unknown" translatable="false">The feature "%1$s" has not been implemented yet.</string>
-    <string name="dev_feature_implementation_soon" translatable="false">Coming Soon!</string>
+    <string name="dev_feature_implementation_unknown">The feature "%1$s" has not been implemented yet.</string>
+    <string name="dev_feature_implementation_soon">Coming Soon!</string>
 
 </resources>

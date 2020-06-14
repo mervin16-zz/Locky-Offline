@@ -73,6 +73,8 @@ class AboutFragment : Fragment() {
 
             AboutItem.Item.OTHER_LICENSES -> licensesRedirection()
 
+            AboutItem.Item.OTHER_DEVELOPER -> developerRedirection()
+
             AboutItem.Item.OTHER_POLICY -> policyRedirection()
 
             else -> return
@@ -92,6 +94,11 @@ class AboutFragment : Fragment() {
 
     private fun donationRedirection() {
         navigateTo(AboutFragmentDirections.actionFragmentAboutToFragmentDonate())
+    }
+
+    private fun developerRedirection() {
+        val intent = openUrl(getString(R.string.app_url_developer_api))
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
     }
 
     private fun policyRedirection() {

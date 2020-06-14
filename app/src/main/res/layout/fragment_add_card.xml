@@ -197,12 +197,10 @@
             style="@style/Locky.TextBox.Default"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:hint="@string/field_card_date_expiry"
-            app:layout_constraintBottom_toTopOf="@+id/Barrier_Required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Holder"
+            app:layout_constraintTop_toTopOf="@+id/Card_Issued_Date"
             app:startIconDrawable="@drawable/ic_date">
 
             <com.google.android.material.textfield.TextInputEditText

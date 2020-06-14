@@ -278,7 +278,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun biometricEnrolmentDialog() =
         MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.text_title_alert_biometric_enrolments))
+            .setTitle(getString(R.string.text_title_alert_biometric))
             .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
             .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
                 dialog.dismiss()
