@@ -5,6 +5,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
 
+/*
+* The Account object holds data for passwords created
+* i.e Facebook, Google, Spotify, etc...
+* Extends parent class Credentials
+*/
 @Parcelize
 @Entity(tableName = "account_table")
 data class Account(

@@ -4,6 +4,9 @@ import android.app.Application
 import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.LockyDatabase
 
+/*
+* Repository pattern for User CRUD
+*/
 class UserRepository private constructor(application: Application) {
 
     private val database =
@@ -13,19 +16,13 @@ class UserRepository private constructor(application: Application) {
     private val userDao = database.userDao()
 
     companion object {
-
         @Volatile
         private var instance: UserRepository? = null
 
         fun getInstance(application: Application) =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: UserRepository(
-                            application
-                        )
-                            .also { instance = it }
-                }
+            instance ?: synchronized(this) {
+                instance ?: UserRepository(application).also { instance = it }
+            }
     }
 
     suspend fun get(key: String) = userDao.get(key)

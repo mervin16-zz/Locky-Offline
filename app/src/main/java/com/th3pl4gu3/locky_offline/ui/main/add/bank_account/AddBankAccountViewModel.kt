@@ -209,7 +209,7 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
         withContext(Dispatchers.IO) {
             if (_isNewAccount) {
                 message = getApplication<Application>().getString(
-                    R.string.message_credentials_modified,
+                    R.string.message_credentials_created,
                     account.entryName
                 )
                 saveAccountToDatabase(account)

@@ -13,7 +13,13 @@ import com.th3pl4gu3.locky_offline.repository.database.daos.BankAccountDao
 import com.th3pl4gu3.locky_offline.repository.database.daos.CardDao
 import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
 
-// Annotates class to be a Room Database with a table (entity) of the Word class
+/*
+* The main Locky database that stores all locky objects
+* Extends the parent class RoomDatabase() of Android
+* Entities defined here are for the Locky main objects that need to be stored in this Database
+* should ONLY define entities extending the Credentials class.
+* The user object entity also should be defined here.
+*/
 @Database(
     entities = [Account::class, Card::class, BankAccount::class, User::class],
     version = 1,
@@ -21,14 +27,19 @@ import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
 )
 abstract class LockyDatabase : RoomDatabase() {
 
+    /*
+    * Objects Dao defined here
+    */
     abstract fun accountDao(): AccountDao
     abstract fun cardDao(): CardDao
     abstract fun userDao(): UserDao
     abstract fun bankAccountDao(): BankAccountDao
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
+        /*
+        * Singleton prevents multiple instances of database opening at the
+        * same time.
+        */
         @Volatile
         private var INSTANCE: LockyDatabase? = null
 

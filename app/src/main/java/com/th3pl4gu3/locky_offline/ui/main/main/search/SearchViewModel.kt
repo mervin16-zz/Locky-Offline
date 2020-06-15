@@ -16,10 +16,7 @@ import java.util.*
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
-    //TODO(Refactor project enums)
-    //TODO(Add comments for Walk-through)
-    //TODO(Update Strings localization)
-    enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS }
+    internal enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS }
 
     /*
     * Private variables

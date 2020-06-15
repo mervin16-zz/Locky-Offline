@@ -4,6 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.android.billingclient.api.SkuDetails
 
+/*
+* Holds an augmented version of the Google Play Billign SkuDetails object.
+* The augmented part is the 'purchased' field.
+* Used to represent the in-app products in the Google Play Billing
+*/
 @Entity(tableName = "augmented_skuDetails")
 data class AugmentedSkuDetails(
     @PrimaryKey val sku: String,

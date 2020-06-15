@@ -3,6 +3,11 @@ package com.th3pl4gu3.locky_offline.core.main
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+/*
+* The Account Sort object holds data for Account Sorting type
+* User can switch between different types of sorting as per their preferences
+* This data is stored here and is Parcelable
+*/
 @Parcelize
 class AccountSort(
     var name: Boolean = false,

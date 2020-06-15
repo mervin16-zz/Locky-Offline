@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
 
+/*
+* CRUD for the Bank Account object
+*/
 @Dao
 interface BankAccountDao {
 

@@ -44,7 +44,7 @@
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
 
     <string name="text_title_emptyView_item_search">Find your items!</string>
-    <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and devices</string>
+    <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and bank accounts</string>
 
     <string name="text_title_emptyView_cards">Save your Card. Ease your Mind</string>
     <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>

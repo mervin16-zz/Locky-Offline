@@ -10,6 +10,11 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringDefault
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+/*
+* User's data is stored in this class
+* User's data is fetched from google
+* Name & photo should NOT be stored in local db
+*/
 @Parcelize
 @Entity(tableName = "user_table")
 data class User constructor(

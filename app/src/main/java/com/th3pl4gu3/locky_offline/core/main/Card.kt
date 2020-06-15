@@ -5,6 +5,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
 
+/*
+* The Card object holds data for bank cards
+* i.e credit cards, debit cards, etc...
+* Extends parent class Credentials
+*/
 @Parcelize
 @Entity(tableName = "card_table")
 data class Card(

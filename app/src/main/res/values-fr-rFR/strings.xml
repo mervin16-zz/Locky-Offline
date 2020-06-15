@@ -34,7 +34,7 @@
     <string name="text_title_emptyView_logo_search">Cherchez-le. Aime-le. Garde le.</string>
     <string name="text_subtitle_emptyView_logo_search">Rechercher un logo pour votre compte</string>
     <string name="text_title_emptyView_item_search">Trouvez vos mots de passe!</string>
-    <string name="text_subtitle_emptyView_item_search">Recherchez vos cartes, comptes et appareils</string>
+    <string name="text_subtitle_emptyView_item_search">Recherchez vos cartes, comptes et compte bancaires</string>
     <string name="text_subtitle_emptyView_cards">Enregistrez tous les détails de votre carte ici.</string>
     <string name="text_title_emptyView_accounts">Sauvegardez tous vos comptes pour éviter le piratage</string>
     <string name="text_subtitle_emptyView_accounts">Enregistrez tous les détails de votre compte ici.</string>

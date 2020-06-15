@@ -5,6 +5,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
 
+/*
+* The Bank Account object holds data for User's bank accounts
+* Any bank's accounts can be used. This is generic.
+* Extends parent class Credentials
+*/
 @Parcelize
 @Entity(tableName = "bank_account_table")
 data class BankAccount(

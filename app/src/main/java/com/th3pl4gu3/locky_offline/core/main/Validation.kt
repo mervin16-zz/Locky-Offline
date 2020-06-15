@@ -7,6 +7,11 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedCalendarForCard
 import java.util.*
 import kotlin.collections.HashMap
 
+
+/*
+* Handles form validation across Locky
+* All forms should handle validation through this class
+*/
 class Validation(val application: Application) {
     enum class ErrorField { NAME, PASSWORD, EMAIL, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
 

@@ -5,6 +5,9 @@ import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.repository.database.LockyDatabase
 import java.util.*
 
+/*
+* Repository pattern for account CRUD
+*/
 class AccountRepository private constructor(application: Application) {
 
     private val database =
@@ -14,19 +17,13 @@ class AccountRepository private constructor(application: Application) {
     private val accountDao = database.accountDao()
 
     companion object {
-
         @Volatile
         private var instance: AccountRepository? = null
 
         fun getInstance(application: Application) =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: AccountRepository(
-                            application
-                        )
-                            .also { instance = it }
-                }
+            instance ?: synchronized(this) {
+                instance ?: AccountRepository(application).also { instance = it }
+            }
     }
 
     suspend fun get(key: Int) = accountDao.get(key)

@@ -25,7 +25,6 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.openActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 import java.util.concurrent.Executor
 
-
 class SplashActivity : AppCompatActivity() {
 
     private var _binding: ActivitySplashBinding? = null
@@ -89,13 +88,11 @@ class SplashActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
         }
     }
 
@@ -123,10 +120,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(ApiException::class.java)!!
-
-            viewModel.login(User.getInstance(account))
-
+            viewModel.login(User.getInstance(completedTask.getResult(ApiException::class.java)!!))
         } catch (e: ApiException) {
             when (e.statusCode) {
                 GoogleSignInStatusCodes.NETWORK_ERROR -> toast(getString(R.string.message_internet_connection_unavailable))
@@ -166,13 +160,13 @@ class SplashActivity : AppCompatActivity() {
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        val gso = GoogleSignInOptions
-            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(
+            this, GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+        )
     }
 
     private fun updateAppSettings() {

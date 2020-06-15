@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.th3pl4gu3.locky_offline.R
 
-
+/*
+* Billing repository to handle all in-app products of Locky
+* Instantiates and handle callbacks of the Google play billing
+*/
 class BillingRepository constructor(private val application: Application) :
     PurchasesUpdatedListener, BillingClientStateListener {
 
-    /*private val database = BillingDatabase.getInstance(application)
-    private val donationDao = database.donationDao()*/
+    //FIXME("Fix Billing Repository Issues")
     private lateinit var _billingClient: BillingClient
 
     var skuDetails = MutableLiveData<List<AugmentedSkuDetails>>()

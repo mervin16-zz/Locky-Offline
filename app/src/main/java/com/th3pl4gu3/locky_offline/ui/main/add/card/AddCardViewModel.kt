@@ -252,7 +252,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         withContext(Dispatchers.IO) {
             if (_isNewCard) {
                 message = getApplication<Application>().getString(
-                    R.string.message_credentials_modified,
+                    R.string.message_credentials_created,
                     card.entryName
                 )
                 saveCardToDatabase(card)
