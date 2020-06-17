@@ -17,6 +17,7 @@ import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
 
 class BankAccountFragment : Fragment() {
@@ -128,16 +129,16 @@ class BankAccountFragment : Fragment() {
         // Create our observer and add it to the NavBackStackEntry's lifecycle
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains(Constants.KEY_BANK_ACCOUNTS_SORT)
+                && navBackStackEntry.savedStateHandle.contains(KEY_BANK_ACCOUNTS_SORT)
             ) {
 
                 viewModel.sortChange(
                     navBackStackEntry.savedStateHandle.get<BankAccountSort>(
-                        Constants.KEY_BANK_ACCOUNTS_SORT
+                        KEY_BANK_ACCOUNTS_SORT
                     )!!
                 )
 
-                navBackStackEntry.savedStateHandle.remove<AccountSort>(Constants.KEY_BANK_ACCOUNTS_SORT)
+                navBackStackEntry.savedStateHandle.remove<AccountSort>(KEY_BANK_ACCOUNTS_SORT)
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)

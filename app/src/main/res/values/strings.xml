@@ -151,7 +151,7 @@
     <string name="menu_search_filters_card">Cards</string>
     <string name="menu_search_filters_bank_account">Bank Accounts</string>
 
-    <string name="menu_card_searchview_Search" translatable="false">i.e facebook.com</string>
+    <string name="menu_searchview_search">Search</string>
 
     <!-- =========== -->
     <!-- Data Fields -->
@@ -197,7 +197,7 @@
     <string name="field_bank_account_additional">Additional Comments</string>
 
 
-    <string name="field_hint_search">Search</string>
+    <string name="field_hint_search" translatable="false">i.e www.facebook.com</string>
 
     <string name="field_placeholder_empty">None</string>
     <string name="field_placeholder_na" translatable="false">n/a</string>

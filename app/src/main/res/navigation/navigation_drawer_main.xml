@@ -137,7 +137,7 @@
         <action
             android:id="@+id/action_Fragment_Add_Card_to_Fragment_Card"
             app:destination="@id/Fragment_Card"
-            app:popUpTo="@id/Fragment_Card"
+            app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="true" />
         <argument
             android:name="KEY_CARD"
@@ -280,7 +280,7 @@
         <action
             android:id="@+id/action_Fragment_Add_Bank_Account_to_Fragment_Bank_Account"
             app:destination="@id/Fragment_Bank_Account"
-            app:popUpTo="@id/Fragment_Bank_Account"
+            app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="true" />
         <argument
             android:name="KEY_BANK_ACCOUNT"

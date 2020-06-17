@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/Account_Logo_Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginBottom="12dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:onClick="@{() -> ViewModel.setLogoUrl(Constants.VALUE_EMPTY)}"
@@ -53,9 +53,9 @@
 
         <ImageButton
             android:id="@+id/Account_Logo_Edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
             android:background="?android:selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
             app:layout_constraintStart_toEndOf="@+id/Account_Logo"
@@ -173,7 +173,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textWebEditText"
+                android:inputType="textUri"
                 android:maxLength="@integer/restriction_field_long"
                 android:text="@={ViewModel.website}" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -30,7 +30,6 @@
     <string name="menu_search_filters_account">Comptes</string>
     <string name="menu_search_filters_card">Cartes</string>
     <string name="menu_search_filters_bank_account">Comptes Bancaires</string>
-    <string name="field_hint_search">Chercher</string>
     <string name="text_title_emptyView_logo_search">Cherchez-le. Aime-le. Garde le.</string>
     <string name="text_subtitle_emptyView_logo_search">Rechercher un logo pour votre compte</string>
     <string name="text_title_emptyView_item_search">Trouvez vos mots de passe!</string>
@@ -145,7 +144,7 @@
     <string name="field_card_date_expiry">Date d\'expiration</string>
     <string name="field_card_additional">Commentaires supplémentaires</string>
     <string name="field_bank_account_name">Nom de l\'entrée</string>
-    <string name="field_bank_account_number">Noter l\'application</string>
+    <string name="field_bank_account_number">Numéro</string>
     <string name="field_bank_account_owner">Propriétaire du compte</string>
     <string name="field_bank_account_bank">Banque</string>
     <string name="field_bank_account_swift">Code Swift</string>
@@ -186,4 +185,5 @@
     <string name="field_bank_account_iban">iban</string>
     <string name="text_title_about_dev_rate">Noter l\'application</string>
     <string name="settings_title_help_feedback">Envoyer des commentaires</string>
+    <string name="menu_searchview_search">Chercher</string>
 </resources>

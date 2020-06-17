@@ -35,6 +35,8 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_VIS
 import java.text.SimpleDateFormat
 import java.util.*
 
+const val OFFSET_Y_TOAST = 40
+const val OFFSET_X_TOAST = 0
 
 /*
 * Toast functions
@@ -42,14 +44,14 @@ import java.util.*
 */
 fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(requireContext(), text, duration)) {
-        setGravity(Gravity.BOTTOM, 0, 0)
+        setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
         show()
     }
 }
 
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(this, text, duration)) {
-        setGravity(Gravity.BOTTOM, 0, 0)
+        setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
         show()
     }
 }
