@@ -76,14 +76,14 @@ class ViewAccountFragment : Fragment() {
         when (item.itemId) {
             R.id.Action_Duplicate -> {
                 navigateTo(
-                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
+                    ViewAccountFragmentDirections.actionGlobalFragmentAddAccount()
                         .setKEYACCOUNT(0).setKEYACCOUNTPREVIOUS(binding.account!!.id)
                 )
                 true
             }
             R.id.Action_Edit -> {
                 navigateTo(
-                    ViewAccountFragmentDirections.actionFragmentViewAccountToFragmentAddAccount()
+                    ViewAccountFragmentDirections.actionGlobalFragmentAddAccount()
                         .setKEYACCOUNT(
                             binding.account!!.id
                         )

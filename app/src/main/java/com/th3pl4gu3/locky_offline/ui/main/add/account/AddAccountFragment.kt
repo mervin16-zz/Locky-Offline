@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
@@ -71,6 +72,12 @@ class AddAccountFragment : Fragment() {
 
         //Observe if form has errors
         observeIfHasErrors()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onDestroyView() {
@@ -141,7 +148,7 @@ class AddAccountFragment : Fragment() {
 
     private fun listenerLogoClick() {
         binding.AccountLogoEdit.setOnClickListener {
-            navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToBottomSheetFragmentAccountLogo())
+            navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentBottomDialogLogoAccount())
         }
     }
 

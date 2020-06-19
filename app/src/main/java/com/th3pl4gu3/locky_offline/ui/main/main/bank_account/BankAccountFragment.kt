@@ -219,7 +219,7 @@ class BankAccountFragment : Fragment() {
     private fun navigateToSort() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
-            navigateTo(BankAccountFragmentDirections.actionFragmentBankAccountToBottomSheetFragmentBankAccountFilter())
+            navigateTo(BankAccountFragmentDirections.actionFragmentBankAccountToFragmentBottomDialogFilterBankAccount())
         }
     }
 

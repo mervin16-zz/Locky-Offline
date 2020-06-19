@@ -12,7 +12,7 @@ buildscript {
     ext.version_constraint_layout = "2.0.0-beta6"
     ext.version_gradle = '4.0.0'
     ext.version_material_design = '1.2.0-beta01'
-    ext.version_navigation = '2.3.0-rc01'
+    ext.version_navigation = '2.3.0-alpha02'
     ext.version_preference = "1.1.1"
     ext.version_oss_licenses = "17.0.0"
     ext.version_oss_plugin = "0.10.2"
@@ -25,7 +25,9 @@ buildscript {
     //Testing
     ext.version_junit = '5.6.2'
     ext.version_junit_ext = "1.1.1"
-    ext.version_espresso_core = "3.2.0"
+    ext.version_espresso = "3.2.0"
+    ext.version_fragment = "1.2.5"
+    ext.version_test_core = "1.2.0"
     //Google Service
     ext.version_gms = "4.3.3"
     //Others

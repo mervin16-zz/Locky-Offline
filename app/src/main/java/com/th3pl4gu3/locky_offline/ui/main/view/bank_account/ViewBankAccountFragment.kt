@@ -40,7 +40,6 @@ class ViewBankAccountFragment : Fragment() {
         */
         binding.bankAccount =
             ViewBankAccountFragmentArgs.fromBundle(requireArguments()).bankaccountToVIEW
-
         /* Returns the root view */
         return binding.root
     }
@@ -77,14 +76,14 @@ class ViewBankAccountFragment : Fragment() {
         when (item.itemId) {
             R.id.Action_Duplicate -> {
                 navigateTo(
-                    ViewBankAccountFragmentDirections.actionFragmentViewBankAccountToFragmentAddBankAccount()
+                    ViewBankAccountFragmentDirections.actionGlobalFragmentAddBankAccount()
                         .setKEYBANKACCOUNT(0).setKEYBANKACCOUNTPREVIOUS(binding.bankAccount!!.id)
                 )
                 true
             }
             R.id.Action_Edit -> {
                 navigateTo(
-                    ViewBankAccountFragmentDirections.actionFragmentViewBankAccountToFragmentAddBankAccount()
+                    ViewBankAccountFragmentDirections.actionGlobalFragmentAddBankAccount()
                         .setKEYBANKACCOUNT(
                             binding.bankAccount!!.id
                         )

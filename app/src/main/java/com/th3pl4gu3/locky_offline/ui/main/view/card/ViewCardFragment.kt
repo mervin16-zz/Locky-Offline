@@ -68,7 +68,7 @@ class ViewCardFragment : Fragment() {
         return when (item.itemId) {
             R.id.Action_Duplicate -> {
                 navigateTo(
-                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
+                    ViewCardFragmentDirections.actionGlobalFragmentAddCard()
                         .setKEYCARD(0).setKEYCARDPREVIOUS(binding.card!!.id)
                 )
                 true
@@ -76,7 +76,7 @@ class ViewCardFragment : Fragment() {
 
             R.id.Action_Edit -> {
                 navigateTo(
-                    ViewCardFragmentDirections.actionFragmentViewCardToAddCardFragment()
+                    ViewCardFragmentDirections.actionGlobalFragmentAddCard()
                         .setKEYCARD(
                             binding.card!!.id
                         )

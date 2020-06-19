@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -23,10 +22,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -105,10 +104,6 @@ class MainActivity : AppCompatActivity() {
         //Use Navigation UI to setup the app bar config and navigation view
         NavigationUI.setupActionBarWithNavController(this, navController, _appBarConfiguration)
         NavigationUI.setupWithNavController(_binding.NavigationView, navController)
-
-        //Set the mini FABs with navigation to navigate to fragments accordingly.
-        Navigation.setViewNavController(_binding.FABAdd, navController)
-        Navigation.setViewNavController(_binding.FABSearch, navController)
 
         //Add on change destination listener to navigation controller to handle fab visibility
         navigationDestinationChangeListener_FAB(navController)
@@ -212,11 +207,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listenerForAddFab() = _binding.FABAdd.setOnClickListener {
-        navigateToAddCategorySheet()
+
+        supportFragmentManager.currentNavigationFragment?.setOutgoingTransitions(
+            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false),
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        )
+
+        when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
+            R.id.Fragment_Account -> {
+                navigateTo(R.id.action_global_Fragment_Add_Account)
+            }
+            R.id.Fragment_Card -> {
+                navigateTo(R.id.action_global_Fragment_Add_Card)
+            }
+            R.id.Fragment_Bank_Account -> {
+                navigateTo(R.id.action_global_Fragment_Add_BankAccount)
+            }
+            R.id.Fragment_Device -> {
+                /*
+                * Leave blank for now
+                * Need to fill it up when devices is implemented
+                */
+                toast(getString(R.string.dev_feature_implementation_soon))
+            }
+        }
+
     }
 
     private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
-        navigateToSearchFragment()
+        supportFragmentManager.currentNavigationFragment?.setOutgoingTransitions(
+            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false),
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        )
+        navigateTo(R.id.action_global_Fragment_Search)
     }
 
     private fun updateAppSettings() {
@@ -234,12 +257,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
-    private fun navigateToSearchFragment() = findNavController(R.id.Navigation_Host).navigate(
-        R.id.Fragment_Search, null
-    )
-
-    private fun navigateToAddCategorySheet() = navigateTo(R.id.BottomSheet_Fragment_Add_Category)
 
     private fun navigateToSplashScreen() {
         navigateTo(R.id.Activity_Splash)

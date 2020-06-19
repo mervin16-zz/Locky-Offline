@@ -108,9 +108,12 @@ dependencies {
 
     /** Android Test Suite **/
     androidTestImplementation "androidx.test.ext:junit:$version_junit_ext"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso_core"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
     androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
-    testImplementation "androidx.room:room-testing:$version_room"
+    androidTestImplementation "androidx.test:core:$version_test_core"
+    androidTestImplementation "androidx.room:room-testing:$version_room"
+    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     debugImplementation "com.amitshekhar.android:debug-db:$version_amitshekar_debug"
 }
 

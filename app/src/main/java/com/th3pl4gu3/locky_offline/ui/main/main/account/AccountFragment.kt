@@ -224,7 +224,7 @@ class AccountFragment : Fragment() {
     private fun navigateToSort() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
-            navigateTo(AccountFragmentDirections.actionFragmentAccountToBottomSheetFragmentAccountFilter())
+            navigateTo(AccountFragmentDirections.actionFragmentAccountToFragmentBottomDialogFilterAccount())
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
@@ -44,7 +45,6 @@ class AddCardFragment : Fragment() {
             AddCardFragmentArgs.fromBundle(requireArguments()).keycard,
             AddCardFragmentArgs.fromBundle(requireArguments()).keycardprevious
         )
-
         /* Returns the root view */
         return binding.root
     }
@@ -78,7 +78,8 @@ class AddCardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onDestroyView() {

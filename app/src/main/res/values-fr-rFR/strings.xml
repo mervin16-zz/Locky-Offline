@@ -40,7 +40,7 @@
     <string name="text_title_emptyView_bank_accounts">Sauvegardez vos comptes bancaires</string>
     <string name="text_subtitle_emptyView_bank_accounts">N\'oubliez pas de sauvegarder tous vos comptes bancaires.</string>
     <string name="text_title_splash">Bienvenue sur Locky</string>
-    <string name="text_title_alert_delete">Supprimer</string>
+    <string name="text_title_alert_delete">Supprimer  "%1$s"</string>
     <string name="text_title_alert_delete_message_account">Voulez-vous vraiment supprimer le compte "%1$s"</string>
     <string name="text_title_alert_delete_message_card">Voulez-vous vraiment supprimer la carte "%1$s"</string>
     <string name="text_title_alert_biometric">Aucune entrée biométrique</string>
@@ -86,11 +86,6 @@
     <string name="settings_title_category_help">Aidez-moi</string>
     <string name="settings_title_category_security">Sécurité</string>
     <string name="settings_title_category_display">Afficher</string>
-    <string name="button_action_category_add_item">Ajouter un élément</string>
-    <string name="button_action_category_add_device">Un Appareil</string>
-    <string name="button_action_category_add_card">Carte</string>
-    <string name="button_action_category_add_bank_account">Compte Bancaire</string>
-    <string name="button_action_category_add_account">Compte</string>
     <string name="button_action_filter">Filtre</string>
     <string name="button_action_get_started">Accéder</string>
     <string name="button_action_google_sign_in">Connectez-vous par Google</string>

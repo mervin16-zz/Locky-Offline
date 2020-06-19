@@ -147,7 +147,7 @@ class CardFragment : Fragment() {
     private fun subscribeUi(cards: List<Card>) {
         val adapter = CardAdapter(
             CardClickListener {
-                navigateToSelectedCard(it)
+                navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it))
             },
             CardOptionsClickListener { view, card ->
                 //Prevents double click and creating a double instance
@@ -178,16 +178,8 @@ class CardFragment : Fragment() {
     private fun navigateToSortSheet() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
-            navigateTo(CardFragmentDirections.actionFragmentCardToBottomSheetFragmentCardFilter())
+            navigateTo(CardFragmentDirections.actionFragmentCardToFragmentBottomDialogFilterCard())
         }
-    }
-
-    private fun navigateToSelectedCard(card: Card) {
-        navigateTo(
-            CardFragmentDirections.actionFragmentCardToFragmentViewCard(
-                card
-            )
-        )
     }
 
     private fun createPopupMenu(view: View, card: Card) {

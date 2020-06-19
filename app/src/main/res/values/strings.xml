@@ -281,12 +281,6 @@
     <string name="button_action_get_started">get started</string>
     <string name="button_action_filter">Filter</string>
 
-    <string name="button_action_category_add_account">Account</string>
-    <string name="button_action_category_add_card">Card</string>
-    <string name="button_action_category_add_bank_account">Bank Account</string>
-    <string name="button_action_category_add_device">Device</string>
-    <string name="button_action_category_add_item">Add an item</string>
-
     <!-- ========= -->
     <!-- Settings -->
     <!-- ========= -->
