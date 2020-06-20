@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/field_hint_search"
+            android:hint="@string/field_hint_item_search"
             android:inputType="text"
             android:imeOptions="actionSearch"
             app:layout_constraintEnd_toStartOf="@id/Button_Cancel"

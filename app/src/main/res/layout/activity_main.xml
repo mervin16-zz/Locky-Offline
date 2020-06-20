@@ -20,8 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorOnSurface"
+                android:clipChildren="false"
                 android:outlineAmbientShadowColor="@color/colorShadowColor"
-                android:outlineSpotShadowColor="@color/colorShadowColor">
+                android:outlineSpotShadowColor="@color/colorShadowColor"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                app:contentInsetStartWithNavigation="0dp">
 
                 <TextView
                     android:id="@+id/Toolbar_Main_Title"
@@ -30,6 +34,35 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/app_name" />
+
+                <LinearLayout
+                    android:id="@+id/Toolbar_Search_Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/Toolbar_Search_Box"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/field_hint_item_search"
+                        android:imeOptions="flagNoExtractUi|actionSearch"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no" />
+
+                    <ImageButton
+                        android:id="@+id/Toolbar_Search_Close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/actionBarItemBackground"
+                        app:srcCompat="@drawable/ic_close" />
+                </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -46,7 +79,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:defaultNavHost="true"
-                    app:navGraph="@navigation/navigation_drawer_main" />
+                    app:navGraph="@navigation/navigation_drawer_main"
+                    tools:ignore="FragmentTagUsage" />
 
             </androidx.core.widget.NestedScrollView>
 

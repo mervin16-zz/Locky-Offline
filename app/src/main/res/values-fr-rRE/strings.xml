@@ -70,14 +70,10 @@
     <string name="text_title_about_other_terms">Conditions et politique de confidentialité</string>
     <string name="text_title_about_other_version">Version</string>
     <string name="text_title_about_other_developer">API développeur</string>
-    <string name="text_description_about_other_license">Détails de la licence pour les logiciels open source</string>
     <string name="text_description_about_other_developer">Interface de programme d\'application (API) utilisée dans Locky</string>
-    <string name="text_subtitle_search_accounts">Comptes ("%1$s")</string>
-    <string name="text_subtitle_search_cards">Cartes ("%1$s")</string>
     <string name="text_subtitle_about_buymea">Achetez-moi un:</string>
     <string name="menu_drawer_subtitle_others">AUTRES</string>
     <string name="menu_drawer_subtitle_user">UTILISATEUR</string>
-    <string name="dev_feature_implementation_unknown">La fonctionnalité "%1$s" n\'a pas encore été implémentée.</string>
     <string name="settings_summary_help_feedback">Signaler des problèmes techniques ou suggérer de nouvelles fonctionnalités</string>
     <string name="settings_summary_backup_backup">Sauvegarde des données d\'application pour Locky</string>
     <string name="settings_value_display_default">Défaut</string>
@@ -113,7 +109,6 @@
     <string name="menu_card_moreOptions_copyNumber">Copiez le numéro de la carte</string>
     <string name="menu_card_moreOptions_copyPin">Copier le code PIN</string>
     <string name="menu_card_moreOptions_viewPin">Afficher le code PIN</string>
-    <string name="menu_bank_account_moreOptions_copyNumber">Copier le numéro de compte</string>
     <string name="menu_bank_account_moreOptions_copyIban">Copier l\'iban</string>
     <string name="menu_bank_account_moreOptions_copySwift">Copier le code swift</string>
     <string name="label_required">*Champs requis</string>
@@ -131,7 +126,6 @@
     <string name="field_account_blank_login"><i> Aucune connexion saisie </i></string>
     <string name="field_card_name">Nom de l\'entrée</string>
     <string name="field_card_number">Numéro de carte</string>
-    <string name="field_card_type">Type de carte</string>
     <string name="field_card_holder">Nom sur la carte</string>
     <string name="field_card_bank">Banque</string>
     <string name="field_card_pin">Code Pin</string>
@@ -161,9 +155,6 @@
     <string name="message_user_signin_cancelled">La connexion a été annulée</string>
     <string name="message_loading_logo">Chargement de vos logos…</string>
     <string name="message_loading_logo_none">Aucun logo trouvé</string>
-    <string name="message_loading_item_search">Récupération de vos éeléments…</string>
-    <string name="message_loading_item_account_none">Aucun compte trouvé</string>
-    <string name="message_loading_item_cards_none">Aucune carte trouvée</string>
     <string name="message_user_account_status_signed_out">Vous avez été déconnecté</string>
     <string name="error_internal_code_2">Une erreur interne a eu lieu. Code d\'erreur 2</string>
     <string name="message_credentials_created">"%1$s" a été ajouté avec succès.</string>
@@ -173,12 +164,16 @@
     <string name="error_field_validation_email_format">Veuillez insérer un email valide</string>
     <string name="error_biometric_authentication_failed">Échec de l\'authentification biométrique</string>
     <string name="error_biometric_authentication_error">Erreur d\'authentification biométrique: "%1$s"</string>
-    <string name="message_search_results">La recherche a retourné "%1$s" résultats</string>
+    <plurals name="message_search_results">
+        <item quantity="one">La recherche a retourné %d résultats</item>
+        <item quantity="other">La recherche a retourné %d résultats</item>
+    </plurals>
     <string name="error_internal_code_1">Une erreur interne a eu lieu. Code 1: "%1$s"</string>
     <string name="settings_value_display_dark">Sombre</string>
     <string name="settings_value_display_light">Clair</string>
     <string name="field_bank_account_iban">iban</string>
     <string name="text_title_about_dev_rate">Noter l\'application</string>
     <string name="settings_title_help_feedback">Envoyer des commentaires</string>
-    <string name="menu_searchview_search">Chercher</string>
+    <string name="text_title_screen_search">Chercher</string>
+    <string name="field_hint_item_search">Chercher</string>
 </resources>

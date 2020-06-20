@@ -12,7 +12,6 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import java.util.*
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,7 +25,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private var _searchQuery = MutableLiveData<String>()
     private var _resultSize = MutableLiveData<Int>()
 
-
     /*
     * Properties
     */
@@ -38,7 +36,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     */
     val accounts = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.ACCOUNTS) {
-            AccountRepository.getInstance(getApplication()).search(it, getUser().email)
+            AccountRepository.getInstance(getApplication())
+                .search(it, getUser().email)
         } else {
             null
         }
@@ -46,7 +45,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     val cards = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.CARDS) {
-            CardRepository.getInstance(getApplication()).search(it, getUser().email)
+            CardRepository.getInstance(getApplication())
+                .search(it, getUser().email)
         } else {
             null
         }
@@ -54,14 +54,19 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     val bankAccounts = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.BANK_ACCOUNTS) {
-            BankAccountRepository.getInstance(getApplication()).search(it, getUser().email)
+            BankAccountRepository.getInstance(getApplication())
+                .search(it, getUser().email)
         } else {
             null
         }
     }
 
     val resultSize = Transformations.map(_resultSize) {
-        getApplication<Application>().getString(R.string.message_search_results, it.toString())
+        getApplication<Application>().resources.getQuantityString(
+            R.plurals.message_search_results,
+            it,
+            it
+        )
     }
 
     /*
@@ -83,7 +88,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         */
         hideStarterScreen()
 
-        _searchQuery.value = "%${query.trim().toLowerCase(Locale.ROOT)}%"
+        _searchQuery.value = "%$query%"
         _filter.value = _filter.value //To trigger filter
     }
 

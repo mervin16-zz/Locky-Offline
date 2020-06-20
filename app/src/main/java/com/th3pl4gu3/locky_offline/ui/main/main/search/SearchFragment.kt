@@ -1,9 +1,15 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.search
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
-import androidx.appcompat.widget.SearchView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +28,7 @@ import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.requireMainActivity
 
 class SearchFragment : Fragment() {
 
@@ -30,6 +37,22 @@ class SearchFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
+
+    /*
+    * Extension properties to fetch views from main activity
+    * Views consists of search functionality
+    */
+    private val toolbarTitle: TextView
+        get() = requireMainActivity().findViewById(R.id.Toolbar_Main_Title)
+
+    private val searchBox: EditText
+        get() = requireMainActivity().findViewById(R.id.Toolbar_Search_Box)
+
+    private val searchClose: ImageButton
+        get() = requireMainActivity().findViewById(R.id.Toolbar_Search_Close)
+
+    private val searchLayout: LinearLayout
+        get() = requireMainActivity().findViewById(R.id.Toolbar_Search_Layout)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,12 +65,27 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
         // Bind lifecycle owner
         binding.lifecycleOwner = this
-
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        searchBox.addTextChangedListener {
+            viewModel.search(it.toString())
+        }
+
+        searchClose.setOnClickListener {
+            searchBox.setText("")
+            viewModel.cancel()
+        }
 
         binding.ButtonFilter.setOnClickListener {
             it.apply {
@@ -63,43 +101,14 @@ class SearchFragment : Fragment() {
         observeBankAccounts()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+    override fun onResume() {
+        super.onResume()
+        alternateSearchVisibility(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_searchview, menu)
-
-        val searchView = menu.findItem(R.id.Menu_Search).actionView as SearchView
-
-        (searchView).apply {
-
-            isIconified = false
-            isFocusable = true
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextChange(newText: String): Boolean {
-                    viewModel.search(newText)
-                    return true
-                }
-
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    searchView.clearFocus()
-                    return true
-                }
-            })
-
-            setOnCloseListener {
-                viewModel.cancel()
-                true
-            }
-        }
-
-        searchView.clearFocus()
+    override fun onPause() {
+        super.onPause()
+        alternateSearchVisibility(false)
     }
 
     override fun onDestroyView() {
@@ -237,4 +246,19 @@ class SearchFragment : Fragment() {
 
         adapter.submitList(bankAccounts)
     }
+
+    private fun alternateSearchVisibility(visible: Boolean) {
+        if (visible) {
+            toolbarTitle.visibility =
+                View.GONE
+            searchLayout.visibility =
+                View.VISIBLE
+        } else {
+            toolbarTitle.visibility =
+                View.VISIBLE
+            searchLayout.visibility =
+                View.GONE
+        }
+    }
+
 }

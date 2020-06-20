@@ -38,6 +38,7 @@
     <string name="text_title_screen_profile">Profile</string>
     <string name="text_title_screen_about">About</string>
     <string name="text_title_screen_donate">Donate</string>
+    <string name="text_title_screen_search">Search</string>
 
     <string name="text_title_sort">Sort</string>
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
@@ -68,8 +69,10 @@
     </string>
 
     <string name="text_title_alert_backup">Backup Locky</string>
-    <string name="text_title_alert_backup_message">"Locky performs backup automatically on its users\' app data and settings preferences.
-        If you don't have backup option enable on your phone, please turn it on so that you're app data and settings can be automatically backup on your Google Drive.
+    <string name="text_title_alert_backup_message">
+        Locky performs backup automatically on its users\' app data and settings preferences.
+        If you don\'t have backup option enabled on your phone, please turn it on so that your app data and
+        settings can be automatically backup on your Google Drive.
     </string>
 
     <string name="text_title_alert_biometric_enrolments_message">
@@ -106,11 +109,7 @@
     <string name="text_title_about_other_version">Version</string>
     <string name="text_title_about_other_developer">Developer API</string>
 
-    <string name="text_description_about_other_license">License details for open source software</string>
     <string name="text_description_about_other_developer">Application Program Interface (API) used in Locky</string>
-
-    <string name="text_subtitle_search_accounts">Accounts ("%1$s")</string>
-    <string name="text_subtitle_search_cards">Cards ("%1$s")</string>
 
 
     <string name="text_subtitle_about_buymea">Buy me a:</string>
@@ -143,15 +142,12 @@
     <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
     <string name="menu_card_moreOptions_viewPin">View Pin</string>
 
-    <string name="menu_bank_account_moreOptions_copyNumber">Copy Number</string>
     <string name="menu_bank_account_moreOptions_copyIban">Copy Iban</string>
     <string name="menu_bank_account_moreOptions_copySwift">Copy Swift</string>
 
     <string name="menu_search_filters_account">Accounts</string>
     <string name="menu_search_filters_card">Cards</string>
     <string name="menu_search_filters_bank_account">Bank Accounts</string>
-
-    <string name="menu_searchview_search">Search</string>
 
     <!-- =========== -->
     <!-- Data Fields -->
@@ -179,7 +175,6 @@
 
     <string name="field_card_name">Entry Name</string>
     <string name="field_card_number">Number</string>
-    <string name="field_card_type">Card Type</string>
     <string name="field_card_holder">Name on Card</string>
     <string name="field_card_bank">Bank</string>
     <string name="field_card_pin">Pin</string>
@@ -195,9 +190,6 @@
     <string name="field_bank_account_iban">Iban</string>
     <string name="field_bank_account_swift">Swift Code</string>
     <string name="field_bank_account_additional">Additional Comments</string>
-
-
-    <string name="field_hint_search" translatable="false">i.e www.facebook.com</string>
 
     <string name="field_placeholder_empty">None</string>
     <string name="field_placeholder_na" translatable="false">n/a</string>
@@ -218,6 +210,9 @@
     <string name="field_bank_account_sort_owner">Account Owner</string>
     <string name="field_bank_account_sort_bank">Bank</string>
 
+    <string name="field_hint_logo_search" translatable="false">i.e www.facebook.com</string>
+    <string name="field_hint_item_search">Search</string>
+
     <!-- =============== -->
     <!-- Notify Messages -->
     <!-- =============== -->
@@ -229,9 +224,6 @@
     <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
     <string name="message_loading_logo">Loading your logos…</string>
     <string name="message_loading_logo_none">No logos found</string>
-    <string name="message_loading_item_search">Fetching your items…</string>
-    <string name="message_loading_item_account_none">No accounts found</string>
-    <string name="message_loading_item_cards_none">No cards found</string>
     <string name="message_user_account_status_signed_out">You\'ve been signed out</string>
     <string name="message_settings_biometric_enabled">Biometric authentication has been enabled</string>
 
@@ -246,7 +238,10 @@
     </string>
     <string name="message_about_donations_billing_completed">Thank you for contributing</string>
 
-    <string name="message_search_results">Search returned "%1$s" results</string>
+    <plurals name="message_search_results">
+        <item quantity="one">Search returned %d result</item>
+        <item quantity="other">Search returned %d results</item>
+    </plurals>
 
 
     <!-- =============== -->
@@ -314,7 +309,6 @@
     <!-- ==================== -->
     <!-- ======= DEV =======  -->
     <!-- ==================== -->
-    <string name="dev_feature_implementation_unknown">The feature "%1$s" has not been implemented yet.</string>
     <string name="dev_feature_implementation_soon">Coming Soon!</string>
 
 </resources>

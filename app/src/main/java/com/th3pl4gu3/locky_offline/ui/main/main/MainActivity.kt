@@ -10,7 +10,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -30,7 +29,6 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
-    private lateinit var _viewModel: MainActivityViewModel
     private lateinit var _appBarConfiguration: AppBarConfiguration
 
     //Fragments that can navigate with the drawer
@@ -44,10 +42,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        _viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
-        _binding.lifecycleOwner = this
-
         //Set the support action bar to the toolbar
         setSupportActionBar(_binding.ToolbarMain)
         //Remove the default actionbar title
@@ -132,6 +126,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.Fragment_Profile -> updateToolbar(getString(R.string.text_title_screen_profile))
                 R.id.Fragment_About -> updateToolbar(getString(R.string.text_title_screen_about))
                 R.id.Fragment_Donate -> updateToolbar(getString(R.string.text_title_screen_donate))
+                R.id.Fragment_Search -> updateToolbar(getString(R.string.text_title_screen_search))
                 else -> {
                     //Show the toolbar
                     updateToolbar(null)

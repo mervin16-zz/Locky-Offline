@@ -27,6 +27,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_AMEX
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DINNERSCLUB
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DISCOVER
@@ -275,3 +276,5 @@ fun generateUniqueID(): String = UUID.randomUUID().toString()
 
 val FragmentManager.currentNavigationFragment: Fragment?
     get() = findFragmentById(R.id.Navigation_Host)?.childFragmentManager?.fragments?.first()
+
+fun Fragment.requireMainActivity() = requireActivity() as MainActivity
