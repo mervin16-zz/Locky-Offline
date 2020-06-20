@@ -2,7 +2,8 @@
 
 <resources>
 
-    <!-- =================== -->
+
+<!-- =================== -->
     <!-- Default App Colors -->
     <!-- =================== -->
     <color name="colorPrimary">@color/dark_colorAccent</color>
@@ -11,12 +12,6 @@
     <color name="colorOnSurface">@color/dark_colorOnSurface</color>
     <color name="colorShadowColor">@color/grey_100</color>
     <color name="dark_colorOnSecondary">@color/grey_dark_100</color>
-    <!--Nav bar color protection for behavior differences between Android P and Q. All sdk-->
-    <!--levels should draw fullscreen. P should color the nav bar with a translucent background -->
-    <!--to guard for contrast. Q should have a transparent nav bar as Q will automatically -->
-    <!--handles contrast by either dynamically coloring the nav bar handle (gesture nav) -->
-    <!--or automatically applying a translucent background (3-button mode).-->
-    <color name="colorNavigationBar">@color/colorPrimaryDark</color>
 
     <!-- ============= -->
     <!-- Button Colors -->

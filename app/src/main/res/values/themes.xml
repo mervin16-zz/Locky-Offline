@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- ======================== -->
+    <!-- Application's Base Theme -->
+    <!-- ======================== -->
+    <style name="Locky.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Base Theme -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccentDark">@color/colorAccentDark</item>
+        <item name="colorAccentLight">@color/colorAccentLight</item>
+        <item name="colorRipple">@color/colorRipple</item>
+        <item name="android:listDivider">@android:color/transparent</item>
+
+        <!-- Default background screen -->
+        <item name="android:windowBackground">@color/colorOnSurface</item>
+
+        <!-- Overflow icon (More Options) Theme -->
+        <item name="actionOverflowButtonStyle">@style/Locky.Icon.Overflow</item>
+
+        <!-- Prevents multi-finger touch events -->
+        <item name="android:splitMotionEvents">false</item>
+
+        <!-- Status and navigation bar colors -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">@bool/theme_status_bar_light</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+
+        <!-- Navigation Drawer -->
+        <item name="colorNavigationItem">@color/color_state_drawer_item</item>
+        <item name="colorNavigationItemSelected">@android:color/white</item>
+        <item name="drawableNavigationItemBackground">@drawable/custom_drawer_background</item>
+
+        <!-- Menu Hamburger icon styles -->
+        <item name="drawerArrowStyle">@style/Locky.Icon.Drawer.Hamburger</item>
+
+        <!-- Alert Dialog Theme-->
+        <item name="materialAlertDialogTheme">@style/Locky.MaterialAlertDialog</item>
+
+        <!-- Date Picker Calendar Theme -->
+        <item name="materialCalendarTheme">@style/Locky.MaterialDatePicker</item>
+
+        <!-- Settings Preferences Theme -->
+        <item name="preferenceTheme">@style/Locky.PreferenceTheme</item>
+
+        <!-- Chips Style -->
+        <item name="chipStyle">@style/Locky.Button.Chip</item>
+
+        <!-- Card Style -->
+        <item name="materialCardViewStyle">@style/Locky.CardView</item>
+
+        <!-- Bottom Sheet Dialog Fragment Theme -->
+        <item name="bottomSheetDialogTheme">@style/Locky.BottomSheetDialog.Theme</item>
+    </style>
+
+    <!-- ====================== -->
+    <!-- Splash Launcher Theme -->
+    <!-- ====================== -->
+    <style name="Locky.Theme.Launcher" parent="Locky.Theme">
+        <item name="android:windowBackground">@drawable/custom_background_launcher</item>
+    </style>
+</resources>

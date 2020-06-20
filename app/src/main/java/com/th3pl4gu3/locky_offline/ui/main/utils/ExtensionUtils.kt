@@ -1,6 +1,5 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.SearchManager
 import android.content.ClipData
@@ -15,14 +14,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.view.animation.Interpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.AttrRes
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
@@ -33,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_AMEX
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DINNERSCLUB
@@ -47,8 +43,9 @@ const val OFFSET_Y_TOAST = 40
 const val OFFSET_X_TOAST = 0
 
 /*
-* Toast functions
-* - can call directly from fragment
+* Toast helper functions
+* - can be called using context
+* - can be called from fragment directly
 */
 fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(requireContext(), text, duration)) {
@@ -56,7 +53,6 @@ fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         show()
     }
 }
-
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(this, text, duration)) {
         setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
@@ -65,7 +61,8 @@ fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 /*
-* Credit card helpers
+* Get type of credit card
+* from the credit card number
 */
 fun String.getCardType(): Card.CardType {
 
@@ -96,6 +93,10 @@ fun String.getCardType(): Card.CardType {
     }
 }
 
+/*
+* Re-formats a string to a
+* credit card format
+*/
 fun String.toCreditCardFormat(): String {
     val number = this.replace(",", "").trim()
     val result = StringBuilder()
@@ -123,13 +124,13 @@ inline fun View.snackbar(
     snack.f()
     snack.show()
 }
-
 fun Snackbar.action(action: String, listener: (View) -> Unit) {
     setAction(action, listener)
 }
 
 /*
 * Copy to clipboard
+* - can be called directly from a fragment
 */
 fun Fragment.copyToClipboard(data: String) =
     (requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(
@@ -276,24 +277,36 @@ fun Fragment.setOutgoingTransitions(
 }
 
 /*
-* Others
+* Generates a unique ID
 */
 fun generateUniqueID(): String = UUID.randomUUID().toString()
 
+/*
+* Gets the current navigation fragment
+*/
 val FragmentManager.currentNavigationFragment: Fragment?
     get() = findFragmentById(R.id.Navigation_Host)?.childFragmentManager?.fragments?.first()
 
+/*
+* Converts an activity to the Main activity
+* ATTENTION: Need to make sure that requireActivity() is
+* actually returning MainActivity or application will crash
+*/
 fun Fragment.requireMainActivity() = requireActivity() as MainActivity
 
-@SuppressLint("Recycle")
-fun Context.themeInterpolator(@AttrRes attr: Int): Interpolator {
-    return AnimationUtils.loadInterpolator(
-        this,
-        obtainStyledAttributes(intArrayOf(attr)).use {
-            it.getResourceId(0, android.R.interpolator.fast_out_slow_in)
-        }
-    )
-}
 
+/*
+* Checks if screen is in landscape
+*/
 val Fragment.isNotInPortrait: Boolean
     get() = resources.configuration.orientation != Configuration.ORIENTATION_PORTRAIT
+
+/*
+* Merge a created user instance into
+* a fetched user instance
+* This is done to update data of the user that are not
+* stored in database.
+*/
+fun User.merge(fetchedUser: User) = this.apply {
+    dateJoined = fetchedUser.dateJoined
+}

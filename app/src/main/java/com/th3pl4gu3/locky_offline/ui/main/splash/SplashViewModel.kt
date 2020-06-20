@@ -9,6 +9,7 @@ import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.UserRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.merge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,16 +48,28 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
             if (fetchedUser == null) {
                 save(user)
-
                 /*
                 * Assigned saved user to fetch user
                 * We do this to always get an updated version of the user object
                 * to save in the session
                 */
                 fetchedUser = user
+            } else {
+                /*
+                * We merge fetched user to get
+                * an updated data
+                */
+                fetchedUser = user.merge(fetchedUser)
             }
 
+            /*
+            * We then save the user to session
+            */
             saveToSession(fetchedUser)
+
+            /*
+            * We mark the sign is as completed
+            */
             _signInCompletion.value = true
         }
     }

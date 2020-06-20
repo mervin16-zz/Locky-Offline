@@ -20,10 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -217,10 +218,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
-        supportFragmentManager.currentNavigationFragment?.setOutgoingTransitions(
-            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false),
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
-        )
         navigateTo(R.id.action_global_Fragment_Search)
     }
 

@@ -10,8 +10,4 @@
     <attr name="colorNavigationItemSelected" format="color" />
     <attr name="colorOnPrimary" format="color" />
     <attr name="drawableNavigationItemBackground" format="reference" />
-
-    <attr name="motionInterpolatorPersistent" format="reference" />
-    <attr name="motionInterpolatorIncoming" format="reference" />
-    <attr name="motionInterpolatorOutgoing" format="reference" />
 </resources>
