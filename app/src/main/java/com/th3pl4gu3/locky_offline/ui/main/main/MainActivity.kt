@@ -10,7 +10,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -69,12 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
-
-    override fun finish() {
-        super.finish()
-
-        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
-    }
 
     internal fun logout() {
         val mGoogleSignInClient = GoogleSignIn.getClient(

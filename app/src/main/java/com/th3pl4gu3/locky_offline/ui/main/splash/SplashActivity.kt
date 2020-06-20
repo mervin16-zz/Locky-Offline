@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ActivityNavigator
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -79,12 +78,6 @@ class SplashActivity : AppCompatActivity() {
         checkIfUserSignedIn()
     }
 
-    override fun onPause() {
-        super.onPause()
-
-        _biometricPrompt.cancelAuthentication()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -100,11 +93,6 @@ class SplashActivity : AppCompatActivity() {
             // a listener.
             handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
         }
-    }
-
-    override fun finish() {
-        super.finish()
-        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
     }
 
     private fun observeSignInState() = viewModel.isSignInComplete.observe(this, Observer {
@@ -177,7 +165,6 @@ class SplashActivity : AppCompatActivity() {
 
     private fun updateAppSettings() {
         LocalStorageManager.withSettings(application)
-
         when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
             getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -286,6 +273,7 @@ class SplashActivity : AppCompatActivity() {
             }
             .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
                 startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
+                dialog.dismiss()
             }
             .show()
 }

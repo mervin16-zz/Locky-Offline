@@ -43,13 +43,20 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         * After we are sure user has been added in database, we update live data.
         */
         viewModelScope.launch {
-            val fetchedUser = fetch(user.email)
+            var fetchedUser = fetch(user.email)
 
             if (fetchedUser == null) {
                 save(user)
+
+                /*
+                * Assigned saved user to fetch user
+                * We do this to always get an updated version of the user object
+                * to save in the session
+                */
+                fetchedUser = user
             }
 
-            saveToSession(user)
+            saveToSession(fetchedUser)
             _signInCompletion.value = true
         }
     }
