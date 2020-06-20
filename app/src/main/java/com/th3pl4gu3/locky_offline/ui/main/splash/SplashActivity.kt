@@ -79,6 +79,12 @@ class SplashActivity : AppCompatActivity() {
         checkIfUserSignedIn()
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        _biometricPrompt.cancelAuthentication()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

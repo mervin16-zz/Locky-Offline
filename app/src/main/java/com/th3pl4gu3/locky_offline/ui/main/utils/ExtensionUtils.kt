@@ -1,11 +1,13 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.SearchManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -13,10 +15,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.Interpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
@@ -278,3 +284,16 @@ val FragmentManager.currentNavigationFragment: Fragment?
     get() = findFragmentById(R.id.Navigation_Host)?.childFragmentManager?.fragments?.first()
 
 fun Fragment.requireMainActivity() = requireActivity() as MainActivity
+
+@SuppressLint("Recycle")
+fun Context.themeInterpolator(@AttrRes attr: Int): Interpolator {
+    return AnimationUtils.loadInterpolator(
+        this,
+        obtainStyledAttributes(intArrayOf(attr)).use {
+            it.getResourceId(0, android.R.interpolator.fast_out_slow_in)
+        }
+    )
+}
+
+val Fragment.isNotInPortrait: Boolean
+    get() = resources.configuration.orientation != Configuration.ORIENTATION_PORTRAIT

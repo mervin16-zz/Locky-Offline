@@ -70,8 +70,8 @@ class AccountDiffCallback: DiffUtil.ItemCallback<Account>() {
 
 }
 
-class AccountClickListener(val clickListener: (account: Account) -> Unit){
-    fun onClick(account: Account) = clickListener(account)
+class AccountClickListener(val clickListener: (view: View, account: Account) -> Unit) {
+    fun onClick(view: View, account: Account) = clickListener(view, account)
 }
 
 class AccountOptionsClickListener(val clickListener: (view: View, account: Account) -> Unit){

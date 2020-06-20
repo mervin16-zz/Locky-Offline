@@ -142,6 +142,7 @@
     <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
     <string name="menu_card_moreOptions_viewPin">View Pin</string>
 
+    <string name="menu_bank_account_moreOptions_copyNumber">Copy Number</string>
     <string name="menu_bank_account_moreOptions_copyIban">Copy Iban</string>
     <string name="menu_bank_account_moreOptions_copySwift">Copy Swift</string>
 
@@ -210,7 +211,6 @@
     <string name="field_bank_account_sort_owner">Account Owner</string>
     <string name="field_bank_account_sort_bank">Bank</string>
 
-    <string name="field_hint_logo_search" translatable="false">i.e www.facebook.com</string>
     <string name="field_hint_item_search">Search</string>
 
     <!-- =============== -->

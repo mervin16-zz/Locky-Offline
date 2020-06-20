@@ -164,8 +164,12 @@ class AccountFragment : Fragment() {
     private fun subscribeAccounts(accounts: List<Account>) {
         val adapter = AccountAdapter(
             /* The click listener to handle account on clicks */
-            AccountClickListener {
-                navigateTo(AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(it))
+            AccountClickListener { view, account ->
+                navigateTo(
+                    AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
+                        account
+                    )
+                )
             },
             /* The click listener to handle popup menu for each accounts */
             AccountOptionsClickListener { view, account ->

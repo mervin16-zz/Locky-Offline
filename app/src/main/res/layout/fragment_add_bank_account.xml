@@ -117,7 +117,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:maxLength="@integer/restriction_field_normal"
                 android:text="@={ViewModel.bank}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -140,7 +140,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:maxLength="@integer/restriction_field_long"
                 android:text="@={ViewModel.owner}" />
         </com.google.android.material.textfield.TextInputLayout>

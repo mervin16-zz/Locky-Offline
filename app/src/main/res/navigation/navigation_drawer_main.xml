@@ -6,6 +6,38 @@
     android:id="@+id/navigation_drawer_main"
     app:startDestination="@id/Fragment_Account">
 
+    <!-- ============================ -->
+    <!-- ====== Global Actions ====== -->
+    <!-- ============================ -->
+    <action
+        android:id="@+id/action_global_Fragment_Add_Account"
+        app:destination="@id/Fragment_Add_Account"
+        app:enterAnim="@anim/anim_slide_in_right"
+        app:exitAnim="@anim/anim_slide_out_left"
+        app:popEnterAnim="@anim/anim_slide_in_left"
+        app:popExitAnim="@anim/anim_slide_out_right" />
+
+    <action
+        android:id="@+id/action_global_Fragment_Add_BankAccount"
+        app:destination="@id/Fragment_Add_BankAccount"
+        app:enterAnim="@anim/anim_slide_in_right"
+        app:exitAnim="@anim/anim_slide_out_left"
+        app:popEnterAnim="@anim/anim_slide_in_left"
+        app:popExitAnim="@anim/anim_slide_out_right" />
+
+    <action
+        android:id="@+id/action_global_Fragment_Add_Card"
+        app:destination="@id/Fragment_Add_Card"
+        app:enterAnim="@anim/anim_slide_in_right"
+        app:exitAnim="@anim/anim_slide_out_left"
+        app:popEnterAnim="@anim/anim_slide_in_left"
+        app:popExitAnim="@anim/anim_slide_out_right" />
+
+    <action
+        android:id="@+id/action_global_Fragment_Search"
+        app:destination="@id/Fragment_Search" />
+
+
     <!-- ============================= -->
     <!-- ====== Splash Activity ====== -->
     <!-- ============================= -->
@@ -13,7 +45,7 @@
         android:id="@+id/Activity_Splash"
         android:name="com.th3pl4gu3.locky_offline.ui.main.splash.SplashActivity"
         android:label="SplashActivity"
-        tools:layout="@layout/activity_splash"></activity>
+        tools:layout="@layout/activity_splash" />
 
 
     <!-- ================================== -->
@@ -26,7 +58,11 @@
         tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
-            app:destination="@id/Fragment_View_Account" />
+            app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_Fragment_Account_to_Fragment_Bottom_Dialog_Filter_Account"
             app:destination="@id/Fragment_Bottom_Dialog_Filter_Account" />
@@ -39,7 +75,11 @@
         tools:layout="@layout/fragment_card">
         <action
             android:id="@+id/action_Fragment_Card_to_Fragment_View_Card"
-            app:destination="@id/Fragment_View_Card" />
+            app:destination="@id/Fragment_View_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_Fragment_Card_to_Fragment_Bottom_Dialog_Filter_Card"
             app:destination="@id/Fragment_Bottom_Dialog_Filter_Card" />
@@ -52,7 +92,11 @@
         tools:layout="@layout/fragment_bank_account">
         <action
             android:id="@+id/action_Fragment_Bank_Account_to_Fragment_View_BankAccount"
-            app:destination="@id/Fragment_View_BankAccount" />
+            app:destination="@id/Fragment_View_BankAccount"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_Fragment_Bank_Account_to_Fragment_Bottom_Dialog_Filter_BankAccount"
             app:destination="@id/Fragment_Bottom_Dialog_Filter_BankAccount" />
@@ -140,15 +184,19 @@
         tools:layout="@layout/fragment_add_account">
         <argument
             android:name="KEY_ACCOUNT"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <argument
             android:name="KEY_ACCOUNT_PREVIOUS"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_Fragment_Add_Account_to_Fragment_Account"
             app:destination="@id/Fragment_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="false" />
         <action
@@ -163,15 +211,19 @@
         tools:layout="@layout/fragment_add_card">
         <argument
             android:name="KEY_CARD"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <argument
             android:name="KEY_CARD_PREVIOUS"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_Fragment_Add_Card_to_Fragment_Card"
             app:destination="@id/Fragment_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="false" />
     </fragment>
@@ -184,37 +236,21 @@
         <action
             android:id="@+id/action_Fragment_Add_BankAccount_to_Fragment_Bank_Account"
             app:destination="@id/Fragment_Bank_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/Fragment_Account"
             app:popUpToInclusive="false" />
         <argument
             android:name="KEY_BANKACCOUNT"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <argument
             android:name="KEY_BANKACCOUNT_PREVIOUS"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
-
-    <!-- ============================ -->
-    <!-- ====== Global Actions ====== -->
-    <!-- ============================ -->
-    <action
-        android:id="@+id/action_global_Fragment_Add_Account"
-        app:destination="@id/Fragment_Add_Account" />
-
-    <action
-        android:id="@+id/action_global_Fragment_Add_BankAccount"
-        app:destination="@id/Fragment_Add_BankAccount" />
-
-    <action
-        android:id="@+id/action_global_Fragment_Add_Card"
-        app:destination="@id/Fragment_Add_Card" />
-
-    <action
-        android:id="@+id/action_global_Fragment_Search"
-        app:destination="@id/Fragment_Search" />
-
 
     <!-- ===================================== -->
     <!-- ====== Bottom Dialog Fragments ====== -->
@@ -254,12 +290,24 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_Fragment_Search_to_Fragment_View_BankAccount"
-            app:destination="@id/Fragment_View_BankAccount" />
+            app:destination="@id/Fragment_View_BankAccount"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_Fragment_Search_to_Fragment_View_Card"
-            app:destination="@id/Fragment_View_Card" />
+            app:destination="@id/Fragment_View_Card"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_Fragment_Search_to_Fragment_View_Account"
-            app:destination="@id/Fragment_View_Account" />
+            app:destination="@id/Fragment_View_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 </navigation>

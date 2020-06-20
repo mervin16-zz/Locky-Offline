@@ -14,6 +14,12 @@
     <color name="colorRipple">@color/purple_50</color>
     <color name="colorOnSurface">@android:color/white</color>
     <color name="colorShadowColor">@color/colorAccentDark</color>
+    <!--Nav bar color protection for behavior differences between Android P and Q. All sdk-->
+    <!--levels should draw fullscreen. P should color the nav bar with a translucent background -->
+    <!--to guard for contrast. Q should have a transparent nav bar as Q will automatically -->
+    <!--handles contrast by either dynamically coloring the nav bar handle (gesture nav) -->
+    <!--or automatically applying a translucent background (3-button mode).-->
+    <color name="colorNavigationBar">@color/colorPrimaryDark</color>
 
     <!-- =================== -->
     <!-- Iconography Colors -->
@@ -43,8 +49,6 @@
     <!-- Text Field Colors -->
     <!-- ================= -->
     <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
-    <color name="colorTextFieldAccentDefault_Active">@color/purple_300</color>
-    <color name="colorTextFieldAccentDefault_Inactive">@color/grey_300</color>
     <color name="colorTextFieldErrorDefault">@color/red_300</color>
     <color name="colorTextFieldIconDefault">@color/colorAccentVariant</color>
     <color name="colorTextFieldTextDefault">@color/colorAccentDark</color>
@@ -79,7 +83,6 @@
 
     <color name="grey_600">#4E4E4E</color>
     <color name="grey_400">#7E7D7D</color>
-    <color name="grey_300">#959595</color>
     <color name="grey_200">#959595</color>
     <color name="grey_100">#D3D3D3</color>
     <color name="grey_50">#E8E7E7</color>

@@ -25,12 +25,16 @@
         <!-- Status and navigation bar colors -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">@bool/theme_status_bar_light</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorNavigationBar</item>
 
         <!-- Navigation Drawer -->
         <item name="colorNavigationItem">@color/color_state_drawer_item</item>
         <item name="colorNavigationItemSelected">@android:color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/custom_drawer_background</item>
+
+        <item name="motionInterpolatorPersistent">@android:interpolator/fast_out_slow_in</item>
+        <item name="motionInterpolatorIncoming">@android:interpolator/decelerate_cubic</item>
+        <item name="motionInterpolatorOutgoing">@android:interpolator/accelerate_cubic</item>
 
         <!-- Menu Hamburger icon styles -->
         <item name="drawerArrowStyle">@style/Locky.Icon.Drawer.Hamburger</item>
@@ -255,24 +259,11 @@
         <item name="android:textColor">@color/colorButtonTextNegative</item>
     </style>
 
-    <style name="Locky.Button.TextButton.Icon" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="iconTint">@color/colorButtonTextAccentDark</item>
-        <item name="android:textColor">@color/colorButtonTextAccentDark</item>
-        <item name="rippleColor">@color/colorRipple</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
     <style name="Locky.Button.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textColor">@color/color_state_chip_item_text</item>
         <item name="chipBackgroundColor">@color/color_state_chip_item_background</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="chipCornerRadius">5dp</item>
-    </style>
-
-    <style name="Locky.Button.TextButton.Icon.MenuItem">
-        <item name="iconGravity">start</item>
-        <item name="android:textAlignment">textStart</item>
-        <item name="iconPadding">12dp</item>
     </style>
 
 
@@ -342,30 +333,15 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="Locky.Text.Subtitle.Terms">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
     <style name="Locky.Text.Subtitle.Label">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="Locky.Text.Title5.Name" />
 
-    <style name="Locky.Text.Title6.BottomSheet">
-        <item name="android:textSize">16sp</item>
-    </style>
-
     <style name="Locky.Text.Caption.CardTitle">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:letterSpacing">0.1</item>
-    </style>
-
-    <style name="Locky.Text.Caption.Copyright">
-        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">10sp</item>
         <item name="android:letterSpacing">0.1</item>
     </style>

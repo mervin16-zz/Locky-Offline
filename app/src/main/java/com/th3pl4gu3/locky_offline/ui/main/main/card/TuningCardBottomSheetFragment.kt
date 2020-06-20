@@ -11,6 +11,7 @@ import com.th3pl4gu3.locky_offline.core.main.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetCardTuningBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
 
 class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -34,15 +35,24 @@ class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        //This forces the sheet to appear at max height even on landscape
-        BottomSheetBehavior.from(requireView().parent as View).state =
-            BottomSheetBehavior.STATE_EXPANDED
+
+        /*
+        * We check if device is in landscape
+        * If it is in landscape,
+        * We expand the height of the bottom sheet
+        */
+        bottomSheetConfiguration()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         listenerForConfirmChanges()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun listenerForConfirmChanges() {
@@ -62,8 +72,11 @@ class TuningCardBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun bottomSheetConfiguration() {
+        if (isNotInPortrait) {
+            //This forces the sheet to appear at max height even on landscape
+            BottomSheetBehavior.from(requireView().parent as View).state =
+                BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 }

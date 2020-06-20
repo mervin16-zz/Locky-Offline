@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/Menu_CopyNumber"
-        android:title="@string/menu_card_moreOptions_copyNumber"
+        android:title="@string/menu_bank_account_moreOptions_copyNumber"
         app:showAsAction="ifRoom" />
 
     <item

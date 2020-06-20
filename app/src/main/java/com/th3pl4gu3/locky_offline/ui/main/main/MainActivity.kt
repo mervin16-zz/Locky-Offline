@@ -202,12 +202,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listenerForAddFab() = _binding.FABAdd.setOnClickListener {
-
-        supportFragmentManager.currentNavigationFragment?.setOutgoingTransitions(
-            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false),
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
-        )
-
         when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
             R.id.Fragment_Account -> {
                 navigateTo(R.id.action_global_Fragment_Add_Account)

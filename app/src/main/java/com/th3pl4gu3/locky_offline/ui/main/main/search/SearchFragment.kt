@@ -173,8 +173,12 @@ class SearchFragment : Fragment() {
     private fun subscribeAccountsUi(accounts: List<Account>) {
         val adapter = AccountAdapter(
             /* The click listener to handle account on clicks */
-            AccountClickListener {
-                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(it))
+            AccountClickListener { view, account ->
+                navigateTo(
+                    SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
+                        account
+                    )
+                )
             },
             null,
             true

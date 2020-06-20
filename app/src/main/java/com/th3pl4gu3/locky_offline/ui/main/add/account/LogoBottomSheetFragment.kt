@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAccountLogoBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
+import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.isOnline
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
@@ -46,9 +47,13 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        //This forces the sheet to appear at max height even on landscape
-        BottomSheetBehavior.from(requireView().parent as View).state =
-            BottomSheetBehavior.STATE_EXPANDED
+
+        /*
+        * We check if device is in landscape
+        * If it is in landscape,
+        * We expand the height of the bottom sheet
+        */
+        bottomSheetConfiguration()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -130,5 +135,13 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
             logoUrl
         )
         dismiss()
+    }
+
+    private fun bottomSheetConfiguration() {
+        if (isNotInPortrait) {
+            //This forces the sheet to appear at max height even on landscape
+            BottomSheetBehavior.from(requireView().parent as View).state =
+                BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 }
