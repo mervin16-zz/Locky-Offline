@@ -36,12 +36,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_bank" />
 
+        <ImageButton
+            android:id="@+id/Account_Logo_Reset"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="12dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toTopOf="@id/Account_Logo_Edit"
+            app:layout_constraintStart_toStartOf="@id/Account_Logo_Edit"
+            app:srcCompat="@drawable/ic_reset"
+            android:onClick="@{() -> ViewModel.setAccent(@string/dev_color_hex_accent_bank_logo_default)}"/>
+
+        <ImageButton
+            android:id="@+id/Account_Logo_Edit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="@+id/Account_Logo"
+            app:layout_constraintStart_toEndOf="@+id/Account_Logo"
+            app:srcCompat="@drawable/ic_edit" />
+
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_Logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Account_Logo" />
+            app:constraint_referenced_ids="Account_Logo,Account_Logo_Reset,Account_Logo_Edit" />
 
         <!--
         **************** Require Label ****************

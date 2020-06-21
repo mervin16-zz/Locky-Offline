@@ -13,6 +13,7 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.R
@@ -21,6 +22,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.isOnline
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import java.util.*
 
 
 class LogoBottomSheetFragment : BottomSheetDialogFragment() {
@@ -107,7 +109,11 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
                 .hideSoftInputFromWindow(TextfieldSearch.windowToken, 0)
 
             if (requireActivity().isOnline()) {
-                viewModel?.getWebsiteLogoProperties(TextfieldSearch.text.toString())
+                viewModel?.getWebsiteLogoProperties(
+                    TextfieldSearch.text.toString().toLowerCase(
+                        Locale.ROOT
+                    )
+                )
             } else {
                 toast(getString(R.string.message_internet_connection_unavailable))
             }
@@ -121,8 +127,9 @@ class LogoBottomSheetFragment : BottomSheetDialogFragment() {
             })
 
         binding.RecyclerViewLogo.apply {
-            adapter = logoAdapter
             setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = logoAdapter
         }
 
         return logoAdapter

@@ -175,6 +175,8 @@
     <string name="text_title_about_dev_rate">Noter l\'application</string>
     <string name="settings_title_help_feedback">Envoyer des commentaires</string>
     <string name="text_title_screen_search">Chercher</string>
-    <string name="field_hint_item_search">Chercher</string>
     <string name="menu_bank_account_moreOptions_copyNumber">Copiez le numéro du compte</string>
+    <string name="text_title_bank_account_logo_accent_screen">Choisissez une couleur</string>
+    <string name="text_title_bank_account_logo_accent_current">Couleur Actuelle</string>
+    <string name="field_hint_item_search">Chercher</string>
 </resources>

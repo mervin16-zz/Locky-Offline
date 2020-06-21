@@ -65,8 +65,16 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
 
     private suspend fun loadLogos(query: String) {
         _loadingStatus.value = Loading.Status.LOADING
-        _websites.value = NetworkRepository()
-            .getWebsiteDetails(query)
+        /*
+        * We first get all logos from main API
+        */
+        val logos = ArrayList(NetworkRepository.getInstance().getWebsiteDetails(query))
+        /*
+        * We then get logo from backup API site too
+        */
+        logos.add(NetworkRepository.getInstance().getWebsiteDetail(query))
+        _websites.value = logos
+
         _loadingStatus.value = Loading.Status.DONE
     }
 

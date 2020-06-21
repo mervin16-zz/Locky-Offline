@@ -111,8 +111,10 @@
 
     <string name="text_description_about_other_developer">Application Program Interface (API) used in Locky</string>
 
-
     <string name="text_subtitle_about_buymea">Buy me a:</string>
+
+    <string name="text_title_bank_account_logo_accent_screen">Choose a color</string>
+    <string name="text_title_bank_account_logo_accent_current">Current</string>
 
 
     <!-- ==================== -->
@@ -211,6 +213,7 @@
     <string name="field_bank_account_sort_owner">Account Owner</string>
     <string name="field_bank_account_sort_bank">Bank</string>
 
+    <string name="field_hint_logo_search" translatable="false">i.e facebook.com</string>
     <string name="field_hint_item_search">Search</string>
 
     <!-- =============== -->
@@ -309,6 +312,7 @@
     <!-- ==================== -->
     <!-- ======= DEV =======  -->
     <!-- ==================== -->
+    <string name="dev_color_hex_accent_bank_logo_default" translatable="false">#D35C4B6C</string>
     <string name="dev_feature_implementation_soon">Coming Soon!</string>
 
 </resources>

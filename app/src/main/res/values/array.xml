@@ -6,4 +6,13 @@
         <item>@string/settings_value_display_light</item>
         <item>@string/settings_value_display_dark</item>
     </string-array>
+
+    <string-array name="hex_accent_logo">
+        <item>@string/dev_color_hex_accent_bank_logo_default</item>
+        <item>#E57373</item>
+        <item>#BA68C8</item>
+        <item>#7986CB</item>
+        <item>#64B5F6</item>
+        <item>#81C784</item>
+    </string-array>
 </resources>

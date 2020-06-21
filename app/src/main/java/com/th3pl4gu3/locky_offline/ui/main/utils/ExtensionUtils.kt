@@ -1,12 +1,14 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
 import android.app.Activity
+import android.app.Application
 import android.app.SearchManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -20,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -310,3 +313,10 @@ val Fragment.isNotInPortrait: Boolean
 fun User.merge(fetchedUser: User) = this.apply {
     dateJoined = fetchedUser.dateJoined
 }
+
+/*
+* Access resources directly fro within
+* a view model
+*/
+val AndroidViewModel.resources: Resources
+    get() = getApplication<Application>().resources

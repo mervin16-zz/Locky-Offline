@@ -250,6 +250,9 @@
             android:name="KEY_BANKACCOUNT_PREVIOUS"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_Fragment_Add_BankAccount_to_Fragment_Bottom_Dialog_Logo_Bank_Account"
+            app:destination="@id/Fragment_Bottom_Dialog_Logo_Bank_Account" />
     </fragment>
 
     <!-- ===================================== -->
@@ -278,6 +281,17 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.LogoBottomSheetFragment"
         android:label="Account Logo"
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
+
+    <dialog
+        android:id="@+id/Fragment_Bottom_Dialog_Logo_Bank_Account"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.LogoAccentBottomSheetFragment"
+        android:label="Bank Account Logo"
+        tools:layout="@layout/fragment_bottom_sheet_bank_account_logo">
+        <argument
+            android:name="HEX_CURRENT"
+            app:argType="string"
+            android:defaultValue="#D35C4B6C" />
+    </dialog>
 
 
     <!-- ============================== -->

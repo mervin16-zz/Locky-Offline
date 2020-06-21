@@ -11,6 +11,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
@@ -80,17 +82,33 @@ class AddAccountFragment : Fragment() {
     }
 
     private fun observeBackStackEntryForLogoResult() {
-        val navBackStackEntry = findNavController().currentBackStackEntry!!
-        navBackStackEntry.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME && navBackStackEntry.savedStateHandle.contains(
-                    KEY_ACCOUNT_LOGO
-                )
+        // After a configuration change or process death, the currentBackStackEntry
+        // points to the dialog destination, so you must use getBackStackEntry()
+        // with the specific ID of your destination to ensure we always
+        // get the right NavBackStackEntry
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.Fragment_Add_Account)
+
+        // Create our observer and add it to the NavBackStackEntry's lifecycle
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains(KEY_ACCOUNT_LOGO)
             ) {
-                //Set the logo url in the view model
+                /*
+                * Update the logo
+                */
                 viewModel.logoUrl =
                     navBackStackEntry.savedStateHandle.get<String>(KEY_ACCOUNT_LOGO)!!
 
-                navBackStackEntry.savedStateHandle.remove<String>(KEY_ACCOUNT_LOGO)
+                navBackStackEntry.savedStateHandle.remove<AccountSort>(KEY_ACCOUNT_LOGO)
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        // As addObserver() does not automatically remove the observer, we
+        // call removeObserver() manually when the view lifecycle is destroyed
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
             }
         })
     }
