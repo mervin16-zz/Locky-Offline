@@ -14,7 +14,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -52,13 +51,15 @@ const val OFFSET_X_TOAST = 0
 */
 fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(requireContext(), text, duration)) {
-        setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
+        //TODO("Test on several devices")
+        //setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
         show()
     }
 }
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(this, text, duration)) {
-        setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
+        //TODO("Test on several devices")
+        //setGravity(Gravity.BOTTOM, OFFSET_X_TOAST, OFFSET_Y_TOAST)
         show()
     }
 }
