@@ -38,7 +38,7 @@ object TestUtil {
     fun getAccount(number: Int, user: String) = Account().apply {
         this.entryName = "Account $number"
         this.username = "Username $number"
-        this.email = "www.myemail$number.com"
+        this.email = "myemail$number@email.com"
         this.logoUrl = "www.logo.com/$number"
         this.website = "www.account.com/$number"
         this.password = "Password $number"

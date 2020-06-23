@@ -17,7 +17,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 15
-        versionName "1.0.2-alpha02"
+        versionName "1.0.2-alpha03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -70,30 +70,43 @@ if (propFile.canRead()){
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    /** Kotlin **/
+    /*****************************************\
+    /********** Kotlin Dependencies **********\
+    /******************************************/
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
 
-    /** Android Design**/
+
+    /*******************************************\
+    /********** Android Dependencies ***********\
+    /*******************************************/
+    // Core & Material Design
     implementation "com.google.android.material:material:$version_material_design"
     implementation "androidx.core:core-ktx:$version_ktx_core"
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
-    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
     implementation "androidx.preference:preference:$version_preference"
     implementation "com.google.android.gms:play-services-oss-licenses:$version_oss_licenses"
-    implementation "androidx.room:room-runtime:$version_room"
-    kapt "androidx.room:room-compiler:$version_room"
-    implementation "androidx.room:room-ktx:$version_room"
-    implementation "androidx.room:room-rxjava2:$version_room"
     implementation "com.google.android.gms:play-services-auth:$version_gms_services"
     implementation "androidx.biometric:biometric:$version_biometric"
     implementation "com.android.billingclient:billing:$version_play_billing"
     implementation "com.android.billingclient:billing-ktx:$version_play_billing"
 
-    /** Other Libraries **/
+    // JetPack Navigation & Lifecycle Architecture
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    // JetPack Room
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    implementation "androidx.room:room-rxjava2:$version_room"
+
+
+    /********************************************\
+    /********** 3rd Party Dependencies **********\
+    /********************************************/
     implementation "com.github.bumptech.glide:glide:$version_glide"
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
@@ -103,17 +116,32 @@ dependencies {
     implementation "com.airbnb.android:lottie:$version_lottie"
     implementation "com.shobhitpuri.custombuttons:google-signin:$version_googlebutton"
 
-    /** Junit Test Suite **/
+
+    /******************************************\
+    /********** Testing Dependencies **********\
+    /******************************************/
+    // JUnit Test Suite
     testImplementation "org.junit.jupiter:junit-jupiter:$version_junit"
 
-    /** Android Test Suite **/
+    // Android Core & JUnit
     androidTestImplementation "androidx.test.ext:junit:$version_junit_ext"
+    debugImplementation "androidx.test:core:$version_test_core"
+    androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
+    androidTestImplementation "androidx.test:runner:$version_test_rule"
+    androidTestImplementation "androidx.test:rules:$version_test_runner"
+    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
+
+    // Espresso Suite
     androidTestImplementation "androidx.test.espresso:espresso-core:$version_espresso"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$version_espresso"
-    androidTestImplementation "androidx.arch.core:core-testing:$version_arch_core"
-    androidTestImplementation "androidx.test:core:$version_test_core"
+
+    // JetPack Navigation Suite
+    androidTestImplementation "androidx.navigation:navigation-testing:$version_navigation"
+
+    // JetPack Room Suite
     androidTestImplementation "androidx.room:room-testing:$version_room"
-    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
+
+    //Third Party Testing
     debugImplementation "com.amitshekhar.android:debug-db:$version_amitshekar_debug"
 }
 

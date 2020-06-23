@@ -97,7 +97,7 @@ class DonateFragment : Fragment() {
     private fun observeErrorMessage() {
         viewModel.errorOccurred.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                binding.LayoutParent.snackbar(it) {
+                binding.LayoutParentDonate.snackbar(it) {
                     action(getString(R.string.button_action_retry)) {
                         viewModel.retryConnectingToBilling()
                     }

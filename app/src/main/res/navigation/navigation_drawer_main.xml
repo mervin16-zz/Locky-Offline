@@ -121,8 +121,7 @@
     <fragment
         android:id="@+id/Fragment_Settings"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.settings.SettingsFragment"
-        android:label="Settings"
-        tools:layout="@layout/fragment_settings" />
+        android:label="Settings" />
 
     <fragment
         android:id="@+id/Fragment_About"

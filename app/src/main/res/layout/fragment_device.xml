@@ -5,6 +5,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Layout_Fragment_Device"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

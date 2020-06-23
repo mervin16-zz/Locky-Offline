@@ -5,7 +5,8 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.*
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
@@ -22,7 +23,7 @@ class NetworkRepositoryTest {
         val expectedSize = 5
 
         //Act
-        val result = NetworkRepository().getWebsiteDetails(query).size
+        val result = NetworkRepository.getInstance().getWebsiteDetails(query).size
 
         //Assert
         assertThat(expectedSize, equalTo(result))
@@ -38,7 +39,7 @@ class NetworkRepositoryTest {
         val expectedLogo = "https://logo.clearbit.com/google.com"
 
         //Act
-        val result = NetworkRepository().getWebsiteDetails(query).filter {
+        val result = NetworkRepository.getInstance().getWebsiteDetails(query).filter {
             it.domain == expectedDomain
         }[0]
 
@@ -56,7 +57,7 @@ class NetworkRepositoryTest {
         val expectedSize = 0
 
         //Act
-        val result = NetworkRepository().getWebsiteDetails(query).size
+        val result = NetworkRepository.getInstance().getWebsiteDetails(query).size
 
         //Assert
         assertThat(expectedSize, equalTo(result))
@@ -70,7 +71,7 @@ class NetworkRepositoryTest {
         val expectedSize = 0
 
         //Act
-        val result = NetworkRepository().getWebsiteDetails(query).size
+        val result = NetworkRepository.getInstance().getWebsiteDetails(query).size
 
         //Assert
         assertThat(expectedSize, equalTo(result))
