@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
@@ -48,9 +50,6 @@ class CardFragment : Fragment() {
         /* Hides the soft keyboard */
         hideSoftKeyboard(binding.root)
 
-        /*Observe snack bar event for any trigger*/
-        observeSnackBarEvent()
-
         /*Observe cards list being updated*/
         observeCardsEvent()
 
@@ -81,14 +80,6 @@ class CardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun observeSnackBarEvent() {
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                snackBarAction(it)
-            }
-        })
     }
 
     private fun observeCardsEvent() {
@@ -190,7 +181,7 @@ class CardFragment : Fragment() {
                 when (it.itemId) {
                     R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
                     R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin)
-                    R.id.Menu_ShowPin -> triggerSnackBarAction(card.pin)
+                    R.id.Menu_ShowPin -> showPasswordDialog(card.pin)
                     else -> false
                 }
             }, PopupMenu.OnDismissListener {
@@ -200,15 +191,25 @@ class CardFragment : Fragment() {
             })
     }
 
-    private fun snackBarAction(message: String) {
-        binding.LayoutFragmentCard.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
-        }
-        viewModel.doneShowingSnackBar()
-    }
-
-    private fun triggerSnackBarAction(message: String): Boolean {
-        viewModel.setSnackBarMessage(message)
+    private fun showPasswordDialog(password: String): Boolean {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_showPin
+                )
+            )
+            .setMessage(
+                password.setColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
+            )
+            .setPositiveButton(R.string.button_action_close) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
         return true
     }
 

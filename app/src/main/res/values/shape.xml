@@ -17,6 +17,7 @@
 
     <style name="Locky.ShapeAppearance.App.MediumComponent.Rounded">
         <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="Locky.ShapeAppearance.BottomSheet" parent="@style/Locky.ShapeAppearance.App.MediumComponent.Rounded">

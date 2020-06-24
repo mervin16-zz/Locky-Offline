@@ -48,4 +48,11 @@
     <color name="colorTextMenu">@color/grey_200</color>
     <color name="colorButtonTextAccentDark">@color/colorAccent</color>
 
+    <color name="colorTextTitleMessage">@color/dark_colorOnSecondary</color>
+
+    <!-- ================== -->
+    <!-- Information Colors -->
+    <!-- ================== -->
+    <color name="colorInfoWarning_Light">@color/yellow_50_alpha</color>
+    <color name="colorInfoError_Light">@color/red_50_alpha</color>
 </resources>

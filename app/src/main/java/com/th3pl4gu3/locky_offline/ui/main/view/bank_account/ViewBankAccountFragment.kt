@@ -150,7 +150,7 @@ class ViewBankAccountFragment : Fragment() {
 
     private fun snackBarAction(message: String) {
         binding.LayoutCredentialView.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
+            action(getString(R.string.button_action_close)) { dismiss() }
         }
     }
 

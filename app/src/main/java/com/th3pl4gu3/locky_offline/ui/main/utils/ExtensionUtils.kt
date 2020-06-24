@@ -14,6 +14,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -108,6 +111,24 @@ fun String.toCreditCardFormat(): String {
     return result.toString()
 }
 
+/*
+* Check if credit card's expiry date is near
+*/
+fun Card.hasExpired() = this.expiryDate.toFormattedCalendarForCard().before(Calendar.getInstance())
+
+fun Card.expiringWithin30Days(): Boolean {
+    val today = Calendar.getInstance()
+    val expiringDate = this.expiryDate.toFormattedCalendarForCard()
+
+    // Add 30 days to today's date
+    today.add(Calendar.MONTH, 1)
+    /*
+    * Then we test if expiry date is after today
+    * If it is after, then it means card will expire within 30 days
+    * If not, then card is safe
+    */
+    return expiringDate.before(today)
+}
 
 /*
 * SnackBar helpers
@@ -314,3 +335,18 @@ fun User.merge(fetchedUser: User) = this.apply {
 */
 val AndroidViewModel.resources: Resources
     get() = getApplication<Application>().resources
+
+/*
+* Styles a normal string and
+* returns a spannable string
+*/
+fun String.setColor(color: Int): SpannableString {
+    val spannable = SpannableString(this)
+    spannable.setSpan(
+        ForegroundColorSpan(color),
+        0,
+        this.length,
+        Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+    )
+    return spannable
+}

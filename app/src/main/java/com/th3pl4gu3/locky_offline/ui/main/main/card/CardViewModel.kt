@@ -18,7 +18,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Live Data Variables
      **/
-    private val _showSnackBarEvent = MutableLiveData<String>()
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
     private var _currentCardsExposed = MediatorLiveData<List<Card>>()
     private var _sort = MutableLiveData(loadSortObject())
@@ -26,8 +25,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Properties
      **/
-    val showSnackBarEvent: LiveData<String>
-        get() = _showSnackBarEvent
 
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
@@ -89,16 +86,6 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /*
      * Accessible Functions
      */
-    /* Flag to show snack bar message*/
-    internal fun setSnackBarMessage(message: String) {
-        _showSnackBarEvent.value = message
-    }
-
-    /* Flag to stop showing snack bar message */
-    internal fun doneShowingSnackBar() {
-        _showSnackBarEvent.value = null
-    }
-
     /* Flag to stop showing the loading animation */
     internal fun doneLoading(size: Int) {
         _loadingStatus.value = if (size > 0) Loading.List.LIST else Loading.List.EMPTY_VIEW

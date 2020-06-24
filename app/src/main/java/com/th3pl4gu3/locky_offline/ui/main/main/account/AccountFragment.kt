@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
@@ -94,9 +96,6 @@ class AccountFragment : Fragment() {
         /* Observe the account event changes */
         observeAccounts()
 
-        /* Observe the snack bar event changes*/
-        observeSnackBarEvent()
-
         /* Observe back stack entry for sort changes */
         observeBackStackEntryForSortSheet()
     }
@@ -104,14 +103,6 @@ class AccountFragment : Fragment() {
     /*
     * Explicit private functions
     */
-    private fun observeSnackBarEvent() {
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                snackBarAction(it)
-            }
-        })
-    }
-
     private fun observeAccounts() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -215,7 +206,7 @@ class AccountFragment : Fragment() {
                 when (it.itemId) {
                     R.id.Menu_CopyUsername -> copyToClipboardAndToast(account.username)
                     R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
-                    R.id.Menu_ShowPass -> triggerSnackBarEvent(account.password)
+                    R.id.Menu_ShowPass -> showPasswordDialog(account.password)
                     else -> false
                 }
             }, PopupMenu.OnDismissListener {
@@ -232,15 +223,25 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun snackBarAction(message: String) {
-        binding.LayoutFragmentAccount.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
-        }
-        viewModel.doneShowingSnackBar()
-    }
-
-    private fun triggerSnackBarEvent(message: String): Boolean {
-        viewModel.setSnackBarMessage(message)
+    private fun showPasswordDialog(password: String): Boolean {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_showPassword
+                )
+            )
+            .setMessage(
+                password.setColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
+            )
+            .setPositiveButton(R.string.button_action_close) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
         return true
     }
 

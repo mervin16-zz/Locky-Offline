@@ -2,16 +2,43 @@ package com.th3pl4gu3.locky_offline.ui.main.view.card
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.expiringWithin30Days
+import com.th3pl4gu3.locky_offline.ui.main.utils.hasExpired
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ViewCardViewModel(application: Application) : AndroidViewModel(application) {
+
+    enum class MessageType { NONE, ERROR, WARNING }
+
+    private val _messageType = MutableLiveData(MessageType.NONE)
+
+    val messageType: LiveData<MessageType>
+        get() = _messageType
+
+    internal fun updateMessageType(card: Card) {
+        with(card) {
+            if (hasExpired()) {
+                _messageType.value = MessageType.ERROR
+                return@with
+            }
+
+            if (expiringWithin30Days()) {
+                _messageType.value = MessageType.WARNING
+                return@with
+            }
+
+            _messageType.value = MessageType.NONE
+        }
+    }
 
     internal fun delete(key: Int) {
         viewModelScope.launch {

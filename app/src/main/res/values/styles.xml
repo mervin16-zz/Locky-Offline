@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- ========================== -->
     <!-- Material Custom Components -->
     <!-- ========================== -->
@@ -28,7 +28,7 @@
     </style>
 
     <style name="Locky.MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
-        <item name="shapeAppearance">@style/Locky.ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearance">@style/Locky.ShapeAppearance.App.MediumComponent.Rounded</item>
     </style>
 
     <!-- Material Date Picker -->
@@ -61,7 +61,8 @@
     <style name="Locky.BottomSheetDialog.Theme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:navigationBarColor">@color/colorOnSurface</item>
-        <item name="android:navigationBarDividerColor">@color/colorOnSurface</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@color/colorOnSurface
+        </item>
         <item name="bottomSheetStyle">@style/Locky.BottomSheetDialog.Style</item>
     </style>
 
@@ -97,7 +98,7 @@
         <item name="android:textColor">@color/colorTextFieldTextDefault</item>
         <item name="android:textSize">13sp</item>
 
-        <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.SmallComponent
+        <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.MediumComponent
         </item>
     </style>
 
@@ -141,11 +142,6 @@
 
 
     <!-- Material Buttons -->
-    <style name="Locky.Button.Theme" parent="Widget.MaterialComponents.Button">
-        <item name="shapeAppearanceSmallComponent">@style/Locky.ShapeAppearance.App.SmallComponent
-        </item>
-    </style>
-
     <style name="Locky.Button.Filled" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingTop">5dp</item>
@@ -155,6 +151,7 @@
         <item name="iconTint">@android:color/white</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="elevation">12dp</item>
+        <item name="shapeAppearance">@style/Locky.ShapeAppearance.App.SmallComponent</item>
     </style>
 
     <style name="Locky.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
@@ -178,4 +175,14 @@
         <item name="chipCornerRadius">5dp</item>
     </style>
 
+
+    <!-- ====================== -->
+    <!-- TextView Custom Styles -->
+    <!-- ====================== -->
+
+    <style name="Locky.Message" parent="Widget.MaterialComponents.TextView">
+        <item name="android:padding">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/Locky.Text.Body</item>
+    </style>
 </resources>

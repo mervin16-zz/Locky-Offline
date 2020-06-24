@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/button_action_filter"
+            android:text="@{ViewModel.filterText}"
             android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
             app:icon="@drawable/ic_filter"
             app:layout_constraintEnd_toEndOf="parent"

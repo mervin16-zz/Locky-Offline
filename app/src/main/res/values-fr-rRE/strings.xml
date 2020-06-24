@@ -82,7 +82,6 @@
     <string name="settings_title_category_help">Aidez-moi</string>
     <string name="settings_title_category_security">Sécurité</string>
     <string name="settings_title_category_display">Afficher</string>
-    <string name="button_action_filter">Filtre</string>
     <string name="button_action_get_started">Accéder</string>
     <string name="button_action_google_sign_in">Connectez-vous par Google</string>
     <string name="button_action_backup_cancel">je le ferais plus tard</string>
@@ -92,7 +91,7 @@
     <string name="button_action_delete">Supprimer</string>
     <string name="button_action_cancel">Annuler</string>
     <string name="button_action_save">Enregistrer</string>
-    <string name="button_snack_action_close">Fermer</string>
+    <string name="button_action_close">Fermer</string>
     <string name="error_about_donations_querying_products">Erreur lors de la remise des dons</string>
     <string name="message_about_donations_billing_completed">Merci d\'avoir contribué</string>
     <string name="message_about_donations_billing_disconnected">Le service de facturation a été déconnecté</string>
@@ -179,4 +178,6 @@
     <string name="text_title_bank_account_logo_accent_screen">Choisissez une couleur</string>
     <string name="text_title_bank_account_logo_accent_current">Couleur Actuelle</string>
     <string name="field_hint_item_search">Chercher</string>
+    <string name="message_card_warning_willExpire">Cette carte expirera dans les 30 jours</string>
+    <string name="message_card_error_expired">Cette carte a déjà expiré</string>
 </resources>

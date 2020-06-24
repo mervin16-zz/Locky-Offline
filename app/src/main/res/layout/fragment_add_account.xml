@@ -291,7 +291,6 @@
             android:onClick="@{() -> ViewModel.save()}"
             android:text="@string/button_action_save"
             android:textAlignment="center"
-            android:theme="@style/Locky.Button.Theme"
             app:icon="@drawable/ic_save"
             app:iconGravity="textStart"
             app:layout_constraintBottom_toBottomOf="parent"

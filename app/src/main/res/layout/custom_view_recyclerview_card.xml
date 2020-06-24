@@ -25,100 +25,113 @@
             type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardOptionsClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        cardValidity="@{Card}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
         android:onClick="@{() -> ClickListener.onClick(Card)}"
-        android:padding="16dp">
+        app:rippleColor="@color/colorRipple"
+        android:clickable="true"
+        android:focusable="true">
 
-        <ImageView
-            android:id="@+id/Card_Logo"
-            cardLogo="@{Card.number}"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/image_card_def" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Logo"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:barrierDirection="end"
-            app:constraint_referenced_ids="Card_Logo" />
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/Card_Entry_Name"
-            style="@style/Locky.Text.Title6.List"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:ems="11"
-            android:singleLine="true"
-            android:text="@{Card.entryName}"
-            app:layout_constraintBottom_toTopOf="@+id/Card_Number"
-            app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
-            app:layout_constraintTop_toTopOf="@+id/Card_Logo"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            tools:text="Credit card entry name" />
+            <ImageView
+                android:id="@+id/Card_Logo"
+                cardLogo="@{Card.number}"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/image_card_def" />
 
-        <TextView
-            android:id="@+id/Card_Number"
-            style="@style/Locky.Text.Subtitle.List.Primary"
-            cardNumber="@{Card.number}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/Card_Holder_Name"
-            app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Entry_Name"
-            app:layout_constraintVertical_chainStyle="spread"
-            tools:text="49XX XXXX XXXX XXXX XXXX" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="Card_Logo" />
 
-        <TextView
-            android:id="@+id/Card_Holder_Name"
-            style="@style/Locky.Text.Subtitle.List.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:ems="14"
-            android:singleLine="true"
-            android:text="@{Card.cardHolderName}"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
-            app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
-            app:layout_constraintVertical_chainStyle="spread"
-            tools:text="John Doe" />
+            <TextView
+                android:id="@+id/Card_Entry_Name"
+                style="@style/Locky.Text.Title6.List"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="11"
+                android:singleLine="true"
+                android:text="@{Card.entryName}"
+                listTitleMessageEligibility="@{Card}"
+                app:layout_constraintBottom_toTopOf="@+id/Card_Number"
+                app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
+                app:layout_constraintTop_toTopOf="@+id/Card_Logo"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="Credit card entry name" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_More_Options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="start"
-            app:constraint_referenced_ids="Card_More_Options" />
+            <TextView
+                android:id="@+id/Card_Number"
+                style="@style/Locky.Text.Subtitle.List.Primary"
+                cardNumber="@{Card.number}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/Card_Holder_Name"
+                app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Entry_Name"
+                app:layout_constraintVertical_chainStyle="spread"
+                tools:text="49XX XXXX XXXX XXXX XXXX" />
 
-        <ImageButton
-            android:id="@+id/Card_More_Options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/custom_states_background_button_image"
-            android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_more_options"
-            android:visibility="@{IsSimplifiedVersion ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/Barrier_More_Options"
-            app:layout_constraintTop_toTopOf="@+id/Card_Logo" />
+            <TextView
+                android:id="@+id/Card_Holder_Name"
+                style="@style/Locky.Text.Subtitle.List.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="14"
+                android:singleLine="true"
+                android:text="@{Card.cardHolderName}"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
+                app:layout_constraintStart_toStartOf="@+id/Card_Entry_Name"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Number"
+                app:layout_constraintVertical_chainStyle="spread"
+                tools:text="John Doe" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_More_Options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="start"
+                app:constraint_referenced_ids="Card_More_Options" />
+
+            <ImageButton
+                android:id="@+id/Card_More_Options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/custom_states_background_button_image"
+                android:onClick="@{(view) -> ClickOptionsListener.onClick(view, Card)}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_more_options"
+                android:visibility="@{IsSimplifiedVersion ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/Card_Logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/Barrier_More_Options"
+                app:layout_constraintTop_toTopOf="@+id/Card_Logo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

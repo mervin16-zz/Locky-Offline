@@ -43,7 +43,7 @@
     <!-- Text Field Colors -->
     <!-- ================= -->
     <color name="colorTextFieldAccentSearch">@color/colorAccentDark</color>
-    <color name="colorTextFieldErrorDefault">@color/red_300</color>
+    <color name="colorTextFieldErrorDefault">@color/colorInfoError</color>
     <color name="colorTextFieldIconDefault">@color/colorAccentVariant</color>
     <color name="colorTextFieldTextDefault">@color/colorAccentDark</color>
 
@@ -60,11 +60,22 @@
     <color name="colorButtonTextAccentDark">@color/colorAccentDark</color>
     <color name="colorButtonTextNegative">@color/grey_400</color>
 
+    <color name="colorTextTitleMessage">@color/grey_600</color>
+
+    <!-- ================== -->
+    <!-- Information Colors -->
+    <!-- ================== -->
+    <color name="colorInfoError">@color/red_300</color>
+    <color name="colorInfoError_Light">@color/red_50</color>
+    <color name="colorInfoWarning_Light">@color/yellow_50</color>
 
     <!-- ======================= -->
     <!-- Light Theme ONLY Colors -->
     <!-- ======================= -->
     <color name="red_300">#E57373</color>
+    <color name="red_50">#FBE9E7</color>
+
+    <color name="yellow_50">#FFF8E1</color>
 
     <color name="purple_600">#FF3A056E</color>
     <color name="purple_400">#6E4EA7</color>
@@ -93,4 +104,7 @@
     <color name="dark_colorPrimaryDark">@color/grey_dark_200</color>
     <color name="dark_colorOnSurface">@color/grey_dark_200</color>
     <color name="dark_colorOnSecondary">@color/grey_dark_75</color>
+
+    <color name="yellow_50_alpha">#E6FFFEEF</color>
+    <color name="red_50_alpha">#E6FBE9E7</color>
 </resources>

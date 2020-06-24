@@ -69,6 +69,15 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         )
     }
 
+    val filterText = Transformations.map(_filter) {
+        when (it) {
+            CREDENTIALS.ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_account)
+            CREDENTIALS.BANK_ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_bank_account)
+            CREDENTIALS.CARDS -> getApplication<Application>().getString(R.string.menu_search_filters_card)
+            else -> getApplication<Application>().getString(R.string.menu_search_filters_account)
+        }
+    }
+
     /*
     * Accessible functions
     */

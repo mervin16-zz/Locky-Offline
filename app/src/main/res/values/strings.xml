@@ -89,6 +89,9 @@
     <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
         application to continue</string>
 
+    <string name="text_title_alert_showPassword">Your Password is</string>
+    <string name="text_title_alert_showPin">Your Pin is</string>
+
     <string name="text_subtitle_about_sections_app">About Locky</string>
     <string name="text_subtitle_about_sections_dev">Support &amp; Development</string>
     <string name="text_subtitle_about_sections_other">Other</string>
@@ -241,6 +244,9 @@
     </string>
     <string name="message_about_donations_billing_completed">Thank you for contributing</string>
 
+    <string name="message_card_warning_willExpire">This card will expire within 30 days</string>
+    <string name="message_card_error_expired">This card has already expired</string>
+
     <plurals name="message_search_results">
         <item quantity="one">Search returned %d result</item>
         <item quantity="other">Search returned %d results</item>
@@ -266,7 +272,7 @@
     <!-- =============== -->
     <!-- Button Actions -->
     <!-- =============== -->
-    <string name="button_snack_action_close">Close</string>
+    <string name="button_action_close">Close</string>
     <string name="button_action_save">Save</string>
     <string name="button_action_cancel">Cancel</string>
     <string name="button_action_delete">Delete</string>
@@ -277,7 +283,6 @@
     <string name="button_action_backup_cancel">I\'ll do it later</string>
     <string name="button_action_google_sign_in">Sign in with Google</string>
     <string name="button_action_get_started">get started</string>
-    <string name="button_action_filter">Filter</string>
 
     <!-- ========= -->
     <!-- Settings -->

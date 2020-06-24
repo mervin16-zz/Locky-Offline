@@ -17,7 +17,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /*
      * Live Data Variables
      */
-    private var _showSnackBarEvent = MutableLiveData<String>()
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
     private var _accounts = MediatorLiveData<List<Account>>()
     private var _sort = MutableLiveData(loadSortObject())
@@ -25,9 +24,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /*
     * Properties
     */
-    val showSnackBarEvent: LiveData<String>
-        get() = _showSnackBarEvent
-
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
 
@@ -100,16 +96,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     */
     internal fun doneLoading(size: Int) {
         _loadingStatus.value = if (size > 0) Loading.List.LIST else Loading.List.EMPTY_VIEW
-    }
-
-    /* Flag to show snack bar message*/
-    internal fun setSnackBarMessage(message: String) {
-        _showSnackBarEvent.value = message
-    }
-
-    /* Flag to stop showing snack bar message */
-    internal fun doneShowingSnackBar() {
-        _showSnackBarEvent.value = null
     }
 
     /* Call function whenever there is a change in sorting */

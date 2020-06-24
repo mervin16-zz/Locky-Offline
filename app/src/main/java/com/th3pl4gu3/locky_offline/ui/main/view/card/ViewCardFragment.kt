@@ -2,6 +2,7 @@ package com.th3pl4gu3.locky_offline.ui.main.view.card
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -31,10 +32,16 @@ class ViewCardFragment : Fragment() {
         _binding = FragmentViewCardBinding.inflate(inflater, container, false)
         /*Instantiate view model*/
         _viewModel = ViewModelProvider(this).get(ViewCardViewModel::class.java)
+        /* Bind view model to layout */
+        binding.viewModel = viewModel
         /*Bind lifecycle owner to this*/
         binding.lifecycleOwner = this
-        /*Fetch the account clicked on the previous screen*/
-        binding.card = ViewCardFragmentArgs.fromBundle(requireArguments()).cardToVIEW
+        /*Fetch the card clicked on the previous screen*/
+        val card = ViewCardFragmentArgs.fromBundle(requireArguments()).cardToVIEW
+        /* Assign card to binding */
+        binding.card = card
+        /* We pass the card object to view model to update messages */
+        viewModel.updateMessageType(binding.card!!)
         /* Return root view */
         return binding.root
     }
@@ -107,7 +114,7 @@ class ViewCardFragment : Fragment() {
                     copyToClipboardAndToast(data)
                 },
                 ViewClickListener { data ->
-                    snackBarAction(data)
+                    showPasswordDialog(data)
                 })
 
         binding.RecyclerViewCredentialsField.apply {
@@ -126,11 +133,25 @@ class ViewCardFragment : Fragment() {
         adapter.submitList(viewModel.fieldList(binding.card!!))
     }
 
-    private fun snackBarAction(message: String) {
-        binding.LayoutCredentialView.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
-        }
-    }
+    private fun showPasswordDialog(password: String) =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_showPin
+                )
+            )
+            .setMessage(
+                password.setColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
+            )
+            .setPositiveButton(R.string.button_action_close) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         copyToClipboard(message)

@@ -2,6 +2,7 @@ package com.th3pl4gu3.locky_offline.ui.main.view.account
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -107,7 +108,7 @@ class ViewAccountFragment : Fragment() {
                 copyToClipboardAndToast(it)
             },
             ViewClickListener {
-                snackBarAction(it)
+                showPasswordDialog(it)
             }
         )
 
@@ -148,11 +149,25 @@ class ViewAccountFragment : Fragment() {
         }
     }
 
-    private fun snackBarAction(message: String) {
-        binding.LayoutCredentialView.snackbar(message) {
-            action(getString(R.string.button_snack_action_close)) { dismiss() }
-        }
-    }
+    private fun showPasswordDialog(password: String) =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_showPassword
+                )
+            )
+            .setMessage(
+                password.setColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
+            )
+            .setPositiveButton(R.string.button_action_close) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
 
     private fun copyToClipboardAndToast(message: String): Boolean {
         copyToClipboard(message)

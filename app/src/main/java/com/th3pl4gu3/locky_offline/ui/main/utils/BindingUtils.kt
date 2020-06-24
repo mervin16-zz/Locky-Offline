@@ -4,13 +4,16 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.google.android.material.card.MaterialCardView
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
+import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel
 import java.util.*
 
 /********************************* Card Binding Adapters****************************************/
@@ -35,6 +38,20 @@ fun ImageView.setCardLogo(number: String) {
     )
 }
 
+@BindingAdapter("cardValidity")
+fun MaterialCardView.cardValidity(card: Card) {
+    if (card.hasExpired()) {
+        this.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoError_Light))
+        return
+    }
+
+    if (card.expiringWithin30Days()) {
+        this.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoWarning_Light))
+        return
+    }
+
+    this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
+}
 
 /********************************* Account Binding Adapters****************************************/
 @BindingAdapter("accountLogin")
@@ -135,4 +152,29 @@ fun ImageView.imageUrl(imageUrl: String, loadingResource: Drawable, errorResourc
 @BindingAdapter("loadIcon")
 fun ImageView.loadIcon(icon: Drawable) {
     this.setImageDrawable(icon)
+}
+
+@BindingAdapter("lockyMessageParams")
+fun TextView.lockyMessageParams(messageType: ViewCardViewModel.MessageType) {
+    when (messageType) {
+        ViewCardViewModel.MessageType.WARNING -> {
+            this.text = resources.getString(R.string.message_card_warning_willExpire)
+            this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoWarning_Light))
+        }
+        ViewCardViewModel.MessageType.ERROR -> {
+            this.text = resources.getString(R.string.message_card_error_expired)
+            this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoError_Light))
+        }
+        else -> return
+    }
+}
+
+@BindingAdapter("listTitleMessageEligibility")
+fun TextView.listTitleMessageEligibility(card: Card) {
+    if (card.hasExpired() || card.expiringWithin30Days()) {
+        this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitleMessage))
+        return
+    }
+
+    this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitle))
 }

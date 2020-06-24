@@ -396,4 +396,87 @@ internal class ExtensionUtilsTest {
         //Assert
         assertTrue(result)
     }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "05/18",
+            "04/19",
+            "03/20",
+            "05/20",
+            "06/20"
+        ]
+    )
+    fun creditCardHasExpired_WhenItHasExpired(expiryDate: String) {
+        //Arrange
+        val card = TestUtil.getCard(1, "user@email.com")
+        //reset expiry date
+        card.expiryDate = expiryDate
+
+        //Act
+        val result = card.hasExpired()
+
+        //Assert
+        assertTrue(result)
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "07/20",
+            "04/21",
+            "03/22",
+            "05/23",
+            "06/40"
+        ]
+    )
+    fun creditCardHasExpired_WhenItHasNotExpired(expiryDate: String) {
+        //Arrange
+        val card = TestUtil.getCard(1, "user@email.com")
+        //reset expiry date
+        card.expiryDate = expiryDate
+
+        //Act
+        val result = card.hasExpired()
+
+        //Assert
+        assertFalse(result)
+    }
+
+    @Test
+    fun creditCardExpirationWithin30Days_ItWillExpireWithin30days() {
+        //Arrange
+        val card = TestUtil.getCard(1, "user@email.com")
+        //reset expiry date
+        card.expiryDate = "07/20"
+
+        //Act
+        val result = card.expiringWithin30Days()
+
+        //Assert
+        assertTrue(result)
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "08/20",
+            "09/20",
+            "10/20",
+            "05/23",
+            "06/40"
+        ]
+    )
+    fun creditCardExpirationWithin30Days_ItWillNotExpireWithin30days(expiryDate: String) {
+        //Arrange
+        val card = TestUtil.getCard(1, "user@email.com")
+        //reset expiry date
+        card.expiryDate = expiryDate
+
+        //Act
+        val result = card.expiringWithin30Days()
+
+        //Assert
+        assertFalse(result)
+    }
 }
