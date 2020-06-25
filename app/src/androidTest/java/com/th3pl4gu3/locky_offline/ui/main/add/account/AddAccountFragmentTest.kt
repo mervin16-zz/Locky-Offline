@@ -99,7 +99,7 @@ internal class AddAccountFragmentTest {
                 isDescendantOfA(withId(R.id.Account_Name)),
                 isAssignableFrom(EditText::class.java)
             )
-        ).perform(typeText(entryName))
+        ).perform(typeText(entryName), closeSoftKeyboard())
 
         /*
         * We then need to scroll down to

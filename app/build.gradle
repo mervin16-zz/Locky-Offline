@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.th3pl4gu3.locky_offline"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 17
         versionName "1.0.2-beta02"
