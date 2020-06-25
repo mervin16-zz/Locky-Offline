@@ -178,4 +178,9 @@
     <string name="settings_title_category_data">Les Données</string>
     <string name="settings_title_data_wipe">Effacer les données</string>
     <string name="settings_summary_data_wipe">Supprimez tous vos comptes, cartes, mots de passe etc…</string>
+    <string name="message_settings_wipe_started">Suppression des données commencée…</string>
+    <string name="message_settings_wipe_completed">Données effacées</string>
+    <string name="message_settings_wipe_error">Une erreur s\'est produite lors de l\'effacement de vos données</string>
+    <string name="error_field_validation_id_after">La date d\'émission ne peut pas être postérieure à la date d\'expiration</string>
+    <string name="error_field_validation_ed_before">La date d\'expiration ne peut pas être antérieure à la date d\'émission.</string>
 </resources>

@@ -185,4 +185,22 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textAppearance">@style/Locky.Text.Body</item>
     </style>
+
+
+    <!-- ====================== -->
+    <!-- SnackBar Custom Styles -->
+    <!-- ====================== -->
+    <style name="Locky.SnackBar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="materialThemeOverlay">@style/Locky.SnackBar.ThemeOverlay</item>
+        <item name="actionTextColorAlpha">1</item>
+    </style>
+
+    <style name="Locky.SnackBar.Button" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Locky.SnackBar.ThemeOverlay" parent="">
+        <item name="colorPrimary">@color/colorTextSnackBar</item>
+        <item name="colorOnSurface">@color/colorOnSurfaceSnackBar</item>
+    </style>
 </resources>

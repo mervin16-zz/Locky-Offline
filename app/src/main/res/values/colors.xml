@@ -14,6 +14,7 @@
     <color name="colorRipple">@color/purple_50</color>
     <color name="colorOnSurface">@android:color/white</color>
     <color name="colorShadowColor">@color/colorAccentDark</color>
+    <color name="colorOnSurfaceSnackBar">@color/grey_dark_100</color>
 
     <!-- =================== -->
     <!-- Iconography Colors -->
@@ -62,6 +63,8 @@
 
     <color name="colorTextTitleMessage">@color/grey_600</color>
 
+    <color name="colorTextSnackBar">@android:color/white</color>
+
     <!-- ================== -->
     <!-- Information Colors -->
     <!-- ================== -->
@@ -95,6 +98,7 @@
     <color name="grey_dark_200">#272727</color>
     <color name="grey_dark_100">#373737</color>
     <color name="grey_dark_75">#474747</color>
+    <color name="grey_dark_75_alpha">#CB393939</color>
 
 
     <!-- ====================== -->

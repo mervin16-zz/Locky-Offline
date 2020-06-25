@@ -205,15 +205,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun observeLoadingStatus() {
         viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
-            //FIXME("Show a progress bar before deleting")
-            //FIXME("String resources")
             if (it != null) {
                 when (it) {
-                    Loading.Status.LOADING -> requireView().snack("Started data clearing...") {}
-                    Loading.Status.DONE -> requireView().snack("Data cleared") {}
-                    Loading.Status.ERROR -> requireView().snack("Error while data clearing...") {}
-                    else -> {
-                    }
+                    Loading.Status.LOADING -> requireView().snack(getString(R.string.message_settings_wipe_started)) {}
+                    Loading.Status.DONE -> requireView().snack(getString(R.string.message_settings_wipe_completed)) {}
+                    Loading.Status.ERROR -> requireView().snack(getString(R.string.message_settings_wipe_error)) {}
+                    else -> return@Observer
                 }
             }
         })

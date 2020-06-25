@@ -243,6 +243,10 @@
     <string name="message_card_warning_willExpire">This card will expire within 30 days</string>
     <string name="message_card_error_expired">This card has already expired</string>
 
+    <string name="message_settings_wipe_started">Started data clearing…</string>
+    <string name="message_settings_wipe_completed">Data cleared</string>
+    <string name="message_settings_wipe_error">An error occurred while clearing your data</string>
+
     <plurals name="message_search_results">
         <item quantity="one">Search returned %d result</item>
         <item quantity="other">Search returned %d results</item>
@@ -254,6 +258,8 @@
     <!-- =============== -->
     <string name="error_field_validation_blank">This field cannot be empty</string>
     <string name="error_field_validation_email_format">Please enter a valid email</string>
+    <string name="error_field_validation_id_after">Issued date cannot be after than expiry date</string>
+    <string name="error_field_validation_ed_before">Expiry date cannot be before than issued date.</string>
 
     <string name="error_biometric_authentication_failed">Biometric authentication failed</string>
     <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>

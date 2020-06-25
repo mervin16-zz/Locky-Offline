@@ -54,6 +54,10 @@
 
         <!-- Bottom Sheet Dialog Fragment Theme -->
         <item name="bottomSheetDialogTheme">@style/Locky.BottomSheetDialog.Theme</item>
+
+        <!-- SnackBar Theme-->
+        <item name="snackbarStyle">@style/Locky.SnackBar</item>
+        <item name="snackbarButtonStyle">@style/Locky.SnackBar.Button</item>
     </style>
 
     <!-- ====================== -->

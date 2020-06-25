@@ -25,12 +25,16 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     */
     internal fun deleteData() {
         viewModelScope.launch {
-            _loadingStatus.value = Loading.Status.LOADING
-            wipeAccounts()
-            wipeCards()
-            wipeBankAccounts()
-            delay(3000)
-            _loadingStatus.value = Loading.Status.DONE
+            try {
+                _loadingStatus.value = Loading.Status.LOADING
+                wipeAccounts()
+                wipeCards()
+                wipeBankAccounts()
+                delay(3000)
+                _loadingStatus.value = Loading.Status.DONE
+            } catch (e: Exception) {
+                _loadingStatus.value = Loading.Status.ERROR
+            }
         }
     }
 

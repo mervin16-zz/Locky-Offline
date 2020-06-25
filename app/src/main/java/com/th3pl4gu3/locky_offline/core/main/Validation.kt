@@ -92,11 +92,13 @@ class Validation(val application: Application) {
 
     fun isCardDateValid(issuedDate: Calendar, expiryDate: Calendar): Boolean {
         if (issuedDate.after(expiryDate)) {
-            errorList[ErrorField.ISSUED_DATE] = "Issued date cannot be greater than expiry date"
+            errorList[ErrorField.ISSUED_DATE] =
+                application.getString(R.string.error_field_validation_id_after)
         }
 
         if (expiryDate.before(issuedDate)) {
-            errorList[ErrorField.EXPIRY_DATE] = "Expiry date cannot be less than issued date."
+            errorList[ErrorField.EXPIRY_DATE] =
+                application.getString(R.string.error_field_validation_ed_before)
         }
 
         return errorList.isEmpty()
