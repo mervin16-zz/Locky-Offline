@@ -42,6 +42,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/settings_title_category_data">
+
+        <Preference
+            android:key="@string/settings_key_data_wipe"
+            app:summary="@string/settings_summary_data_wipe"
+            app:title="@string/settings_title_data_wipe"
+            app:icon="@drawable/ic_delete" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         app:key="@string/settings_key_category_help"
         app:title="@string/settings_title_category_help">

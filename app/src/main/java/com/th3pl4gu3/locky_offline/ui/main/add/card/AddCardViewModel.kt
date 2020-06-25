@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedCalendarForCard
+import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringForCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -154,7 +156,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
                 if (validation.isCardFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
-                    this.user = getUser().email
+                    this.user = activeUser.email
 
                     _formValidity.value = insertCardInDatabase(this)
 
@@ -297,10 +299,5 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
         _expiryDateErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.EXPIRY_DATE)) errorList[Validation.ErrorField.EXPIRY_DATE] else null
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

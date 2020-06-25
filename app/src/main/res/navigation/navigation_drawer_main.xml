@@ -44,7 +44,6 @@
     <activity
         android:id="@+id/Activity_Splash"
         android:name="com.th3pl4gu3.locky_offline.ui.main.splash.SplashActivity"
-        android:label="SplashActivity"
         tools:layout="@layout/activity_splash" />
 
 
@@ -146,7 +145,7 @@
     <fragment
         android:id="@+id/Fragment_View_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.view.account.ViewAccountFragment"
-        android:label="View Account"
+        android:label=""
         tools:layout="@layout/fragment_view_account">
         <argument
             android:name="ACCOUNT_toVIEW"
@@ -156,7 +155,7 @@
     <fragment
         android:id="@+id/Fragment_View_Card"
         android:name="com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardFragment"
-        android:label="View Card"
+        android:label=""
         tools:layout="@layout/fragment_view_card">
         <argument
             android:name="CARD_toVIEW"
@@ -166,7 +165,7 @@
     <fragment
         android:id="@+id/Fragment_View_BankAccount"
         android:name="com.th3pl4gu3.locky_offline.ui.main.view.bank_account.ViewBankAccountFragment"
-        android:label="View Bank Account"
+        android:label=""
         tools:layout="@layout/fragment_view_bank_account">
         <argument
             android:name="BANKACCOUNT_toVIEW"
@@ -179,7 +178,7 @@
     <fragment
         android:id="@+id/Fragment_Add_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountFragment"
-        android:label="Add Account"
+        android:label=""
         tools:layout="@layout/fragment_add_account">
         <argument
             android:name="KEY_ACCOUNT"
@@ -206,7 +205,7 @@
     <fragment
         android:id="@+id/Fragment_Add_Card"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.card.AddCardFragment"
-        android:label="Add Card"
+        android:label=""
         tools:layout="@layout/fragment_add_card">
         <argument
             android:name="KEY_CARD"
@@ -230,7 +229,7 @@
     <fragment
         android:id="@+id/Fragment_Add_BankAccount"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.AddBankAccountFragment"
-        android:label="Add Bank Account"
+        android:label=""
         tools:layout="@layout/fragment_add_bank_account">
         <action
             android:id="@+id/action_Fragment_Add_BankAccount_to_Fragment_Bank_Account"
@@ -260,31 +259,31 @@
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.account.TuningAccountBottomSheetFragment"
-        android:label="Account Filter"
+        android:label="Filter"
         tools:layout="@layout/fragment_bottom_sheet_account_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_Card"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.card.TuningCardBottomSheetFragment"
-        android:label="Card Filter"
+        android:label="Filter"
         tools:layout="@layout/fragment_bottom_sheet_card_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_BankAccount"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.bank_account.TuningBankAccountBottomSheetFragment"
-        android:label="Bank Account Filter"
+        android:label="Filter"
         tools:layout="@layout/fragment_bottom_sheet_bank_account_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Logo_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.LogoBottomSheetFragment"
-        android:label="Account Logo"
+        android:label="Search Logo"
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Logo_Bank_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.LogoAccentBottomSheetFragment"
-        android:label="Bank Account Logo"
+        android:label="Logo Accent"
         tools:layout="@layout/fragment_bottom_sheet_bank_account_logo">
         <argument
             android:name="HEX_CURRENT"
@@ -299,7 +298,7 @@
     <fragment
         android:id="@+id/Fragment_Search"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.search.SearchFragment"
-        android:label="Search"
+        android:label=""
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_Fragment_Search_to_Fragment_View_BankAccount"

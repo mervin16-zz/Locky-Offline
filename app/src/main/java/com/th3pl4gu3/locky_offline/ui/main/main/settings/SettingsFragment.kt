@@ -6,23 +6,35 @@ import android.provider.Settings.ACTION_SECURITY_SETTINGS
 import android.provider.Settings.ACTION_SETTINGS
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.openMail
+import com.th3pl4gu3.locky_offline.ui.main.utils.snack
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
+    private var _viewModel: SettingsViewModel? = null
     private lateinit var _biometricManager: BiometricManager
+
+    private val viewModel get() = _viewModel!!
 
     companion object {
         const val TAG = "SETTINGS_FRAGMENT"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -47,11 +59,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         /* Preference settings for feedback */
         feedbackPreference()
+
+        /* Preference settings for deleting data */
+        wipeDataPreference()
+
+        /* Observes the loading status */
+        observeLoadingStatus()
     }
 
     private fun appThemePreference() {
         findPreference<ListPreference>(getString(R.string.settings_key_display_theme))?.setOnPreferenceChangeListener { preference, newValue ->
-
             when (newValue) {
                 getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -176,6 +193,41 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             .setPositiveButton(R.string.button_action_backup_proceed) { _, _ ->
                 startActivity(Intent(ACTION_SETTINGS))
+            }
+            .show()
+
+    private fun wipeDataPreference() {
+        findPreference<Preference>(getString(R.string.settings_key_data_wipe))?.setOnPreferenceClickListener {
+            wipeDataConfirmationDialog()
+            true
+        }
+    }
+
+    private fun observeLoadingStatus() {
+        viewModel.loadingStatus.observe(viewLifecycleOwner, Observer {
+            //FIXME("Show a progress bar before deleting")
+            //FIXME("String resources")
+            if (it != null) {
+                when (it) {
+                    Loading.Status.LOADING -> requireView().snack("Started data clearing...") {}
+                    Loading.Status.DONE -> requireView().snack("Data cleared") {}
+                    Loading.Status.ERROR -> requireView().snack("Error while data clearing...") {}
+                    else -> {
+                    }
+                }
+            }
+        })
+    }
+
+    private fun wipeDataConfirmationDialog() =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_alert_data_wipe))
+            .setMessage(getString(R.string.text_message_alert_data_wipe))
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.button_action_delete) { _, _ ->
+                viewModel.deleteData()
             }
             .show()
 }

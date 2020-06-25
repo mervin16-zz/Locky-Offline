@@ -54,6 +54,7 @@ fun Fragment.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         show()
     }
 }
+
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     with(Toast.makeText(this, text, duration)) {
         show()
@@ -133,6 +134,16 @@ fun Card.expiringWithin30Days(): Boolean {
 /*
 * SnackBar helpers
 */
+inline fun View.snack(
+    message: String,
+    length: Int = Snackbar.LENGTH_SHORT,
+    f: Snackbar.() -> Unit
+) {
+    val snack = Snackbar.make(this, message, length)
+    snack.f()
+    snack.show()
+}
+
 inline fun View.snackbar(
     message: String,
     length: Int = Snackbar.LENGTH_INDEFINITE,
@@ -142,6 +153,7 @@ inline fun View.snackbar(
     snack.f()
     snack.show()
 }
+
 fun Snackbar.action(action: String, listener: (View) -> Unit) {
     setAction(action, listener)
 }
@@ -350,3 +362,15 @@ fun String.setColor(color: Int): SpannableString {
     )
     return spannable
 }
+
+/*
+* Returns the current user
+*/
+val Application.activeUser: User
+    get() {
+        LocalStorageManager.withLogin(this)
+        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
+    }
+
+val AndroidViewModel.activeUser: User
+    get() = getApplication<Application>().activeUser

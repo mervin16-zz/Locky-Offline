@@ -8,12 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -147,7 +145,7 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
                 val validation = Validation(getApplication())
                 if (validation.isAccountFormValid(this)) {
                     /* If validation succeeds, set user ID */
-                    this.user = getUser().email
+                    this.user = activeUser.email
 
                     _formValidity.value = insertAccountInDatabase(this)
 
@@ -250,10 +248,5 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
         _emailErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

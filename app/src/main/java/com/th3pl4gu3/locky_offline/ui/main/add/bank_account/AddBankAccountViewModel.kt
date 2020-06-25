@@ -8,12 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -142,7 +140,7 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
                 if (validation.isBankAccountFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
-                    this.user = getUser().email
+                    this.user = activeUser.email
 
                     _formValidity.value = insertBankAccountInDatabase(this)
 
@@ -246,10 +244,5 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
             if (errorList.containsKey(Validation.ErrorField.BANK)) errorList[Validation.ErrorField.BANK] else null
         _ownerErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.OWNER)) errorList[Validation.ErrorField.OWNER] else null
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

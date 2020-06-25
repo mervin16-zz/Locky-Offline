@@ -2,7 +2,6 @@ package com.th3pl4gu3.locky_offline.ui.main.main
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -94,10 +93,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(_binding.NavigationView, navController)
 
         //Add on change destination listener to navigation controller to handle fab visibility
-        navigationDestinationChangeListener_FAB(navController)
-
-        //Add on change destination listener to navigation controller to handle screen title visibility
-        navigationDestinationChangeListener_ToolbarTitle(navController)
+        navigationDestinationChangeListener(navController)
     }
 
     private fun setUpNestedScrollChangeListener() =
@@ -109,28 +105,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun navigationDestinationChangeListener_ToolbarTitle(navController: NavController) {
-        navController.addOnDestinationChangedListener { _, nd, _ ->
-            when (nd.id) {
-                R.id.Fragment_Account -> updateToolbar(getString(R.string.text_title_screen_accounts))
-                R.id.Fragment_Card -> updateToolbar(getString(R.string.text_title_screen_cards))
-                R.id.Fragment_Bank_Account -> updateToolbar(getString(R.string.text_title_screen_bank_account))
-                R.id.Fragment_Device -> updateToolbar(getString(R.string.text_title_screen_devices))
-                R.id.Fragment_Settings -> updateToolbar(getString(R.string.text_title_screen_settings))
-                R.id.Fragment_Profile -> updateToolbar(getString(R.string.text_title_screen_profile))
-                R.id.Fragment_About -> updateToolbar(getString(R.string.text_title_screen_about))
-                R.id.Fragment_Donate -> updateToolbar(getString(R.string.text_title_screen_donate))
-                R.id.Fragment_Search -> updateToolbar(getString(R.string.text_title_screen_search))
-                else -> {
-                    //Show the toolbar
-                    updateToolbar(null)
-                }
-            }
-        }
-    }
-
-    private fun navigationDestinationChangeListener_FAB(navController: NavController) {
+    private fun navigationDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
+
+            // Update the toolbar title
+            _binding.ToolbarMainTitle.text = nd.label
+
+            // Update UI according to navigation destination
             when (nd.id) {
                 nc.graph.startDestination,
                 R.id.Fragment_Card,
@@ -149,23 +130,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun updateToolbar(title: String?) {
-        if (title != null) {
-            updateToolbarTitle(title)
-            toolbarTitleVisibility(true)
-        } else {
-            toolbarTitleVisibility(false)
-        }
-    }
-
-    private fun updateToolbarTitle(title: String) {
-        _binding.ToolbarMainTitle.text = title
-    }
-
-    private fun toolbarTitleVisibility(visibility: Boolean) {
-        _binding.ToolbarMainTitle.visibility = if (visibility) View.VISIBLE else View.GONE
     }
 
     private fun hideFABs() {

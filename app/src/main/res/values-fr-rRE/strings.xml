@@ -9,15 +9,7 @@
     <string name="app_description_short">Gérez tous vos mots de passe et cartes bancaires sur un seul endroit sécurisé.</string>
     <string name="app_developer_signature">Développé avec \u2764\uFE0F à 🇲🇺</string>
     <string name="app_user_member_since">Membre depuis "%1$s"</string>
-    <string name="text_title_screen_accounts">Comptes</string>
-    <string name="text_title_screen_cards">Cartes</string>
-    <string name="text_title_screen_bank_account">Comptes Bancaires</string>
-    <string name="text_title_screen_settings">Paramètres</string>
-    <string name="text_title_screen_devices">Mes Appareils</string>
     <string name="menu_drawer_main_device">Mes Appareils</string>
-    <string name="text_title_screen_profile">Profil</string>
-    <string name="text_title_screen_about">À Propos</string>
-    <string name="text_title_screen_donate">Faire un Don</string>
     <string name="dev_feature_implementation_soon">Bientôt disponible!</string>
     <string name="settings_title_backup_backup">Sauvegarde</string>
     <string name="settings_title_security_biometric">Activer l\'authentification Biométrique</string>
@@ -173,11 +165,17 @@
     <string name="field_bank_account_iban">iban</string>
     <string name="text_title_about_dev_rate">Noter l\'application</string>
     <string name="settings_title_help_feedback">Envoyer des commentaires</string>
-    <string name="text_title_screen_search">Chercher</string>
     <string name="menu_bank_account_moreOptions_copyNumber">Copiez le numéro du compte</string>
     <string name="text_title_bank_account_logo_accent_screen">Choisissez une couleur</string>
     <string name="text_title_bank_account_logo_accent_current">Couleur Actuelle</string>
     <string name="field_hint_item_search">Chercher</string>
     <string name="message_card_warning_willExpire">Cette carte expirera dans les 30 jours</string>
     <string name="message_card_error_expired">Cette carte a déjà expiré</string>
+    <string name="text_title_alert_data_wipe">Supprimer toutes les données</string>
+    <string name="text_message_alert_data_wipe">Voulez-vous vraiment supprimer toutes vos données? (Cela inclut tous les comptes, cartes et comptes bancaires insérés)</string>
+    <string name="text_title_alert_showPassword">Votre mot de passe est</string>
+    <string name="text_title_alert_showPin">Votre pin est</string>
+    <string name="settings_title_category_data">Les Données</string>
+    <string name="settings_title_data_wipe">Effacer les données</string>
+    <string name="settings_summary_data_wipe">Supprimez tous vos comptes, cartes, mots de passe etc…</string>
 </resources>

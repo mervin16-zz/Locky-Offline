@@ -5,12 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,18 +20,20 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         get() = _signUserOut
 
     val accountSize =
-        Transformations.map(AccountRepository.getInstance(getApplication()).size(getUser().email)) {
+        Transformations.map(
+            AccountRepository.getInstance(getApplication()).size(activeUser.email)
+        ) {
             it.toString()
         }
 
     val cardSize =
-        Transformations.map(CardRepository.getInstance(getApplication()).size(getUser().email)) {
+        Transformations.map(CardRepository.getInstance(getApplication()).size(activeUser.email)) {
             it.toString()
         }
 
     val bankAccountSize =
         Transformations.map(
-            BankAccountRepository.getInstance(getApplication()).size(getUser().email)
+            BankAccountRepository.getInstance(getApplication()).size(activeUser.email)
         ) {
             it.toString()
         }
@@ -45,11 +47,5 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
         /* Set value to true to sign user out from firebase*/
         _signUserOut.value = true
-    }
-
-
-    internal fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.toast
 
 class ProfileFragment : Fragment() {
@@ -28,13 +29,8 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        /*
-        * Fetch the user details from session
-        */
-        val user = viewModel.getUser()
-
         /* Bind user details to layout*/
-        binding.user = user
+        binding.user = requireActivity().application.activeUser
 
         /* Bind view model to layout*/
         binding.viewModel = viewModel

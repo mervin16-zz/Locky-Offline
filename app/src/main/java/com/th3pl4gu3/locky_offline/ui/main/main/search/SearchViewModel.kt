@@ -6,12 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -37,7 +35,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val accounts = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.ACCOUNTS) {
             AccountRepository.getInstance(getApplication())
-                .search(it, getUser().email)
+                .search(it, activeUser.email)
         } else {
             null
         }
@@ -46,7 +44,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val cards = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.CARDS) {
             CardRepository.getInstance(getApplication())
-                .search(it, getUser().email)
+                .search(it, activeUser.email)
         } else {
             null
         }
@@ -55,7 +53,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val bankAccounts = Transformations.switchMap(_searchQuery) {
         if (_filter.value == CREDENTIALS.BANK_ACCOUNTS) {
             BankAccountRepository.getInstance(getApplication())
-                .search(it, getUser().email)
+                .search(it, activeUser.email)
         } else {
             null
         }
@@ -124,10 +122,5 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         if (_starterScreenVisibility.value!!) {
             _starterScreenVisibility.value = false
         }
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

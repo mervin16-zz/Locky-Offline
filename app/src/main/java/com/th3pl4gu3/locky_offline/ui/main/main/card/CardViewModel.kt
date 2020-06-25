@@ -4,12 +4,11 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.CardSort
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.getCardType
 import java.util.*
 
@@ -110,7 +109,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /* Load the card into a mediator live data */
     private fun loadCards() {
         _currentCardsExposed.addSource(
-            CardRepository.getInstance(getApplication()).getAll(getUser().email)
+            CardRepository.getInstance(getApplication()).getAll(activeUser.email)
         ) {
             _currentCardsExposed.value = it
         }
@@ -132,10 +131,5 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     private fun saveSortToSession(sort: CardSort) {
         LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_CARDS_SORT, sort)
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }

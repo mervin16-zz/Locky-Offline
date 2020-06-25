@@ -54,16 +54,16 @@
     <style name="Locky.Text.Body.Drawer" />
 
     <style name="Locky.Text.Title6.List">
-        <item name="fontFamily">@font/google_sans_medium</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
         <item name="android:textSize">15sp</item>
     </style>
 
     <style name="Locky.Text.Subtitle.List" />
 
     <style name="Locky.Text.Subtitle.List.Primary">
-        <item name="fontFamily">@font/google_sans_medium</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
         <item name="android:textColor">@color/grey_400</item>
     </style>
 

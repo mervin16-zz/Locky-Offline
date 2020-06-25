@@ -4,12 +4,11 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import java.util.*
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -115,7 +114,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     */
     private fun loadAccounts() {
         _accounts.addSource(
-            AccountRepository.getInstance(getApplication()).getAll(getUser().email)
+            AccountRepository.getInstance(getApplication()).getAll(activeUser.email)
         ) {
             _accounts.value = it
         }
@@ -137,10 +136,5 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     private fun saveSortToSession(sort: AccountSort) {
         LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(KEY_USER_ACCOUNT)!!
     }
 }

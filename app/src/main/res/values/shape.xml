@@ -22,7 +22,7 @@
 
     <style name="Locky.ShapeAppearance.BottomSheet" parent="@style/Locky.ShapeAppearance.App.MediumComponent.Rounded">
         <item name="cornerSize">0dp</item>
-        <item name="cornerSizeTopRight">6dp</item>
-        <item name="cornerSizeTopLeft">6dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
     </style>
 </resources>

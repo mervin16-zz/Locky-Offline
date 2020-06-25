@@ -4,12 +4,11 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
-import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -98,7 +97,7 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
     private fun loadBankAccounts() {
         viewModelScope.launch {
             _bankAccounts.addSource(
-                BankAccountRepository.getInstance(getApplication()).getAll(getUser().email)
+                BankAccountRepository.getInstance(getApplication()).getAll(activeUser.email)
             ) {
                 _bankAccounts.value = it
             }
@@ -121,10 +120,5 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
     private fun saveSortToSession(sort: BankAccountSort) {
         LocalStorageManager.withLogin(getApplication())
         LocalStorageManager.put(KEY_BANK_ACCOUNTS_SORT, sort)
-    }
-
-    private fun getUser(): User {
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.get<User>(Constants.KEY_USER_ACCOUNT)!!
     }
 }
