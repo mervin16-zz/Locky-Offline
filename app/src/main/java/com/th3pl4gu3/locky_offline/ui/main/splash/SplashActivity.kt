@@ -20,8 +20,8 @@ import com.th3pl4gu3.locky_offline.core.main.User
 import com.th3pl4gu3.locky_offline.databinding.ActivitySplashBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.openActivity
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.openActivity
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import java.util.concurrent.Executor
 
 class SplashActivity : AppCompatActivity() {

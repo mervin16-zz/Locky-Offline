@@ -11,7 +11,8 @@
         android:id="@+id/Layout_Fragment_About"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorOnSurface">
 
         <include
             android:id="@+id/include_about_locky"

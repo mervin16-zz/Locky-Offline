@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.core.main
 import android.app.Application
 import android.util.Patterns
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedCalendarForCard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedCalendarForCard
 import java.util.*
 import kotlin.collections.HashMap
 

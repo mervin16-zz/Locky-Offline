@@ -8,7 +8,7 @@ import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import kotlinx.coroutines.launch
 import java.util.*
 

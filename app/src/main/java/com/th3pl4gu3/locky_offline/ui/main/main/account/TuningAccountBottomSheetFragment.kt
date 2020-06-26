@@ -11,7 +11,7 @@ import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAccountTuningBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 
 class TuningAccountBottomSheetFragment : BottomSheetDialogFragment() {
 

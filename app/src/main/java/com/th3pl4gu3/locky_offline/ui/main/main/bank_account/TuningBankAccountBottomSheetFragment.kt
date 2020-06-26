@@ -11,7 +11,7 @@ import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetBankAccountTuningBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 
 class TuningBankAccountBottomSheetFragment : BottomSheetDialogFragment() {
 

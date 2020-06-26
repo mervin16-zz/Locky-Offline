@@ -9,7 +9,7 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 

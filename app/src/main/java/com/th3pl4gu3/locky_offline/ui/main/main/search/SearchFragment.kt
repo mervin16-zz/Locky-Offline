@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
@@ -25,9 +26,9 @@ import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener
-import com.th3pl4gu3.locky_offline.ui.main.utils.createPopUpMenu
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.requireMainActivity
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 
 class SearchFragment : Fragment() {
 
@@ -65,6 +66,12 @@ class SearchFragment : Fragment() {
         // Bind lifecycle owner
         binding.lifecycleOwner = this
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

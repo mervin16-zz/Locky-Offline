@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -21,16 +21,24 @@ import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var _binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
     private lateinit var _appBarConfiguration: AppBarConfiguration
 
-    //Fragments that can navigate with the drawer
+    private val binding get() = _binding!!
+
+    /*
+    * Fragments listed here are
+    * eligible for opening the navigation drawer
+    * All other fragments not listed here will get the
+    * back button instead of the hamburger menu icon
+    * ONLY list fragments that can open the drawer menu here
+    */
     private val _navigationFragments = setOf(
         R.id.Fragment_Card,
         R.id.Fragment_Account,
@@ -40,22 +48,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /* Set binding to the xml layout */
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        //Set the support action bar to the toolbar
-        setSupportActionBar(_binding.ToolbarMain)
-        //Remove the default actionbar title
+        /* Set the default action bar to our custom material toolbar */
+        setSupportActionBar(binding.ToolbarMain)
+
+        /*
+        * Remove the default left title on the toolbar
+        * We will provide our own title centered in the middle
+        */
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        /* Updates the app settings*/
-        updateAppSettings()
+        /* Updates the app theme*/
+        application.updateAppTheme()
 
-        //Setup the navigation components
+        /* Setup the JetPack Navigation UI */
         navigationUISetup()
 
-        //Load FABs
-        listenerForAddFab()
-
-        listenerForSearchFab()
+        /* Load both FABs */
+        listenerForFloatingActionButtons()
 
         //Scroll changes to adjust toolbar elevation accordingly
         setUpNestedScrollChangeListener()
@@ -86,22 +97,22 @@ class MainActivity : AppCompatActivity() {
         //Fetch the Nav Controller
         val navController = findNavController(R.id.Navigation_Host)
         //Setup the App Bar Configuration
-        _appBarConfiguration = AppBarConfiguration(_navigationFragments, _binding.DrawerMain)
+        _appBarConfiguration = AppBarConfiguration(_navigationFragments, binding.DrawerMain)
 
         //Use Navigation UI to setup the app bar config and navigation view
         NavigationUI.setupActionBarWithNavController(this, navController, _appBarConfiguration)
-        NavigationUI.setupWithNavController(_binding.NavigationView, navController)
+        NavigationUI.setupWithNavController(binding.NavigationView, navController)
 
         //Add on change destination listener to navigation controller to handle fab visibility
         navigationDestinationChangeListener(navController)
     }
 
     private fun setUpNestedScrollChangeListener() =
-        _binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+        binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY > 0) {
-                _binding.ToolbarMain.elevation = 12F
+                binding.ToolbarMain.elevation = 12F
             } else {
-                _binding.ToolbarMain.elevation = 0F
+                binding.ToolbarMain.elevation = 0F
             }
         }
 
@@ -109,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
 
             // Update the toolbar title
-            _binding.ToolbarMainTitle.text = nd.label
+            updateToolBarTitle(nd)
 
             // Update UI according to navigation destination
             when (nd.id) {
@@ -117,13 +128,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.Fragment_Card,
                 R.id.Fragment_Bank_Account,
                 R.id.Fragment_Device -> {
-                    _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
 
                     //Show all the FABs
                     showFABs()
                 }
                 else -> {
-                    _binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    binding.DrawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
                     //Hide all the FABs
                     hideFABs()
@@ -132,17 +143,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateToolBarTitle(navigationDestination: NavDestination) {
+        binding.ToolbarMainTitle.text = navigationDestination.label
+    }
+
     private fun hideFABs() {
-        _binding.FABSearch.hide()
-        _binding.FABAdd.hide()
+        binding.FABSearch.hide()
+        binding.FABAdd.hide()
     }
 
     private fun showFABs() {
-        _binding.FABSearch.show()
-        _binding.FABAdd.show()
+        binding.FABSearch.show()
+        binding.FABAdd.show()
 
-        showFABFromSlidingBehavior(_binding.FABSearch, _binding.FABSearch.isVisible)
-        showFABFromSlidingBehavior(_binding.FABAdd, _binding.FABAdd.isVisible)
+        showFABFromSlidingBehavior(binding.FABSearch, binding.FABSearch.isVisible)
+        showFABFromSlidingBehavior(binding.FABAdd, binding.FABAdd.isVisible)
     }
 
     private fun showFABFromSlidingBehavior(fab: FloatingActionButton, isVisible: Boolean) {
@@ -159,7 +174,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun listenerForAddFab() = _binding.FABAdd.setOnClickListener {
+    private fun listenerForFloatingActionButtons() {
+        /* Listener for FAB Add */
+        binding.FABAdd.setOnClickListener {
+            navigateToAddScreenAccordingToCurrentFragment()
+        }
+
+        /* Listener for FAB Search */
+        binding.FABSearch.setOnClickListener {
+            navigateTo(R.id.action_global_Fragment_Search)
+        }
+    }
+
+    private fun navigateToAddScreenAccordingToCurrentFragment() {
+        /*
+        * Navigates to the corresponding add screen
+        * according to the current fragment
+        * the user is situated
+        * i.e a user in card fragment clicking on the add fab button
+        * will be redirected to the add card fragment
+        */
         when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
             R.id.Fragment_Account -> {
                 navigateTo(R.id.action_global_Fragment_Add_Account)
@@ -178,30 +212,10 @@ class MainActivity : AppCompatActivity() {
                 toast(getString(R.string.dev_feature_implementation_soon))
             }
         }
-
-    }
-
-    private fun listenerForSearchFab() = _binding.FABSearch.setOnClickListener {
-        navigateTo(R.id.action_global_Fragment_Search)
-    }
-
-    private fun updateAppSettings() {
-        LocalStorageManager.withSettings(application)
-
-        when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
-            getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            )
-            getString(R.string.settings_value_display_light) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_NO
-            )
-            getString(R.string.settings_value_display_dark) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES
-            )
-        }
     }
 
     private fun navigateToSplashScreen() {
+        /* Returns to the Splash Screen */
         navigateTo(R.id.Activity_Splash)
         finish()
     }

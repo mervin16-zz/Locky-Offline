@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.expiringWithin30Days
-import com.th3pl4gu3.locky_offline.ui.main.utils.hasExpired
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.expiringWithin30Days
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hasExpired
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

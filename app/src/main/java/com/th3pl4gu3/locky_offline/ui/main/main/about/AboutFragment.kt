@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAboutBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.openMail
-import com.th3pl4gu3.locky_offline.ui.main.utils.openUrl
-import com.th3pl4gu3.locky_offline.ui.main.utils.share
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openMail
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openUrl
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.share
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 
 class AboutFragment : Fragment() {
 
@@ -37,6 +38,13 @@ class AboutFragment : Fragment() {
         binding.lifecycleOwner = this
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

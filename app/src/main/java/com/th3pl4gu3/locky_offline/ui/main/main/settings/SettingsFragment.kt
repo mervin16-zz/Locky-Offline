@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings.ACTION_SECURITY_SETTINGS
 import android.provider.Settings.ACTION_SETTINGS
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +15,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.openMail
-import com.th3pl4gu3.locky_offline.ui.main.utils.snack
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openMail
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snack
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -69,19 +69,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun appThemePreference() {
         findPreference<ListPreference>(getString(R.string.settings_key_display_theme))?.setOnPreferenceChangeListener { preference, newValue ->
-            when (newValue) {
-                getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                )
-                getString(R.string.settings_value_display_light) -> AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO
-                )
-                getString(R.string.settings_value_display_dark) -> AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES
-                )
-            }
-
+            /* Save the new selected theme */
             save(preference.key, newValue)
+
+            /* Sets the theme */
+            requireActivity().application.updateAppTheme()
 
             true
         }

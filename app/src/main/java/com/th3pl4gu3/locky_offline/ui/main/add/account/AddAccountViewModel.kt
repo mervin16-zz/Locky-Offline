@@ -11,7 +11,7 @@ import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
-import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

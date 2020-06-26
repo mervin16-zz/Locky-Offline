@@ -11,9 +11,9 @@ import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.core.main.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
-import com.th3pl4gu3.locky_offline.ui.main.utils.activeUser
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedCalendarForCard
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringForCard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedCalendarForCard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedStringForCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

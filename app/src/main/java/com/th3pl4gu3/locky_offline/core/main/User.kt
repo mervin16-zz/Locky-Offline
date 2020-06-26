@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.th3pl4gu3.locky_offline.ui.main.utils.toFormattedStringDefault
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedStringDefault
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

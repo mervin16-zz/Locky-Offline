@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetBankAccountLogoBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNT_LOGO_HEX
-import com.th3pl4gu3.locky_offline.ui.main.utils.isNotInPortrait
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 
 class LogoAccentBottomSheetFragment : BottomSheetDialogFragment() {
 

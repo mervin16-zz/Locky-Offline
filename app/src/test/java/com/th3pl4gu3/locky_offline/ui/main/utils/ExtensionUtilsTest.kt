@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -368,33 +369,6 @@ internal class ExtensionUtilsTest {
 
         //Assert
         assertEquals(expectedResult, result)
-    }
-
-
-    @Test
-    fun uniqueIDGeneration() {
-        //Arrange
-        var id: String = generateUniqueID()
-        var counter = 0
-        val flag = 1000000
-        var result = true
-
-        //Act
-
-        while (counter != flag) {
-            val local = generateUniqueID()
-
-            if (local == id) {
-                result = false
-                counter = flag
-            } else {
-                id = local
-                counter += 1
-            }
-        }
-
-        //Assert
-        assertTrue(result)
     }
 
     @ParameterizedTest

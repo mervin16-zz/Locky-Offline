@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddCardBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 
 class AddCardFragment : Fragment() {

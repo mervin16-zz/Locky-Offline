@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewBankAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
@@ -149,7 +149,7 @@ class ViewBankAccountFragment : Fragment() {
     }
 
     private fun snackBarAction(message: String) {
-        binding.LayoutCredentialView.snackbar(message) {
+        binding.LayoutCredentialView.snackBar(message) {
             action(getString(R.string.button_action_close)) { dismiss() }
         }
     }

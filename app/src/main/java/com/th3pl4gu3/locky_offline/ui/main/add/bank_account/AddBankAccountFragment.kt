@@ -15,8 +15,8 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNT_LOGO_HEX
-import com.th3pl4gu3.locky_offline.ui.main.utils.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class AddBankAccountFragment : Fragment() {
 

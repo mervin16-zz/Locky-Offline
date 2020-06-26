@@ -1,9 +1,9 @@
 package com.th3pl4gu3.locky_offline.ui.main.add.bank_account
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.th3pl4gu3.locky_offline.ui.main.utils.resources
+import androidx.lifecycle.AndroidViewModel
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 
 class LogoAccentBottomSheetViewModel(application: Application) : AndroidViewModel(application) {
 

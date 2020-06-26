@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentDonateBinding
 import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
-import com.th3pl4gu3.locky_offline.ui.main.utils.action
-import com.th3pl4gu3.locky_offline.ui.main.utils.snackbar
-import com.th3pl4gu3.locky_offline.ui.main.utils.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.action
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snackBar
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class DonateFragment : Fragment() {
 
@@ -97,7 +97,7 @@ class DonateFragment : Fragment() {
     private fun observeErrorMessage() {
         viewModel.errorOccurred.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                binding.LayoutParentDonate.snackbar(it) {
+                binding.LayoutParentDonate.snackBar(it) {
                     action(getString(R.string.button_action_retry)) {
                         viewModel.retryConnectingToBilling()
                     }
