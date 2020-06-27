@@ -33,7 +33,6 @@ class AboutFragment : Fragment() {
     ): View? {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(AboutViewModel::class.java)
-
         // Bind lifecycle owner
         binding.lifecycleOwner = this
 
@@ -51,10 +50,13 @@ class AboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /* Recyclerview for Development Part */
-        loadDevelopmentList()
+        subscribeDevelopmentList()
 
-        /* Recyclerview fro Other part */
-        loadOtherList()
+        /* Recyclerview for Other part */
+        subscribeOthersList()
+
+        /* Recyclerview for Contributors */
+        subscribeContributorsList()
     }
 
     override fun onDestroyView() {
@@ -118,6 +120,11 @@ class AboutFragment : Fragment() {
         startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
     }
 
+    private fun contributorUrlRedirection(url: String) {
+        val intent = openUrl(url)
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
+    }
+
     private fun shareRedirection() {
         val sendIntent: Intent = share(
             getString(
@@ -149,7 +156,21 @@ class AboutFragment : Fragment() {
             }
             .show()
 
-    private fun loadDevelopmentList() {
+    private fun subscribeContributorsList() {
+        val adapter = AboutContributorsAdapter(
+            ContributorClickListener {
+                contributorUrlRedirection(it)
+            })
+
+        binding.includeAboutLocky.RecyclerViewContributors.apply {
+            setHasFixedSize(true)
+            this.adapter = adapter
+        }
+
+        adapter.submitList(viewModel.getContributorsList())
+    }
+
+    private fun subscribeDevelopmentList() {
         val developmentAdapter = AboutItemAdapter(
             ItemClickListener {
                 developmentRedirection(it)
@@ -164,12 +185,11 @@ class AboutFragment : Fragment() {
 
     }
 
-    private fun loadOtherList() {
+    private fun subscribeOthersList() {
         val developmentAdapter = AboutItemAdapter(
             ItemClickListener {
                 otherRedirection(it)
             })
-
         binding.includeAboutOther.RecyclerViewOther.apply {
             adapter = developmentAdapter
             setHasFixedSize(true)

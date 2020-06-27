@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Contributor"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.Contributor" />
+
+        <variable
+            name="ClickListener"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.about.ContributorClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> ClickListener.onClick(Contributor.url)}"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/Icon"
+            loadIcon="@{Contributor.icon}"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintEnd_toStartOf="@id/Barrier_Icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@drawable/ic_locky_with_background_circle" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="Icon" />
+
+        <TextView
+            android:id="@+id/Contributor_Name"
+            style="@style/Locky.Text.Title6.List"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{Contributor.name}"
+            app:layout_constraintBottom_toTopOf="@id/Contributor_Description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Icon"
+            app:layout_constraintTop_toTopOf="@id/Icon"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/Contributor_Description"
+            style="@style/Locky.Text.Subtitle.List.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{Contributor.description}"
+            app:layout_constraintBottom_toBottomOf="@id/Icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/Barrier_Icon"
+            app:layout_constraintTop_toBottomOf="@id/Contributor_Name"
+            tools:text="This can be a very very very long text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

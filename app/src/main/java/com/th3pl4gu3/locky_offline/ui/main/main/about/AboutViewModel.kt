@@ -8,6 +8,7 @@ import com.th3pl4gu3.locky_offline.R
 class AboutViewModel(application: Application) : AndroidViewModel(application) {
 
 
+    /* The development list */
     internal fun getDevelopmentList() = ArrayList<AboutItem>().apply {
         add(
             AboutItem(
@@ -44,6 +45,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    /* The others list */
     internal fun getOtherList() = ArrayList<AboutItem>().apply {
         add(
             AboutItem(
@@ -79,4 +81,33 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    /* The contributors list */
+    internal fun getContributorsList() = ArrayList<Contributor>().apply {
+        add(
+            Contributor(
+                name = getApplication<Application>().getString(R.string.app_contributor_lead_name),
+                description = getApplication<Application>().getString(R.string.app_contributor_lead_description),
+                icon = getApplication<Application>().getDrawable(R.drawable.im_lead_developer)!!,
+                url = getApplication<Application>().getString(R.string.app_contributor_lead_url)
+
+            )
+        )
+        add(
+            Contributor(
+                name = getApplication<Application>().getString(R.string.app_contributor_qa_name),
+                description = getApplication<Application>().getString(R.string.app_contributor_qa_description),
+                icon = getApplication<Application>().getDrawable(R.drawable.im_quality_assurance)!!,
+                url = getApplication<Application>().getString(R.string.app_contributor_qa_url)
+            )
+        )
+
+        add(
+            Contributor(
+                name = getApplication<Application>().getString(R.string.app_contributor_graphic_name),
+                description = getApplication<Application>().getString(R.string.app_contributor_graphic_description),
+                icon = getApplication<Application>().getDrawable(R.drawable.im_graphic_designer)!!,
+                url = getApplication<Application>().getString(R.string.app_contributor_graphic_url)
+            )
+        )
+    }
 }

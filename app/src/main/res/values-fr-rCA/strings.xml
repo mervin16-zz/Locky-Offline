@@ -183,4 +183,7 @@
     <string name="message_settings_wipe_error">Une erreur s\'est produite lors de l\'effacement de vos données</string>
     <string name="error_field_validation_id_after">La date d\'émission ne peut pas être postérieure à la date d\'expiration</string>
     <string name="error_field_validation_ed_before">La date d\'expiration ne peut pas être antérieure à la date d\'émission.</string>
+    <string name="app_contributor_lead_description">Développeur principal et Designer</string>
+    <string name="app_contributor_graphic_description">Banner et Images pour Play Store</string>
+    <string name="app_contributor_qa_description">Testeur d\'assurance qualité</string>
 </resources>

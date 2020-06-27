@@ -196,7 +196,7 @@
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/Fragment_Account"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_Fragment_Add_Account_to_Fragment_Bottom_Dialog_Logo_Account"
             app:destination="@id/Fragment_Bottom_Dialog_Logo_Account" />

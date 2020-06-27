@@ -5,16 +5,24 @@
     <!-- ==================== -->
     <string name="app_name">Locky</string>
     <string name="app_description_short">Manage all your passwords and bank cards on a single secure place.</string>
-    <string name="app_description_long">
-        Locky is a password manager where you can keep all your account passwords and bank card details securely offline.
-        You don\'t need to worry about hackers stealing the info as it is stored securely only on your phone.
-    </string>
     <string name="app_developer_signature">Developed with \u2764\uFE0F in 🇲🇺</string>
 
     <string name="app_play_link" translatable="false">https://play.google.com/store/apps/details?id="%1$s"</string>
     <string name="app_play_package" translatable="false">com.android.vending</string>
 
     <string name="app_play_share">Hey, check out this nice password manager on: https://play.google.com/store/apps/details?id=%1$s</string>
+
+    <string name="app_contributor_lead_name" translatable="false">Mervin Hemaraju</string>
+    <string name="app_contributor_lead_description">Lead Developer &amp; Designer</string>
+    <string name="app_contributor_lead_url" translatable="false">https://www.linkedin.com/in/mervinh16/</string>
+
+    <string name="app_contributor_graphic_name" translatable="false">Nick Foo Kune</string>
+    <string name="app_contributor_graphic_description">Play Store Banner &amp; Images</string>
+    <string name="app_contributor_graphic_url" translatable="false">https://www.linkedin.com/in/nick-foo-kune-175172128/</string>
+
+    <string name="app_contributor_qa_name" translatable="false">Kirtee Joymungul</string>
+    <string name="app_contributor_qa_description">Quality Assurance Tester</string>
+    <string name="app_contributor_qa_url" translatable="false">https://www.linkedin.com/in/kirtee-joymungul-410156126/</string>
 
     <string name="app_support_email_team" translatable="false">locky.application@gmail.com</string>
     <string name="app_support_email_subject_feedback" translatable="false">Support :: Locky :: Feedback</string>
