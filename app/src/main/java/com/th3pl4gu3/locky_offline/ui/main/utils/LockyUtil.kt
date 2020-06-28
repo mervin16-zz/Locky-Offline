@@ -6,7 +6,6 @@ import android.net.Uri
 
 object LockyUtil {
 
-
     /*
     * Locky intents that simplifies
     * opening implicit intents

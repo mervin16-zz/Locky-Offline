@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 fun ImageView.loadImageUrl(uri: Uri, loadingResource: Drawable, errorResource: Drawable) {
     Glide.with(this.context)
         .load(uri)
-        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .circleCrop()
         .placeholder(loadingResource)
         .error(errorResource)

@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.about
 
 import android.app.Application
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import com.th3pl4gu3.locky_offline.BuildConfig
 import com.th3pl4gu3.locky_offline.R
@@ -14,7 +15,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_rate),
                 getApplication<Application>().getString(R.string.text_description_about_dev_rate),
-                getApplication<Application>().getDrawable(R.drawable.ic_rate)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_rate
+                )!!,
                 AboutItem.Item.DEV_RATE_US
             )
         )
@@ -22,7 +26,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_donate),
                 getApplication<Application>().getString(R.string.text_description_about_dev_donate),
-                getApplication<Application>().getDrawable(R.drawable.ic_donate)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_donate
+                )!!,
                 AboutItem.Item.DEV_DONATE
             )
         )
@@ -30,7 +37,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_bug),
                 getApplication<Application>().getString(R.string.text_description_about_dev_bug),
-                getApplication<Application>().getDrawable(R.drawable.ic_bug_report)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_bug_report
+                )!!,
                 AboutItem.Item.DEV_REPORT_BUG
             )
         )
@@ -39,7 +49,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_dev_share),
                 getApplication<Application>().getString(R.string.text_description_about_dev_share),
-                getApplication<Application>().getDrawable(R.drawable.ic_share)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_share
+                )!!,
                 AboutItem.Item.DEV_SHARE
             )
         )
@@ -51,7 +64,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_other_license),
                 getApplication<Application>().getString(R.string.text_title_about_other_license),
-                getApplication<Application>().getDrawable(R.drawable.ic_copyright)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_copyright
+                )!!,
                 AboutItem.Item.OTHER_LICENSES
             )
         )
@@ -59,7 +75,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_other_developer),
                 getApplication<Application>().getString(R.string.text_description_about_other_developer),
-                getApplication<Application>().getDrawable(R.drawable.ic_developer)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_developer
+                )!!,
                 AboutItem.Item.OTHER_DEVELOPER
             )
         )
@@ -67,7 +86,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_other_terms),
                 getApplication<Application>().getString(R.string.text_title_about_other_terms),
-                getApplication<Application>().getDrawable(R.drawable.ic_policy)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_policy
+                )!!,
                 AboutItem.Item.OTHER_POLICY
             )
         )
@@ -75,7 +97,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             AboutItem(
                 getApplication<Application>().getString(R.string.text_title_about_other_version),
                 BuildConfig.VERSION_NAME,
-                getApplication<Application>().getDrawable(R.drawable.ic_version)!!,
+                ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_version
+                )!!,
                 AboutItem.Item.OTHER_VERSION
             )
         )
@@ -87,7 +112,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             Contributor(
                 name = getApplication<Application>().getString(R.string.app_contributor_lead_name),
                 description = getApplication<Application>().getString(R.string.app_contributor_lead_description),
-                icon = getApplication<Application>().getDrawable(R.drawable.im_lead_developer)!!,
+                icon = ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_lead_developer
+                )!!,
                 url = getApplication<Application>().getString(R.string.app_contributor_lead_url)
 
             )
@@ -96,7 +124,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             Contributor(
                 name = getApplication<Application>().getString(R.string.app_contributor_qa_name),
                 description = getApplication<Application>().getString(R.string.app_contributor_qa_description),
-                icon = getApplication<Application>().getDrawable(R.drawable.im_quality_assurance)!!,
+                icon = ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_quality_assurance
+                )!!,
                 url = getApplication<Application>().getString(R.string.app_contributor_qa_url)
             )
         )
@@ -105,7 +136,10 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
             Contributor(
                 name = getApplication<Application>().getString(R.string.app_contributor_graphic_name),
                 description = getApplication<Application>().getString(R.string.app_contributor_graphic_description),
-                icon = getApplication<Application>().getDrawable(R.drawable.im_graphic_designer)!!,
+                icon = ContextCompat.getDrawable(
+                    getApplication<Application>().applicationContext,
+                    R.drawable.ic_graphic_designer
+                )!!,
                 url = getApplication<Application>().getString(R.string.app_contributor_graphic_url)
             )
         )

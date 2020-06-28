@@ -102,11 +102,19 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        /*
+        * Show text box and hide title
+        */
         alternateSearchVisibility(true)
     }
 
     override fun onPause() {
         super.onPause()
+        //Clear text box
+        searchBox.text.clear()
+        /*
+        * Hide text box and show title
+        */
         alternateSearchVisibility(false)
     }
 

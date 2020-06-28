@@ -84,4 +84,10 @@
         <item name="android:textSize">10sp</item>
         <item name="android:letterSpacing">0.1</item>
     </style>
+
+    <style name="Locky.Text.Body.Popup">
+        <item name="fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textColor">@color/colorTextPopup</item>
+    </style>
 </resources>

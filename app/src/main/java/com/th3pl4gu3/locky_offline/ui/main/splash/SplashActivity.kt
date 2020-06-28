@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
@@ -46,9 +45,10 @@ class SplashActivity : AppCompatActivity() {
         /* Re set the style to the main theme app */
         setTheme(R.style.Locky_Theme)
         super.onCreate(savedInstanceState)
-        /* Bind splash screen and instantiate view model
-        * Bind view model to layout and set lifecycle owner
-        **/
+        /*
+         * Bind splash screen and instantiate view model
+         * Bind view model to layout and set lifecycle owner
+         */
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         _viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
         binding.viewModel = viewModel
@@ -56,9 +56,6 @@ class SplashActivity : AppCompatActivity() {
 
         /* Loads google sign in */
         googleSignInLoading()
-
-        /* Updates the app settings*/
-        updateAppSettings()
 
         /*Listener for Get Started Button*/
         listenerForGetStartedButton()
@@ -161,21 +158,6 @@ class SplashActivity : AppCompatActivity() {
                 .requestEmail()
                 .build()
         )
-    }
-
-    private fun updateAppSettings() {
-        LocalStorageManager.withSettings(application)
-        when (LocalStorageManager.get<String>(getString(R.string.settings_key_display_theme))) {
-            getString(R.string.settings_value_display_default) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            )
-            getString(R.string.settings_value_display_light) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_NO
-            )
-            getString(R.string.settings_value_display_dark) -> AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES
-            )
-        }
     }
 
     private fun prepareToNavigateToMainScreen() {

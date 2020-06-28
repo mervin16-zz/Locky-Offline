@@ -23,7 +23,6 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,9 +57,6 @@ class MainActivity : AppCompatActivity() {
         * We will provide our own title centered in the middle
         */
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        /* Updates the app theme*/
-        application.updateAppTheme()
 
         /* Setup the JetPack Navigation UI */
         navigationUISetup()

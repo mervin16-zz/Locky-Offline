@@ -53,6 +53,8 @@
 
     <color name="colorTextSnackBar">@color/dark_colorOnSecondary</color>
 
+    <color name="colorTextPopup">@color/grey_50</color>
+
     <!-- ================== -->
     <!-- Information Colors -->
     <!-- ================== -->

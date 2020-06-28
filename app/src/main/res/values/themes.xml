@@ -61,6 +61,9 @@
         <!-- SnackBar Theme-->
         <item name="snackbarStyle">@style/Locky.SnackBar</item>
         <item name="snackbarButtonStyle">@style/Locky.SnackBar.Button</item>
+
+        <!-- Popup Styles -->
+        <item name="textAppearanceLargePopupMenu">@style/Locky.Text.Body.Popup</item>
     </style>
 
     <!-- ====================== -->
@@ -69,4 +72,5 @@
     <style name="Locky.Theme.Launcher" parent="Locky.Theme">
         <item name="android:windowBackground">@drawable/custom_background_launcher</item>
     </style>
+
 </resources>

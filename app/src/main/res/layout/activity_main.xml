@@ -25,7 +25,8 @@
                 android:outlineSpotShadowColor="@color/colorShadowColor"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                app:contentInsetStartWithNavigation="0dp">
+                app:contentInsetStartWithNavigation="0dp"
+                tools:targetApi="p">
 
                 <TextView
                     android:id="@+id/Toolbar_Main_Title"
@@ -39,10 +40,10 @@
                     android:id="@+id/Toolbar_Search_Layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:visibility="gone">
 
                     <EditText
@@ -53,8 +54,8 @@
                         android:background="@null"
                         android:hint="@string/field_hint_item_search"
                         android:imeOptions="flagNoExtractUi|actionSearch"
-                        android:inputType="textNoSuggestions"
-                        android:importantForAutofill="no" />
+                        android:importantForAutofill="no"
+                        android:inputType="textNoSuggestions" />
 
                     <ImageButton
                         android:id="@+id/Toolbar_Search_Close"
