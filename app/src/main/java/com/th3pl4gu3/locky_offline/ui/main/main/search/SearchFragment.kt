@@ -21,14 +21,14 @@ import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentSearchBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
+import com.th3pl4gu3.locky_offline.ui.main.main.account.ClickListener as AccountClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.ClickListener as BankClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.card.ClickListener as CardClickListener
 
 class SearchFragment : Fragment() {
 
@@ -180,10 +180,10 @@ class SearchFragment : Fragment() {
     private fun subscribeAccountsUi(accounts: List<Account>) {
         val adapter = AccountAdapter(
             /* The click listener to handle account on clicks */
-            AccountClickListener { _, account ->
+            AccountClickListener {
                 navigateTo(
                     SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
-                        account
+                        it
                     )
                 )
             },
@@ -235,7 +235,7 @@ class SearchFragment : Fragment() {
 
     private fun subscribeBankAccountsUi(bankAccounts: List<BankAccount>) {
         val adapter = BankAccountAdapter(
-            BankAccountClickListener {
+            BankClickListener {
                 navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(it))
             },
             null,

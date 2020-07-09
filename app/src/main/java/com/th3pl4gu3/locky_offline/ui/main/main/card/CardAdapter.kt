@@ -10,15 +10,15 @@ import com.th3pl4gu3.locky_offline.core.main.Card
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCardBinding
 
 class CardAdapter(
-    private val cardClickListener: CardClickListener,
-    private val cardOptionsClickListener: CardOptionsClickListener?,
+    private val clickListener: ClickListener,
+    private val optionsClickListener: OptionsClickListener?,
     private var isSimplified: Boolean
 ) : ListAdapter<Card, CardAdapter.ViewHolder>(
-    CardDiffCallback()
+    DiffCallback()
 ) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cardClickListener, cardOptionsClickListener, getItem(position), isSimplified)
+        holder.bind(clickListener, optionsClickListener, getItem(position), isSimplified)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,14 +29,14 @@ class CardAdapter(
 
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            clickListener: CardClickListener,
-            cardOptionsClickListener: CardOptionsClickListener?,
+            clickListener: ClickListener,
+            optionsClickListener: OptionsClickListener?,
             card: Card,
             isSimplified: Boolean
         ) {
             binding.card = card
             binding.clickListener = clickListener
-            binding.clickOptionsListener = cardOptionsClickListener
+            binding.clickOptionsListener = optionsClickListener
             binding.isSimplifiedVersion = isSimplified
             binding.executePendingBindings()
         }
@@ -53,7 +53,7 @@ class CardAdapter(
     }
 }
 
-class CardDiffCallback: DiffUtil.ItemCallback<Card>() {
+class DiffCallback : DiffUtil.ItemCallback<Card>() {
 
     override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
         return oldItem.id == newItem.id
@@ -66,10 +66,10 @@ class CardDiffCallback: DiffUtil.ItemCallback<Card>() {
 
 }
 
-class CardClickListener(val clickListener: (card: Card) -> Unit){
+class ClickListener(val clickListener: (card: Card) -> Unit) {
     fun onClick(card: Card) = clickListener(card)
 }
 
-class CardOptionsClickListener(val clickListener: (view: View, card: Card) -> Unit){
+class OptionsClickListener(val clickListener: (view: View, card: Card) -> Unit) {
     fun onClick(view: View, card: Card) = clickListener(view, card)
 }

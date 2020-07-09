@@ -2,9 +2,9 @@
 
 <resources>
 
-    <!-- ======================== -->
-    <!-- ====== Typography ====== -->
-    <!-- ======================== -->
+    <!-- ============================= -->
+    <!-- ====== Main Typography ====== -->
+    <!-- ============================= -->
     <style name="Locky.Text.Title6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/google_sans_medium</item>
         <item name="android:fontFamily">@font/google_sans_medium</item>
@@ -29,10 +29,24 @@
 
     <style name="Locky.Text.Caption" parent="TextAppearance.MaterialComponents.Caption" />
 
+
+    <!-- ===================== -->
+    <!-- ====== Customs ====== -->
+    <!-- ===================== -->
+    <style name="Locky.Text.Title5.RunningTitle" />
+
+    <style name="Locky.Text.Subtitle.Label">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
     <style name="Locky.Text.Subtitle.Smaller">
         <item name="android:textSize">12sp</item>
     </style>
 
+
+    <!-- =========================== -->
+    <!-- ====== Splash Screen ====== -->
+    <!-- =========================== -->
     <style name="Locky.Text.Title6.Splash">
         <item name="android:textAlignment">center</item>
         <item name="android:textStyle">bold</item>
@@ -42,6 +56,9 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <!-- ============================== -->
+    <!-- ====== Toolbar & Drawer ====== -->
+    <!-- ============================== -->
     <style name="Locky.Text.Title6.Toolbar">
         <item name="android:fontFamily">@font/rubik_medium</item>
         <item name="fontFamily">@font/rubik_medium</item>
@@ -57,6 +74,10 @@
 
     <style name="Locky.Text.Body.Drawer" />
 
+
+    <!-- =================== -->
+    <!-- ====== Lists ====== -->
+    <!-- =================== -->
     <style name="Locky.Text.Title6.List">
         <item name="android:textSize">15sp</item>
     </style>
@@ -72,12 +93,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="Locky.Text.Subtitle.Label">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
 
-    <style name="Locky.Text.Title5.Name" />
-
+    <!-- =========================== -->
+    <!-- ====== Material Card ====== -->
+    <!-- =========================== -->
     <style name="Locky.Text.Caption.CardTitle">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">true</item>
@@ -85,6 +104,10 @@
         <item name="android:letterSpacing">0.1</item>
     </style>
 
+
+    <!-- =================== -->
+    <!-- ====== Popup ====== -->
+    <!-- =================== -->
     <style name="Locky.Text.Body.Popup">
         <item name="fontFamily">@font/google_sans_medium</item>
         <item name="android:fontFamily">@font/google_sans_medium</item>

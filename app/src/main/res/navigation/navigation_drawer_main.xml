@@ -105,7 +105,18 @@
         android:id="@+id/Fragment_Device"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceFragment"
         android:label="Devices"
-        tools:layout="@layout/fragment_device" />
+        tools:layout="@layout/fragment_device">
+        <action
+            android:id="@+id/action_Fragment_Device_to_Fragment_Bottom_Dialog_Filter_Device"
+            app:destination="@id/Fragment_Bottom_Dialog_Filter_Device" />
+        <action
+            android:id="@+id/action_Fragment_Device_to_Fragment_View_Device"
+            app:destination="@id/Fragment_View_Device"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
 
 
     <!-- =========================== -->
@@ -170,6 +181,17 @@
         <argument
             android:name="BANKACCOUNT_toVIEW"
             app:argType="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/Fragment_View_Device"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.view.device.ViewDeviceFragment"
+        android:label=""
+        tools:layout="@layout/fragment_view_device">
+        <argument
+            android:name="DEVICE_toVIEW"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.Device" />
     </fragment>
 
     <!-- ================================= -->
@@ -287,10 +309,15 @@
         tools:layout="@layout/fragment_bottom_sheet_bank_account_logo">
         <argument
             android:name="HEX_CURRENT"
-            app:argType="string"
-            android:defaultValue="#D35C4B6C" />
+            android:defaultValue="#D35C4B6C"
+            app:argType="string" />
     </dialog>
 
+    <dialog
+        android:id="@+id/Fragment_Bottom_Dialog_Filter_Device"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.TuningDeviceBottomSheetFragment"
+        android:label="Filter"
+        tools:layout="@layout/fragment_bottom_sheet_device_tuning" />
 
     <!-- ============================== -->
     <!-- ====== Search Fragment  ====== -->

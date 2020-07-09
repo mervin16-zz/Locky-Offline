@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/Account_Name"
-            style="@style/Locky.Text.Title5.Name"
+            style="@style/Locky.Text.Title5.RunningTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

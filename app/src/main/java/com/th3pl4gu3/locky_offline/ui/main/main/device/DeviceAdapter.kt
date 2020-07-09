@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.main.account
+package com.th3pl4gu3.locky_offline.ui.main.main.device
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewAccountBinding
+import com.th3pl4gu3.locky_offline.core.main.Device
+import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewDeviceBinding
 
-class AccountAdapter(
+class DeviceAdapter(
     private val clickListener: ClickListener,
     private val optionsClickListener: OptionsClickListener?,
     private val isSimplified: Boolean
-) : ListAdapter<Account, AccountAdapter.ViewHolder>(
+) : ListAdapter<Device, DeviceAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -32,14 +32,15 @@ class AccountAdapter(
         )
     }
 
-    class ViewHolder private constructor(val binding: CustomViewRecyclerviewAccountBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: CustomViewRecyclerviewDeviceBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             clickListener: ClickListener,
             optionsClickListener: OptionsClickListener?,
-            Account: Account,
+            device: Device,
             isSimplified: Boolean
         ) {
-            binding.account = Account
+            binding.device = device
             binding.clickListener = clickListener
             binding.optionsClickListener = optionsClickListener
             binding.isSimplifiedVersion = isSimplified
@@ -49,7 +50,8 @@ class AccountAdapter(
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CustomViewRecyclerviewAccountBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    CustomViewRecyclerviewDeviceBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )
@@ -58,22 +60,22 @@ class AccountAdapter(
     }
 }
 
-class DiffCallback : DiffUtil.ItemCallback<Account>() {
+class DiffCallback : DiffUtil.ItemCallback<Device>() {
 
-    override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
+    override fun areItemsTheSame(oldItem: Device, newItem: Device): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {
+    override fun areContentsTheSame(oldItem: Device, newItem: Device): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class ClickListener(val clickListener: (account: Account) -> Unit) {
-    fun onClick(account: Account) = clickListener(account)
+class ClickListener(val clickListener: (device: Device) -> Unit) {
+    fun onClick(device: Device) = clickListener(device)
 }
 
-class OptionsClickListener(val clickListener: (view: View, account: Account) -> Unit) {
-    fun onClick(view: View, account: Account) = clickListener(view, account)
+class OptionsClickListener(val clickListener: (view: View, device: Device) -> Unit) {
+    fun onClick(view: View, device: Device) = clickListener(view, device)
 }

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.th3pl4gu3.locky_offline.repository.Loading.List" />
+
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Layout_Fragment_Device"
@@ -10,33 +21,92 @@
         android:layout_height="match_parent"
         android:background="@color/colorOnSurface">
 
+
+        <!--
+           Recyclerview
+        -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_Device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{ViewModel.loadingStatus==List.LIST ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+
+        <!--
+            Empty Views and group
+        -->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/Empty_View"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ViewModel.loadingStatus==List.EMPTY_VIEW ? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="Empty_View_Illustration,Empty_View_Title,Empty_View_Subtitle" />
+
         <ImageView
-            android:id="@+id/Image_UnderConstruction"
+            android:id="@+id/Empty_View_Illustration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/Text_Title"
+            app:layout_constraintBottom_toTopOf="@+id/Empty_View_Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/il_maintenance" />
+            app:srcCompat="@drawable/il_devices" />
 
         <TextView
-            android:id="@+id/Text_Title"
+            android:id="@+id/Empty_View_Title"
             style="@style/Locky.Text.Title6"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/text_title_emptyView_devices"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/Empty_View_Subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Empty_View_Illustration"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".8" />
+
+        <TextView
+            android:id="@+id/Empty_View_Subtitle"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="?attr/actionBarSize"
-            android:text="@string/dev_feature_implementation_soon"
+            android:text="@string/text_subtitle_emptyView_devices"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Image_UnderConstruction"
-            app:layout_constraintStart_toStartOf="@+id/Image_UnderConstruction"
-            app:layout_constraintTop_toBottomOf="@+id/Image_UnderConstruction" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Empty_View_Title"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".8" />
+
+        <!--
+            Progress Bar
+        -->
+        <include
+            android:id="@+id/Progress_Bar"
+            layout="@layout/custom_view_list_loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{ViewModel.loadingStatus==List.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

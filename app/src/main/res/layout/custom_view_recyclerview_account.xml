@@ -18,11 +18,11 @@
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.account.ClickListener" />
 
         <variable
             name="OptionsClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountOptionsClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.account.OptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{(view) -> ClickListener.onClick(view, Account)}"
+        android:onClick="@{() -> ClickListener.onClick(Account)}"
         android:padding="16dp">
 
         <ImageView

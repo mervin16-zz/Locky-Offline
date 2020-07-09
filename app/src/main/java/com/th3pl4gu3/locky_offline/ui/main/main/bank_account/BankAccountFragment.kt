@@ -159,7 +159,7 @@ class BankAccountFragment : Fragment() {
     private fun subscribeBankAccounts(bankAccounts: List<BankAccount>) {
         val adapter = BankAccountAdapter(
             /* The click listener to handle account on clicks */
-            BankAccountClickListener {
+            ClickListener {
                 navigateTo(
                     BankAccountFragmentDirections.actionFragmentBankAccountToFragmentViewBankAccount(
                         it
@@ -167,7 +167,7 @@ class BankAccountFragment : Fragment() {
                 )
             },
             /* The click listener to handle popup menu for each accounts */
-            BankAccountOptionsClickListener { view, account ->
+            OptionsClickListener { view, account ->
                 view.apply {
                     isEnabled = false
                 }

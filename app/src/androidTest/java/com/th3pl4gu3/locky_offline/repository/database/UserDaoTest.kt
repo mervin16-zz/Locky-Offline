@@ -16,10 +16,11 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class UserRepositoryTest {
+class UserDaoTest {
     private lateinit var userDao: UserDao
     private lateinit var database: LockyDatabase
     private lateinit var user: User
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 

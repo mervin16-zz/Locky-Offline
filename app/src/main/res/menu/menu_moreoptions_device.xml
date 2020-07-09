@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Menu_CopyUsername"
+        android:title="@string/menu_device_moreOptions_copyUsername"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_CopyPass"
+        android:title="@string/menu_device_moreOptions_copyPass"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_CopyIp"
+        android:title="@string/menu_device_moreOptions_copyIp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_ShowPass"
+        android:title="@string/menu_device_moreOptions_viewPass"
+        app:showAsAction="ifRoom" />
+</menu>

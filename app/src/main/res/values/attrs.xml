@@ -5,7 +5,6 @@
     <attr name="colorAccentLight" format="color" />
     <attr name="colorRipple" format="color" />
 
-
     <attr name="colorNavigationItem" format="color" />
     <attr name="colorNavigationItemSelected" format="color" />
     <attr name="colorOnPrimary" format="color" />

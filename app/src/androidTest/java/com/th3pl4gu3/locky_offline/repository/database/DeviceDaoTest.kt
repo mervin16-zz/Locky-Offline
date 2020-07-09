@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.getValue
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.repository.database.daos.BankAccountDao
+import com.th3pl4gu3.locky_offline.core.main.Device
+import com.th3pl4gu3.locky_offline.repository.database.daos.DeviceDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.*
@@ -17,11 +17,11 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class BankAccountRepositoryTest {
-    private lateinit var bankAccount: BankAccountDao
+class DeviceDaoTest {
+    private lateinit var deviceDao: DeviceDao
     private lateinit var database: LockyDatabase
-    private lateinit var bankAccountsForUser1: List<BankAccount>
-    private lateinit var bankAccountsForUser2: List<BankAccount>
+    private lateinit var devicesForUser1: List<Device>
+    private lateinit var devicesForUser2: List<Device>
     private val user1 = "user1@email.com"
     private val user2 = "user2@email.com"
 
@@ -34,17 +34,17 @@ class BankAccountRepositoryTest {
         database = Room.inMemoryDatabaseBuilder(
             context, LockyDatabase::class.java
         ).build()
-        bankAccount = database.bankAccountDao()
+        deviceDao = database.deviceDao()
 
         /*
         * We have created two users, user1 & user 2
-        * We add bank accounts for each user separately
+        * We add devices for each user separately
         * We then perform the tests
         */
-        bankAccountsForUser1 = TestUtil.createBankAccounts(15, user1)
-        bankAccountsForUser2 = TestUtil.createBankAccounts(10, user2)
-        bankAccount.insertAll(bankAccountsForUser1)
-        bankAccount.insertAll(bankAccountsForUser2)
+        devicesForUser1 = TestUtil.createDevices(15, user1)
+        devicesForUser2 = TestUtil.createDevices(10, user2)
+        deviceDao.insertAll(devicesForUser1)
+        deviceDao.insertAll(devicesForUser2)
     }
 
     @After
@@ -61,12 +61,10 @@ class BankAccountRepositoryTest {
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        val resultSizeForUser1 = bankAccountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = bankAccountsForUser2.size //Fetch all for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        val resultSizeForUser1 = devicesForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = devicesForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -82,15 +80,13 @@ class BankAccountRepositoryTest {
 
         /* Act */
         /* Wipe data first */
-        bankAccount.removeAll(user1)
-        bankAccount.removeAll(user2)
+        deviceDao.removeAll(user1)
+        deviceDao.removeAll(user2)
         /* Try to get now */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        val resultSizeForUser1 = bankAccountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = bankAccountsForUser2.size //Fetch all for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        val resultSizeForUser1 = devicesForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = devicesForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -101,20 +97,18 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun getOne_DataExists() = runBlocking {
         /* Arrange */
-        var bankAccountForUser1: BankAccount? = null
-        var bankAccountForUser2: BankAccount? = null
-        var resultForUser1: BankAccount? = null
-        var resultForUser2: BankAccount? = null
+        var deviceForUser1: Device? = null
+        var deviceForUser2: Device? = null
+        var resultForUser1: Device? = null
+        var resultForUser2: Device? = null
         /* Act */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        bankAccountForUser1 = bankAccountsForUser1.last() //Fetch last for user 1
-        bankAccountForUser2 = bankAccountsForUser2.last() //Fetch last for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        deviceForUser1 = devicesForUser1.last() //Fetch last for user 1
+        deviceForUser2 = devicesForUser2.last() //Fetch last for user 2
         /* Test single get */
-        resultForUser1 = bankAccount.get(bankAccountForUser1.id)
-        resultForUser2 = bankAccount.get(bankAccountForUser2.id)
+        resultForUser1 = deviceDao.get(deviceForUser1.id)
+        resultForUser2 = deviceDao.get(deviceForUser2.id)
 
         /* Assert */
         Assert.assertNotNull(resultForUser1)
@@ -125,12 +119,12 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun getOne_DataDoesNotExists() = runBlocking {
         /* Arrange */
-        var resultForUser1: BankAccount? = null
-        var resultForUser2: BankAccount? = null
+        var resultForUser1: Device? = null
+        var resultForUser2: Device? = null
 
         /* Act */
-        resultForUser1 = bankAccount.get(9846)
-        resultForUser2 = bankAccount.get(5132)
+        resultForUser1 = deviceDao.get(9846)
+        resultForUser2 = deviceDao.get(5132)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -141,24 +135,22 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun removeOne_DataExists() = runBlocking {
         /* Arrange */
-        var bankAccountForUser1: BankAccount? = null
-        var bankAccountForUser2: BankAccount? = null
-        var resultForUser1: BankAccount? = null
-        var resultForUser2: BankAccount? = null
+        var deviceForUser1: Device? = null
+        var deviceForUser2: Device? = null
+        var resultForUser1: Device? = null
+        var resultForUser2: Device? = null
 
         /* Act */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        bankAccountForUser1 = bankAccountsForUser1.last() //Fetch last for user 1
-        bankAccountForUser2 = bankAccountsForUser2.last() //Fetch last for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        deviceForUser1 = devicesForUser1.last() //Fetch last for user 1
+        deviceForUser2 = devicesForUser2.last() //Fetch last for user 2
         /* Test remove one */
-        bankAccount.remove(bankAccountForUser1.id)
-        bankAccount.remove(bankAccountForUser2.id)
+        deviceDao.remove(deviceForUser1.id)
+        deviceDao.remove(deviceForUser2.id)
         /* Try to fetch data now */
-        resultForUser1 = bankAccount.get(bankAccountForUser1.id)
-        resultForUser2 = bankAccount.get(bankAccountForUser2.id)
+        resultForUser1 = deviceDao.get(deviceForUser1.id)
+        resultForUser2 = deviceDao.get(deviceForUser2.id)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -169,16 +161,16 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun removeOne_DataDoesNotExists() = runBlocking {
         /* Arrange */
-        var resultForUser1: BankAccount? = null
-        var resultForUser2: BankAccount? = null
+        var resultForUser1: Device? = null
+        var resultForUser2: Device? = null
 
         /* Act */
         /* Remove object that doesn't exist */
-        bankAccount.remove(65)
-        bankAccount.remove(85)
+        deviceDao.remove(65)
+        deviceDao.remove(85)
         /* Try to fetch data now */
-        resultForUser1 = bankAccount.get(65)
-        resultForUser2 = bankAccount.get(65)
+        resultForUser1 = deviceDao.get(65)
+        resultForUser2 = deviceDao.get(65)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -194,15 +186,13 @@ class BankAccountRepositoryTest {
 
         /* Act */
         /* Wipe data first */
-        bankAccount.removeAll(user1)
-        bankAccount.removeAll(user2)
+        deviceDao.removeAll(user1)
+        deviceDao.removeAll(user2)
         /* Try to get now */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        val resultSizeForUser1 = bankAccountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = bankAccountsForUser2.size //Fetch all for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        val resultSizeForUser1 = devicesForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = devicesForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -213,31 +203,29 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun update_DataExists() = runBlocking {
         /* Arrange */
-        var bankAccountForUser1: BankAccount? = null
-        var bankAccountForUser2: BankAccount? = null
+        var deviceForUser1: Device? = null
+        var deviceForUser2: Device? = null
         val expectedNewEntryNameForUser1 = "EntryUser1"
         val expectedNewEntryNameForUser2 = "EntryUser2"
 
         /* Act */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        bankAccountForUser1 = bankAccountsForUser1.last() //Fetch all for user 1
-        bankAccountForUser2 = bankAccountsForUser2.last() //Fetch all for user 2
-        bankAccountForUser1.entryName = expectedNewEntryNameForUser1
-        bankAccountForUser2.entryName = expectedNewEntryNameForUser2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        deviceForUser1 = devicesForUser1.last() //Fetch all for user 1
+        deviceForUser2 = devicesForUser2.last() //Fetch all for user 2
+        deviceForUser1.entryName = expectedNewEntryNameForUser1
+        deviceForUser2.entryName = expectedNewEntryNameForUser2
         /* Test update */
-        bankAccount.update(bankAccountForUser1)
-        bankAccount.update(bankAccountForUser2)
+        deviceDao.update(deviceForUser1)
+        deviceDao.update(deviceForUser2)
 
         /* Assert */
         assertThat(
-            bankAccount.get(bankAccountForUser1.id)?.entryName,
+            deviceDao.get(deviceForUser1.id)?.entryName,
             equalTo(expectedNewEntryNameForUser1)
         )
         assertThat(
-            bankAccount.get(bankAccountForUser2.id)?.entryName,
+            deviceDao.get(deviceForUser2.id)?.entryName,
             equalTo(expectedNewEntryNameForUser2)
         )
     }
@@ -251,14 +239,12 @@ class BankAccountRepositoryTest {
 
         /* Act */
         /* Update non existing */
-        bankAccount.update(BankAccount().apply { this.id = 89 })
+        deviceDao.update(Device().apply { this.id = 89 })
         /* Try to get now */
-        val bankAccountsForUser1 =
-            getValue(bankAccount.getAll(user1)) //Get all bankAccounts for user1
-        val bankAccountsForUser2 =
-            getValue(bankAccount.getAll(user2)) //Get all bankAccounts for user2
-        val resultSizeForUser1 = bankAccountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = bankAccountsForUser2.size //Fetch all for user 2
+        val devicesForUser1 = getValue(deviceDao.getAll(user1)) //Get all devices for user1
+        val devicesForUser2 = getValue(deviceDao.getAll(user2)) //Get all devices for user2
+        val resultSizeForUser1 = devicesForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = devicesForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -273,8 +259,8 @@ class BankAccountRepositoryTest {
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
-        val resultSizeForUser1 = getValue(bankAccount.size(user1)) //Get all size for user1
-        val resultSizeForUser2 = getValue(bankAccount.size(user2)) //Get all size for user2 2
+        val resultSizeForUser1 = getValue(deviceDao.size(user1)) //Get all size for user1
+        val resultSizeForUser2 = getValue(deviceDao.size(user2)) //Get all size for user2 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -290,10 +276,10 @@ class BankAccountRepositoryTest {
 
         /* Act */
         //Wipe all data before testing
-        bankAccount.removeAll(user1)
-        bankAccount.removeAll(user2)
-        val resultSizeForUser1 = getValue(bankAccount.size(user1)) //Get all size for user1
-        val resultSizeForUser2 = getValue(bankAccount.size(user2)) //Get all size for user2
+        deviceDao.removeAll(user1)
+        deviceDao.removeAll(user2)
+        val resultSizeForUser1 = getValue(deviceDao.size(user1)) //Get all size for user1
+        val resultSizeForUser2 = getValue(deviceDao.size(user2)) //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -304,15 +290,15 @@ class BankAccountRepositoryTest {
     @Throws(Exception::class)
     fun search_DataExists_1Of2() = runBlocking {
         /* Arrange */
-        val query = "%count%"
+        val query = "%vice%"
         val expectedSizeForUser1 = 15 //Size for user1 only
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
         val resultSizeForUser1 =
-            getValue(bankAccount.search(query, user1)).size //Get all size for user1
+            getValue(deviceDao.search(query, user1)).size //Get all size for user1
         val resultSizeForUser2 =
-            getValue(bankAccount.search(query, user2)).size //Get all size for user2
+            getValue(deviceDao.search(query, user2)).size //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -329,9 +315,9 @@ class BankAccountRepositoryTest {
 
         /* Act */
         val resultSizeForUser1 =
-            getValue(bankAccount.search(query, user1)).size //Get all size for user1
+            getValue(deviceDao.search(query, user1)).size //Get all size for user1
         val resultSizeForUser2 =
-            getValue(bankAccount.search(query, user2)).size //Get all size for user2
+            getValue(deviceDao.search(query, user2)).size //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))

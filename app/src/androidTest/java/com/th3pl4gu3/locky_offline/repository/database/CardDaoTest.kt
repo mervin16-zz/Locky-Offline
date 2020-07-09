@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.getValue
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.repository.database.daos.AccountDao
+import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.repository.database.daos.CardDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.*
@@ -17,13 +17,14 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class AccountRepositoryTest {
-    private lateinit var accountDao: AccountDao
+class CardDaoTest {
+    private lateinit var cardDao: CardDao
     private lateinit var database: LockyDatabase
-    private lateinit var accountsForUser1: List<Account>
-    private lateinit var accountsForUser2: List<Account>
+    private lateinit var cardsForUser1: List<Card>
+    private lateinit var cardsForUser2: List<Card>
     private val user1 = "user1@email.com"
     private val user2 = "user2@email.com"
+
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -33,17 +34,17 @@ class AccountRepositoryTest {
         database = Room.inMemoryDatabaseBuilder(
             context, LockyDatabase::class.java
         ).build()
-        accountDao = database.accountDao()
+        cardDao = database.cardDao()
 
         /*
         * We have created two users, user1 & user 2
-        * We add accounts for each user separately
+        * We add cards for each user separately
         * We then perform the tests
         */
-        accountsForUser1 = TestUtil.createAccounts(15, user1)
-        accountsForUser2 = TestUtil.createAccounts(10, user2)
-        accountDao.insertAll(accountsForUser1)
-        accountDao.insertAll(accountsForUser2)
+        cardsForUser1 = TestUtil.createCards(15, user1)
+        cardsForUser2 = TestUtil.createCards(10, user2)
+        cardDao.insertAll(cardsForUser1)
+        cardDao.insertAll(cardsForUser2)
     }
 
     @After
@@ -60,10 +61,10 @@ class AccountRepositoryTest {
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        val resultSizeForUser1 = accountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = accountsForUser2.size //Fetch all for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        val resultSizeForUser1 = cardsForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = cardsForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -79,13 +80,13 @@ class AccountRepositoryTest {
 
         /* Act */
         /* Wipe data first */
-        accountDao.removeAll(user1)
-        accountDao.removeAll(user2)
+        cardDao.removeAll(user1)
+        cardDao.removeAll(user2)
         /* Try to get now */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        val resultSizeForUser1 = accountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = accountsForUser2.size //Fetch all for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        val resultSizeForUser1 = cardsForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = cardsForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -96,18 +97,18 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun getOne_DataExists() = runBlocking {
         /* Arrange */
-        var accountForUser1: Account? = null
-        var accountForUser2: Account? = null
-        var resultForUser1: Account? = null
-        var resultForUser2: Account? = null
+        var cardForUser1: Card? = null
+        var cardForUser2: Card? = null
+        var resultForUser1: Card? = null
+        var resultForUser2: Card? = null
         /* Act */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        accountForUser1 = accountsForUser1.last() //Fetch last for user 1
-        accountForUser2 = accountsForUser2.last() //Fetch last for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        cardForUser1 = cardsForUser1.last() //Fetch last for user 1
+        cardForUser2 = cardsForUser2.last() //Fetch last for user 2
         /* Test single get */
-        resultForUser1 = accountDao.get(accountForUser1.id)
-        resultForUser2 = accountDao.get(accountForUser2.id)
+        resultForUser1 = cardDao.get(cardForUser1.id)
+        resultForUser2 = cardDao.get(cardForUser2.id)
 
         /* Assert */
         Assert.assertNotNull(resultForUser1)
@@ -118,12 +119,12 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun getOne_DataDoesNotExists() = runBlocking {
         /* Arrange */
-        var resultForUser1: Account? = null
-        var resultForUser2: Account? = null
+        var resultForUser1: Card? = null
+        var resultForUser2: Card? = null
 
         /* Act */
-        resultForUser1 = accountDao.get(9846)
-        resultForUser2 = accountDao.get(5132)
+        resultForUser1 = cardDao.get(9846)
+        resultForUser2 = cardDao.get(5132)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -134,22 +135,22 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun removeOne_DataExists() = runBlocking {
         /* Arrange */
-        var accountForUser1: Account? = null
-        var accountForUser2: Account? = null
-        var resultForUser1: Account? = null
-        var resultForUser2: Account? = null
+        var cardForUser1: Card? = null
+        var cardForUser2: Card? = null
+        var resultForUser1: Card? = null
+        var resultForUser2: Card? = null
 
         /* Act */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        accountForUser1 = accountsForUser1.last() //Fetch last for user 1
-        accountForUser2 = accountsForUser2.last() //Fetch last for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all card for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all card for user2
+        cardForUser1 = cardsForUser1.last() //Fetch last for user 1
+        cardForUser2 = cardsForUser2.last() //Fetch last for user 2
         /* Test remove one */
-        accountDao.remove(accountForUser1.id)
-        accountDao.remove(accountForUser2.id)
+        cardDao.remove(cardForUser1.id)
+        cardDao.remove(cardForUser2.id)
         /* Try to fetch data now */
-        resultForUser1 = accountDao.get(accountForUser1.id)
-        resultForUser2 = accountDao.get(accountForUser2.id)
+        resultForUser1 = cardDao.get(cardForUser1.id)
+        resultForUser2 = cardDao.get(cardForUser2.id)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -160,16 +161,16 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun removeOne_DataDoesNotExists() = runBlocking {
         /* Arrange */
-        var resultForUser1: Account? = null
-        var resultForUser2: Account? = null
+        var resultForUser1: Card? = null
+        var resultForUser2: Card? = null
 
         /* Act */
         /* Remove object that doesn't exist */
-        accountDao.remove(65)
-        accountDao.remove(85)
+        cardDao.remove(65)
+        cardDao.remove(85)
         /* Try to fetch data now */
-        resultForUser1 = accountDao.get(65)
-        resultForUser2 = accountDao.get(65)
+        resultForUser1 = cardDao.get(65)
+        resultForUser2 = cardDao.get(65)
 
         /* Assert */
         Assert.assertNull(resultForUser1)
@@ -185,13 +186,13 @@ class AccountRepositoryTest {
 
         /* Act */
         /* Wipe data first */
-        accountDao.removeAll(user1)
-        accountDao.removeAll(user2)
+        cardDao.removeAll(user1)
+        cardDao.removeAll(user2)
         /* Try to get now */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        val resultSizeForUser1 = accountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = accountsForUser2.size //Fetch all for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        val resultSizeForUser1 = cardsForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = cardsForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -202,29 +203,29 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun update_DataExists() = runBlocking {
         /* Arrange */
-        var accountForUser1: Account? = null
-        var accountForUser2: Account? = null
+        var cardForUser1: Card? = null
+        var cardForUser2: Card? = null
         val expectedNewEntryNameForUser1 = "EntryUser1"
         val expectedNewEntryNameForUser2 = "EntryUser2"
 
         /* Act */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        accountForUser1 = accountsForUser1.last() //Fetch all for user 1
-        accountForUser2 = accountsForUser2.last() //Fetch all for user 2
-        accountForUser1.entryName = expectedNewEntryNameForUser1
-        accountForUser2.entryName = expectedNewEntryNameForUser2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        cardForUser1 = cardsForUser1.last() //Fetch all for user 1
+        cardForUser2 = cardsForUser2.last() //Fetch all for user 2
+        cardForUser1.entryName = expectedNewEntryNameForUser1
+        cardForUser2.entryName = expectedNewEntryNameForUser2
         /* Test update */
-        accountDao.update(accountForUser1)
-        accountDao.update(accountForUser2)
+        cardDao.update(cardForUser1)
+        cardDao.update(cardForUser2)
 
         /* Assert */
         assertThat(
-            accountDao.get(accountForUser1.id)?.entryName,
+            cardDao.get(cardForUser1.id)?.entryName,
             equalTo(expectedNewEntryNameForUser1)
         )
         assertThat(
-            accountDao.get(accountForUser2.id)?.entryName,
+            cardDao.get(cardForUser2.id)?.entryName,
             equalTo(expectedNewEntryNameForUser2)
         )
     }
@@ -238,12 +239,12 @@ class AccountRepositoryTest {
 
         /* Act */
         /* Update non existing */
-        accountDao.update(Account().apply { this.id = 89 })
+        cardDao.update(Card().apply { this.id = 89 })
         /* Try to get now */
-        val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
-        val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2
-        val resultSizeForUser1 = accountsForUser1.size //Fetch all for user 1
-        val resultSizeForUser2 = accountsForUser2.size //Fetch all for user 2
+        val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
+        val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2
+        val resultSizeForUser1 = cardsForUser1.size //Fetch all for user 1
+        val resultSizeForUser2 = cardsForUser2.size //Fetch all for user 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -258,8 +259,8 @@ class AccountRepositoryTest {
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
-        val resultSizeForUser1 = getValue(accountDao.size(user1)) //Get all size for user1
-        val resultSizeForUser2 = getValue(accountDao.size(user2)) //Get all size for user2 2
+        val resultSizeForUser1 = getValue(cardDao.size(user1)) //Get all size for user1
+        val resultSizeForUser2 = getValue(cardDao.size(user2)) //Get all size for user2 2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -275,10 +276,10 @@ class AccountRepositoryTest {
 
         /* Act */
         //Wipe all data before testing
-        accountDao.removeAll(user1)
-        accountDao.removeAll(user2)
-        val resultSizeForUser1 = getValue(accountDao.size(user1)) //Get all size for user1
-        val resultSizeForUser2 = getValue(accountDao.size(user2)) //Get all size for user2
+        cardDao.removeAll(user1)
+        cardDao.removeAll(user2)
+        val resultSizeForUser1 = getValue(cardDao.size(user1)) //Get all size for user1
+        val resultSizeForUser2 = getValue(cardDao.size(user2)) //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -289,15 +290,15 @@ class AccountRepositoryTest {
     @Throws(Exception::class)
     fun search_DataExists_1Of2() = runBlocking {
         /* Arrange */
-        val query = "%count%"
+        val query = "%ard%"
         val expectedSizeForUser1 = 15 //Size for user1 only
         val expectedSizeForUser2 = 10 //Size for user2 only
 
         /* Act */
         val resultSizeForUser1 =
-            getValue(accountDao.search(query, user1)).size //Get all size for user1
+            getValue(cardDao.search(query, user1)).size //Get all size for user1
         val resultSizeForUser2 =
-            getValue(accountDao.search(query, user2)).size //Get all size for user2
+            getValue(cardDao.search(query, user2)).size //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))
@@ -314,9 +315,9 @@ class AccountRepositoryTest {
 
         /* Act */
         val resultSizeForUser1 =
-            getValue(accountDao.search(query, user1)).size //Get all size for user1
+            getValue(cardDao.search(query, user1)).size //Get all size for user1
         val resultSizeForUser2 =
-            getValue(accountDao.search(query, user2)).size //Get all size for user2
+            getValue(cardDao.search(query, user2)).size //Get all size for user2
 
         /* Assert */
         assertThat(resultSizeForUser1, equalTo(expectedSizeForUser1))

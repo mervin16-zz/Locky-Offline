@@ -141,10 +141,10 @@ class CardFragment : Fragment() {
 
     private fun subscribeUi(cards: List<Card>) {
         val adapter = CardAdapter(
-            CardClickListener {
+            ClickListener {
                 navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it))
             },
-            CardOptionsClickListener { view, card ->
+            OptionsClickListener { view, card ->
                 //Prevents double click and creating a double instance
                 view.apply {
                     isEnabled = false

@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/Card_Number"
-            style="@style/Locky.Text.Title5.Name"
+            style="@style/Locky.Text.Title5.RunningTitle"
             cardNumber="@{Card.number}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -10,17 +10,17 @@ import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewBankaccountBinding
 
 class BankAccountAdapter(
-    private val bankAccountClickListener: BankAccountClickListener,
-    private val bankAccountOptionsClickListener: BankAccountOptionsClickListener?,
+    private val clickListener: ClickListener,
+    private val optionsClickListener: OptionsClickListener?,
     private var isSimplified: Boolean
 ) : ListAdapter<BankAccount, BankAccountAdapter.ViewHolder>(
-    AccountDiffCallback()
+    DiffCallback()
 ) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            bankAccountClickListener,
-            bankAccountOptionsClickListener,
+            clickListener,
+            optionsClickListener,
             getItem(position),
             isSimplified
         )
@@ -35,8 +35,8 @@ class BankAccountAdapter(
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewBankaccountBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            clickListener: BankAccountClickListener,
-            optionsClickListener: BankAccountOptionsClickListener?,
+            clickListener: ClickListener,
+            optionsClickListener: OptionsClickListener?,
             bankAccount: BankAccount,
             isSimplified: Boolean
         ) {
@@ -60,7 +60,7 @@ class BankAccountAdapter(
     }
 }
 
-class AccountDiffCallback : DiffUtil.ItemCallback<BankAccount>() {
+class DiffCallback : DiffUtil.ItemCallback<BankAccount>() {
 
     override fun areItemsTheSame(oldItem: BankAccount, newItem: BankAccount): Boolean {
         return oldItem.id == newItem.id
@@ -72,10 +72,10 @@ class AccountDiffCallback : DiffUtil.ItemCallback<BankAccount>() {
 
 }
 
-class BankAccountClickListener(val clickListener: (account: BankAccount) -> Unit) {
+class ClickListener(val clickListener: (account: BankAccount) -> Unit) {
     fun onClick(account: BankAccount) = clickListener(account)
 }
 
-class BankAccountOptionsClickListener(val clickListener: (view: View, account: BankAccount) -> Unit) {
+class OptionsClickListener(val clickListener: (view: View, account: BankAccount) -> Unit) {
     fun onClick(view: View, account: BankAccount) = clickListener(view, account)
 }

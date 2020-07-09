@@ -75,14 +75,6 @@ fun TextView.accountLogin(account: Account) {
     text = resources.getString(R.string.app_user_email, account.email)
 }
 
-/********************************* Bank Account Binding Adapters****************************************/
-@BindingAdapter("iconColor")
-fun ImageView.iconColor(hexColor: String) {
-    if (hexColor.isNotEmpty()) {
-        this.setColorFilter(Color.parseColor(hexColor))
-    }
-}
-
 /********************************* Profile Binding Adapters****************************************/
 @BindingAdapter("memberSince")
 fun TextView.memberSince(dateJoined: String) {
@@ -153,6 +145,13 @@ fun ImageView.imageUrl(imageUrl: String, loadingResource: Drawable, errorResourc
 @BindingAdapter("loadIcon")
 fun ImageView.loadIcon(icon: Drawable) {
     this.setImageDrawable(icon)
+}
+
+@BindingAdapter("iconColor")
+fun ImageView.iconColor(hexColor: String) {
+    if (hexColor.isNotEmpty()) {
+        this.setColorFilter(Color.parseColor(hexColor))
+    }
 }
 
 @BindingAdapter("lockyMessageParams")

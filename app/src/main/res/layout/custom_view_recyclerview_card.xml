@@ -18,11 +18,11 @@
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.card.ClickListener" />
 
         <variable
             name="ClickOptionsListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.card.CardOptionsClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.main.card.OptionsClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

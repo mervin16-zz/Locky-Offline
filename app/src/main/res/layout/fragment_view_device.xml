@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="BankAccount"
-            type="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
+            name="Device"
+            type="com.th3pl4gu3.locky_offline.core.main.Device" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,28 +17,27 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/Bank_Account_Logo"
-            iconColor="@{BankAccount.accent}"
+            android:id="@+id/Device_Logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bank" />
+            app:srcCompat="@drawable/ic_locky_with_background_circle" />
 
         <TextView
-            android:id="@+id/Bank_Account_Name"
+            android:id="@+id/Device_Name"
             style="@style/Locky.Text.Title5.RunningTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:text="@{BankAccount.entryName}"
+            android:text="@{Device.entryName}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Bank_Account_Logo"
+            app:layout_constraintTop_toBottomOf="@+id/Device_Logo"
             tools:text="This can be a very very very long title toooooo" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +49,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Bank_Account_Name" />
+            app:layout_constraintTop_toBottomOf="@+id/Device_Name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,23 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
+        <variable
+            name="Device"
+            type="com.th3pl4gu3.locky_offline.core.main.Device" />
+
+        <variable
+            name="OptionsClickListener"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.device.OptionsClickListener" />
+
+        <variable
+            name="ClickListener"
+            type="com.th3pl4gu3.locky_offline.ui.main.main.device.ClickListener" />
 
         <variable
             name="IsSimplifiedVersion"
             type="Boolean" />
-
-        <variable
-            name="BankAccount"
-            type="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
-
-        <variable
-            name="ClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.bank_account.ClickListener" />
-
-        <variable
-            name="OptionsClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.main.bank_account.OptionsClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,12 +31,11 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> ClickListener.onClick(BankAccount)}"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:onClick="@{() -> ClickListener.onClick(Device)}">
 
         <ImageView
-            android:id="@+id/Bank_Account_Logo"
-            iconColor="@{BankAccount.accent}"
+            android:id="@+id/Device_Logo"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
@@ -45,14 +45,14 @@
             app:layout_constraintEnd_toStartOf="@id/Barrier_Logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bank" />
+            app:srcCompat="@drawable/ic_locky_with_background_circle" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_Logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="end"
-            app:constraint_referenced_ids="Bank_Account_Logo" />
+            app:constraint_referenced_ids="Device_Logo" />
 
         <TextView
             android:id="@+id/Entry_Name"
@@ -62,65 +62,65 @@
             android:ellipsize="end"
             android:ems="11"
             android:singleLine="true"
-            android:text="@{BankAccount.entryName}"
-            app:layout_constraintBottom_toTopOf="@+id/Bank_Account_Number"
+            android:text="@{Device.entryName}"
+            app:layout_constraintBottom_toTopOf="@+id/Device_Username"
             app:layout_constraintStart_toEndOf="@id/Barrier_Logo"
-            app:layout_constraintTop_toTopOf="@+id/Bank_Account_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Device_Logo"
             app:layout_constraintVertical_chainStyle="spread"
             tools:text="This is a very very long title that can overlap" />
 
         <TextView
-            android:id="@+id/Bank_Account_Number"
+            android:id="@+id/Device_Username"
             style="@style/Locky.Text.Subtitle.List.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:ems="15"
             android:singleLine="true"
-            android:text="@{BankAccount.accountNumber}"
-            app:layout_constraintBottom_toTopOf="@+id/Bank_Account_Owner"
+            android:text="@{Device.username}"
+            app:layout_constraintBottom_toTopOf="@+id/Device_IpAddress"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"
             app:layout_constraintTop_toBottomOf="@+id/Entry_Name"
             app:layout_constraintVertical_chainStyle="spread"
-            tools:text="099 213 321 213" />
+            tools:text="Thisismylonglonglongusername" />
 
         <TextView
-            android:id="@+id/Bank_Account_Owner"
+            android:id="@+id/Device_IpAddress"
             style="@style/Locky.Text.Subtitle.List.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:ems="15"
             android:singleLine="true"
-            android:text="@{BankAccount.accountOwner}"
+            android:text="@{Device.ipAddress}"
             android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/Bank_Account_Logo"
+            app:layout_constraintBottom_toBottomOf="@+id/Device_Logo"
             app:layout_constraintStart_toStartOf="@+id/Entry_Name"
-            app:layout_constraintTop_toBottomOf="@+id/Bank_Account_Number"
+            app:layout_constraintTop_toBottomOf="@+id/Device_Username"
             app:layout_constraintVertical_chainStyle="spread"
-            tools:text="www.domain.com/path/path/path/page.html" />
+            tools:text="192.168.100.1" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/Barrier_Options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="start"
-            app:constraint_referenced_ids="Bank_Account_More_Options" />
+            app:constraint_referenced_ids="Device_More_Options" />
 
         <ImageButton
-            android:id="@+id/Bank_Account_More_Options"
+            android:id="@+id/Device_More_Options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:background="@drawable/custom_states_background_button_image"
-            android:onClick="@{(view) -> OptionsClickListener.onClick(view, BankAccount)}"
+            android:onClick="@{(view) -> OptionsClickListener.onClick(view, Device)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_more_options"
             android:visibility="@{IsSimplifiedVersion ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/Bank_Account_Logo"
+            app:layout_constraintBottom_toBottomOf="@+id/Device_Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/Barrier_Options"
-            app:layout_constraintTop_toTopOf="@+id/Bank_Account_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Device_Logo"
             tools:src="@drawable/ic_more_options" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

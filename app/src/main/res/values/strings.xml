@@ -55,6 +55,10 @@
     <string name="text_title_emptyView_bank_accounts">Save your Bank Accounts</string>
     <string name="text_subtitle_emptyView_bank_accounts">Don\'t forget to save all your bank accounts.</string>
 
+    <!--FIXME("Update strings")-->
+    <string name="text_title_emptyView_devices">Save your Devices</string>
+    <string name="text_subtitle_emptyView_devices">Start inserting password for all your personal devices here</string>
+
     <string name="text_title_splash">Welcome to Locky</string>
     <string name="text_subtitle_splash">@string/app_description_short</string>
 
@@ -155,6 +159,12 @@
     <string name="menu_bank_account_moreOptions_copyIban">Copy Iban</string>
     <string name="menu_bank_account_moreOptions_copySwift">Copy Swift</string>
 
+    <!--FIXME("Update strings")-->
+    <string name="menu_device_moreOptions_copyUsername">Copy Username</string>
+    <string name="menu_device_moreOptions_copyPass">Copy Password</string>
+    <string name="menu_device_moreOptions_copyIp">Copy IP</string>
+    <string name="menu_device_moreOptions_viewPass">View Password</string>
+
     <string name="menu_search_filters_account">Accounts</string>
     <string name="menu_search_filters_card">Cards</string>
     <string name="menu_search_filters_bank_account">Bank Accounts</string>
@@ -175,13 +185,11 @@
     <string name="field_account_2fakeys">Two-Factor Backup Codes</string>
     <string name="field_account_additional">Additional Comments</string>
 
-
     <string name="field_account_blank_website"><i>No websites entered</i></string>
     <string name="field_account_blank_login"><i>No login entered</i></string>
 
     <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
     <string name="field_helper_account_2fakeys">Store your Two Factor Authentication backup codes here</string>
-
 
     <string name="field_card_name">Entry Name</string>
     <string name="field_card_number">Number</string>
@@ -192,6 +200,12 @@
     <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
 
+    <!--FIXME("Update strings")-->
+    <string name="field_device_username">Username</string>
+    <string name="field_device_password">Password</string>
+    <string name="field_device_ip">Ip Address</string>
+    <string name="field_device_mac">Mac Address</string>
+    <string name="field_device_additional">Additional Comments</string>
 
     <string name="field_bank_account_name">Name</string>
     <string name="field_bank_account_number">Number</string>
@@ -219,6 +233,11 @@
     <string name="field_bank_account_sort_entry">Name</string>
     <string name="field_bank_account_sort_owner">Account Owner</string>
     <string name="field_bank_account_sort_bank">Bank</string>
+
+    <!--FIXME("Update strings")-->
+    <string name="field_device_sort_entry">Entry Name</string>
+    <string name="field_device_sort_username">Username</string>
+    <string name="field_device_sort_ip">Ip Address</string>
 
     <string name="field_hint_logo_search" translatable="false">i.e facebook.com</string>
     <string name="field_hint_item_search">Search</string>

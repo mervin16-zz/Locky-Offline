@@ -4,14 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.User
-import com.th3pl4gu3.locky_offline.repository.database.daos.AccountDao
-import com.th3pl4gu3.locky_offline.repository.database.daos.BankAccountDao
-import com.th3pl4gu3.locky_offline.repository.database.daos.CardDao
-import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
+import com.th3pl4gu3.locky_offline.core.main.*
+import com.th3pl4gu3.locky_offline.repository.database.daos.*
+
 
 /*
 * The main Locky database that stores all locky objects
@@ -21,8 +16,8 @@ import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
 * The user object entity also should be defined here.
 */
 @Database(
-    entities = [Account::class, Card::class, BankAccount::class, User::class],
-    version = 1,
+    entities = [Account::class, Card::class, BankAccount::class, Device::class, User::class],
+    version = 2,
     exportSchema = false
 )
 abstract class LockyDatabase : RoomDatabase() {
@@ -34,6 +29,7 @@ abstract class LockyDatabase : RoomDatabase() {
     abstract fun cardDao(): CardDao
     abstract fun userDao(): UserDao
     abstract fun bankAccountDao(): BankAccountDao
+    abstract fun deviceDao(): DeviceDao
 
     companion object {
         /*
@@ -53,7 +49,9 @@ abstract class LockyDatabase : RoomDatabase() {
                     context.applicationContext,
                     LockyDatabase::class.java,
                     "locky_database"
-                ).build()
+                )
+                    .addMigrations(LockyMigration.MIGRATION_1_2)
+                    .build()
                 INSTANCE = instance
                 return instance
             }

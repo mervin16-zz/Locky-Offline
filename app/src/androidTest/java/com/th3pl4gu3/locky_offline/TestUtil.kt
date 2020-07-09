@@ -1,9 +1,6 @@
 package com.th3pl4gu3.locky_offline
 
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.core.main.*
 import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 
 object TestUtil {
@@ -33,7 +30,6 @@ object TestUtil {
             description = "This is a cookie$number",
             originalJson = "{'title':'Cookie$number'}"
         )
-
 
     fun getAccount(number: Int, user: String) = Account().apply {
         this.entryName = "Account $number"
@@ -127,6 +123,35 @@ object TestUtil {
                     this.iban = "Iban $number"
                     this.swiftCode = "Swift $number"
                     this.accent = "Accent $number"
+                    this.user = user
+                    this.additionalInfo = "More Info $number"
+                }
+            )
+        }
+    }
+
+    fun getDevice(number: Int, user: String) =
+        Device().apply {
+            this.entryName = "Device $number"
+            this.icon = "Icon $number"
+            this.username = "Username $number"
+            this.password = "Password$number"
+            this.ipAddress = "192.168.100.$number"
+            this.macAddress = "D2:1F:1F:A2:A5:F$number"
+            this.user = user
+            this.additionalInfo = "More Info $number"
+        }
+
+    fun createDevices(size: Int, user: String) = ArrayList<Device>().apply {
+        for (number in 1..size) {
+            add(
+                Device().apply {
+                    this.entryName = "Device $number"
+                    this.icon = "Icon $number"
+                    this.username = "Username $number"
+                    this.password = "Password$number"
+                    this.ipAddress = "192.168.100.$number"
+                    this.macAddress = "D2:1F:1F:A2:A5:F$number"
                     this.user = user
                     this.additionalInfo = "More Info $number"
                 }
