@@ -9,11 +9,12 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
+import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
-    internal enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS }
+    internal enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS, DEVICES }
 
     /*
     * Private variables
@@ -59,6 +60,15 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    val devices = Transformations.switchMap(_searchQuery) {
+        if (_filter.value == CREDENTIALS.DEVICES) {
+            DeviceRepository.getInstance(getApplication())
+                .search(it, activeUser.email)
+        } else {
+            null
+        }
+    }
+
     val resultSize = Transformations.map(_resultSize) {
         getApplication<Application>().resources.getQuantityString(
             R.plurals.message_search_results,
@@ -72,6 +82,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             CREDENTIALS.ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_account)
             CREDENTIALS.BANK_ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_bank_account)
             CREDENTIALS.CARDS -> getApplication<Application>().getString(R.string.menu_search_filters_card)
+            CREDENTIALS.DEVICES -> getApplication<Application>().getString(R.string.menu_search_filters_device)
             else -> getApplication<Application>().getString(R.string.menu_search_filters_account)
         }
     }

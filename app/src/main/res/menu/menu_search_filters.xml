@@ -17,4 +17,9 @@
         android:id="@+id/Menu_Bank_Account"
         android:title="@string/menu_search_filters_bank_account"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_Device"
+        android:title="@string/menu_search_filters_device"
+        app:showAsAction="ifRoom" />
 </menu>

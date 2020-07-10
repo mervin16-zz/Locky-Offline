@@ -168,6 +168,7 @@
     <string name="menu_search_filters_account">Accounts</string>
     <string name="menu_search_filters_card">Cards</string>
     <string name="menu_search_filters_bank_account">Bank Accounts</string>
+    <string name="menu_search_filters_device">Devices</string>
 
     <!-- =========== -->
     <!-- Data Fields -->

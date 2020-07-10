@@ -19,16 +19,19 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.Account
 import com.th3pl4gu3.locky_offline.core.main.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.Device
 import com.th3pl4gu3.locky_offline.databinding.FragmentSearchBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceAdapter
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 import com.th3pl4gu3.locky_offline.ui.main.main.account.ClickListener as AccountClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.ClickListener as BankClickListener
 import com.th3pl4gu3.locky_offline.ui.main.main.card.ClickListener as CardClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.device.ClickListener as DeviceClickListener
 
 class SearchFragment : Fragment() {
 
@@ -98,6 +101,8 @@ class SearchFragment : Fragment() {
         observeCards()
 
         observeBankAccounts()
+
+        observeDevices()
     }
 
     override fun onResume() {
@@ -150,6 +155,15 @@ class SearchFragment : Fragment() {
         })
     }
 
+    private fun observeDevices() {
+        viewModel.devices.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                viewModel.updateResultSize(it.size)
+                subscribeDevicesUi(it)
+            }
+        })
+    }
+
     private fun createFilterPopUpMenu(view: View) {
         createPopUpMenu(
             view,
@@ -166,6 +180,10 @@ class SearchFragment : Fragment() {
                     }
                     R.id.Menu_Bank_Account -> {
                         viewModel.setFilter(SearchViewModel.CREDENTIALS.BANK_ACCOUNTS)
+                        true
+                    }
+                    R.id.Menu_Device -> {
+                        viewModel.setFilter(SearchViewModel.CREDENTIALS.DEVICES)
                         true
                     }
                     else -> false
@@ -256,6 +274,31 @@ class SearchFragment : Fragment() {
         }
 
         adapter.submitList(bankAccounts)
+    }
+
+    private fun subscribeDevicesUi(devices: List<Device>) {
+        val adapter = DeviceAdapter(
+            DeviceClickListener {
+                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewDevice(it))
+            },
+            null,
+            true
+        )
+
+        binding.RecyclerViewLists.apply {
+            /*
+            * State that layout size will not change for better performance
+            */
+            setHasFixedSize(true)
+
+            /* Bind the layout manager */
+            layoutManager = LinearLayoutManager(requireContext())
+
+            /* Bind the adapter */
+            this.adapter = adapter
+        }
+
+        adapter.submitList(devices)
     }
 
     private fun alternateSearchVisibility(visible: Boolean) {

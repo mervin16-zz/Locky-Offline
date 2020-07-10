@@ -9,6 +9,7 @@ import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
+import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                 wipeAccounts()
                 wipeCards()
                 wipeBankAccounts()
+                wipeDevices()
                 delay(3000)
                 _loadingStatus.value = Loading.Status.DONE
             } catch (e: Exception) {
@@ -49,4 +51,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     private suspend fun wipeBankAccounts() =
         BankAccountRepository.getInstance(getApplication()).wipe(activeUser.email)
+
+    private suspend fun wipeDevices() =
+        DeviceRepository.getInstance(getApplication()).wipe(activeUser.email)
 }
