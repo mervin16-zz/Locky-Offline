@@ -5,13 +5,12 @@ import androidx.lifecycle.*
 import com.th3pl4gu3.locky_offline.core.main.Device
 import com.th3pl4gu3.locky_offline.core.main.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
+import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DeviceViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -99,24 +98,10 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
     */
     private fun loadDevices() {
         viewModelScope.launch {
-            delay(500)
-            _devices.value = ArrayList<Device>().apply {
-                for (number in 1..20) {
-                    add(
-                        Device().apply {
-                            this.entryName = "Device $number"
-                            this.icon = "Icon $number"
-                            this.username = "Username $number"
-                            this.password = "Password$number"
-                            this.ipAddress = "192.168.100.$number"
-                            this.macAddress = "D2:1F:1F:A2:A5:F$number"
-                            this.user = activeUser.email
-                            this.additionalInfo = "More Info $number"
-                        }
-                    )
-                }
-
-                shuffle()
+            _devices.addSource(
+                DeviceRepository.getInstance(getApplication()).getAll(activeUser.email)
+            ) {
+                _devices.value = it
             }
         }
     }

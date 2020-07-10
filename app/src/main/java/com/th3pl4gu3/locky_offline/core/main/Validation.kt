@@ -13,7 +13,7 @@ import kotlin.collections.HashMap
 * All forms should handle validation through this class
 */
 class Validation(val application: Application) {
-    enum class ErrorField { NAME, PASSWORD, EMAIL, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
+    enum class ErrorField { NAME, PASSWORD, EMAIL, USERNAME, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
 
     var errorList = HashMap<ErrorField, String>()
         private set
@@ -84,6 +84,25 @@ class Validation(val application: Application) {
             isCardDateValid(
                 card.issuedDate.toFormattedCalendarForCard(),
                 card.expiryDate.toFormattedCalendarForCard()
+            )
+        }
+
+        return errorList.isEmpty()
+    }
+
+    fun isDeviceFormValid(device: Device): Boolean {
+        with(device) {
+            emptyValueCheck(
+                entryName,
+                ErrorField.NAME
+            )
+            emptyValueCheck(
+                username,
+                ErrorField.USERNAME
+            )
+            emptyValueCheck(
+                password,
+                ErrorField.PASSWORD
             )
         }
 

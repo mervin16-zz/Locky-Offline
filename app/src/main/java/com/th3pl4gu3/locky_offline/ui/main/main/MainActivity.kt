@@ -22,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -191,22 +190,10 @@ class MainActivity : AppCompatActivity() {
         * will be redirected to the add card fragment
         */
         when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
-            R.id.Fragment_Account -> {
-                navigateTo(R.id.action_global_Fragment_Add_Account)
-            }
-            R.id.Fragment_Card -> {
-                navigateTo(R.id.action_global_Fragment_Add_Card)
-            }
-            R.id.Fragment_Bank_Account -> {
-                navigateTo(R.id.action_global_Fragment_Add_BankAccount)
-            }
-            R.id.Fragment_Device -> {
-                /*
-                * Leave blank for now
-                * Need to fill it up when devices is implemented
-                */
-                toast(getString(R.string.dev_feature_implementation_soon))
-            }
+            R.id.Fragment_Account -> navigateTo(R.id.action_global_Fragment_Add_Account)
+            R.id.Fragment_Card -> navigateTo(R.id.action_global_Fragment_Add_Card)
+            R.id.Fragment_Bank_Account -> navigateTo(R.id.action_global_Fragment_Add_BankAccount)
+            R.id.Fragment_Device -> navigateTo(R.id.action_global_Fragment_Add_Device)
         }
     }
 

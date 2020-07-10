@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewDeviceBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.setColor
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
@@ -73,20 +70,20 @@ class ViewDeviceFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.Action_Duplicate -> {
-                /*navigateTo(
+                navigateTo(
                     ViewDeviceFragmentDirections.actionGlobalFragmentAddDevice()
-                        .setKEYCARD(0).setKEYCARDPREVIOUS(binding.device!!.id)
-                )*/
+                        .setKEYDEVICE(0).setKEYDEVICEPREVIOUS(binding.device!!.id)
+                )
                 true
             }
 
             R.id.Action_Edit -> {
-                /*navigateTo(
-                    ViewCardFragmentDirections.actionGlobalFragmentAddDevice()
-                        .setKEYCARD(
+                navigateTo(
+                    ViewDeviceFragmentDirections.actionGlobalFragmentAddDevice()
+                        .setKEYDEVICE(
                             binding.device!!.id
                         )
-                )*/
+                )
                 true
             }
 

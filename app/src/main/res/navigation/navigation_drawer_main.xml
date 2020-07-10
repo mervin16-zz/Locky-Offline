@@ -34,6 +34,14 @@
         app:popExitAnim="@anim/anim_slide_out_right" />
 
     <action
+        android:id="@+id/action_global_Fragment_Add_Device"
+        app:destination="@id/Fragment_Add_Device"
+        app:enterAnim="@anim/anim_slide_in_right"
+        app:exitAnim="@anim/anim_slide_out_left"
+        app:popEnterAnim="@anim/anim_slide_in_left"
+        app:popExitAnim="@anim/anim_slide_out_right" />
+
+    <action
         android:id="@+id/action_global_Fragment_Search"
         app:destination="@id/Fragment_Search" />
 
@@ -274,6 +282,31 @@
             android:id="@+id/action_Fragment_Add_BankAccount_to_Fragment_Bottom_Dialog_Logo_Bank_Account"
             app:destination="@id/Fragment_Bottom_Dialog_Logo_Bank_Account" />
     </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Add_Device"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.device.AddDeviceFragment"
+        android:label=""
+        tools:layout="@layout/fragment_add_device">
+        <action
+            android:id="@+id/action_Fragment_Add_Device_to_Fragment_Device"
+            app:destination="@id/Fragment_Device"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/Fragment_Account"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="KEY_DEVICE"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="KEY_DEVICE_PREVIOUS"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
 
     <!-- ===================================== -->
     <!-- ====== Bottom Dialog Fragments ====== -->
