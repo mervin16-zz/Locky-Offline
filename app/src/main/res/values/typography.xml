@@ -5,13 +5,18 @@
     <!-- ============================= -->
     <!-- ====== Main Typography ====== -->
     <!-- ============================= -->
-    <style name="Locky.Text.Title6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/google_sans_medium</item>
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+
+    <style name="Locky.Text.Title3" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="android:textColor">@color/colorTextTitle</item>
     </style>
 
     <style name="Locky.Text.Title5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/colorTextTitle</item>
+    </style>
+
+    <style name="Locky.Text.Title6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
         <item name="android:textColor">@color/colorTextTitle</item>
     </style>
 

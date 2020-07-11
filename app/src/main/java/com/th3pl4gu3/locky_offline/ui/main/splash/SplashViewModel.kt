@@ -46,20 +46,20 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             var fetchedUser = fetch(user.email)
 
-            if (fetchedUser == null) {
+            fetchedUser = if (fetchedUser == null) {
                 save(user)
                 /*
                 * Assigned saved user to fetch user
                 * We do this to always get an updated version of the user object
                 * to save in the session
                 */
-                fetchedUser = user
+                user
             } else {
                 /*
                 * We merge fetched user to get
                 * an updated data
                 */
-                fetchedUser = user.merge(fetchedUser)
+                user.merge(fetchedUser)
             }
 
             /*

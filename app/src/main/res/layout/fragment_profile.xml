@@ -93,80 +93,19 @@
             app:layout_constraintTop_toBottomOf="@+id/Account_Date_Joined" />
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/Stats_Account"
-            style="@style/Locky.FloatingActionButton.Normal.Display"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_Statistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="58dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_account"
-            app:layout_constraintBottom_toTopOf="@+id/Number_Account"
-            app:layout_constraintEnd_toStartOf="@+id/Stats_Card"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Button_Logout"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/Stats_Card"
-            style="@style/Locky.FloatingActionButton.Normal.Display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_credit_card"
-            app:layout_constraintBottom_toBottomOf="@+id/Stats_Account"
-            app:layout_constraintEnd_toStartOf="@+id/Stats_Bank_Account"
-            app:layout_constraintStart_toEndOf="@+id/Stats_Account"
-            app:layout_constraintTop_toTopOf="@+id/Stats_Account" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/Stats_Bank_Account"
-            style="@style/Locky.FloatingActionButton.Normal.Display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_bank"
-            app:layout_constraintBottom_toBottomOf="@+id/Stats_Card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Stats_Card"
-            app:layout_constraintTop_toTopOf="@+id/Stats_Card" />
-
-        <TextView
-            android:id="@+id/Number_Account"
-            style="@style/Locky.Text.Title6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="68dp"
-            android:text="@{ViewModel.accountSize}"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Stats_Account"
-            app:layout_constraintStart_toStartOf="@+id/Stats_Account"
-            tools:text="130 000" />
-
-        <TextView
-            android:id="@+id/Number_Cards"
-            style="@style/Locky.Text.Title6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="68dp"
-            android:text="@{ViewModel.cardSize}"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Stats_Card"
-            app:layout_constraintStart_toStartOf="@+id/Stats_Card"
-            tools:text="130 000" />
-
-        <TextView
-            android:id="@+id/Number_Bank_Accounts"
-            style="@style/Locky.Text.Title6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="68dp"
-            android:text="@{ViewModel.bankAccountSize}"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Stats_Bank_Account"
-            app:layout_constraintStart_toStartOf="@+id/Stats_Bank_Account"
-            tools:text="130 000" />
+            app:layout_constraintVertical_bias="0.0"
+            app:spanCount="2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
