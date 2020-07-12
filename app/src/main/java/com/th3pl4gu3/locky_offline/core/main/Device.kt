@@ -14,7 +14,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "device_table")
 data class Device(
-    @ColumnInfo(name = "icon") var icon: String = "",
+    @ColumnInfo(name = "icon") var icon: String = "ic_device",
     @ColumnInfo(name = "username") var username: String = "",
     @ColumnInfo(name = "password") var password: String = "",
     @ColumnInfo(name = "accent") var accent: String = "#D35C4B6C",

@@ -85,7 +85,6 @@ class ProfileFragment : Fragment() {
         viewModel.accountSize.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 updateStatistics(it)
-                viewModel.accountSize.removeObservers(viewLifecycleOwner)
             }
         })
     }
@@ -94,7 +93,6 @@ class ProfileFragment : Fragment() {
         viewModel.cardSize.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 updateStatistics(it)
-                viewModel.cardSize.removeObservers(viewLifecycleOwner)
             }
         })
     }
@@ -103,7 +101,6 @@ class ProfileFragment : Fragment() {
         viewModel.bankAccountSize.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 updateStatistics(it)
-                viewModel.bankAccountSize.removeObservers(viewLifecycleOwner)
             }
         })
     }
@@ -112,7 +109,6 @@ class ProfileFragment : Fragment() {
         viewModel.deviceSize.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 updateStatistics(it)
-                viewModel.deviceSize.removeObservers(viewLifecycleOwner)
             }
         })
     }
@@ -127,6 +123,7 @@ class ProfileFragment : Fragment() {
             /* Bind the adapter */
             this.adapter = _adapter
         }
+        _adapter.submitList(_statistics)
     }
 
     private fun updateStatistics(statistic: Statistic) {

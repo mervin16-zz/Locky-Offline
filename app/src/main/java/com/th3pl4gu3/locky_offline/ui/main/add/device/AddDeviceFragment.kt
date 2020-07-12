@@ -6,9 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddDeviceBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_LOGO_HEX
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_LOGO_ICON
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
@@ -49,6 +55,12 @@ class AddDeviceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /*
+        * Change logo accent click listener
+        */
+        logoAccentClickListener()
+
         /**
          * Form validity event
          */
@@ -66,6 +78,12 @@ class AddDeviceFragment : Fragment() {
 
         /* Observe if form has errors*/
         observeIfHasErrors()
+
+        /*
+        * Observe back stack entry for
+        * accent color changes in logo
+        */
+        observeBackStackEntryForLogoAccent()
     }
 
     override fun onDestroyView() {
@@ -113,6 +131,55 @@ class AddDeviceFragment : Fragment() {
                 showToastAndNavigateToDeviceList(it)
             }
         })
+    }
+
+    private fun observeBackStackEntryForLogoAccent() {
+        // After a configuration change or process death, the currentBackStackEntry
+        // points to the dialog destination, so you must use getBackStackEntry()
+        // with the specific ID of your destination to ensure we always
+        // get the right NavBackStackEntry
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.Fragment_Add_Device)
+
+        // Create our observer and add it to the NavBackStackEntry's lifecycle
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains(KEY_DEVICE_LOGO_HEX) || navBackStackEntry.savedStateHandle.contains(
+                    KEY_DEVICE_LOGO_ICON
+                )
+            ) {
+                /*
+                * Update the icon & accent color
+                */
+                viewModel.icon =
+                    navBackStackEntry.savedStateHandle.get<String>(KEY_DEVICE_LOGO_ICON)!!
+
+                viewModel.accent =
+                    navBackStackEntry.savedStateHandle.get<String>(KEY_DEVICE_LOGO_HEX)!!
+
+                //Remove the saved data
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_DEVICE_LOGO_HEX)
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_DEVICE_LOGO_ICON)
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        // As addObserver() does not automatically remove the observer, we
+        // call removeObserver() manually when the view lifecycle is destroyed
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
+    }
+
+    private fun logoAccentClickListener() {
+        binding.DeviceLogoEdit.setOnClickListener {
+            navigateTo(
+                AddDeviceFragmentDirections.actionFragmentAddDeviceToFragmentBottomDialogLogoDevice(
+                    viewModel.icon
+                ).setHEXCURRENT(viewModel.accent)
+            )
+        }
     }
 
     private fun showToastAndNavigateToDeviceList(toastMessage: String) {

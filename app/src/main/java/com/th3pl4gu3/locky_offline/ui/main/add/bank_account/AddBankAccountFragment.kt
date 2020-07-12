@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNT_LOGO_HEX
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
@@ -159,7 +158,7 @@ class AddBankAccountFragment : Fragment() {
                 */
                 viewModel.accent = navBackStackEntry.savedStateHandle.get<String>(KEY_BANK_ACCOUNT_LOGO_HEX)!!
 
-                navBackStackEntry.savedStateHandle.remove<AccountSort>(KEY_BANK_ACCOUNT_LOGO_HEX)
+                navBackStackEntry.savedStateHandle.remove<String>(KEY_BANK_ACCOUNT_LOGO_HEX)
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)

@@ -26,14 +26,15 @@
         -->
         <ImageView
             android:id="@+id/Device_Logo"
+            iconColor="@{ViewModel.accent}"
+            loadCustomIcon="@{ViewModel.icon}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_locky_with_background_circle" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/Device_Logo_Reset"
@@ -41,6 +42,7 @@
             android:layout_height="32dp"
             android:layout_marginBottom="12dp"
             android:background="?android:selectableItemBackgroundBorderless"
+            android:onClick="@{() -> ViewModel.resetLogo()}"
             app:layout_constraintBottom_toTopOf="@id/Device_Logo_Edit"
             app:layout_constraintStart_toStartOf="@id/Device_Logo_Edit"
             app:srcCompat="@drawable/ic_reset" />

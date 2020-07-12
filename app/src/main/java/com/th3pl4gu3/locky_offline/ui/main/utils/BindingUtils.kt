@@ -17,6 +17,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel
 import java.util.*
 
+
 /********************************* Card Binding Adapters****************************************/
 @BindingAdapter("cardNumber")
 fun TextView.setCardNumber(number: String) {
@@ -177,4 +178,15 @@ fun TextView.listTitleMessageEligibility(card: Card) {
     }
 
     this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitle))
+}
+
+
+@BindingAdapter("loadCustomIcon")
+fun ImageView.loadCustomIcon(icon: String) {
+    this.setImageDrawable(
+        ContextCompat.getDrawable(
+            context,
+            resources.getIdentifier(icon, "drawable", context.packageName)
+        )
+    )
 }

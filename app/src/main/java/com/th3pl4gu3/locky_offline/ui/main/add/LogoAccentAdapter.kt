@@ -1,11 +1,11 @@
-package com.th3pl4gu3.locky_offline.ui.main.add.bank_account
+package com.th3pl4gu3.locky_offline.ui.main.add
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewBankAccountLogoBinding
+import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewLogoAccentBinding
 
 class LogoAccentAdapter(
     private val logoAccentClickListener: LogoAccentClickListener
@@ -26,7 +26,8 @@ class LogoAccentAdapter(
         )
     }
 
-    class ViewHolder private constructor(val binding: CustomViewRecyclerviewBankAccountLogoBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: CustomViewRecyclerviewLogoAccentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             clickListener: LogoAccentClickListener,
             hex: String
@@ -39,7 +40,8 @@ class LogoAccentAdapter(
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CustomViewRecyclerviewBankAccountLogoBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    CustomViewRecyclerviewLogoAccentBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )

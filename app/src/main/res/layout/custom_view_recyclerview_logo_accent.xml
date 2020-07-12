@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="Hex"
             type="String" />
 
         <variable
             name="ClickListener"
-            type="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.LogoAccentClickListener" />
+            type="com.th3pl4gu3.locky_offline.ui.main.add.LogoAccentClickListener" />
     </data>
 
     <LinearLayout
@@ -25,11 +25,11 @@
         android:onClick="@{() -> ClickListener.onClick(Hex)}">
 
         <ImageView
-            android:id="@+id/Bank_Account_Logo"
+            android:id="@+id/Logo"
             iconColor="@{Hex}"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@drawable/ic_bank" />
+            app:srcCompat="@drawable/ic_accent" />
 
     </LinearLayout>
 

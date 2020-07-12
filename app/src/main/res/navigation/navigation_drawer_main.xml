@@ -305,6 +305,9 @@
             android:name="KEY_DEVICE_PREVIOUS"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_Fragment_Add_Device_to_Fragment_Bottom_Dialog_Logo_Device"
+            app:destination="@id/Fragment_Bottom_Dialog_Logo_Device" />
     </fragment>
 
 
@@ -351,6 +354,20 @@
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.TuningDeviceBottomSheetFragment"
         android:label="Filter"
         tools:layout="@layout/fragment_bottom_sheet_device_tuning" />
+
+    <dialog
+        android:id="@+id/Fragment_Bottom_Dialog_Logo_Device"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.add.device.LogoCustomizationBottomSheetFragment"
+        android:label="Customize Logo"
+        tools:layout="@layout/fragment_bottom_sheet_device_logo">
+        <argument
+            android:name="HEX_CURRENT"
+            android:defaultValue="#D35C4B6C"
+            app:argType="string" />
+        <argument
+            android:name="ICON_CURRENT"
+            app:argType="string" />
+    </dialog>
 
     <!-- ============================== -->
     <!-- ====== Search Fragment  ====== -->

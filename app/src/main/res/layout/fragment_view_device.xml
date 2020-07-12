@@ -18,12 +18,13 @@
 
         <ImageView
             android:id="@+id/Device_Logo"
+            iconColor="@{Device.accent}"
+            loadCustomIcon="@{Device.icon}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_locky_with_background_circle" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/Device_Name"

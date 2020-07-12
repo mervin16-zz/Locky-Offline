@@ -127,6 +127,8 @@
     <string name="text_title_bank_account_logo_accent_screen">Choose a color</string>
     <string name="text_title_bank_account_logo_accent_current">Current</string>
 
+    <!--FIXME("Update strings")-->
+    <string name="text_title_device_logo_customize_screen">Customize Logo</string>
 
     <!-- ==================== -->
     <!-- ======= Menu =======  -->

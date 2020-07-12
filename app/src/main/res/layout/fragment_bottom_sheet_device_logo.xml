@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ViewModel"
+            type="com.th3pl4gu3.locky_offline.ui.main.add.device.LogoCustomizationBottomSheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:id="@+id/Device_Logo_Title"
+            style="@style/Locky.Text.Title5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/text_title_device_logo_customize_screen"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Title"
+            app:layout_constraintEnd_toStartOf="@id/Button_Confirm_Changes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/Button_Confirm_Changes"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:tint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/Device_Logo_Title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/Device_Logo_Title"
+            app:layout_constraintTop_toTopOf="@id/Device_Logo_Title"
+            app:srcCompat="@drawable/ic_confirm" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="Device_Logo_Title,Button_Confirm_Changes" />
+
+        <ImageView
+            android:id="@+id/Device_Logo_Current"
+            iconColor="@{ViewModel.accent}"
+            loadCustomIcon="@{ViewModel.icon}"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/Device_Current_Text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Barrier_Title"
+            app:srcCompat="@drawable/ic_device" />
+
+        <TextView
+            android:id="@+id/Device_Current_Text"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:text="Current"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Current"
+            app:layout_constraintEnd_toEndOf="@+id/Device_Logo_Current"
+            app:layout_constraintStart_toStartOf="@+id/Device_Logo_Current"
+            app:layout_constraintTop_toBottomOf="@+id/Device_Logo_Current" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="Device_Current_Text,Device_Logo_Current" />
+
+        <TextView
+            android:id="@+id/Text_Icon_Choose"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:text="Choose an Icon"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Current" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_Logo_Icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/Barrier_Icon_Choose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Text_Icon_Choose" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/Barrier_Icon_Choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="Text_Icon_Choose,RecyclerView_Logo_Icon" />
+
+        <TextView
+            android:id="@+id/Text_Accent_Choose"
+            style="@style/Locky.Text.Subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:text="Choose an Accent"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Icon_Choose" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerView_Logo_Accent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Text_Accent_Choose" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

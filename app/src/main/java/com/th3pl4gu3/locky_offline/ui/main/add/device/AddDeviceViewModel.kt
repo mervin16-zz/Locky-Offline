@@ -88,6 +88,24 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
             notifyPropertyChanged(BR.moreInfo)
         }
 
+    var accent: String
+        @Bindable get() {
+            return _device.accent
+        }
+        set(value) {
+            _device.accent = value
+            notifyPropertyChanged(BR.accent)
+        }
+
+    var icon: String
+        @Bindable get() {
+            return _device.icon
+        }
+        set(value) {
+            _device.icon = value
+            notifyPropertyChanged(BR.icon)
+        }
+
     /**
      * Properties
      **/
@@ -131,6 +149,12 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
             }
 
         }
+    }
+
+    fun resetLogo() {
+        accent =
+            getApplication<Application>().getString(R.string.dev_color_hex_accent_bank_logo_default)
+        icon = getApplication<Application>().resources.getResourceEntryName(R.drawable.ic_device)
     }
 
     internal fun doneWithToastEvent() {
