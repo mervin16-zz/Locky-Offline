@@ -5,16 +5,16 @@
 
     <item
         android:id="@+id/Menu_CopyNumber"
-        android:title="@string/menu_bank_account_moreOptions_copyNumber"
+        android:title="@string/menu_moreOptions_copyNumber"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopyIban"
-        android:title="@string/menu_bank_account_moreOptions_copyIban"
+        android:title="@string/menu_moreOptions_copyIban"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopySwift"
-        android:title="@string/menu_bank_account_moreOptions_copySwift"
+        android:title="@string/menu_moreOptions_copySwift"
         app:showAsAction="ifRoom" />
 </menu>

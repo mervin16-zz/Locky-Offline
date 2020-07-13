@@ -4,14 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/Menu_CopyNumber"
-        android:title="@string/menu_card_moreOptions_copyNumber"
+        android:title="@string/menu_moreOptions_copyNumber"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/Menu_CopyPin"
-        android:title="@string/menu_card_moreOptions_copyPin"
+    <item
+        android:id="@+id/Menu_CopyPin"
+        android:title="@string/menu_moreOptions_copyPin"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/Menu_ShowPin"
-        android:title="@string/menu_card_moreOptions_viewPin"
+    <item
+        android:id="@+id/Menu_ShowPin"
+        android:title="@string/menu_moreOptions_viewPin"
         app:showAsAction="ifRoom"/>
 </menu>

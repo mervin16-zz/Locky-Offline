@@ -162,7 +162,7 @@ class ViewCardFragment : Fragment() {
     private fun deleteConfirmationDialog(name: String) =
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.text_title_alert_delete, name))
-            .setMessage(getString(R.string.text_title_alert_delete_message_card, name))
+            .setMessage(getString(R.string.text_title_alert_delete_message, name))
             .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
                 dialog.dismiss()
             }

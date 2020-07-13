@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/Fragment_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.account.AccountFragment"
-        android:label="Accounts"
+        android:label="@string/locky_section_main_account"
         tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_Fragment_Account_to_Fragment_View_Account"
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/Fragment_Card"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.card.CardFragment"
-        android:label="Cards"
+        android:label="@string/locky_section_main_card"
         tools:layout="@layout/fragment_card">
         <action
             android:id="@+id/action_Fragment_Card_to_Fragment_View_Card"
@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/Fragment_Bank_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountFragment"
-        android:label="Bank Accounts"
+        android:label="@string/locky_section_main_bank_account"
         tools:layout="@layout/fragment_bank_account">
         <action
             android:id="@+id/action_Fragment_Bank_Account_to_Fragment_View_BankAccount"
@@ -112,7 +112,7 @@
     <fragment
         android:id="@+id/Fragment_Device"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceFragment"
-        android:label="Devices"
+        android:label="@string/locky_section_main_device"
         tools:layout="@layout/fragment_device">
         <action
             android:id="@+id/action_Fragment_Device_to_Fragment_Bottom_Dialog_Filter_Device"
@@ -133,18 +133,18 @@
     <fragment
         android:id="@+id/Fragment_Profile"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/menu_drawer_main_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/Fragment_Settings"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.settings.SettingsFragment"
-        android:label="Settings" />
+        android:label="@string/menu_drawer_main_settings" />
 
     <fragment
         android:id="@+id/Fragment_About"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.AboutFragment"
-        android:label="About"
+        android:label="@string/menu_drawer_main_about"
         tools:layout="@layout/fragment_about">
         <action
             android:id="@+id/action_Fragment_About_to_Fragment_Donate"
@@ -154,7 +154,7 @@
     <fragment
         android:id="@+id/Fragment_Donate"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.about.donate.DonateFragment"
-        android:label="Donate"
+        android:label="@string/text_title_screen_donation"
         tools:layout="@layout/fragment_donate" />
 
 
@@ -317,31 +317,31 @@
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.account.TuningAccountBottomSheetFragment"
-        android:label="Filter"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_account_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_Card"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.card.TuningCardBottomSheetFragment"
-        android:label="Filter"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_card_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_BankAccount"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.bank_account.TuningBankAccountBottomSheetFragment"
-        android:label="Filter"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_bank_account_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Logo_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.account.LogoBottomSheetFragment"
-        android:label="Search Logo"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_account_logo" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Logo_Bank_Account"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.bank_account.LogoAccentBottomSheetFragment"
-        android:label="Logo Accent"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_bank_account_logo">
         <argument
             android:name="HEX_CURRENT"
@@ -352,13 +352,13 @@
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Filter_Device"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.device.TuningDeviceBottomSheetFragment"
-        android:label="Filter"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_device_tuning" />
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Logo_Device"
         android:name="com.th3pl4gu3.locky_offline.ui.main.add.device.LogoCustomizationBottomSheetFragment"
-        android:label="Customize Logo"
+        android:label=""
         tools:layout="@layout/fragment_bottom_sheet_device_logo">
         <argument
             android:name="HEX_CURRENT"

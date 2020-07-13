@@ -3,15 +3,17 @@
     <!-- ==================== -->
     <!-- Application Specific  -->
     <!-- ==================== -->
+    <!-- Locky Description -->
     <string name="app_name">Locky</string>
-    <string name="app_description_short">Manage all your passwords and bank cards on a single secure place.</string>
+    <string name="app_description_short">Manage all your sensible data &amp; credential details on a single secure place.</string>
     <string name="app_developer_signature">Developed with \u2764\uFE0F in 🇲🇺</string>
 
+    <!-- Google Play Details -->
     <string name="app_play_link" translatable="false">https://play.google.com/store/apps/details?id="%1$s"</string>
     <string name="app_play_package" translatable="false">com.android.vending</string>
-
     <string name="app_play_share">Hey, check out this nice password manager on: https://play.google.com/store/apps/details?id=%1$s</string>
 
+    <!-- Locky Contributors -->
     <string name="app_contributor_lead_name" translatable="false">Mervin Hemaraju</string>
     <string name="app_contributor_lead_description">Lead Developer &amp; Designer</string>
     <string name="app_contributor_lead_url" translatable="false">https://www.linkedin.com/in/mervinh16/</string>
@@ -24,27 +26,43 @@
     <string name="app_contributor_qa_description">Quality Assurance Tester</string>
     <string name="app_contributor_qa_url" translatable="false">https://www.linkedin.com/in/kirtee-joymungul-410156126/</string>
 
+    <!-- Locky Support -->
     <string name="app_support_email_team" translatable="false">locky.application@gmail.com</string>
     <string name="app_support_email_subject_feedback" translatable="false">Support :: Locky :: Feedback</string>
     <string name="app_support_email_subject_bug" translatable="false">Support :: Locky :: Bug Report</string>
 
+    <!-- Locky User details -->
     <string name="app_user_member_since">Member since "%1$s"</string>
     <string name="app_user_username" translatable="false">👤 "%1$s"</string>
     <string name="app_user_email" translatable="false">📧 "%1$s"</string>
 
+    <!-- Locky API used and privacy policy -->
     <string name="app_url_privacy_policy" translatable="false">https://sites.google.com/view/locky/</string>
     <string name="app_url_developer_api" translatable="false">https://sites.google.com/view/locky/api</string>
 
     <!-- ==================== -->
+    <!-- Locky Specific Texts  -->
+    <!-- ==================== -->
+    <string name="locky_section_main_account">Accounts</string>
+    <string name="locky_section_main_card">Cards</string>
+    <string name="locky_section_main_bank_account">Bank Accounts</string>
+    <string name="locky_section_main_device">Devices</string>
+
+    <!-- ==================== -->
     <!-- Titles & Subtitles  -->
     <!-- ==================== -->
+    <!-- Screen Titles & Subtitles -->
+    <string name="text_title_screen_donation">Donate</string>
+
+    <string name="text_title_screen_splash">Welcome to Locky</string>
+    <string name="text_subtitle_screen_splash">@string/app_description_short</string>
 
     <string name="text_title_sort">Sort</string>
     <string name="text_title_emptyView_logo_search">Search it. Love it. Keep it.</string>
     <string name="text_subtitle_emptyView_logo_search">Search a logo for your account</string>
 
     <string name="text_title_emptyView_item_search">Find your items!</string>
-    <string name="text_subtitle_emptyView_item_search">Search for your cards, accounts and bank accounts</string>
+    <string name="text_subtitle_emptyView_item_search">Search for all your items here</string>
 
     <string name="text_title_emptyView_cards">Save your Card. Ease your Mind</string>
     <string name="text_subtitle_emptyView_cards">Save all your card details here.</string>
@@ -55,16 +73,11 @@
     <string name="text_title_emptyView_bank_accounts">Save your Bank Accounts</string>
     <string name="text_subtitle_emptyView_bank_accounts">Don\'t forget to save all your bank accounts.</string>
 
-    <!--FIXME("Update strings")-->
     <string name="text_title_emptyView_devices">Save your Devices</string>
     <string name="text_subtitle_emptyView_devices">Start inserting password for all your personal devices here</string>
 
-    <string name="text_title_splash">Welcome to Locky</string>
-    <string name="text_subtitle_splash">@string/app_description_short</string>
-
     <string name="text_title_alert_delete">Delete "%1$s"</string>
-    <string name="text_title_alert_delete_message_account">Are you sure you want to delete the account \'"%1$s"\'</string>
-    <string name="text_title_alert_delete_message_card">Are you sure you want to delete the card \'"%1$s"\'</string>
+    <string name="text_title_alert_delete_message">Are you sure you want to delete \'"%1$s"\'</string>
 
     <string name="text_title_alert_biometric">No biometric enrolments</string>
     <string name="text_title_alert_biometric_message">
@@ -80,7 +93,7 @@
 
     <string name="text_title_alert_data_wipe">Delete all data</string>
     <string name="text_message_alert_data_wipe">
-        Are you sure you want to delete all your data ? (This includes all accounts, cards and bank accounts inserted)
+        Are you sure you want to delete all your data ? (This includes all accounts, cards, devices and bank accounts inserted)
     </string>
 
     <string name="text_title_alert_biometric_enrolments_message">
@@ -104,7 +117,6 @@
     <string name="text_subtitle_about_sections_dev">Support &amp; Development</string>
     <string name="text_subtitle_about_sections_other">Other</string>
 
-
     <string name="text_title_about_dev_rate">Rate Locky</string>
     <string name="text_title_about_dev_donate">Donate</string>
     <string name="text_title_about_dev_bug">Report a Bug</string>
@@ -127,50 +139,49 @@
     <string name="text_title_bank_account_logo_accent_screen">Choose a color</string>
     <string name="text_title_bank_account_logo_accent_current">Current</string>
 
-    <!--FIXME("Update strings")-->
     <string name="text_title_device_logo_customize_screen">Customize Logo</string>
+    <string name="text_title_device_logo_customize_current">Current</string>
+    <string name="text_title_device_logo_customize_icon">Choose an Icon</string>
+    <string name="text_title_device_logo_customize_accent">Choose an Accent</string>
 
     <!-- ==================== -->
     <!-- ======= Menu =======  -->
     <!-- ==================== -->
+    <!-- Drawer Menu Items-->
     <string name="menu_drawer_subtitle_others">OTHERS</string>
     <string name="menu_drawer_subtitle_user">USER</string>
-    <string name="menu_drawer_main_account">Accounts</string>
-    <string name="menu_drawer_main_card">Cards</string>
-    <string name="menu_drawer_main_device">Devices</string>
-    <string name="menu_drawer_main_bank_account">Bank Accounts</string>
+    <string name="menu_drawer_main_account">@string/locky_section_main_account</string>
+    <string name="menu_drawer_main_card">@string/locky_section_main_card</string>
+    <string name="menu_drawer_main_device">@string/locky_section_main_device</string>
+    <string name="menu_drawer_main_bank_account">@string/locky_section_main_bank_account</string>
     <string name="menu_drawer_main_profile">Profile</string>
     <string name="menu_drawer_main_settings">Settings</string>
     <string name="menu_drawer_main_about">About</string>
 
+    <!-- Menu Actions-->
     <string name="menu_credentials_actions_duplicate">Duplicate</string>
     <string name="menu_credentials_actions_edit">Edit</string>
     <string name="menu_credentials_actions_delete">Delete</string>
 
+    <!-- Menu on Toolbar-->
     <string name="menu_toolbar_filter">Filter</string>
 
-    <string name="menu_account_moreOptions_copyUsername">Copy Username</string>
-    <string name="menu_account_moreOptions_copyPassword">Copy Password</string>
-    <string name="menu_account_moreOptions_viewPassword">View Password</string>
-
-    <string name="menu_card_moreOptions_copyNumber">Copy Number</string>
-    <string name="menu_card_moreOptions_copyPin">Copy Pin</string>
-    <string name="menu_card_moreOptions_viewPin">View Pin</string>
-
-    <string name="menu_bank_account_moreOptions_copyNumber">Copy Number</string>
-    <string name="menu_bank_account_moreOptions_copyIban">Copy Iban</string>
-    <string name="menu_bank_account_moreOptions_copySwift">Copy Swift</string>
-
-    <!--FIXME("Update strings")-->
-    <string name="menu_device_moreOptions_copyUsername">Copy Username</string>
-    <string name="menu_device_moreOptions_copyPass">Copy Password</string>
+    <!-- Menu for More Options -->
+    <string name="menu_moreOptions_copyUsername">Copy Username</string>
+    <string name="menu_moreOptions_copyPassword">Copy Password</string>
+    <string name="menu_moreOptions_viewPassword">View Password</string>
+    <string name="menu_moreOptions_copyNumber">Copy Number</string>
+    <string name="menu_moreOptions_copyPin">Copy Pin</string>
+    <string name="menu_moreOptions_viewPin">View Pin</string>
+    <string name="menu_moreOptions_copyIban">Copy Iban</string>
+    <string name="menu_moreOptions_copySwift">Copy Swift</string>
     <string name="menu_device_moreOptions_copyIp">Copy IP</string>
-    <string name="menu_device_moreOptions_viewPass">View Password</string>
 
-    <string name="menu_search_filters_account">Accounts</string>
-    <string name="menu_search_filters_card">Cards</string>
-    <string name="menu_search_filters_bank_account">Bank Accounts</string>
-    <string name="menu_search_filters_device">Devices</string>
+    <!-- Menu for search filters-->
+    <string name="menu_search_filters_account">@string/locky_section_main_account</string>
+    <string name="menu_search_filters_card">@string/locky_section_main_card</string>
+    <string name="menu_search_filters_bank_account">@string/locky_section_main_bank_account</string>
+    <string name="menu_search_filters_device">@string/locky_section_main_device</string>
 
     <!-- =========== -->
     <!-- Data Fields -->
@@ -179,7 +190,7 @@
     <string name="label_optional">*Optional Field</string>
     <string name="label_others">*Extra Fields</string>
 
-    <string name="field_account_name">Name</string>
+    <string name="field_account_name">Entry Name</string>
     <string name="field_account_username">Username</string>
     <string name="field_account_email" translatable="false">Email</string>
     <string name="field_account_password">Password</string>
@@ -203,14 +214,14 @@
     <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
 
-    <!--FIXME("Update strings")-->
-    <string name="field_device_username">Username</string>
-    <string name="field_device_password">Password</string>
+    <string name="field_device_name">Entry Name</string>
+    <string name="field_device_username">Username / SSID / Login</string>
+    <string name="field_device_password">Password / Pin / Security Code</string>
     <string name="field_device_ip">Ip Address</string>
     <string name="field_device_mac">Mac Address</string>
     <string name="field_device_additional">Additional Comments</string>
 
-    <string name="field_bank_account_name">Name</string>
+    <string name="field_bank_account_name">Entry Name</string>
     <string name="field_bank_account_number">Number</string>
     <string name="field_bank_account_owner">Owner</string>
     <string name="field_bank_account_bank">Bank</string>
@@ -222,22 +233,21 @@
     <string name="field_placeholder_na" translatable="false">n/a</string>
     <string name="field_placeholder_hidden" translatable="false">******</string>
 
-    <string name="field_account_sort_name">Name</string>
+    <string name="field_account_sort_name">Entry Name</string>
     <string name="field_account_sort_username">Username</string>
     <string name="field_account_sort_email" translatable="false">Email</string>
     <string name="field_account_sort_website">Website</string>
-    <string name="field_account_sort_authentication_type">Auth Type</string>
+    <string name="field_account_sort_authentication_type">Authentication Type</string>
 
     <string name="field_card_sort_name">Entry Name</string>
     <string name="field_card_sort_bank">Bank</string>
     <string name="field_card_sort_type">Card Brand</string>
     <string name="field_card_sort_cardholder">Name on Card</string>
 
-    <string name="field_bank_account_sort_entry">Name</string>
+    <string name="field_bank_account_sort_entry">Entry Name</string>
     <string name="field_bank_account_sort_owner">Account Owner</string>
     <string name="field_bank_account_sort_bank">Bank</string>
 
-    <!--FIXME("Update strings")-->
     <string name="field_device_sort_entry">Entry Name</string>
     <string name="field_device_sort_username">Username</string>
     <string name="field_device_sort_ip">Ip Address</string>
@@ -349,7 +359,7 @@
 
     <string name="settings_key_data_wipe" translatable="false">settings_key_data_wipe</string>
     <string name="settings_title_data_wipe">Wipe Data</string>
-    <string name="settings_summary_data_wipe">Delete all your accounts, cards, passwords etc…</string>
+    <string name="settings_summary_data_wipe">Delete all your stored credentials</string>
 
     <!-- ==================== -->
     <!-- ======= DEV =======  -->

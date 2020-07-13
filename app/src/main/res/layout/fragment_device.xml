@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/il_devices" />
+            app:srcCompat="@drawable/il_empty_vault" />
 
         <TextView
             android:id="@+id/Empty_View_Title"

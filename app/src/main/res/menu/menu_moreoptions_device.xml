@@ -5,12 +5,12 @@
 
     <item
         android:id="@+id/Menu_CopyUsername"
-        android:title="@string/menu_device_moreOptions_copyUsername"
+        android:title="@string/menu_moreOptions_copyUsername"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopyPass"
-        android:title="@string/menu_device_moreOptions_copyPass"
+        android:title="@string/menu_moreOptions_copyPassword"
         app:showAsAction="ifRoom" />
 
     <item
@@ -20,6 +20,6 @@
 
     <item
         android:id="@+id/Menu_ShowPass"
-        android:title="@string/menu_device_moreOptions_viewPass"
+        android:title="@string/menu_moreOptions_viewPassword"
         app:showAsAction="ifRoom" />
 </menu>
