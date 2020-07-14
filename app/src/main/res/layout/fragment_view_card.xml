@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel.MessageType" />
 
         <import type="android.view.View" />
@@ -16,7 +15,7 @@
 
         <variable
             name="Card"
-            type="com.th3pl4gu3.locky_offline.core.main.Card" />
+            type="com.th3pl4gu3.locky_offline.core.main.credentials.Card" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +25,7 @@
 
         <ImageView
             android:id="@+id/Card_Logo_Type"
-            cardLogo="@{Card.number}"
+            configureLogo="@{Card}"
             android:layout_width="120dp"
             android:layout_height="120dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +36,7 @@
         <TextView
             android:id="@+id/Card_Number"
             style="@style/Locky.Text.Title5.RunningTitle"
-            cardNumber="@{Card.number}"
+            setCredentialSubtitle="@{Card}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

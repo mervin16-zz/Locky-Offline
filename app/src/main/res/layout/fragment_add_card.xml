@@ -25,7 +25,7 @@
 
         <ImageView
             android:id="@+id/Card_Logo"
-            cardLogo="@{ViewModel.cardNumber}"
+            setCardLogo="@{ViewModel.cardNumber}"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="16dp"

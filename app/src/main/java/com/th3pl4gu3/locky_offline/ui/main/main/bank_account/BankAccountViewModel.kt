@@ -2,8 +2,8 @@ package com.th3pl4gu3.locky_offline.ui.main.main.bank_account
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT

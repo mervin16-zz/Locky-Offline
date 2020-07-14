@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.core.main
+package com.th3pl4gu3.locky_offline.core.main.credentials
 
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey

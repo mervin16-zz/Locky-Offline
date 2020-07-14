@@ -170,7 +170,7 @@
         <item quantity="one">La recherche a retourné %d résultats</item>
         <item quantity="other">La recherche a retourné %d résultats</item>
     </plurals>
-    <string name="error_internal_code_1">Une erreur interne a eu lieu. Code 1: "%1$s"</string>
+    <string name="error_internal_code_1">Une erreur interne a eu lieu. Code d\'erreur 1: %1$s</string>
     <string name="settings_value_display_dark">Sombre</string>
     <string name="settings_value_display_light">Clair</string>
     <string name="field_bank_account_iban">iban</string>
@@ -205,4 +205,5 @@
     <string name="text_title_device_logo_customize_current">Logo Actuel</string>
     <string name="text_title_device_logo_customize_icon">Choisissez un icône</string>
     <string name="text_title_device_logo_customize_accent">Choisir une couleur</string>
+    <string name="error_internal_code_3">Une erreur interne a eu lieu. Code d\'erreur 3</string>
 </resources>

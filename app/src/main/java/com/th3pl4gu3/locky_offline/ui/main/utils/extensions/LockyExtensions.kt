@@ -1,9 +1,8 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils.extensions
 
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.others.User
 import java.util.*
-
 
 /*
 * Check if credit card's expiry date is near

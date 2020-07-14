@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.th3pl4gu3.locky_offline.core.main.AccountSort
+import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAccountTuningBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
@@ -17,7 +17,8 @@ class TuningAccountBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetAccountTuningBinding? = null
     private val binding get() = _binding!!
-    private val _sort = AccountSort()
+    private val _sort =
+        AccountSort()
 
     override fun onCreateView(
         inflater: LayoutInflater,

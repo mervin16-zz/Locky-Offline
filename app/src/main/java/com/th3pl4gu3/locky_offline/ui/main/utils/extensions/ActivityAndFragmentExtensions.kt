@@ -128,5 +128,5 @@ fun Fragment.requireMainActivity() = requireActivity() as MainActivity
 /*
 * Checks if screen is in landscape
 */
-val Fragment.isNotInPortrait: Boolean
+inline val Fragment.isNotInPortrait: Boolean
     get() = resources.configuration.orientation != Configuration.ORIENTATION_PORTRAIT

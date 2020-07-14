@@ -2,7 +2,7 @@ package com.th3pl4gu3.locky_offline.repository.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 
 /*
 * CRUD for the Account object

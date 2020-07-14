@@ -2,8 +2,8 @@ package com.th3pl4gu3.locky_offline.ui.main.main.device
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.th3pl4gu3.locky_offline.core.main.Device
-import com.th3pl4gu3.locky_offline.core.main.DeviceSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT

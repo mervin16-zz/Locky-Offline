@@ -1,8 +1,12 @@
-package com.th3pl4gu3.locky_offline.core.main
+package com.th3pl4gu3.locky_offline.core.main.others
 
 import android.app.Application
 import android.util.Patterns
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedCalendarForCard
 import java.util.*
 import kotlin.collections.HashMap

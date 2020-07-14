@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Device
-import com.th3pl4gu3.locky_offline.core.main.Validation
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.main.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
@@ -28,7 +28,8 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _usernameErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
-    private var _device = Device()
+    private var _device =
+        Device()
     private var _isNewDevice = false
 
     /**
@@ -134,7 +135,10 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
     fun save() {
         viewModelScope.launch {
             _device.apply {
-                val validation = Validation(getApplication())
+                val validation =
+                    Validation(
+                        getApplication()
+                    )
                 if (validation.isDeviceFormValid(this)) {
 
                     /* If validation succeeds, set user ID */

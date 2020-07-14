@@ -16,22 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.Device
+import com.th3pl4gu3.locky_offline.core.main.credentials.*
 import com.th3pl4gu3.locky_offline.databinding.FragmentSearchBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.account.AccountAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.BankAccountAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.card.CardAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.device.DeviceAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
-import com.th3pl4gu3.locky_offline.ui.main.main.account.ClickListener as AccountClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.bank_account.ClickListener as BankClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.card.ClickListener as CardClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.device.ClickListener as DeviceClickListener
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class SearchFragment : Fragment() {
 
@@ -132,7 +124,7 @@ class SearchFragment : Fragment() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 viewModel.updateResultSize(it.size)
-                subscribeAccountsUi(it)
+                subscribeUi(it)
             }
         })
     }
@@ -141,7 +133,7 @@ class SearchFragment : Fragment() {
         viewModel.cards.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 viewModel.updateResultSize(it.size)
-                subscribeCardsUi(it)
+                subscribeUi(it)
             }
         })
     }
@@ -150,7 +142,7 @@ class SearchFragment : Fragment() {
         viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 viewModel.updateResultSize(it.size)
-                subscribeBankAccountsUi(it)
+                subscribeUi(it)
             }
         })
     }
@@ -159,7 +151,7 @@ class SearchFragment : Fragment() {
         viewModel.devices.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 viewModel.updateResultSize(it.size)
-                subscribeDevicesUi(it)
+                subscribeUi(it)
             }
         })
     }
@@ -171,19 +163,19 @@ class SearchFragment : Fragment() {
             PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.Menu_Account -> {
-                        viewModel.setFilter(SearchViewModel.CREDENTIALS.ACCOUNTS)
+                        viewModel.setFilter(CredentialIdentifier.ACCOUNTS)
                         true
                     }
                     R.id.Menu_Card -> {
-                        viewModel.setFilter(SearchViewModel.CREDENTIALS.CARDS)
+                        viewModel.setFilter(CredentialIdentifier.CARDS)
                         true
                     }
                     R.id.Menu_Bank_Account -> {
-                        viewModel.setFilter(SearchViewModel.CREDENTIALS.BANK_ACCOUNTS)
+                        viewModel.setFilter(CredentialIdentifier.BANK_ACCOUNTS)
                         true
                     }
                     R.id.Menu_Device -> {
-                        viewModel.setFilter(SearchViewModel.CREDENTIALS.DEVICES)
+                        viewModel.setFilter(CredentialIdentifier.DEVICES)
                         true
                     }
                     else -> false
@@ -195,15 +187,33 @@ class SearchFragment : Fragment() {
             })
     }
 
-    private fun subscribeAccountsUi(accounts: List<Account>) {
-        val adapter = AccountAdapter(
-            /* The click listener to handle account on clicks */
-            AccountClickListener {
-                navigateTo(
-                    SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
-                        it
+    private fun subscribeUi(credentials: List<Credentials>) {
+        val adapter = CredentialsAdapter(
+            /* The click listener to handle credentials on clicks */
+            ClickListener {
+                when (it) {
+                    is Account -> navigateTo(
+                        SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
+                            it
+                        )
                     )
-                )
+                    is Card -> navigateTo(
+                        SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(
+                            it
+                        )
+                    )
+                    is BankAccount -> navigateTo(
+                        SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(
+                            it
+                        )
+                    )
+                    is Device -> navigateTo(
+                        SearchFragmentDirections.actionFragmentSearchToFragmentViewDevice(
+                            it
+                        )
+                    )
+                    else -> toast(getString(R.string.error_internal_code_3))
+                }
             },
             null,
             true
@@ -223,82 +233,7 @@ class SearchFragment : Fragment() {
         }
 
         /* Submits the list for displaying */
-        adapter.submitList(accounts)
-    }
-
-    private fun subscribeCardsUi(cards: List<Card>) {
-        val adapter = CardAdapter(
-            CardClickListener {
-                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(it))
-            },
-            null,
-            true
-        )
-
-        binding.RecyclerViewLists.apply {
-            /*
-            * State that layout size will not change for better performance
-            */
-            setHasFixedSize(true)
-
-            /* Bind the layout manager */
-            layoutManager = LinearLayoutManager(requireContext())
-
-            /* Bind the adapter */
-            this.adapter = adapter
-        }
-
-        adapter.submitList(cards)
-    }
-
-    private fun subscribeBankAccountsUi(bankAccounts: List<BankAccount>) {
-        val adapter = BankAccountAdapter(
-            BankClickListener {
-                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(it))
-            },
-            null,
-            true
-        )
-
-        binding.RecyclerViewLists.apply {
-            /*
-            * State that layout size will not change for better performance
-            */
-            setHasFixedSize(true)
-
-            /* Bind the layout manager */
-            layoutManager = LinearLayoutManager(requireContext())
-
-            /* Bind the adapter */
-            this.adapter = adapter
-        }
-
-        adapter.submitList(bankAccounts)
-    }
-
-    private fun subscribeDevicesUi(devices: List<Device>) {
-        val adapter = DeviceAdapter(
-            DeviceClickListener {
-                navigateTo(SearchFragmentDirections.actionFragmentSearchToFragmentViewDevice(it))
-            },
-            null,
-            true
-        )
-
-        binding.RecyclerViewLists.apply {
-            /*
-            * State that layout size will not change for better performance
-            */
-            setHasFixedSize(true)
-
-            /* Bind the layout manager */
-            layoutManager = LinearLayoutManager(requireContext())
-
-            /* Bind the adapter */
-            this.adapter = adapter
-        }
-
-        adapter.submitList(devices)
+        adapter.submitList(credentials)
     }
 
     private fun alternateSearchVisibility(visible: Boolean) {

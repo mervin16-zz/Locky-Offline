@@ -1,7 +1,7 @@
 package com.th3pl4gu3.locky_offline.repository.database.repositories
 
 import android.app.Application
-import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.repository.database.LockyDatabase
 import java.util.*
 

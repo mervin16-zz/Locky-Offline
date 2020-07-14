@@ -2,8 +2,8 @@ package com.th3pl4gu3.locky_offline.ui.main.main.card
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.CardSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT

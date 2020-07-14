@@ -15,7 +15,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.User
+import com.th3pl4gu3.locky_offline.core.main.others.User
 import com.th3pl4gu3.locky_offline.databinding.ActivitySplashBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager

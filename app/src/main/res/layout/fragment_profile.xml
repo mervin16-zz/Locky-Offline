@@ -8,7 +8,7 @@
 
         <variable
             name="User"
-            type="com.th3pl4gu3.locky_offline.core.main.User" />
+            type="com.th3pl4gu3.locky_offline.core.main.others.User" />
 
         <variable
             name="ViewModel"

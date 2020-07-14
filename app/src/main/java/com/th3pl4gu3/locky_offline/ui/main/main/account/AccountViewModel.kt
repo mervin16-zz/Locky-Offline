@@ -2,8 +2,8 @@ package com.th3pl4gu3.locky_offline.ui.main.main.account
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.AccountSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT

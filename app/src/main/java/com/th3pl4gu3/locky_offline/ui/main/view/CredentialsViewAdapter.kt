@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsBinding
+import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsFieldBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 
 class CredentialsViewAdapter(
@@ -25,8 +25,13 @@ class CredentialsViewAdapter(
         )
     }
 
-    class ViewHolder private constructor(val binding: CustomViewRecyclerviewCredentialsBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(copyClickListener: CopyClickListener, viewClickListener: ViewClickListener, credentialsField: CredentialsField) {
+    class ViewHolder private constructor(val binding: CustomViewRecyclerviewCredentialsFieldBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            copyClickListener: CopyClickListener,
+            viewClickListener: ViewClickListener,
+            credentialsField: CredentialsField
+        ) {
             binding.credentialsField = credentialsField
             binding.copyClickListener = copyClickListener
             binding.viewClickListener = viewClickListener
@@ -36,7 +41,11 @@ class CredentialsViewAdapter(
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CustomViewRecyclerviewCredentialsBinding.inflate(layoutInflater, parent, false)
+                val binding = CustomViewRecyclerviewCredentialsFieldBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
                 return ViewHolder(
                     binding
                 )

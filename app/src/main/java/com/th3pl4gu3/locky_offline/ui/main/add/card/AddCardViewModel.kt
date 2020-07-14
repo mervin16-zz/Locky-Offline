@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.Validation
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
@@ -152,7 +152,10 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     fun save() {
         viewModelScope.launch {
             _card.apply {
-                val validation = Validation(getApplication())
+                val validation =
+                    Validation(
+                        getApplication()
+                    )
                 if (validation.isCardFormValid(this)) {
 
                     /* If validation succeeds, set user ID */
@@ -236,7 +239,9 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     private fun cardDatesVerification(id: Calendar, ed: Calendar) {
 
-        val validation = Validation(getApplication())
+        val validation = Validation(
+            getApplication()
+        )
         validation.isCardDateValid(id, ed)
 
         if (!validation.isCardDateValid(id, ed)) {

@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.core.main
+package com.th3pl4gu3.locky_offline.core.main.others
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -43,11 +43,12 @@ data class User constructor(
                     photo = account.photoUrl.toString()
                 }!!
             } else {
-                instance = User(
-                    name = account.displayName!!,
-                    email = account.email!!,
-                    photo = account.photoUrl.toString()
-                )
+                instance =
+                    User(
+                        name = account.displayName!!,
+                        email = account.email!!,
+                        photo = account.photoUrl.toString()
+                    )
                 instance!!
             }
         }

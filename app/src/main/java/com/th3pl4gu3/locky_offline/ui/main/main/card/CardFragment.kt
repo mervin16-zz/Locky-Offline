@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Card
-import com.th3pl4gu3.locky_offline.core.main.CardSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
+import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 
@@ -140,16 +143,16 @@ class CardFragment : Fragment() {
     }
 
     private fun subscribeUi(cards: List<Card>) {
-        val adapter = CardAdapter(
+        val adapter = CredentialsAdapter(
             ClickListener {
-                navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it))
+                navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it as Card))
             },
-            OptionsClickListener { view, card ->
+            OptionsClickListener { view, credential ->
                 //Prevents double click and creating a double instance
                 view.apply {
                     isEnabled = false
                 }
-                createPopupMenu(view, card)
+                createPopupMenu(view, credential as Card)
             },
             false
         )

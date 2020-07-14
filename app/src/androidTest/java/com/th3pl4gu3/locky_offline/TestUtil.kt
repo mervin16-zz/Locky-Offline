@@ -1,6 +1,10 @@
 package com.th3pl4gu3.locky_offline
 
-import com.th3pl4gu3.locky_offline.core.main.*
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.main.others.User
 import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 
 object TestUtil {
@@ -31,17 +35,18 @@ object TestUtil {
             originalJson = "{'title':'Cookie$number'}"
         )
 
-    fun getAccount(number: Int, user: String) = Account().apply {
-        this.entryName = "Account $number"
-        this.username = "Username $number"
-        this.email = "myemail$number@email.com"
-        this.logoUrl = "www.logo.com/$number"
-        this.website = "www.account.com/$number"
-        this.password = "Password $number"
-        this.user = user
-        this.authenticationType = "Auth $number"
-        this.twoFASecretKeys = "Keys $number"
-        this.additionalInfo = "More Info $number"
+    fun getAccount(number: Int, user: String) = Account()
+        .apply {
+            this.entryName = "Account $number"
+            this.username = "Username $number"
+            this.email = "myemail$number@email.com"
+            this.logoUrl = "www.logo.com/$number"
+            this.website = "www.account.com/$number"
+            this.password = "Password $number"
+            this.user = user
+            this.authenticationType = "Auth $number"
+            this.twoFASecretKeys = "Keys $number"
+            this.additionalInfo = "More Info $number"
     }
 
     fun createAccounts(size: Int, user: String) = ArrayList<Account>().apply {
@@ -69,17 +74,18 @@ object TestUtil {
         email = "www.useremail$number.com"
     )
 
-    fun getCard(number: Int, user: String) = Card().apply {
-        this.entryName = "Card $number"
-        this.number = "Number $number"
-        this.pin = "Pin $number"
-        this.bank = "Bank $number"
-        this.expiryDate = "Expiry $number"
-        this.issuedDate = "Issued $number"
-        this.cardHolderName = "Cardholder $number"
-        this.user = user
-        this.additionalInfo = "More Info $number"
-    }
+    fun getCard(number: Int, user: String) = Card()
+        .apply {
+            this.entryName = "Card $number"
+            this.number = "Number $number"
+            this.pin = "Pin $number"
+            this.bank = "Bank $number"
+            this.expiryDate = "Expiry $number"
+            this.issuedDate = "Issued $number"
+            this.cardHolderName = "Cardholder $number"
+            this.user = user
+            this.additionalInfo = "More Info $number"
+        }
 
     fun createCards(size: Int, user: String) = ArrayList<Card>().apply {
         for (number in 1..size) {

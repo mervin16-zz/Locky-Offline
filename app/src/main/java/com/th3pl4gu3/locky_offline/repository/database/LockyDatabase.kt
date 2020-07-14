@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.th3pl4gu3.locky_offline.core.main.*
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.main.others.User
 import com.th3pl4gu3.locky_offline.repository.database.daos.*
 
 

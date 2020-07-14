@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 /*
 * Load an image from URL
 */
-fun ImageView.loadImageUrl(uri: Uri, loadingResource: Drawable, errorResource: Drawable) {
+fun ImageView.loadImageUrl(uri: Uri?, loadingResource: Drawable?, errorResource: Drawable?) {
     Glide.with(this.context)
         .load(uri)
         .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.Validation
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
@@ -27,7 +27,8 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _passwordErrorMessage = MutableLiveData<String>()
     private val _emailErrorMessage = MutableLiveData<String>()
-    private var _account = Account()
+    private var _account =
+        Account()
     private var _isNewAccount = false
 
     /**
@@ -142,7 +143,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         viewModelScope.launch {
             _account.apply {
 
-                val validation = Validation(getApplication())
+                val validation =
+                    Validation(
+                        getApplication()
+                    )
                 if (validation.isAccountFormValid(this)) {
                     /* If validation succeeds, set user ID */
                     this.user = activeUser.email

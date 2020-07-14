@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.getValue
-import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.repository.database.daos.AccountDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
@@ -239,7 +239,9 @@ class AccountDaoTest {
 
         /* Act */
         /* Update non existing */
-        accountDao.update(Account().apply { this.id = 89 })
+        accountDao.update(
+            Account()
+                .apply { this.id = 89 })
         /* Try to get now */
         val accountsForUser1 = getValue(accountDao.getAll(user1)) //Get all accounts for user1
         val accountsForUser2 = getValue(accountDao.getAll(user2)) //Get all accounts for user2

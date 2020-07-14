@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.core.main.credentials.CredentialIdentifier
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
@@ -14,13 +15,11 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
-    internal enum class CREDENTIALS { ACCOUNTS, CARDS, BANK_ACCOUNTS, DEVICES }
-
     /*
     * Private variables
     */
     private val _starterScreenVisibility = MutableLiveData(true)
-    private var _filter = MutableLiveData(CREDENTIALS.ACCOUNTS)
+    private var _filter = MutableLiveData(CredentialIdentifier.ACCOUNTS)
     private var _searchQuery = MutableLiveData<String>()
     private var _resultSize = MutableLiveData<Int>()
 
@@ -34,7 +33,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     *Transformations
     */
     val accounts = Transformations.switchMap(_searchQuery) {
-        if (_filter.value == CREDENTIALS.ACCOUNTS) {
+        if (_filter.value == CredentialIdentifier.ACCOUNTS) {
             AccountRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
         } else {
@@ -43,7 +42,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     val cards = Transformations.switchMap(_searchQuery) {
-        if (_filter.value == CREDENTIALS.CARDS) {
+        if (_filter.value == CredentialIdentifier.CARDS) {
             CardRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
         } else {
@@ -52,7 +51,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     val bankAccounts = Transformations.switchMap(_searchQuery) {
-        if (_filter.value == CREDENTIALS.BANK_ACCOUNTS) {
+        if (_filter.value == CredentialIdentifier.BANK_ACCOUNTS) {
             BankAccountRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
         } else {
@@ -61,7 +60,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     val devices = Transformations.switchMap(_searchQuery) {
-        if (_filter.value == CREDENTIALS.DEVICES) {
+        if (_filter.value == CredentialIdentifier.DEVICES) {
             DeviceRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
         } else {
@@ -79,10 +78,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     val filterText = Transformations.map(_filter) {
         when (it) {
-            CREDENTIALS.ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_account)
-            CREDENTIALS.BANK_ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_bank_account)
-            CREDENTIALS.CARDS -> getApplication<Application>().getString(R.string.menu_search_filters_card)
-            CREDENTIALS.DEVICES -> getApplication<Application>().getString(R.string.menu_search_filters_device)
+            CredentialIdentifier.ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_account)
+            CredentialIdentifier.BANK_ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_bank_account)
+            CredentialIdentifier.CARDS -> getApplication<Application>().getString(R.string.menu_search_filters_card)
+            CredentialIdentifier.DEVICES -> getApplication<Application>().getString(R.string.menu_search_filters_device)
             else -> getApplication<Application>().getString(R.string.menu_search_filters_account)
         }
     }
@@ -94,7 +93,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         _resultSize.value = newSize
     }
 
-    internal fun setFilter(value: CREDENTIALS) {
+    internal fun setFilter(value: CredentialIdentifier) {
         _filter.value = value
         _searchQuery.value = _searchQuery.value //To trigger transformations
     }

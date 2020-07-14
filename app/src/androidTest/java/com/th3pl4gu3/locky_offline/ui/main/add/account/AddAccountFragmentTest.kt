@@ -14,7 +14,7 @@ import androidx.test.rule.ActivityTestRule
 import com.google.android.material.textfield.TextInputLayout
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.TestUtil
-import com.th3pl4gu3.locky_offline.core.main.Account
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher

@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.main.account
+package com.th3pl4gu3.locky_offline.ui.main.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewAccountBinding
+import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
+import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsBinding
 
-class AccountAdapter(
+class CredentialsAdapter(
     private val clickListener: ClickListener,
     private val optionsClickListener: OptionsClickListener?,
     private val isSimplified: Boolean
-) : ListAdapter<Account, AccountAdapter.ViewHolder>(
+) : ListAdapter<Credentials, CredentialsAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -32,14 +32,16 @@ class AccountAdapter(
         )
     }
 
-    class ViewHolder private constructor(val binding: CustomViewRecyclerviewAccountBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: CustomViewRecyclerviewCredentialsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             clickListener: ClickListener,
             optionsClickListener: OptionsClickListener?,
-            Account: Account,
+            credential: Credentials,
             isSimplified: Boolean
         ) {
-            binding.account = Account
+            binding.credential = credential
+            /*binding.credential = BasicCredential*/
             binding.clickListener = clickListener
             binding.optionsClickListener = optionsClickListener
             binding.isSimplifiedVersion = isSimplified
@@ -49,7 +51,8 @@ class AccountAdapter(
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CustomViewRecyclerviewAccountBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    CustomViewRecyclerviewCredentialsBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )
@@ -58,22 +61,22 @@ class AccountAdapter(
     }
 }
 
-class DiffCallback : DiffUtil.ItemCallback<Account>() {
+class DiffCallback : DiffUtil.ItemCallback<Credentials>() {
 
-    override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
+    override fun areItemsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Account, newItem: Account): Boolean {
-        return oldItem == newItem
+    override fun areContentsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
+        return oldItem.equals(newItem)
     }
 
 }
 
-class ClickListener(val clickListener: (account: Account) -> Unit) {
-    fun onClick(account: Account) = clickListener(account)
+class ClickListener(val clickListener: (credential: Credentials) -> Unit) {
+    fun onClick(credential: Credentials) = clickListener(credential)
 }
 
-class OptionsClickListener(val clickListener: (view: View, account: Account) -> Unit) {
-    fun onClick(view: View, account: Account) = clickListener(view, account)
+class OptionsClickListener(val clickListener: (view: View, credential: Credentials) -> Unit) {
+    fun onClick(view: View, credential: Credentials) = clickListener(view, credential)
 }

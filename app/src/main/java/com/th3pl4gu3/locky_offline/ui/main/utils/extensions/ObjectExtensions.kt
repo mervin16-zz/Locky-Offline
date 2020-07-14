@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.utils.extensions
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_AMEX
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DINNERSCLUB
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DISCOVER

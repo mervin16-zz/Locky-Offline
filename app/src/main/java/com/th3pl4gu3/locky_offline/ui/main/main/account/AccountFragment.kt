@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Account
-import com.th3pl4gu3.locky_offline.core.main.AccountSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Account
+import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAccountBinding
+import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 
@@ -157,21 +160,21 @@ class AccountFragment : Fragment() {
     }
 
     private fun subscribeAccounts(accounts: List<Account>) {
-        val adapter = AccountAdapter(
+        val adapter = CredentialsAdapter(
             /* The click listener to handle account on clicks */
             ClickListener {
                 navigateTo(
                     AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
-                        it
+                        it as Account
                     )
                 )
             },
             /* The click listener to handle popup menu for each accounts */
-            OptionsClickListener { view, account ->
+            OptionsClickListener { view, credential ->
                 view.apply {
                     isEnabled = false
                 }
-                createPopupMenu(view, account)
+                createPopupMenu(view, credential as Account)
             },
             false
         )

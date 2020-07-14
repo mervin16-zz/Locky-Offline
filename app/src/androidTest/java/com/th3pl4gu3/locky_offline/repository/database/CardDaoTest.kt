@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.getValue
-import com.th3pl4gu3.locky_offline.core.main.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.repository.database.daos.CardDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
@@ -239,7 +239,9 @@ class CardDaoTest {
 
         /* Act */
         /* Update non existing */
-        cardDao.update(Card().apply { this.id = 89 })
+        cardDao.update(
+            Card()
+                .apply { this.id = 89 })
         /* Try to get now */
         val cardsForUser1 = getValue(cardDao.getAll(user1)) //Get all cards for user1
         val cardsForUser2 = getValue(cardDao.getAll(user2)) //Get all cards for user2

@@ -13,10 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.AccountSort
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.BankAccountSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
+import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
@@ -142,7 +144,7 @@ class BankAccountFragment : Fragment() {
                     )!!
                 )
 
-                navBackStackEntry.savedStateHandle.remove<AccountSort>(KEY_BANK_ACCOUNTS_SORT)
+                navBackStackEntry.savedStateHandle.remove<BankAccountSort>(KEY_BANK_ACCOUNTS_SORT)
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)
@@ -157,21 +159,21 @@ class BankAccountFragment : Fragment() {
     }
 
     private fun subscribeBankAccounts(bankAccounts: List<BankAccount>) {
-        val adapter = BankAccountAdapter(
+        val adapter = CredentialsAdapter(
             /* The click listener to handle account on clicks */
             ClickListener {
                 navigateTo(
                     BankAccountFragmentDirections.actionFragmentBankAccountToFragmentViewBankAccount(
-                        it
+                        it as BankAccount
                     )
                 )
             },
             /* The click listener to handle popup menu for each accounts */
-            OptionsClickListener { view, account ->
+            OptionsClickListener() { view, credential ->
                 view.apply {
                     isEnabled = false
                 }
-                createPopupMenu(view, account)
+                createPopupMenu(view, credential as BankAccount)
             },
             false
         )

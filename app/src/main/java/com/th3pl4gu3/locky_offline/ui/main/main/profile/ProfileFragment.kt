@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Statistic
+import com.th3pl4gu3.locky_offline.core.main.others.Statistic
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser

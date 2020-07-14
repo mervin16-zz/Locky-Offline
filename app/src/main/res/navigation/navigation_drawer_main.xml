@@ -168,7 +168,7 @@
         tools:layout="@layout/fragment_view_account">
         <argument
             android:name="ACCOUNT_toVIEW"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Account" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Account" />
     </fragment>
 
     <fragment
@@ -178,7 +178,7 @@
         tools:layout="@layout/fragment_view_card">
         <argument
             android:name="CARD_toVIEW"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Card" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Card" />
     </fragment>
 
     <fragment
@@ -188,7 +188,7 @@
         tools:layout="@layout/fragment_view_bank_account">
         <argument
             android:name="BANKACCOUNT_toVIEW"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount" />
     </fragment>
 
 
@@ -199,7 +199,7 @@
         tools:layout="@layout/fragment_view_device">
         <argument
             android:name="DEVICE_toVIEW"
-            app:argType="com.th3pl4gu3.locky_offline.core.main.Device" />
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Device" />
     </fragment>
 
     <!-- ================================= -->

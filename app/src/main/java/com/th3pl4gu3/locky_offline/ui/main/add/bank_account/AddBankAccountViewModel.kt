@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.Validation
+import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
@@ -27,7 +27,8 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
     private val _numberErrorMessage = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
     private val _ownerErrorMessage = MutableLiveData<String>()
-    private var _bankAccount = BankAccount()
+    private var _bankAccount =
+        BankAccount()
     private var _isNewAccount = false
 
 
@@ -136,7 +137,10 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
     fun save() {
         viewModelScope.launch {
             _bankAccount.apply {
-                val validation = Validation(getApplication())
+                val validation =
+                    Validation(
+                        getApplication()
+                    )
                 if (validation.isBankAccountFormValid(this)) {
 
                     /* If validation succeeds, set user ID */

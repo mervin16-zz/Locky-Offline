@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.Device
-import com.th3pl4gu3.locky_offline.core.main.DeviceSort
+import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentDeviceBinding
+import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
@@ -167,17 +170,21 @@ class DeviceFragment : Fragment() {
     }
 
     private fun subscribeDevices(devices: List<Device>) {
-        val adapter = DeviceAdapter(
+        val adapter = CredentialsAdapter(
             /* The click listener to handle device on clicks */
             ClickListener {
-                navigateTo(DeviceFragmentDirections.actionFragmentDeviceToFragmentViewDevice(it))
+                navigateTo(
+                    DeviceFragmentDirections.actionFragmentDeviceToFragmentViewDevice(
+                        it as Device
+                    )
+                )
             },
             /* The click listener to handle popup menu for each devices */
-            OptionsClickListener { view, device ->
+            OptionsClickListener { view, credential ->
                 view.apply {
                     isEnabled = false
                 }
-                createPopupMenu(view, device)
+                createPopupMenu(view, credential as Device)
             },
             false
         )

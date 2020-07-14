@@ -7,7 +7,7 @@
     <data>
         <variable
             name="BankAccount"
-            type="com.th3pl4gu3.locky_offline.core.main.BankAccount" />
+            type="com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
