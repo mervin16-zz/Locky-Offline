@@ -200,6 +200,7 @@
 
     <string name="field_account_blank_website"><i>No websites entered</i></string>
     <string name="field_account_blank_login"><i>No login entered</i></string>
+    <string name="field_device_blank_ip"><i>No ip address entered</i></string>
 
     <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
     <string name="field_helper_account_2fakeys">Store your Two Factor Authentication backup codes here</string>
@@ -228,7 +229,7 @@
     <string name="field_bank_account_swift">Swift Code</string>
     <string name="field_bank_account_additional">Additional Comments</string>
 
-    <string name="field_placeholder_empty">None</string>
+    <string name="field_placeholder_empty">none</string>
     <string name="field_placeholder_na" translatable="false">n/a</string>
     <string name="field_placeholder_hidden" translatable="false">******</string>
 

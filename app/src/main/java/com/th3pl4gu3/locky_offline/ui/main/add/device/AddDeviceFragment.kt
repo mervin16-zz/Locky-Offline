@@ -103,15 +103,15 @@ class AddDeviceFragment : Fragment() {
     private fun observeFormValidationErrorMessagesEvents() {
         with(viewModel) {
             nameErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.DeviceEntryName.error = it
+                //binding.DeviceEntryName.error = it
             })
 
             usernameErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.DeviceUsername.error = it
+                //binding.DeviceUsername.error = it
             })
 
             passwordErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.DevicePassword.error = it
+                //binding.DevicePassword.error = it
             })
         }
     }

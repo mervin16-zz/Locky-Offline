@@ -22,15 +22,15 @@
         android:paddingBottom="16dp">
 
         <!--
-        **************** Logo Part ****************
-        -->
+       **************** Logo Part ****************
+       -->
         <ImageView
             android:id="@+id/Device_Logo"
             iconColor="@{ViewModel.accent}"
             loadCustomIcon="@{ViewModel.icon}"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,21 +40,26 @@
             android:id="@+id/Device_Logo_Reset"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:onClick="@{() -> ViewModel.resetLogo()}"
             app:layout_constraintBottom_toTopOf="@id/Device_Logo_Edit"
-            app:layout_constraintStart_toStartOf="@id/Device_Logo_Edit"
+            app:layout_constraintStart_toEndOf="@+id/Device_Logo"
+            app:layout_constraintTop_toTopOf="@+id/Device_Logo"
+            app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/ic_reset" />
 
         <ImageButton
             android:id="@+id/Device_Logo_Edit"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
             android:background="?android:selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="@+id/Device_Logo"
-            app:layout_constraintStart_toEndOf="@+id/Device_Logo"
+            app:layout_constraintEnd_toEndOf="@+id/Device_Logo_Reset"
+            app:layout_constraintStart_toStartOf="@+id/Device_Logo_Reset"
+            app:layout_constraintTop_toBottomOf="@+id/Device_Logo_Reset"
             app:srcCompat="@drawable/ic_edit" />
 
         <androidx.constraintlayout.widget.Barrier
@@ -75,7 +80,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/label_required"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo" />
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Logo" />
 
         <!--
         **************** Require Text Fields ****************
@@ -90,7 +95,7 @@
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Required"
+            app:layout_constraintTop_toBottomOf="@id/Label_Required"
             app:startIconDrawable="@drawable/ic_profile">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +116,7 @@
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Device_Entry_Name"
+            app:layout_constraintTop_toBottomOf="@id/Device_Entry_Name"
             app:startIconDrawable="@drawable/ic_profile">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -134,7 +139,7 @@
             app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Device_Username"
+            app:layout_constraintTop_toBottomOf="@id/Device_Username"
             app:startIconDrawable="@drawable/ic_account">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -150,9 +155,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Device_Entry_Name,Device_Password,Device_Username"
-            tools:layout_editor_absoluteX="16dp" />
-
+            app:constraint_referenced_ids="Device_Entry_Name,Device_Password,Device_Username,Label_Required"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="252dp" />
 
         <!--
         **************** Optional Label ****************
@@ -163,9 +168,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_optional"
-            app:layout_constraintStart_toStartOf="@+id/Label_Required"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Barrier_Required" />
 
+        <!--
+       **************** Optional Fields ****************
+       -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Device_IpAddress"
             style="@style/Locky.TextBox.Default"
@@ -176,7 +184,7 @@
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Optional"
+            app:layout_constraintTop_toBottomOf="@id/Label_Optional"
             app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -197,7 +205,7 @@
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Device_IpAddress"
+            app:layout_constraintTop_toBottomOf="@id/Device_IpAddress"
             app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -214,12 +222,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="24dp"
             android:hint="@string/field_device_additional"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Optional"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Device_MacAddress"
+            app:layout_constraintTop_toBottomOf="@id/Device_MacAddress"
             app:startIconDrawable="@drawable/ic_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -232,14 +238,6 @@
                 android:text="@={ViewModel.moreInfo}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Optional"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Device_Comments,Device_IpAddress,Device_MacAddress" />
-
-
         <!--
         **************** Save Button ****************
         -->
@@ -248,16 +246,18 @@
             style="@style/Locky.Button.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:onClick="@{() -> ViewModel.save()}"
             android:text="@string/button_action_save"
             android:textAlignment="center"
             app:icon="@drawable/ic_save"
             app:iconGravity="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Device_Comments"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Barrier_Optional" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
+

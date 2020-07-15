@@ -206,4 +206,5 @@
     <string name="text_title_device_logo_customize_icon">Choisissez un icône</string>
     <string name="text_title_device_logo_customize_accent">Choisir une couleur</string>
     <string name="error_internal_code_3">Une erreur interne a eu lieu. Code d\'erreur 3</string>
+    <string name="field_device_blank_ip"><i>Aucune adresse IP saisie</i></string>
 </resources>

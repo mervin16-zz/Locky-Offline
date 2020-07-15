@@ -108,7 +108,8 @@ fun ImageView.configureLogo(credential: Credentials) {
 fun TextView.setCredentialSubtitle(credential: Credentials) {
     when (credential) {
         is Account -> {
-            /* Here we check if the given subtitle is empty
+            /*
+            * Here we check if the given subtitle is empty
             * If it's not, we display the login.
             * Else we display a text stating that
             * no login was provided
@@ -118,17 +119,16 @@ fun TextView.setCredentialSubtitle(credential: Credentials) {
                 return
             }
 
-            if (credential.username.isNotEmpty() || !(credential.username.toLowerCase(Locale.ROOT) == resources.getString(
-                    R.string.field_placeholder_na
-                ) || credential.username.toLowerCase(
-                    Locale.ROOT
-                ) == resources.getString(R.string.field_placeholder_empty))
+            if (
+                credential.username.isEmpty() ||
+                credential.username.toLowerCase(Locale.ROOT) == resources.getString(R.string.field_placeholder_na) ||
+                credential.username.toLowerCase(Locale.ROOT) == resources.getString(R.string.field_placeholder_empty)
             ) {
-                text = resources.getString(R.string.app_user_login, credential.username)
+                text = resources.getString(R.string.app_user_login, credential.email)
                 return
             }
 
-            text = resources.getString(R.string.app_user_login, credential.email)
+            text = resources.getString(R.string.app_user_login, credential.username)
         }
         is Card -> {
             /*
@@ -185,8 +185,14 @@ fun TextView.setCredentialOtherSubtitle(credential: Credentials) {
         is Device -> {
             /*
             * If it's device, we just assign it to the ip address
+            * We first need to check if it's not empty as
+            * ip address is an optional field.
             */
-            text = credential.ipAddress
+            text = if (credential.ipAddress.isNullOrEmpty()) {
+                resources.getString(R.string.field_device_blank_ip)
+            } else {
+                credential.ipAddress
+            }
         }
     }
 }
@@ -203,8 +209,8 @@ fun TextView.listTitleMessageCardEligibility(credential: Credentials) {
     }
 }
 
-@BindingAdapter("lockyCardEligibleValidity")
-fun MaterialCardView.lockyCardEligibleValidity(credential: Credentials) {
+@BindingAdapter("credentialCardConfiguration")
+fun MaterialCardView.credentialCardConfiguration(credential: Credentials) {
     if (credential is Card) {
         if (credential.hasExpired()) {
             this.setCardBackgroundColor(
@@ -225,7 +231,7 @@ fun MaterialCardView.lockyCardEligibleValidity(credential: Credentials) {
             )
             return
         }
-
+    } else {
         this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     }
 }
