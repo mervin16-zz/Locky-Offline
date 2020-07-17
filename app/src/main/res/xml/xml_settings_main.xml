@@ -24,8 +24,21 @@
         app:title="@string/settings_title_category_security">
 
         <SwitchPreferenceCompat
+            app:key="@string/settings_key_security_password"
+            app:summary="@string/settings_summary_security_password_create"
+            app:title="@string/settings_title_security_password_create"
+            app:icon="@drawable/ic_account" />
+
+        <Preference
+            app:key="@string/settings_key_security_password_change"
+            app:summary="@string/settings_summary_security_password_change"
+            app:title="@string/settings_title_security_password_change"
+            android:enabled="false" />
+
+        <SwitchPreferenceCompat
             app:key="@string/settings_key_security_biometric"
             app:title="@string/settings_title_security_biometric"
+            android:summary="@string/settings_summary_security_biometric"
             app:icon="@drawable/ic_fingerprint" />
 
     </PreferenceCategory>

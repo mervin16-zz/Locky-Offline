@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
     private var _viewModel: SplashViewModel? = null
 
     private val binding get() = _binding!!
-    private val viewModel get() = _viewModel!!
+    internal val viewModel get() = _viewModel!!
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var _executor: Executor
@@ -65,6 +65,9 @@ class SplashActivity : AppCompatActivity() {
 
         /* Observe sign in state */
         observeSignInState()
+
+        /* Observe if can navigate to main screen */
+        observeIfCanNavigateToMainScreen()
     }
 
     override fun onStart() {
@@ -90,6 +93,14 @@ class SplashActivity : AppCompatActivity() {
             // a listener.
             handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
         }
+    }
+
+    private fun observeIfCanNavigateToMainScreen() {
+        viewModel.canNavigateToMainScreen.observe(this, Observer {
+            if (it) {
+                navigateToMainScreen()
+            }
+        })
     }
 
     private fun observeSignInState() = viewModel.isSignInComplete.observe(this, Observer {
@@ -162,20 +173,34 @@ class SplashActivity : AppCompatActivity() {
 
     private fun prepareToNavigateToMainScreen() {
         /*
-        * Before navigation, we need to check if biometrics prompt has been enabled on the app
-        * If biometrics has been enabled, we need to prompt the user.
-        * If not, we then navigate to main screen
+        * Before navigation, we need to check if
+        * 1. Master Password has been enabled on the app
+        * 2. Or biometrics prompt has been enabled on the app
+        * If master password has been enabled, we prompt the user for a password
+        * If biometrics has been enabled, we need prompt the user for his biometrics
+        * If none has been enabled, we then navigate to main screen directly
+        * NOTE: If both has been enabled, we prioritize biometrics over password.
         */
-        biometricVerification()
+
+        when {
+            viewModel.isBiometricsEnabled() -> {
+                promptBiometric()
+            }
+            viewModel.isMasterPasswordEnabled() -> {
+                masterPasswordVerification()
+            }
+            else -> {
+                viewModel.canNavigateToMainScreen.value = true
+            }
+        }
+
     }
 
-    private fun biometricVerification() {
-        LocalStorageManager.withSettings(application)
-        val exists = LocalStorageManager.exists(getString(R.string.settings_key_security_biometric))
-        val isEnabled =
-            LocalStorageManager.get<Boolean>(getString(R.string.settings_key_security_biometric))
-
-        if (exists && isEnabled!!) promptBiometric() else navigateToMainScreen()
+    private fun masterPasswordVerification() {
+        val sheet = PasswordAuthenticationBottomSheetFragment(
+            LocalStorageManager.get<String>(application.getString(R.string.settings_key_security_thepassword))
+        )
+        sheet.show(supportFragmentManager, sheet.tag)
     }
 
     private fun promptBiometric() {
@@ -211,7 +236,7 @@ class SplashActivity : AppCompatActivity() {
                 ) {
                     super.onAuthenticationSucceeded(result)
                     /* Biometric has succeeded */
-                    navigateToMainScreen()
+                    viewModel.canNavigateToMainScreen.value = true
                 }
 
                 override fun onAuthenticationFailed() {
@@ -240,7 +265,7 @@ class SplashActivity : AppCompatActivity() {
         .canAuthenticate()) != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
     private fun navigateToMainScreen() {
-        /* Navigate to main screen */
+        /*Navigate to main screen*/
         openActivity(MainActivity::class.java)
         finish()
     }

@@ -231,6 +231,8 @@ fun MaterialCardView.credentialCardConfiguration(credential: Credentials) {
             )
             return
         }
+
+        this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     } else {
         this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     }

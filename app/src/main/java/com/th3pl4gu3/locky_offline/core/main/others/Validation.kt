@@ -17,10 +17,35 @@ import kotlin.collections.HashMap
 * All forms should handle validation through this class
 */
 class Validation(val application: Application) {
-    enum class ErrorField { NAME, PASSWORD, EMAIL, USERNAME, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
+
+    enum class ErrorField { NAME, PASSWORD, CONFIRM_PASSWORD, CURRENT_PASSWORD, EMAIL, USERNAME, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
 
     var errorList = HashMap<ErrorField, String>()
         private set
+
+    fun isMaterPasswordValid(pass: String, confirm: String): Boolean {
+        emptyValueCheck(
+            pass,
+            ErrorField.PASSWORD
+        )
+
+        emptyValueCheck(
+            confirm,
+            ErrorField.CONFIRM_PASSWORD
+        )
+
+        if (pass.length <= 6) {
+            errorList[ErrorField.PASSWORD] =
+                application.getString(R.string.error_field_validation_password_criteria)
+        }
+
+        if (pass != confirm) {
+            errorList[ErrorField.CONFIRM_PASSWORD] =
+                application.getString(R.string.error_field_validation_password_notmatch)
+        }
+
+        return errorList.isEmpty()
+    }
 
     fun isBankAccountFormValid(account: BankAccount): Boolean {
         with(account) {

@@ -143,6 +143,11 @@
     <string name="text_title_device_logo_customize_icon">Choose an Icon</string>
     <string name="text_title_device_logo_customize_accent">Choose an Accent</string>
 
+    <string name="text_title_master_password">Enter password to proceed</string>
+    <string name="text_subtitle_master_password">Please authenticate yourself with your master password to access Locky</string>
+
+    <string name="text_title_settings_master_password">Master Password</string>
+
     <!-- ==================== -->
     <!-- ======= Menu =======  -->
     <!-- ==================== -->
@@ -198,13 +203,6 @@
     <string name="field_account_2fakeys">Two-Factor Backup Codes</string>
     <string name="field_account_additional">Additional Comments</string>
 
-    <string name="field_account_blank_website"><i>No websites entered</i></string>
-    <string name="field_account_blank_login"><i>No login entered</i></string>
-    <string name="field_device_blank_ip"><i>No ip address entered</i></string>
-
-    <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
-    <string name="field_helper_account_2fakeys">Store your Two Factor Authentication backup codes here</string>
-
     <string name="field_card_name">Entry Name</string>
     <string name="field_card_number">Number</string>
     <string name="field_card_holder">Name on Card</string>
@@ -229,28 +227,40 @@
     <string name="field_bank_account_swift">Swift Code</string>
     <string name="field_bank_account_additional">Additional Comments</string>
 
+    <string name="field_password_old">Old Password</string>
+    <string name="field_password_new">New Password</string>
+    <string name="field_password_confirm">Confirm Password</string>
+    <string name="field_password_master">Master Password</string>
+
+    <string name="field_account_blank_website"><i>No websites entered</i></string>
+    <string name="field_account_blank_login"><i>No login entered</i></string>
+    <string name="field_device_blank_ip"><i>No ip address entered</i></string>
+
     <string name="field_placeholder_empty">none</string>
     <string name="field_placeholder_na" translatable="false">n/a</string>
     <string name="field_placeholder_hidden" translatable="false">******</string>
 
-    <string name="field_account_sort_name">Entry Name</string>
-    <string name="field_account_sort_username">Username</string>
-    <string name="field_account_sort_email" translatable="false">Email</string>
-    <string name="field_account_sort_website">Website</string>
-    <string name="field_account_sort_authentication_type">Authentication Type</string>
+    <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
+    <string name="field_helper_account_2fakeys">Store your Two Factor Authentication backup codes here</string>
 
-    <string name="field_card_sort_name">Entry Name</string>
-    <string name="field_card_sort_bank">Bank</string>
+    <string name="field_account_sort_name">@string/field_account_name</string>
+    <string name="field_account_sort_username">@string/field_account_username</string>
+    <string name="field_account_sort_email" translatable="false">@string/field_account_email</string>
+    <string name="field_account_sort_website">@string/field_account_website</string>
+    <string name="field_account_sort_authentication_type">@string/field_account_authentication_type</string>
+
+    <string name="field_card_sort_name">@string/field_card_name</string>
+    <string name="field_card_sort_bank">@string/field_card_bank</string>
+    <string name="field_card_sort_cardholder">@string/field_card_holder</string>
     <string name="field_card_sort_type">Card Brand</string>
-    <string name="field_card_sort_cardholder">Name on Card</string>
 
-    <string name="field_bank_account_sort_entry">Entry Name</string>
-    <string name="field_bank_account_sort_owner">Account Owner</string>
-    <string name="field_bank_account_sort_bank">Bank</string>
+    <string name="field_bank_account_sort_entry">@string/field_bank_account_name</string>
+    <string name="field_bank_account_sort_owner">@string/field_bank_account_owner</string>
+    <string name="field_bank_account_sort_bank">@string/field_bank_account_bank</string>
 
-    <string name="field_device_sort_entry">Entry Name</string>
-    <string name="field_device_sort_username">Username</string>
-    <string name="field_device_sort_ip">Ip Address</string>
+    <string name="field_device_sort_entry">@string/field_device_name</string>
+    <string name="field_device_sort_username">@string/field_device_username</string>
+    <string name="field_device_sort_ip">@string/field_device_ip</string>
 
     <string name="field_hint_logo_search" translatable="false">i.e facebook.com</string>
     <string name="field_hint_item_search">Search</string>
@@ -292,11 +302,14 @@
         <item quantity="other">Search returned %d results</item>
     </plurals>
 
+    <string name="message_settings_masterpassword_enable">Master password has been enabled</string>
 
     <!-- =============== -->
     <!-- Error Messages -->
     <!-- =============== -->
     <string name="error_field_validation_blank">This field cannot be empty</string>
+    <string name="error_field_validation_password_notmatch">Passwords do not match</string>
+    <string name="error_field_validation_password_criteria">Password length should be greater than 6</string>
     <string name="error_field_validation_email_format">Please enter a valid email</string>
     <string name="error_field_validation_id_after">Issued date cannot be after than expiry date</string>
     <string name="error_field_validation_ed_before">Expiry date cannot be before than issued date.</string>
@@ -321,6 +334,7 @@
     <string name="button_action_delete">Delete</string>
     <string name="button_action_logout">Logout</string>
     <string name="button_action_okay" translatable="false">OK</string>
+    <string name="button_action_confirm">Confirm</string>
     <string name="button_action_retry">RETRY</string>
     <string name="button_action_backup_proceed">Open Backup</string>
     <string name="button_action_backup_cancel">I\'ll do it later</string>
@@ -347,8 +361,22 @@
     <string name="settings_value_display_light">Light</string>
     <string name="settings_value_display_dark">Dark</string>
 
+    <string name="settings_key_security_thepassword" translatable="false">settings_key_security_thepassword</string>
+    <string name="settings_key_security_password" translatable="false">settings_key_security_password</string>
+    <string name="settings_title_security_password_create">Create Master Password</string>
+    <string name="settings_summary_security_password_create">
+        Setup a master password which will be prompted every time you
+        enter Locky
+    </string>
+    <string name="settings_key_security_password_change" translatable="false">settings_key_security_password_change</string>
+    <string name="settings_title_security_password_change">Change Master Password</string>
+    <string name="settings_summary_security_password_change">
+        Change your master password
+    </string>
+
     <string name="settings_key_security_biometric" translatable="false">settings_key_security_fingerprint</string>
-    <string name="settings_title_security_biometric">Enable Biometric Authentication</string>
+    <string name="settings_title_security_biometric">Biometric Authentication</string>
+    <string name="settings_summary_security_biometric">Authenticate with your biometrics every time you enter Locky</string>
 
     <string name="settings_key_backup_backup" translatable="false">settings_key_backup_backup</string>
     <string name="settings_title_backup_backup">Backup</string>

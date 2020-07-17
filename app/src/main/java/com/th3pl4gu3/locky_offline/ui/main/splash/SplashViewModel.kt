@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.others.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.UserRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
@@ -18,6 +19,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _buttonVisibility = MutableLiveData(0)
     private val _signInCompletion = MutableLiveData(false)
+    val canNavigateToMainScreen = MutableLiveData(false)
 
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
@@ -74,10 +76,25 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    internal fun isUserSavedInSession(): Boolean {
+    internal fun isUserSavedInSession(): Boolean = with(LocalStorageManager) {
         /* Returns boolean on whether user already exists or not.*/
-        LocalStorageManager.withLogin(getApplication())
-        return LocalStorageManager.exists(KEY_USER_ACCOUNT)
+        withLogin(getApplication())
+        return exists(KEY_USER_ACCOUNT)
+    }
+
+    internal fun isMasterPasswordEnabled(): Boolean = with(LocalStorageManager) {
+        withSettings(getApplication())
+        return exists(getApplication<Application>().getString(R.string.settings_key_security_thepassword))
+    }
+
+    internal fun isBiometricsEnabled(): Boolean = with(LocalStorageManager) {
+        withSettings(getApplication())
+
+        return if (exists(getApplication<Application>().getString(R.string.settings_key_security_biometric))) {
+            get<Boolean>(getApplication<Application>().getString(R.string.settings_key_security_biometric))!!
+        } else {
+            false
+        }
     }
 
     private fun saveToSession(user: User) {

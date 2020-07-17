@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -42,21 +41,6 @@ fun Activity.isOnline(): Boolean {
 */
 fun Activity.navigateTo(destination: Int) {
     this.findNavController(R.id.Navigation_Host).navigate(destination)
-}
-
-
-val FragmentManager.currentNavigationFragment: Fragment?
-    get() = findFragmentById(R.id.Navigation_Host)?.childFragmentManager?.fragments?.first()
-
-/**
- * Sets the exit and reenter transitions, or nulls them out if not provided.
- */
-fun Fragment.setOutgoingTransitions(
-    exitTransition: Any? = null,
-    reenterTransition: Any? = null
-) {
-    this.exitTransition = exitTransition
-    this.reenterTransition = reenterTransition
 }
 
 /*
