@@ -16,8 +16,8 @@ android {
         applicationId "com.th3pl4gu3.locky_offline"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 21
-        versionName "1.1-alpha02"
+        versionCode 22
+        versionName "1.1-alpha03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -103,6 +103,8 @@ dependencies {
     implementation "androidx.room:room-ktx:$version_room"
     implementation "androidx.room:room-rxjava2:$version_room"
 
+    // Jetpack Security
+    implementation "androidx.security:security-crypto:$version_security"
 
     /********************************************\
     /********** 3rd Party Dependencies **********\

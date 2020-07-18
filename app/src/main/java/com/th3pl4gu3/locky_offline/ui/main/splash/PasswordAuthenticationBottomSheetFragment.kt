@@ -9,8 +9,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAuthenticationPasswordBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.SETTINGS_CRYPTO_DIGEST_SCHEME
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import java.security.MessageDigest
 
 class PasswordAuthenticationBottomSheetFragment(private val savedPassword: String?) :
     BottomSheetDialogFragment() {
@@ -90,7 +92,11 @@ class PasswordAuthenticationBottomSheetFragment(private val savedPassword: Strin
 
     private fun validateMasterPassword() {
         with(binding.MasterPassword) {
-            if (this.editText?.text.toString() != savedPassword) {
+            val enteredPasswordDigest = String(
+                MessageDigest.getInstance(SETTINGS_CRYPTO_DIGEST_SCHEME)
+                    .digest(this.editText?.text.toString().toByteArray())
+            )
+            if (enteredPasswordDigest != savedPassword) {
                 this.error = getString(R.string.error_field_validation_password_notmatch)
             } else {
                 this.error = null

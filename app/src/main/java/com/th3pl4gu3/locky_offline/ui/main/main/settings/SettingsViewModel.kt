@@ -12,11 +12,13 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepos
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.SETTINGS_CRYPTO_DIGEST_SCHEME
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -84,10 +86,17 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             if (isMaterPasswordValid(newPass, confirmPass)) {
                 _masterPasswordValid.value = true
                 /*
-                * Save the password
+                * We first hash the password
+                * then we save the password
                 */
-                //FIXME("Hash password")
-                save(application.getString(R.string.settings_key_security_thepassword), newPass)
+                val passwordDigest = String(
+                    MessageDigest.getInstance(SETTINGS_CRYPTO_DIGEST_SCHEME)
+                        .digest(newPass.toByteArray())
+                )
+                save(
+                    application.getString(R.string.settings_key_security_thepassword),
+                    passwordDigest
+                )
                 return true
             }
 

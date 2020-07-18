@@ -10,13 +10,14 @@ buildscript {
     //Android
     ext.version_lifecycle = "2.2.0"
     ext.version_constraint_layout = "2.0.0-beta6"
-    ext.version_gradle = '4.0.0'
+    ext.version_gradle = '4.0.1'
     ext.version_material_design = '1.2.0-beta01'
     ext.version_navigation = '2.3.0-rc01'
     ext.version_preference = "1.1.1"
     ext.version_oss_licenses = "17.0.0"
     ext.version_oss_plugin = "0.10.2"
     ext.version_room = "2.2.5"
+    ext.version_security = "1.0.0-rc02"
     ext.version_arch_core = "2.1.0"
     ext.version_gms_services = "18.0.0"
     ext.version_biometric = "1.0.1"

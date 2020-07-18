@@ -2,6 +2,10 @@ package com.th3pl4gu3.locky_offline.ui.main.utils
 
 object Constants {
 
+    /*
+        ****    Settings    ****
+     */
+    const val SETTINGS_CRYPTO_DIGEST_SCHEME = "SHA-256"
 
     /*
         ****    Values    ****
