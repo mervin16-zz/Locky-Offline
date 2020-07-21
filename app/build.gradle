@@ -106,6 +106,9 @@ dependencies {
     // Jetpack Security
     implementation "androidx.security:security-crypto:$version_security"
 
+    // JetPack Paging
+    implementation "androidx.paging:paging-runtime-ktx:$version_paging"
+
     /********************************************\
     /********** 3rd Party Dependencies **********\
     /********************************************/

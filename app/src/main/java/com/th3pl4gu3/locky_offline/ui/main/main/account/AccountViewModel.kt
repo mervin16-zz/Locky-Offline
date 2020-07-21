@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
+import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -29,58 +31,75 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
 
+    private val DataSource.Factory<Int, Account>.sortByEntryName: DataSource.Factory<Int, Account>
+        get() {
+            return this@sortByEntryName.mapByPage { list ->
+                list.sortedBy { account ->
+                    account.entryName.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Account>.sortByUsername: DataSource.Factory<Int, Account>
+        get() {
+            return this@sortByUsername.mapByPage { list ->
+                list.sortedBy { account ->
+                    account.username.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Account>.sortByEmail: DataSource.Factory<Int, Account>
+        get() {
+            return this@sortByEmail.mapByPage { list ->
+                list.sortedBy { account ->
+                    account.email.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Account>.sortByWebsite: DataSource.Factory<Int, Account>
+        get() {
+            return this@sortByWebsite.mapByPage { list ->
+                list.sortedBy { account ->
+                    account.website.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Account>.sortByAuthenticationType: DataSource.Factory<Int, Account>
+        get() {
+            return this@sortByAuthenticationType.mapByPage { list ->
+                list.sortedBy { account ->
+                    account.authenticationType?.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
     /*
     * Transformations
     */
-    private val sortedByName = Transformations.map(_accounts) {
-        it.sortedBy { account ->
-            account.entryName.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    private val sortedByUsername = Transformations.map(_accounts) {
-        it.sortedBy { account ->
-            account.username.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    private val sortedByEmail = Transformations.map(_accounts) {
-        it.sortedBy { account ->
-            account.email.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    private val sortedByWebsite = Transformations.map(_accounts) {
-        it.sortedBy { account ->
-            account.website.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-    private val sortedByAuthType = Transformations.map(_accounts) {
-        it.sortedBy { account ->
-            account.authenticationType?.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    val accounts: LiveData<List<Account>> = Transformations.switchMap(_sort) {
+    val accounts = Transformations.switchMap(_sort) {
         when (true) {
-            it.name -> sortedByName
-            it.username -> sortedByUsername
-            it.email -> sortedByEmail
-            it.website -> sortedByWebsite
-            it.authType -> sortedByAuthType
+            it.name -> _accounts.sortByEntryName
+            it.username -> _accounts.sortByUsername
+            it.email -> _accounts.sortByEmail
+            it.website -> _accounts.sortByWebsite
+            it.authType -> _accounts.sortByAuthenticationType
             else -> _accounts
-        }
+        }.toLiveData(pageSize = 40)
     }
+
 
     /*
     * Accessible functions

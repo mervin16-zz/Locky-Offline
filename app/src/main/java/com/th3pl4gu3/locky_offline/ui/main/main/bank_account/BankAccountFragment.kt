@@ -5,15 +5,14 @@ import android.os.SystemClock
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
@@ -22,6 +21,7 @@ import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import kotlinx.coroutines.launch
 
 class BankAccountFragment : Fragment() {
 
@@ -100,7 +100,7 @@ class BankAccountFragment : Fragment() {
         hideSoftKeyboard(binding.root)
 
         /* Observe bank accounts */
-        observeAccounts()
+        subscribeBankAccounts()
 
         /* Observe back stack entry for sort changes */
         observeBackStackEntryForSortSheet()
@@ -109,21 +109,6 @@ class BankAccountFragment : Fragment() {
     /*
     * Explicit private functions
     */
-    private fun observeAccounts() {
-        viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                /*
-                 * If bank accounts is not null
-                 * Update the ui and
-                 * Load recyclerview
-                 */
-                updateUI(it.size)
-
-                subscribeBankAccounts(it)
-            }
-        })
-    }
-
     private fun observeBackStackEntryForSortSheet() {
         val navController = findNavController()
         // After a configuration change or process death, the currentBackStackEntry
@@ -158,7 +143,7 @@ class BankAccountFragment : Fragment() {
         })
     }
 
-    private fun subscribeBankAccounts(bankAccounts: List<BankAccount>) {
+    private fun subscribeBankAccounts() {
         val adapter = CredentialsAdapter(
             /* The click listener to handle account on clicks */
             ClickListener {
@@ -191,8 +176,20 @@ class BankAccountFragment : Fragment() {
             this.adapter = adapter
         }
 
-        /* Submits the list for displaying */
-        adapter.submitList(bankAccounts)
+        viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                /*
+                 * If bank accounts is not null
+                 * Update the ui and
+                 * Load recyclerview
+                 */
+                lifecycleScope.launch {
+                    adapter.submitList(it as PagedList<Credentials>)
+                }
+
+                updateUI(it.size)
+            }
+        })
     }
 
     private fun updateUI(listSize: Int) {

@@ -6,16 +6,15 @@ import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
@@ -23,6 +22,7 @@ import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import kotlinx.coroutines.launch
 
 class CardFragment : Fragment() {
 
@@ -55,7 +55,7 @@ class CardFragment : Fragment() {
         hideSoftKeyboard(binding.root)
 
         /*Observe cards list being updated*/
-        observeCardsEvent()
+        subscribeUi()
 
         /*Observe sort & filter changes*/
         observeBackStackEntryForSortSheet()
@@ -87,20 +87,6 @@ class CardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun observeCardsEvent() {
-        with(viewModel) {
-            cards.observe(viewLifecycleOwner, Observer { cards ->
-                if (cards != null) {
-                    //Update UI
-                    updateUI(cards.size)
-
-                    //Submit the cards
-                    subscribeUi(cards)
-                }
-            })
-        }
     }
 
     private fun updateUI(listSize: Int) {
@@ -142,7 +128,7 @@ class CardFragment : Fragment() {
         })
     }
 
-    private fun subscribeUi(cards: List<Card>) {
+    private fun subscribeUi() {
         val adapter = CredentialsAdapter(
             ClickListener {
                 navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it as Card))
@@ -170,7 +156,16 @@ class CardFragment : Fragment() {
             this.adapter = adapter
         }
 
-        adapter.submitList(cards)
+        viewModel.cards.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                lifecycleScope.launch {
+                    adapter.submitList(it as PagedList<Credentials>)
+                }
+
+                //Update UI
+                updateUI(it.size)
+            }
+        })
     }
 
     private fun navigateToSortSheet() {

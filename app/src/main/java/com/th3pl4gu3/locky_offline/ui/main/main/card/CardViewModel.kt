@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
+import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -21,7 +23,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
      * Live Data Variables
      **/
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
-    private var _currentCardsExposed =
+    private var _cards =
         CardRepository.getInstance(getApplication()).getAll(activeUser.email)
     private var _sort = MutableLiveData(loadSortObject())
 
@@ -31,44 +33,57 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
 
+    private val DataSource.Factory<Int, Card>.sortByName: DataSource.Factory<Int, Card>
+        get() {
+            return this@sortByName.mapByPage { list ->
+                list.sortedBy {
+                    it.entryName.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Card>.sortByType: DataSource.Factory<Int, Card>
+        get() {
+            return this@sortByType.mapByPage { list ->
+                list.sortedBy { card -> card.number.getCardType() }
+            }
+        }
+
+    private val DataSource.Factory<Int, Card>.sortByBank: DataSource.Factory<Int, Card>
+        get() {
+            return this@sortByBank.mapByPage { list ->
+                list.sortedBy { card ->
+                    card.bank.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
+    private val DataSource.Factory<Int, Card>.sortedByCardHolderName: DataSource.Factory<Int, Card>
+        get() {
+            return this@sortedByCardHolderName.mapByPage { list ->
+                list.sortedBy { card ->
+                    card.cardHolderName.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
+        }
+
     /**
      * Live Data Transformations
      **/
-    private val sortedByName = Transformations.map(_currentCardsExposed) {
-        it.sortedBy { card ->
-            card.entryName.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    private val sortedByType =
-        Transformations.map(_currentCardsExposed) { it.sortedBy { card -> card.number.getCardType() } }
-
-    private val sortedByBank = Transformations.map(_currentCardsExposed) {
-        it.sortedBy { card ->
-            card.bank.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    private val sortedByCardHolderName = Transformations.map(_currentCardsExposed) {
-        it.sortedBy { card ->
-            card.cardHolderName.toLowerCase(
-                Locale.ROOT
-            )
-        }
-    }
-
-    val cards: LiveData<List<Card>> = Transformations.switchMap(_sort) {
+    val cards = Transformations.switchMap(_sort) {
         when (true) {
-            it.sortByName -> sortedByName
-            it.sortByType -> sortedByType
-            it.sortByBank -> sortedByBank
-            it.sortByCardHolderName -> sortedByCardHolderName
-            else -> _currentCardsExposed
-        }
+            it.sortByName -> _cards.sortByName
+            it.sortByType -> _cards.sortByType
+            it.sortByBank -> _cards.sortByBank
+            it.sortByCardHolderName -> _cards.sortedByCardHolderName
+            else -> _cards
+        }.toLiveData(pageSize = 40)
     }
 
 

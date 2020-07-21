@@ -3,8 +3,8 @@ package com.th3pl4gu3.locky_offline.ui.main.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsBinding
@@ -13,9 +13,20 @@ class CredentialsAdapter(
     private val clickListener: ClickListener,
     private val optionsClickListener: OptionsClickListener?,
     private val isSimplified: Boolean
-) : ListAdapter<Credentials, CredentialsAdapter.ViewHolder>(
-    DiffCallback()
+) : PagedListAdapter<Credentials, CredentialsAdapter.ViewHolder>(
+    diffCallback
 ) {
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<Credentials>() {
+            override fun areItemsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
+                return oldItem.equals(newItem)
+            }
+        }
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
@@ -37,11 +48,10 @@ class CredentialsAdapter(
         fun bind(
             clickListener: ClickListener,
             optionsClickListener: OptionsClickListener?,
-            credential: Credentials,
+            credential: Credentials?,
             isSimplified: Boolean
         ) {
             binding.credential = credential
-            /*binding.credential = BasicCredential*/
             binding.clickListener = clickListener
             binding.optionsClickListener = optionsClickListener
             binding.isSimplifiedVersion = isSimplified
@@ -59,18 +69,6 @@ class CredentialsAdapter(
             }
         }
     }
-}
-
-class DiffCallback : DiffUtil.ItemCallback<Credentials>() {
-
-    override fun areItemsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Credentials, newItem: Credentials): Boolean {
-        return oldItem.equals(newItem)
-    }
-
 }
 
 class ClickListener(val clickListener: (credential: Credentials) -> Unit) {

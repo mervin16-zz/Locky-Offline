@@ -6,15 +6,14 @@ import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentDeviceBinding
@@ -24,6 +23,7 @@ import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import kotlinx.coroutines.launch
 
 class DeviceFragment : Fragment() {
 
@@ -101,7 +101,7 @@ class DeviceFragment : Fragment() {
         hideSoftKeyboard(binding.root)
 
         /* Observe devices */
-        observeDevices()
+        subscribeDevices()
 
         /* Observe back stack entry for sort changes */
         observeBackStackEntryForSortSheet()
@@ -145,21 +145,6 @@ class DeviceFragment : Fragment() {
         })
     }
 
-    private fun observeDevices() {
-        viewModel.devices.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                /*
-                 * If devices is not null
-                 * Update the ui and
-                 * Load recyclerview
-                 */
-                updateUI(it.size)
-
-                subscribeDevices(it)
-            }
-        })
-    }
-
     private fun updateUI(listSize: Int) {
         /*
         * Hide the loading animation
@@ -169,7 +154,7 @@ class DeviceFragment : Fragment() {
         viewModel.doneLoading(listSize)
     }
 
-    private fun subscribeDevices(devices: List<Device>) {
+    private fun subscribeDevices() {
         val adapter = CredentialsAdapter(
             /* The click listener to handle device on clicks */
             ClickListener {
@@ -202,8 +187,20 @@ class DeviceFragment : Fragment() {
             this.adapter = adapter
         }
 
-        /* Submits the list for displaying */
-        adapter.submitList(devices)
+        viewModel.devices.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                /*
+                 * If devices is not null
+                 * Update the ui and
+                 * Load recyclerview
+                 */
+                lifecycleScope.launch {
+                    adapter.submitList(it as PagedList<Credentials>)
+                }
+
+                updateUI(it.size)
+            }
+        })
     }
 
     private fun createPopupMenu(view: View, device: Device) {

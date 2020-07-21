@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
+import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -31,37 +33,46 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
     /*
     * Transformations
     */
-    private val sortedByName = Transformations.map(_bankAccounts) {
-        it.sortedBy { account ->
-            account.entryName.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, BankAccount>.sortedByName: DataSource.Factory<Int, BankAccount>
+        get() {
+            return this@sortedByName.mapByPage {
+                it.sortedBy { account ->
+                    account.entryName.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    private val sortedByOwner = Transformations.map(_bankAccounts) {
-        it.sortedBy { account ->
-            account.accountOwner.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, BankAccount>.sortedByOwner: DataSource.Factory<Int, BankAccount>
+        get() {
+            return this@sortedByOwner.mapByPage {
+                it.sortedBy { account ->
+                    account.accountOwner.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    private val sortedByBank = Transformations.map(_bankAccounts) {
-        it.sortedBy { account ->
-            account.bank.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, BankAccount>.sortedByBank: DataSource.Factory<Int, BankAccount>
+        get() {
+            return this@sortedByBank.mapByPage {
+                it.sortedBy { account ->
+                    account.bank.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    val bankAccounts: LiveData<List<BankAccount>> = Transformations.switchMap(_sort) {
+    val bankAccounts = Transformations.switchMap(_sort) {
         when (true) {
-            it.accountName -> sortedByName
-            it.accountOwner -> sortedByOwner
-            it.bank -> sortedByBank
+            it.accountName -> _bankAccounts.sortedByName
+            it.accountOwner -> _bankAccounts.sortedByOwner
+            it.bank -> _bankAccounts.sortedByBank
             else -> _bankAccounts
-        }
+        }.toLiveData(pageSize = 40)
     }
 
     /*

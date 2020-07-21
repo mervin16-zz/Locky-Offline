@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.repository.database.daos
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 
@@ -29,7 +30,7 @@ interface DeviceDao {
     suspend fun get(key: Int): Device?
 
     @Query("SELECT * FROM device_table WHERE userID = :userID")
-    fun getAll(userID: String): LiveData<List<Device>>
+    fun getAll(userID: String): DataSource.Factory<Int, Device>
 
     @Query("SELECT * FROM device_table WHERE userID = :userID AND (entryName LIKE :query OR username LIKE :query)")
     fun search(query: String, userID: String): LiveData<List<Device>>

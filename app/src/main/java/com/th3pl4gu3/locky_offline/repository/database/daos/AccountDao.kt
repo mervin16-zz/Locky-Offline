@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.repository.database.daos
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 
@@ -29,7 +30,7 @@ interface AccountDao {
     suspend fun get(key: Int): Account?
 
     @Query("SELECT * FROM account_table WHERE userID = :userID")
-    fun getAll(userID: String): LiveData<List<Account>>
+    fun getAll(userID: String): DataSource.Factory<Int, Account>
 
     @Query("SELECT * FROM account_table WHERE userID = :userID AND (entryName LIKE :query OR username LIKE :query OR website LIKE :query)")
     fun search(query: String, userID: String): LiveData<List<Account>>

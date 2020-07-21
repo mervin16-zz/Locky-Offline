@@ -5,6 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
+import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -30,39 +32,47 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
     /*
     * Transformations
     */
-    private val sortedByName = Transformations.map(_devices) {
-        it.sortedBy { device ->
-            device.entryName.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, Device>.sortedByName: DataSource.Factory<Int, Device>
+        get() {
+            return this@sortedByName.mapByPage {
+                it.sortedBy { device ->
+                    device.entryName.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    private val sortedByUsername = Transformations.map(_devices) {
-        it.sortedBy { device ->
-            device.username.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, Device>.sortedByUsername: DataSource.Factory<Int, Device>
+        get() {
+            return this@sortedByUsername.mapByPage {
+                it.sortedBy { device ->
+                    device.username.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    private val sortedByIp = Transformations.map(_devices) {
-        it.sortedBy { device ->
-            device.ipAddress?.toLowerCase(
-                Locale.ROOT
-            )
+    private val DataSource.Factory<Int, Device>.sortedByIp: DataSource.Factory<Int, Device>
+        get() {
+            return this@sortedByIp.mapByPage {
+                it.sortedBy { device ->
+                    device.ipAddress?.toLowerCase(
+                        Locale.ROOT
+                    )
+                }
+            }
         }
-    }
 
-    val devices: LiveData<List<Device>> = Transformations.switchMap(_sort) {
+    val devices = Transformations.switchMap(_sort) {
         when (true) {
-            it.entryName -> sortedByName
-            it.username -> sortedByUsername
-            it.ipAddress -> sortedByIp
+            it.entryName -> _devices.sortedByName
+            it.username -> _devices.sortedByUsername
+            it.ipAddress -> _devices.sortedByIp
             else -> _devices
-        }
+        }.toLiveData(pageSize = 40)
     }
-
 
     /*
     * Accessible functions
@@ -82,7 +92,6 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
             _sort.value = sort
         }
     }
-
 
     /*
     * Non-accessible functions

@@ -1,6 +1,7 @@
 package com.th3pl4gu3.locky_offline.repository.database.daos
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 
@@ -29,7 +30,7 @@ interface CardDao {
     suspend fun get(key: Int): Card?
 
     @Query("SELECT * FROM card_table WHERE userID = :userID")
-    fun getAll(userID: String): LiveData<List<Card>>
+    fun getAll(userID: String): DataSource.Factory<Int, Card>
 
     @Query("SELECT * FROM card_table WHERE userID = :userID AND (entryName LIKE :query OR number LIKE :query OR bank LIKE :query)")
     fun search(query: String, userID: String): LiveData<List<Card>>

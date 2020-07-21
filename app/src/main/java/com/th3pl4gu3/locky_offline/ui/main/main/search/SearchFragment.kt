@@ -233,7 +233,7 @@ class SearchFragment : Fragment() {
         }
 
         /* Submits the list for displaying */
-        adapter.submitList(credentials)
+        //adapter.submitList(credentials)
     }
 
     private fun alternateSearchVisibility(visible: Boolean) {
