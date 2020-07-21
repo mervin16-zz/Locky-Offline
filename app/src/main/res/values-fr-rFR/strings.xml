@@ -70,7 +70,7 @@
     <string name="menu_drawer_subtitle_user">UTILISATEUR</string>
     <string name="settings_summary_help_feedback">Signaler des problèmes techniques ou suggérer de nouvelles fonctionnalités</string>
     <string name="settings_summary_backup_backup">Sauvegarde des données d\'application pour Locky</string>
-    <string name="settings_value_display_default">Défaut</string>
+    <string name="settings_value_display_default">Suivez le système</string>
     <string name="settings_title_display_theme">Thème de l\'application</string>
     <string name="settings_title_category_backup">Sauvegarde</string>
     <string name="settings_title_category_help">Aidez-moi</string>
@@ -136,7 +136,7 @@
     <string name="field_device_password">Mot de passe / Pin</string>
     <string name="field_device_ip">Adresse IP</string>
     <string name="field_device_mac">Adresse MAC</string>
-    <string name="field_device_additional">Additional Comments</string>
+    <string name="field_device_additional">Commentaires supplémentaires</string>
     <string name="field_placeholder_empty">Aucun</string>
     <string name="field_account_sort_name">@string/field_account_name</string>
     <string name="field_account_sort_username">@string/field_account_username</string>
@@ -210,7 +210,7 @@
     <string name="settings_summary_security_biometric">Authentifiez-vous avec vos données biométriques chaque fois que vous entrez dans Locky</string>
     <string name="settings_title_security_password_change">"        entre Locky"</string>
     <string name="settings_title_security_password_create">Créer un mot de passe principal</string>
-    <string name="settings_summary_security_password_create">Configurez un mot de passe principal qui vous sera demandé à chaque fois que vous</string>
+    <string name="settings_summary_security_password_create">Configurez un mot de passe principal qui vous sera demandé chaque fois que vous entrerez dans Locky</string>
     <string name="settings_summary_security_password_change">Changez votre mot de passe principal</string>
     <string name="button_action_confirm">Confirmer</string>
     <string name="text_title_master_password">Entrez le mot de passe pour continuer</string>

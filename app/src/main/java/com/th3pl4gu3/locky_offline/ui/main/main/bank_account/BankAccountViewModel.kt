@@ -1,7 +1,10 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.bank_account
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -9,14 +12,14 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
-import kotlinx.coroutines.launch
 import java.util.*
 
 class BankAccountViewModel(application: Application) : AndroidViewModel(application) {
 
     /* Private variables */
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
-    private var _bankAccounts = MediatorLiveData<List<BankAccount>>()
+    private var _bankAccounts =
+        BankAccountRepository.getInstance(getApplication()).getAll(activeUser.email)
     private var _sort = MutableLiveData(loadSortObject())
 
     /*
@@ -24,17 +27,6 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
     */
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
-
-    /*
-    * Init clause
-    */
-    init {
-
-        /*
-        * We load the accounts on startup
-        */
-        loadBankAccounts()
-    }
 
     /*
     * Transformations
@@ -94,31 +86,21 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
     /*
     * Non-accessible functions
     */
-    private fun loadBankAccounts() {
-        viewModelScope.launch {
-            _bankAccounts.addSource(
-                BankAccountRepository.getInstance(getApplication()).getAll(activeUser.email)
-            ) {
-                _bankAccounts.value = it
-            }
-        }
-    }
-
     /*
     * Checks if sorting session exists
     * If sessions exists, we return the sort object
     * Else we return a new sort object
     */
-    private fun loadSortObject(): BankAccountSort {
-        LocalStorageManager.withLogin(getApplication())
-        return if (LocalStorageManager.exists(KEY_BANK_ACCOUNTS_SORT)) {
-            LocalStorageManager.get(KEY_BANK_ACCOUNTS_SORT)!!
+    private fun loadSortObject(): BankAccountSort = with(LocalStorageManager) {
+        withLogin(getApplication())
+        return if (exists(KEY_BANK_ACCOUNTS_SORT)) {
+            get(KEY_BANK_ACCOUNTS_SORT)!!
         } else BankAccountSort()
     }
 
     /* Save sort data to Session for persistent re-usability*/
-    private fun saveSortToSession(sort: BankAccountSort) {
-        LocalStorageManager.withLogin(getApplication())
-        LocalStorageManager.put(KEY_BANK_ACCOUNTS_SORT, sort)
+    private fun saveSortToSession(sort: BankAccountSort) = with(LocalStorageManager) {
+        withLogin(getApplication())
+        put(KEY_BANK_ACCOUNTS_SORT, sort)
     }
 }

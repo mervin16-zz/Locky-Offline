@@ -7,9 +7,7 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ViewBankAccountViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -69,12 +67,6 @@ class ViewBankAccountViewModel(application: Application) : AndroidViewModel(appl
     */
     internal fun delete(key: Int) {
         viewModelScope.launch {
-            deleteAccount(key)
-        }
-    }
-
-    private suspend fun deleteAccount(key: Int) {
-        withContext(Dispatchers.IO) {
             BankAccountRepository.getInstance(getApplication()).delete(key)
         }
     }

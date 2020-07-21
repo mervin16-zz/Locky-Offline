@@ -70,7 +70,7 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="Locky.Text.Title6.Drawer">
+    <style name="Locky.Text.Title5.Drawer">
         <item name="fontFamily">@font/musket_regular</item>
         <item name="android:fontFamily">@font/musket_regular</item>
         <item name="android:textColor">@color/colorTextTitleToolbar</item>

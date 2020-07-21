@@ -7,12 +7,9 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ViewDeviceViewModel(application: Application) : AndroidViewModel(application) {
-
 
     /*
     * Accessible functions
@@ -62,12 +59,6 @@ class ViewDeviceViewModel(application: Application) : AndroidViewModel(applicati
     */
     internal fun delete(key: Int) {
         viewModelScope.launch {
-            deleteAccount(key)
-        }
-    }
-
-    private suspend fun deleteAccount(key: Int) {
-        withContext(Dispatchers.IO) {
             DeviceRepository.getInstance(getApplication()).delete(key)
         }
     }

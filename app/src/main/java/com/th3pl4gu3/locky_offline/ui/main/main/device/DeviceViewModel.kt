@@ -1,7 +1,10 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.device
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -9,14 +12,13 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceReposi
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
-import kotlinx.coroutines.launch
 import java.util.*
 
 class DeviceViewModel(application: Application) : AndroidViewModel(application) {
 
     /* Private variables */
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
-    private var _devices = MediatorLiveData<List<Device>>()
+    private var _devices = DeviceRepository.getInstance(getApplication()).getAll(activeUser.email)
     private var _sort = MutableLiveData(loadSortObject())
 
     /*
@@ -24,17 +26,6 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
     */
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
-
-    /*
-    * Init clause
-    */
-    init {
-
-        /*
-        * We load the accounts on startup
-        */
-        loadDevices()
-    }
 
     /*
     * Transformations
@@ -96,31 +87,21 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
     /*
     * Non-accessible functions
     */
-    private fun loadDevices() {
-        viewModelScope.launch {
-            _devices.addSource(
-                DeviceRepository.getInstance(getApplication()).getAll(activeUser.email)
-            ) {
-                _devices.value = it
-            }
-        }
-    }
-
     /*
     * Checks if sorting session exists
     * If sessions exists, we return the sort object
     * Else we return a new sort object
     */
-    private fun loadSortObject(): DeviceSort {
-        LocalStorageManager.withLogin(getApplication())
-        return if (LocalStorageManager.exists(KEY_DEVICE_SORT)) {
-            LocalStorageManager.get(KEY_DEVICE_SORT)!!
+    private fun loadSortObject(): DeviceSort = with(LocalStorageManager) {
+        withLogin(getApplication())
+        return if (exists(KEY_DEVICE_SORT)) {
+            get(KEY_DEVICE_SORT)!!
         } else DeviceSort()
     }
 
     /* Save sort data to Session for persistent re-usability*/
-    private fun saveSortToSession(sort: DeviceSort) {
-        LocalStorageManager.withLogin(getApplication())
-        LocalStorageManager.put(KEY_DEVICE_SORT, sort)
+    private fun saveSortToSession(sort: DeviceSort) = with(LocalStorageManager) {
+        withLogin(getApplication())
+        put(KEY_DEVICE_SORT, sort)
     }
 }

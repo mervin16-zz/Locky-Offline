@@ -7,9 +7,7 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ViewAccountViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -44,7 +42,7 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
             add(
                 CredentialsField(
                     subtitle = getString(R.string.field_account_website),
-                    data = if (account.website.isNullOrEmpty()) getString(R.string.field_placeholder_empty) else account.website,
+                    data = if (account.website.isEmpty()) getString(R.string.field_placeholder_empty) else account.website,
                     isCopyable = true
                 )
             )
@@ -75,12 +73,6 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
     */
     internal fun delete(key: Int) {
         viewModelScope.launch {
-            deleteAccount(key)
-        }
-    }
-
-    private suspend fun deleteAccount(key: Int) {
-        withContext(Dispatchers.IO) {
             AccountRepository.getInstance(getApplication()).delete(key)
         }
     }

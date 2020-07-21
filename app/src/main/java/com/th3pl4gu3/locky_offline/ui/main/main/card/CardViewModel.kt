@@ -1,7 +1,10 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.card
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -18,28 +21,15 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
      * Live Data Variables
      **/
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
-    private var _currentCardsExposed = MediatorLiveData<List<Card>>()
+    private var _currentCardsExposed =
+        CardRepository.getInstance(getApplication()).getAll(activeUser.email)
     private var _sort = MutableLiveData(loadSortObject())
 
     /**
      * Properties
      **/
-
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
-
-    /**
-     * Init Clause
-     **/
-    init {
-        /*
-        * Here, we define all codes that need to
-        * run on startup.
-        */
-
-        /* We load the cards */
-        loadCards()
-    }
 
     /**
      * Live Data Transformations
@@ -106,30 +96,21 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     /*
     * In-accessible functions
     */
-    /* Load the card into a mediator live data */
-    private fun loadCards() {
-        _currentCardsExposed.addSource(
-            CardRepository.getInstance(getApplication()).getAll(activeUser.email)
-        ) {
-            _currentCardsExposed.value = it
-        }
-    }
-
     /*
     * Checks if sorting session exists
     * If sessions exists, we return the sort object
     * Else we return a new sort object
     */
-    private fun loadSortObject(): CardSort {
-        LocalStorageManager.withLogin(getApplication())
-        return if (LocalStorageManager.exists(KEY_CARDS_SORT)) {
-            LocalStorageManager.get(KEY_CARDS_SORT)!!
+    private fun loadSortObject(): CardSort = with(LocalStorageManager) {
+        withLogin(getApplication())
+        return if (exists(KEY_CARDS_SORT)) {
+            get(KEY_CARDS_SORT)!!
         } else CardSort()
     }
 
     /* Save sort data to Session for persistent re-usability*/
-    private fun saveSortToSession(sort: CardSort) {
-        LocalStorageManager.withLogin(getApplication())
-        LocalStorageManager.put(KEY_CARDS_SORT, sort)
+    private fun saveSortToSession(sort: CardSort) = with(LocalStorageManager) {
+        withLogin(getApplication())
+        put(KEY_CARDS_SORT, sort)
     }
 }

@@ -1,7 +1,10 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.account
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -17,7 +20,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
      * Live Data Variables
      */
     private var _loadingStatus = MutableLiveData(Loading.List.LOADING)
-    private var _accounts = MediatorLiveData<List<Account>>()
+    private var _accounts = AccountRepository.getInstance(getApplication()).getAll(activeUser.email)
     private var _sort = MutableLiveData(loadSortObject())
 
     /*
@@ -25,17 +28,6 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     */
     val loadingStatus: LiveData<Loading.List>
         get() = _loadingStatus
-
-    /*
-    * Init clause
-    */
-    init {
-
-        /*
-        * We load the accounts on startup
-        */
-        loadAccounts()
-    }
 
     /*
     * Transformations
@@ -112,29 +104,21 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     /*
     * Non-accessible functions
     */
-    private fun loadAccounts() {
-        _accounts.addSource(
-            AccountRepository.getInstance(getApplication()).getAll(activeUser.email)
-        ) {
-            _accounts.value = it
-        }
-    }
-
     /*
     * Checks if sorting session exists
     * If sessions exists, we return the sort object
     * Else we return a new sort object
     */
-    private fun loadSortObject(): AccountSort {
-        LocalStorageManager.withLogin(getApplication())
-        return if (LocalStorageManager.exists(KEY_ACCOUNTS_SORT)) {
-            LocalStorageManager.get(KEY_ACCOUNTS_SORT)!!
+    private fun loadSortObject(): AccountSort = with(LocalStorageManager) {
+        withLogin(getApplication())
+        return if (exists(KEY_ACCOUNTS_SORT)) {
+            get(KEY_ACCOUNTS_SORT)!!
         } else AccountSort()
     }
 
     /* Save sort data to Session for persistent re-usability*/
-    private fun saveSortToSession(sort: AccountSort) {
-        LocalStorageManager.withLogin(getApplication())
-        LocalStorageManager.put(KEY_ACCOUNTS_SORT, sort)
+    private fun saveSortToSession(sort: AccountSort) = with(LocalStorageManager) {
+        withLogin(getApplication())
+        put(KEY_ACCOUNTS_SORT, sort)
     }
 }

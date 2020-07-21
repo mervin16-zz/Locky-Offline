@@ -357,22 +357,17 @@
 
     <string name="settings_key_display_theme" translatable="false">settings_title_display_theme</string>
     <string name="settings_title_display_theme">App Theme</string>
-    <string name="settings_value_display_default">Default</string>
+    <string name="settings_value_display_default">Follow System</string>
     <string name="settings_value_display_light">Light</string>
     <string name="settings_value_display_dark">Dark</string>
 
     <string name="settings_key_security_thepassword" translatable="false">settings_key_security_thepassword</string>
     <string name="settings_key_security_password" translatable="false">settings_key_security_password</string>
     <string name="settings_title_security_password_create">Create Master Password</string>
-    <string name="settings_summary_security_password_create">
-        Setup a master password which will be prompted every time you
-        enter Locky
-    </string>
+    <string name="settings_summary_security_password_create">Setup a master password which will be prompted every time you enter Locky</string>
     <string name="settings_key_security_password_change" translatable="false">settings_key_security_password_change</string>
     <string name="settings_title_security_password_change">Change Master Password</string>
-    <string name="settings_summary_security_password_change">
-        Change your master password
-    </string>
+    <string name="settings_summary_security_password_change">"Change your master password\n    "</string>
 
     <string name="settings_key_security_biometric" translatable="false">settings_key_security_fingerprint</string>
     <string name="settings_title_security_biometric">Biometric Authentication</string>

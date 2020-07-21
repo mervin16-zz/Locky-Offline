@@ -169,7 +169,7 @@ class BankAccountFragment : Fragment() {
                 )
             },
             /* The click listener to handle popup menu for each accounts */
-            OptionsClickListener() { view, credential ->
+            OptionsClickListener { view, credential ->
                 view.apply {
                     isEnabled = false
                 }

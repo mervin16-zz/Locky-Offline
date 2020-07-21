@@ -11,47 +11,23 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.CardReposito
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.expiringWithin30Days
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hasExpired
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ViewCardViewModel(application: Application) : AndroidViewModel(application) {
 
+    /* Enum */
     enum class MessageType { NONE, ERROR, WARNING }
 
+    /* Private Variables */
     private val _messageType = MutableLiveData(MessageType.NONE)
 
+    /* Properties */
     val messageType: LiveData<MessageType>
         get() = _messageType
 
-    internal fun updateMessageType(card: Card) {
-        with(card) {
-            if (hasExpired()) {
-                _messageType.value = MessageType.ERROR
-                return@with
-            }
-
-            if (expiringWithin30Days()) {
-                _messageType.value = MessageType.WARNING
-                return@with
-            }
-
-            _messageType.value = MessageType.NONE
-        }
-    }
-
-    internal fun delete(key: Int) {
-        viewModelScope.launch {
-            deleteData(key)
-        }
-    }
-
-    private suspend fun deleteData(key: Int) {
-        withContext(Dispatchers.IO) {
-            CardRepository.getInstance(getApplication()).delete(key)
-        }
-    }
-
+    /*
+    * Accessible Functions
+    */
     internal fun fieldList(card: Card): ArrayList<CredentialsField> =
         ArrayList<CredentialsField>().apply {
             add(
@@ -105,5 +81,29 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
             )
         }
 
+    internal fun updateMessageType(card: Card) =
+        with(card) {
+            if (hasExpired()) {
+                _messageType.value = MessageType.ERROR
+                return@with
+            }
+
+            if (expiringWithin30Days()) {
+                _messageType.value = MessageType.WARNING
+                return@with
+            }
+
+            _messageType.value = MessageType.NONE
+        }
+
+    internal fun delete(key: Int) {
+        viewModelScope.launch {
+            CardRepository.getInstance(getApplication()).delete(key)
+        }
+    }
+
+    /*
+    * In-accessible Functions
+    */
     private fun getString(res: Int) = getApplication<Application>().getString(res)
 }

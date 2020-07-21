@@ -17,16 +17,23 @@ import kotlinx.coroutines.withContext
 
 class SplashViewModel(application: Application) : AndroidViewModel(application) {
 
+    /* Private Variables */
     private val _buttonVisibility = MutableLiveData(0)
     private val _signInCompletion = MutableLiveData(false)
+
+    /* Public Variables */
     val canNavigateToMainScreen = MutableLiveData(false)
 
+    /* Properties */
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
 
     val isSignInComplete: LiveData<Boolean>
         get() = _signInCompletion
 
+    /*
+    * Accessible Functions
+    */
     internal fun showLoading() {
         _buttonVisibility.value = 0
     }
@@ -97,10 +104,12 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    private fun saveToSession(user: User) {
-        //Store user object in shared preferences
-        LocalStorageManager.withLogin(getApplication())
-        LocalStorageManager.put(KEY_USER_ACCOUNT, user)
+    /*
+    * In-Accessible Functions
+    */
+    private fun saveToSession(user: User) = with(LocalStorageManager) {
+        withLogin(getApplication())
+        put(KEY_USER_ACCOUNT, user)
     }
 
     private suspend fun fetch(key: String): User? {
@@ -112,10 +121,8 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         return user
     }
 
-    private suspend fun save(user: User) {
-        /* Saves the user in database */
-        withContext(Dispatchers.IO) {
-            UserRepository.getInstance(getApplication()).insert(user)
-        }
+    /* Saves the user in database */
+    private suspend fun save(user: User) = withContext(Dispatchers.IO) {
+        UserRepository.getInstance(getApplication()).insert(user)
     }
 }
