@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -15,6 +16,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getCardType
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import java.util.*
 
 class CardViewModel(application: Application) : AndroidViewModel(application) {
@@ -83,7 +85,7 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
             it.sortByBank -> _cards.sortByBank
             it.sortByCardHolderName -> _cards.sortedByCardHolderName
             else -> _cards
-        }.toLiveData(pageSize = 40)
+        }.toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_default))
     }
 
 

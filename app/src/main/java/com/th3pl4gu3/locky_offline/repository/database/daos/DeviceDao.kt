@@ -33,7 +33,7 @@ interface DeviceDao {
     fun getAll(userID: String): DataSource.Factory<Int, Device>
 
     @Query("SELECT * FROM device_table WHERE userID = :userID AND (entryName LIKE :query OR username LIKE :query)")
-    fun search(query: String, userID: String): LiveData<List<Device>>
+    fun search(query: String, userID: String): DataSource.Factory<Int, Device>
 
     @Query("SELECT COUNT(entryName) FROM device_table WHERE userID = :userID")
     fun size(userID: String): LiveData<Int>

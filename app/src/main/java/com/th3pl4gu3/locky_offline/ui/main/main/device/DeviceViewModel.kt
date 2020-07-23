@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -14,6 +15,7 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceReposi
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import java.util.*
 
 class DeviceViewModel(application: Application) : AndroidViewModel(application) {
@@ -71,7 +73,7 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
             it.username -> _devices.sortedByUsername
             it.ipAddress -> _devices.sortedByIp
             else -> _devices
-        }.toLiveData(pageSize = 40)
+        }.toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_default))
     }
 
     /*

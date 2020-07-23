@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentDonateBinding
-import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.action
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snackBar
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import kotlinx.coroutines.launch
 
 class DonateFragment : Fragment() {
 
@@ -45,7 +46,7 @@ class DonateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /* Observe donations event */
-        observeDonations()
+        subscribeDonations()
 
         /* Observe purchases */
         observePurchases()
@@ -62,7 +63,7 @@ class DonateFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadProductsToRecyclerView(skuList: List<AugmentedSkuDetails>) {
+    private fun subscribeDonations() {
         val donationAdapter = DonationItemAdapter(
             DonationClickListener {
                 viewModel.launchBillingFlow(requireActivity(), it)
@@ -73,15 +74,13 @@ class DonateFragment : Fragment() {
             setHasFixedSize(true)
         }
 
-        donationAdapter.submitList(skuList.sortedBy {
-            it.price
-        })
-    }
-
-    private fun observeDonations() {
         viewModel.donations.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                loadProductsToRecyclerView(it)
+                lifecycleScope.launch {
+                    donationAdapter.submitList(it.sortedBy { sku ->
+                        sku.price
+                    })
+                }
             }
         })
     }

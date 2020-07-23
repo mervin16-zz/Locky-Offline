@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.CredentialIdentifier
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
@@ -12,6 +13,7 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -32,10 +34,20 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     /*
     *Transformations
     */
-    val accounts = Transformations.switchMap(_searchQuery) {
+    val accounts = Transformations.switchMap(_searchQuery) { query ->
         if (_filter.value == CredentialIdentifier.ACCOUNTS) {
             AccountRepository.getInstance(getApplication())
-                .search(it, activeUser.email)
+                .getAll(activeUser.email).mapByPage { list ->
+                    list.filter {
+                        it.entryName.contains(query)
+                                ||
+                                it.username.contains(query)
+                                ||
+                                it.email.contains(query)
+                                ||
+                                it.website.contains(query)
+                    }
+                }.toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_search))
         } else {
             null
         }
@@ -45,6 +57,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         if (_filter.value == CredentialIdentifier.CARDS) {
             CardRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
+                .toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_search))
         } else {
             null
         }
@@ -54,6 +67,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         if (_filter.value == CredentialIdentifier.BANK_ACCOUNTS) {
             BankAccountRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
+                .toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_search))
         } else {
             null
         }
@@ -63,6 +77,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         if (_filter.value == CredentialIdentifier.DEVICES) {
             DeviceRepository.getInstance(getApplication())
                 .search(it, activeUser.email)
+                .toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_search))
         } else {
             null
         }
@@ -100,9 +115,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     internal fun search(query: String) {
         /* First we check if starter screen is hidden
-        * If not hidden, we hide starter screen
-        * The live data will automatically make the lists visible
-        */
+             * If not hidden, we hide starter screen
+             * The live data will automatically make the lists visible
+            */
         hideStarterScreen()
 
         _searchQuery.value = "%$query%"

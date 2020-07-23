@@ -13,6 +13,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
@@ -24,6 +26,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
 
@@ -72,15 +75,18 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* Observe text changes in search box*/
         searchBox.addTextChangedListener {
             viewModel.search(it.toString())
         }
 
+        /* Observe click listener for close button */
         searchClose.setOnClickListener {
             searchBox.setText("")
             viewModel.cancel()
         }
 
+        /* Observer click listener for filter button */
         binding.ButtonFilter.setOnClickListener {
             it.apply {
                 isEnabled = false
@@ -88,12 +94,16 @@ class SearchFragment : Fragment() {
             createFilterPopUpMenu(it)
         }
 
+        /* Observes account filter */
         observeAccounts()
 
+        /* Observes cards filter */
         observeCards()
 
+        /* Observes bank accounts filter */
         observeBankAccounts()
 
+        /* Observes devices filter */
         observeDevices()
     }
 
@@ -123,8 +133,11 @@ class SearchFragment : Fragment() {
     private fun observeAccounts() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                /* Subscribe UI */
+                subscribeUi(it as PagedList<Credentials>)
+
+                /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
-                subscribeUi(it)
             }
         })
     }
@@ -132,8 +145,11 @@ class SearchFragment : Fragment() {
     private fun observeCards() {
         viewModel.cards.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                /* Subscribe UI */
+                subscribeUi(it as PagedList<Credentials>)
+
+                /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
-                subscribeUi(it)
             }
         })
     }
@@ -141,8 +157,11 @@ class SearchFragment : Fragment() {
     private fun observeBankAccounts() {
         viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                /* Subscribe UI */
+                subscribeUi(it as PagedList<Credentials>)
+
+                /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
-                subscribeUi(it)
             }
         })
     }
@@ -150,8 +169,11 @@ class SearchFragment : Fragment() {
     private fun observeDevices() {
         viewModel.devices.observe(viewLifecycleOwner, Observer {
             if (it != null) {
+                /* Subscribe UI */
+                subscribeUi(it as PagedList<Credentials>)
+
+                /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
-                subscribeUi(it)
             }
         })
     }
@@ -187,7 +209,7 @@ class SearchFragment : Fragment() {
             })
     }
 
-    private fun subscribeUi(credentials: List<Credentials>) {
+    private fun subscribeUi(list: PagedList<Credentials>) {
         val adapter = CredentialsAdapter(
             /* The click listener to handle credentials on clicks */
             ClickListener {
@@ -232,8 +254,10 @@ class SearchFragment : Fragment() {
             this.adapter = adapter
         }
 
-        /* Submits the list for displaying */
-        //adapter.submitList(credentials)
+        /* Submit the list for displaying */
+        lifecycleScope.launch {
+            adapter.submitList(list)
+        }
     }
 
     private fun alternateSearchVisibility(visible: Boolean) {

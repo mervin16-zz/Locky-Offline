@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
@@ -14,6 +15,7 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import java.util.*
 
 class BankAccountViewModel(application: Application) : AndroidViewModel(application) {
@@ -72,7 +74,7 @@ class BankAccountViewModel(application: Application) : AndroidViewModel(applicat
             it.accountOwner -> _bankAccounts.sortedByOwner
             it.bank -> _bankAccounts.sortedByBank
             else -> _bankAccounts
-        }.toLiveData(pageSize = 40)
+        }.toLiveData(pageSize = resources.getInteger(R.integer.size_paging_list_default))
     }
 
     /*
