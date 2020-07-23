@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
@@ -134,7 +133,7 @@ class SearchFragment : Fragment() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 /* Subscribe UI */
-                subscribeUi(it as PagedList<Credentials>)
+                subscribeUi(it)
 
                 /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
@@ -146,7 +145,7 @@ class SearchFragment : Fragment() {
         viewModel.cards.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 /* Subscribe UI */
-                subscribeUi(it as PagedList<Credentials>)
+                subscribeUi(it)
 
                 /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
@@ -158,7 +157,7 @@ class SearchFragment : Fragment() {
         viewModel.bankAccounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 /* Subscribe UI */
-                subscribeUi(it as PagedList<Credentials>)
+                subscribeUi(it)
 
                 /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
@@ -170,7 +169,7 @@ class SearchFragment : Fragment() {
         viewModel.devices.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 /* Subscribe UI */
-                subscribeUi(it as PagedList<Credentials>)
+                subscribeUi(it)
 
                 /* Updates the result size text */
                 viewModel.updateResultSize(it.size)
@@ -209,7 +208,7 @@ class SearchFragment : Fragment() {
             })
     }
 
-    private fun subscribeUi(list: PagedList<Credentials>) {
+    private fun subscribeUi(list: List<Credentials>) {
         val adapter = CredentialsAdapter(
             /* The click listener to handle credentials on clicks */
             ClickListener {

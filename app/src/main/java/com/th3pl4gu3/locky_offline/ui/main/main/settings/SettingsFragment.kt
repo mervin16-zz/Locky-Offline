@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings.ACTION_SECURITY_SETTINGS
 import android.provider.Settings.ACTION_SETTINGS
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.biometric.BiometricManager
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.ListPreference
@@ -13,13 +17,13 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.CustomViewDialogMasterpasswordBinding
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openMail
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snack
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
-
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -36,6 +40,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        /* Page Enter Transition*/
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
+        /* Initiate View Model*/
         _viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
         /*
@@ -52,6 +62,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
         * settings screen
         */
         setPreferencesFromResource(R.xml.xml_settings_main, rootKey)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        with(super.onCreateView(inflater, container, savedInstanceState)) {
+            // Set the background color
+            this?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorOnSurface
+                )
+            )
+            return this
+        }
     }
 
     override fun onStart() {
@@ -77,6 +104,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         /* Master password preference */
         masterPasswordPreference()
+
+        /* Change master password preference */
+        changeMasterPasswordPreference()
 
         /* Observes the loading status */
         observeLoadingStatus()
@@ -176,6 +206,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun changeMasterPasswordPreference() {
+        findPreference<Preference>(getString(R.string.settings_key_security_password_change))?.setOnPreferenceClickListener {
+            changeMasterPasswordDialog()
+            true
+        }
+    }
 
     /***********************************************\
     \************ LiveData Observations ************\
@@ -267,6 +303,37 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                 if (valid) {
                     toast(getString(R.string.message_settings_masterpassword_enable))
+                    dialog.dismiss()
+                }
+            }
+        }
+    }
+
+    private fun changeMasterPasswordDialog() {
+        _dialogBinding =
+            CustomViewDialogMasterpasswordBinding.inflate(layoutInflater, null, false)
+        dialogBinding.viewModel = viewModel
+        dialogBinding.isChangePassword = true
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_settings_master_password))
+            .setView(dialogBinding.root)
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.button_action_confirm, null)
+            .show()
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            with(dialogBinding) {
+                val valid = this@SettingsFragment.viewModel.changeMasterPassword(
+                    MasterPasswordCurrent.editText?.text.toString(),
+                    MasterPasswordNew.editText?.text.toString(),
+                    MasterPasswordConfirm.editText?.text.toString()
+                )
+
+                if (valid) {
+                    toast(getString(R.string.message_settings_masterpassword_changed))
                     dialog.dismiss()
                 }
             }

@@ -223,4 +223,6 @@
     <string name="message_settings_masterpassword_enable">Le mot de passe principal a été activé</string>
     <string name="error_field_validation_password_notmatch">Les mots de passe ne correspondent pas</string>
     <string name="error_field_validation_password_criteria">La longueur du mot de passe doit être supérieure à 6</string>
+    <string name="message_settings_masterpassword_changed">Le mot de passe principal a été modifié</string>
+    <string name="error_field_validation_password_notsame">Votre mot de passe actuel n\'est pas correct</string>
 </resources>

@@ -12,13 +12,12 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepos
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.SETTINGS_CRYPTO_DIGEST_SCHEME
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hash
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.security.MessageDigest
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -89,13 +88,48 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                 * We first hash the password
                 * then we save the password
                 */
-                val passwordDigest = String(
-                    MessageDigest.getInstance(SETTINGS_CRYPTO_DIGEST_SCHEME)
-                        .digest(newPass.toByteArray())
-                )
                 save(
                     application.getString(R.string.settings_key_security_thepassword),
-                    passwordDigest
+                    newPass.hash
+                )
+                return true
+            }
+
+            //Update error messages
+            _newPasswordErrorMessage.value =
+                if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
+
+            _confirmPasswordErrorMessage.value =
+                if (errorList.containsKey(Validation.ErrorField.CONFIRM_PASSWORD)) errorList[Validation.ErrorField.CONFIRM_PASSWORD] else null
+
+            return false
+        }
+    }
+
+    internal fun changeMasterPassword(
+        enteredCurrent: String,
+        newPass: String,
+        confirmPass: String
+    ): Boolean {
+        with(Validation(getApplication())) {
+            val savedMasterPassword =
+                getMasterPassword(application.getString(R.string.settings_key_security_thepassword))
+
+            if (isNewMaterPasswordValid(
+                    savedMasterPassword,
+                    enteredCurrent.hash,
+                    newPass,
+                    confirmPass
+                )
+            ) {
+                _masterPasswordValid.value = true
+                /*
+                * We first hash the password
+                * then we save the password
+                */
+                save(
+                    application.getString(R.string.settings_key_security_thepassword),
+                    newPass.hash
                 )
                 return true
             }
@@ -122,19 +156,27 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         getApplication<Application>().updateAppTheme()
     }
 
-    internal fun save(key: String, value: Any) {
-        LocalStorageManager.withSettings(getApplication())
-        LocalStorageManager.put(key, value)
+    internal fun save(key: String, value: Any) = with(LocalStorageManager) {
+        withSettings(getApplication())
+        put(key, value)
     }
 
-    internal fun remove(key: String) {
-        LocalStorageManager.withSettings(getApplication())
-        LocalStorageManager.remove(key)
+
+    internal fun remove(key: String) = with(LocalStorageManager) {
+        withSettings(getApplication())
+        remove(key)
     }
 
     /*
     * In-accessible functions
     */
+    private fun getMasterPassword(key: String) = with(
+        LocalStorageManager
+    ) {
+        withSettings(getApplication())
+        get<String>(key)
+    }
+
     private suspend fun wipeAccounts() =
         AccountRepository.getInstance(getApplication()).wipe(activeUser.email)
 

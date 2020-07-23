@@ -33,7 +33,7 @@ interface BankAccountDao {
     fun getAll(userID: String): DataSource.Factory<Int, BankAccount>
 
     @Query("SELECT * FROM bank_account_table WHERE userID = :userID AND (entryName LIKE :query OR accountOwner LIKE :query OR bank LIKE :query)")
-    fun search(query: String, userID: String): DataSource.Factory<Int, BankAccount>
+    fun search(query: String, userID: String): LiveData<List<BankAccount>>
 
     @Query("SELECT COUNT(entryName) FROM bank_account_table WHERE userID = :userID")
     fun size(userID: String): LiveData<Int>

@@ -18,7 +18,7 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentDeviceBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
@@ -155,7 +155,7 @@ class DeviceFragment : Fragment() {
     }
 
     private fun subscribeDevices() {
-        val adapter = CredentialsAdapter(
+        val adapter = CredentialsPagingAdapter(
             /* The click listener to handle device on clicks */
             ClickListener {
                 navigateTo(

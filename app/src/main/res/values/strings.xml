@@ -303,6 +303,7 @@
     </plurals>
 
     <string name="message_settings_masterpassword_enable">Master password has been enabled</string>
+    <string name="message_settings_masterpassword_changed">Master password has been changed</string>
 
     <!-- =============== -->
     <!-- Error Messages -->
@@ -310,6 +311,7 @@
     <string name="error_field_validation_blank">This field cannot be empty</string>
     <string name="error_field_validation_password_notmatch">Passwords do not match</string>
     <string name="error_field_validation_password_criteria">Password length should be greater than 6</string>
+    <string name="error_field_validation_password_notsame">Your current password is not correct</string>
     <string name="error_field_validation_email_format">Please enter a valid email</string>
     <string name="error_field_validation_id_after">Issued date cannot be after than expiry date</string>
     <string name="error_field_validation_ed_before">Expiry date cannot be before than issued date.</string>

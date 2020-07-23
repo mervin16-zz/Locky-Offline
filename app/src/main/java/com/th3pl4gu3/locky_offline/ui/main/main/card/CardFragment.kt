@@ -18,7 +18,7 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
@@ -129,7 +129,7 @@ class CardFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        val adapter = CredentialsAdapter(
+        val adapter = CredentialsPagingAdapter(
             ClickListener {
                 navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it as Card))
             },

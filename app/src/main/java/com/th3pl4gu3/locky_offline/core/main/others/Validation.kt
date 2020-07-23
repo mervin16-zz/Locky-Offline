@@ -23,6 +23,45 @@ class Validation(val application: Application) {
     var errorList = HashMap<ErrorField, String>()
         private set
 
+    fun isNewMaterPasswordValid(
+        savedCurrent: String?,
+        enteredCurrent: String,
+        pass: String,
+        confirm: String
+    ): Boolean {
+        emptyValueCheck(
+            enteredCurrent,
+            ErrorField.CURRENT_PASSWORD
+        )
+
+        emptyValueCheck(
+            pass,
+            ErrorField.PASSWORD
+        )
+
+        emptyValueCheck(
+            confirm,
+            ErrorField.CONFIRM_PASSWORD
+        )
+
+        if (savedCurrent != enteredCurrent) {
+            errorList[ErrorField.CURRENT_PASSWORD] =
+                application.getString(R.string.error_field_validation_password_notsame)
+        }
+
+        if (pass.length <= 6) {
+            errorList[ErrorField.PASSWORD] =
+                application.getString(R.string.error_field_validation_password_criteria)
+        }
+
+        if (pass != confirm) {
+            errorList[ErrorField.CONFIRM_PASSWORD] =
+                application.getString(R.string.error_field_validation_password_notmatch)
+        }
+
+        return errorList.isEmpty()
+    }
+
     fun isMaterPasswordValid(pass: String, confirm: String): Boolean {
         emptyValueCheck(
             pass,

@@ -16,7 +16,7 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
-import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
 import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
@@ -144,7 +144,7 @@ class BankAccountFragment : Fragment() {
     }
 
     private fun subscribeBankAccounts() {
-        val adapter = CredentialsAdapter(
+        val adapter = CredentialsPagingAdapter(
             /* The click listener to handle account on clicks */
             ClickListener {
                 navigateTo(

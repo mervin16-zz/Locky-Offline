@@ -4,12 +4,14 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_AMEX
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DINNERSCLUB
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_DISCOVER
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_JCB
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_MASTERCARD
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.REGEX_CREDIT_CARD_VISA
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -96,3 +98,11 @@ fun String.setColor(color: Int): SpannableString {
     )
     return spannable
 }
+
+
+/* Hash messages */
+val String.hash: String
+    get() = String(
+        MessageDigest.getInstance(Constants.SETTINGS_CRYPTO_DIGEST_SCHEME)
+            .digest(this.toByteArray())
+    )

@@ -1,15 +1,15 @@
 package com.th3pl4gu3.locky_offline.ui.main.main
 
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 
-class CredentialsAdapter(
+class CredentialsPagingAdapter(
     private val clickListener: ClickListener,
     private val optionsClickListener: OptionsClickListener?,
     private val isSimplified: Boolean
-) : ListAdapter<Credentials, CredentialsViewHolder>(
+) : PagedListAdapter<Credentials, CredentialsViewHolder>(
     diffCallback
 ) {
     companion object {
