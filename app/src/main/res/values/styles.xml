@@ -57,6 +57,20 @@
         <item name="contentPadding">8dp</item>
     </style>
 
+    <style name="Locky.ListCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/colorCardBackground</item>
+        <item name="cardElevation">0dp</item>
+        <item name="rippleColor">@color/colorRipple</item>
+        <item name="contentPadding">8dp</item>
+        <item name="shapeAppearanceOverlay">@style/Locky.ShapeAppearance.List.Selected</item>
+    </style>
+
+    <style name="Locky.CardView.Donation" />
+
+    <style name="Locky.CardView.Section" />
+
+    <style name="Locky.CardView.Statistic" />
+
     <!-- Bottom Sheet Dialog Fragment -->
     <style name="Locky.BottomSheetDialog.Theme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -134,12 +148,6 @@
         <item name="elevation">8dp</item>
         <item name="fabSize">mini</item>
     </style>
-
-    <style name="Locky.FloatingActionButton.Normal.Display">
-        <item name="elevation">0dp</item>
-        <item name="android:clickable">false</item>
-    </style>
-
 
     <!-- Material Buttons -->
     <style name="Locky.Button.Filled" parent="Widget.MaterialComponents.Button">

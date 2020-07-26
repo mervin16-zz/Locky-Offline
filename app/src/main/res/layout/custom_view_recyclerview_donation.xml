@@ -24,7 +24,8 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="12dp"
         android:visibility="@{SkuDetails.purchased ? View.GONE : View.VISIBLE}"
-        android:onClick="@{() -> ClickListener.onClick(SkuDetails)}">
+        android:onClick="@{() -> ClickListener.onClick(SkuDetails)}"
+        style="@style/Locky.CardView.Donation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

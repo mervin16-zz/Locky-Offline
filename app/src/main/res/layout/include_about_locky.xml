@@ -6,7 +6,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp">
+        android:layout_margin="6dp"
+        style="@style/Locky.CardView.Section">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

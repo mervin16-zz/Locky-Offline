@@ -29,7 +29,7 @@
     <!-- Button Colors -->
     <!-- ============= -->
     <color name="colorFabNormal">@color/colorAccent</color>
-    <color name="colorFabMini">@color/purple_100</color>
+    <color name="colorFabMini">@android:color/white</color>
 
     <color name="colorChipDefault">@color/grey_50</color>
     <color name="colorChipChecked">@color/colorAccentLight</color>

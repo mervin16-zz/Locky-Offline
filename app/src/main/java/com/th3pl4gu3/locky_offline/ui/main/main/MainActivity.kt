@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNestedScrollChangeListener() =
         binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY > 0) {
-                binding.ToolbarMain.elevation = 12F
+                binding.ToolbarMain.elevation = 18F
             } else {
                 binding.ToolbarMain.elevation = 0F
             }

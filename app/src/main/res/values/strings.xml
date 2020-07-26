@@ -36,8 +36,8 @@
     <string name="app_user_login" translatable="false">Login: "%1$s"</string>
 
     <!-- Locky API used and privacy policy -->
-    <string name="app_url_privacy_policy" translatable="false">https://sites.google.com/view/locky/</string>
-    <string name="app_url_developer_api" translatable="false">https://sites.google.com/view/locky/api</string>
+    <string name="app_url_privacy_policy" translatable="false">https://lockyapplication.wixsite.com/overview/terms-privacy-policy</string>
+    <string name="app_url_developer_api" translatable="false">https://lockyapplication.wixsite.com/overview/developper</string>
 
     <!-- ==================== -->
     <!-- Locky Specific Texts  -->

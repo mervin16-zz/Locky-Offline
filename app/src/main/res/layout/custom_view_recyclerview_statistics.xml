@@ -16,7 +16,8 @@
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        style="@style/Locky.CardView.Statistic">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

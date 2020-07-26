@@ -52,9 +52,6 @@
         <!-- Chips Style -->
         <item name="chipStyle">@style/Locky.Button.Chip</item>
 
-        <!-- Card Style -->
-        <item name="materialCardViewStyle">@style/Locky.CardView</item>
-
         <!-- Bottom Sheet Dialog Fragment Theme -->
         <item name="bottomSheetDialogTheme">@style/Locky.BottomSheetDialog.Theme</item>
 

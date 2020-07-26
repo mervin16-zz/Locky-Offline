@@ -19,7 +19,7 @@
                 android:id="@+id/Toolbar_Main"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorOnSurface"
+                android:background="@drawable/custom_rounded_background_toolbar"
                 android:clipChildren="false"
                 android:outlineAmbientShadowColor="@color/colorShadowColor"
                 android:outlineSpotShadowColor="@color/colorShadowColor"

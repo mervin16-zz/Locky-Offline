@@ -13,10 +13,12 @@ class LogoCustomizationBottomSheetViewModel(application: Application) :
     private var _accent: String = ""
     private var _icon: String = ""
     private val _deviceIcons = setOf(
-        R.drawable.ic_account,
-        R.drawable.ic_credit_card,
-        R.drawable.ic_bank,
-        R.drawable.ic_device
+        R.drawable.ic_device,
+        R.drawable.ic_device_iot,
+        R.drawable.ic_device_linux,
+        R.drawable.ic_device_mac,
+        R.drawable.ic_device_modem,
+        R.drawable.ic_device_windows
     )
 
     /* Observations */
