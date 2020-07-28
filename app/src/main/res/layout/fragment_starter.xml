@@ -10,7 +10,7 @@
 
         <variable
             name="ViewModel"
-            type="com.th3pl4gu3.locky_offline.ui.main.splash.SplashViewModel" />
+            type="com.th3pl4gu3.locky_offline.ui.main.splash.StarterViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -21,7 +21,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:animateLayoutChanges="true">
 
             <ImageView
@@ -73,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:text="@string/button_action_get_started"
-                android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
                 android:visibility="@{ViewModel.buttonVisibility==1 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

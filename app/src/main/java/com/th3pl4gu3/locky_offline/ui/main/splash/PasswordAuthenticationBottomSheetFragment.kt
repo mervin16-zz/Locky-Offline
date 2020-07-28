@@ -11,26 +11,30 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAuthenticationPasswordBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.SETTINGS_CRYPTO_DIGEST_SCHEME
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import java.security.MessageDigest
 
-class PasswordAuthenticationBottomSheetFragment(private val savedPassword: String?) :
+class PasswordAuthenticationBottomSheetFragment :
     BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetAuthenticationPasswordBinding? = null
+    private lateinit var _savedPassword: String
 
     private val binding get() = _binding!!
-
-    private val splashActivity: SplashActivity
-        get() = requireActivity() as SplashActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /* Bind the layout */
         _binding =
             FragmentBottomSheetAuthenticationPasswordBinding.inflate(inflater, container, false)
+        /* Get the saved password */
+        _savedPassword =
+            PasswordAuthenticationBottomSheetFragmentArgs.fromBundle(requireArguments()).valuesavedpassword
+        /* Bind to this to lifecycle owner*/
         binding.lifecycleOwner = this
 
         return binding.root
@@ -89,11 +93,10 @@ class PasswordAuthenticationBottomSheetFragment(private val savedPassword: Strin
                 MessageDigest.getInstance(SETTINGS_CRYPTO_DIGEST_SCHEME)
                     .digest(this.editText?.text.toString().toByteArray())
             )
-            if (enteredPasswordDigest != savedPassword) {
+            if (enteredPasswordDigest != _savedPassword) {
                 this.error = getString(R.string.error_field_validation_password_notmatch)
             } else {
-                this.error = null
-                splashActivity.viewModel.canNavigateToMainScreen.value = true
+                navigateTo(PasswordAuthenticationBottomSheetFragmentDirections.actionFragmentBottomDialogPasswordAuthToFragmentAccount())
             }
         }
     }

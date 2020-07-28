@@ -3,30 +3,33 @@ package com.th3pl4gu3.locky_offline.ui.main.splash
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.others.User
-import com.th3pl4gu3.locky_offline.databinding.ActivitySplashBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.openActivity
+import com.th3pl4gu3.locky_offline.databinding.FragmentStarterBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import java.util.concurrent.Executor
 
-class SplashActivity : AppCompatActivity() {
+class StarterFragment : Fragment() {
 
-    private var _binding: ActivitySplashBinding? = null
-    private var _viewModel: SplashViewModel? = null
+    private var _binding: FragmentStarterBinding? = null
+    private var _viewModel: StarterViewModel? = null
 
     private val binding get() = _binding!!
     internal val viewModel get() = _viewModel!!
@@ -36,26 +39,39 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var _biometricPrompt: BiometricPrompt
     private lateinit var _promptInfo: BiometricPrompt.PromptInfo
 
+    private val mainToolBar: MaterialToolbar
+        get() = requireMainActivity().findViewById(R.id.Toolbar_Main)
+
     companion object {
         const val RC_SIGN_IN = 1001
         const val TAG = "Splash_Activity_Debug"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        /* Re set the style to the main theme app */
-        setTheme(R.style.Locky_Theme)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
         /*
          * Bind splash screen and instantiate view model
          * Bind view model to layout and set lifecycle owner
          */
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-        _viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
+        _binding = FragmentStarterBinding.inflate(inflater, container, false)
+        _viewModel = ViewModelProvider(this).get(StarterViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         /* Loads google sign in */
         googleSignInLoading()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        /* Hide Main Toolbar on startup */
+        toggleMainToolbarVisibility(View.GONE)
 
         /*Listener for Get Started Button*/
         listenerForGetStartedButton()
@@ -72,14 +88,19 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
         /*
         * This function checks if the user is signed in or not
         */
         checkIfUserSignedIn()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        /* Show Main Toolbar on view destroy */
+        toggleMainToolbarVisibility(View.VISIBLE)
+
         _binding = null
     }
 
@@ -96,18 +117,19 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeIfCanNavigateToMainScreen() {
-        viewModel.canNavigateToMainScreen.observe(this, Observer {
+        viewModel.canNavigateToMainScreen.observe(viewLifecycleOwner, Observer {
             if (it) {
                 navigateToMainScreen()
             }
         })
     }
 
-    private fun observeSignInState() = viewModel.isSignInComplete.observe(this, Observer {
-        if (it) {
-            prepareToNavigateToMainScreen()
-        }
-    })
+    private fun observeSignInState() =
+        viewModel.isSignInComplete.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                prepareToNavigateToMainScreen()
+            }
+        })
 
     private fun listenerForGetStartedButton() = binding.ButtonGetStarted.setOnClickListener {
         viewModel.showGoogleButton()
@@ -141,7 +163,7 @@ class SplashActivity : AppCompatActivity() {
         * If it returns null, it means the user was not signed in
         * Else, the user has already been signed in and we can redirect the user to main
         */
-        val account = GoogleSignIn.getLastSignedInAccount(this)
+        val account = GoogleSignIn.getLastSignedInAccount(requireContext().applicationContext)
 
         when {
             account != null && viewModel.isUserSavedInSession() -> {
@@ -164,7 +186,7 @@ class SplashActivity : AppCompatActivity() {
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(
-            this, GoogleSignInOptions
+            requireActivity(), GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build()
@@ -197,10 +219,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun masterPasswordVerification() {
-        val sheet = PasswordAuthenticationBottomSheetFragment(
-            LocalStorageManager.get<String>(application.getString(R.string.settings_key_security_thepassword))
-        )
-        sheet.show(supportFragmentManager, sheet.tag)
+        if (findNavController().currentDestination?.id == R.id.Fragment_Starter) {
+            navigateTo(
+                StarterFragmentDirections.actionFragmentStarterToFragmentBottomDialogPasswordAuth(
+                    viewModel.fetchMasterPassword()
+                )
+            )
+        }
     }
 
     private fun promptBiometric() {
@@ -219,7 +244,7 @@ class SplashActivity : AppCompatActivity() {
             return
         }
 
-        _executor = ContextCompat.getMainExecutor(this)
+        _executor = ContextCompat.getMainExecutor(requireContext().applicationContext)
         _biometricPrompt = BiometricPrompt(
             this, _executor,
             object : BiometricPrompt.AuthenticationCallback() {
@@ -228,7 +253,7 @@ class SplashActivity : AppCompatActivity() {
                     /* Error occurred while authenticating */
                     toast(getString(R.string.error_biometric_authentication_error, errString))
                     /* Close the app */
-                    finish()
+                    requireActivity().finish()
                 }
 
                 override fun onAuthenticationSucceeded(
@@ -244,7 +269,7 @@ class SplashActivity : AppCompatActivity() {
                     /* Biometric has failed */
                     toast(getString(R.string.error_biometric_authentication_failed))
                     /* Close the app */
-                    finish()
+                    requireActivity().finish()
                 }
             })
 
@@ -261,26 +286,28 @@ class SplashActivity : AppCompatActivity() {
         _biometricPrompt.authenticate(_promptInfo)
     }
 
-    private fun hasEnrollments() = (BiometricManager.from(this)
+    private fun hasEnrollments() = (BiometricManager.from(requireContext().applicationContext)
         .canAuthenticate()) != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
     private fun navigateToMainScreen() {
-        /*Navigate to main screen*/
-        openActivity(MainActivity::class.java)
-        finish()
+        navigateTo(StarterFragmentDirections.actionFragmentStarterToFragmentAccount())
     }
 
     private fun biometricEnrolmentDialog() =
-        MaterialAlertDialogBuilder(this)
+        MaterialAlertDialogBuilder(requireContext().applicationContext)
             .setTitle(getString(R.string.text_title_alert_biometric))
             .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
             .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
                 dialog.dismiss()
-                finish()
+                requireActivity().finish()
             }
             .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
                 startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
                 dialog.dismiss()
             }
             .show()
+
+    private fun toggleMainToolbarVisibility(visibility: Int) {
+        mainToolBar.visibility = visibility
+    }
 }

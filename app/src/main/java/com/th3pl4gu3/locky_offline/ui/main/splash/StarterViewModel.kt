@@ -11,11 +11,12 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.UserReposito
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.merge
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SplashViewModel(application: Application) : AndroidViewModel(application) {
+class StarterViewModel(application: Application) : AndroidViewModel(application) {
 
     /* Private Variables */
     private val _buttonVisibility = MutableLiveData(0)
@@ -53,7 +54,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         * After we are sure user has been added in database, we update live data.
         */
         viewModelScope.launch {
-            var fetchedUser = fetch(user.email)
+            var fetchedUser = fetchUser(user.email)
 
             fetchedUser = if (fetchedUser == null) {
                 save(user)
@@ -94,6 +95,12 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         return exists(getApplication<Application>().getString(R.string.settings_key_security_thepassword))
     }
 
+    internal fun fetchMasterPassword() = with(LocalStorageManager) {
+        withSettings(getApplication())
+        get<String>(resources.getString(R.string.settings_key_security_thepassword))!!
+
+    }
+
     internal fun isBiometricsEnabled(): Boolean = with(LocalStorageManager) {
         withSettings(getApplication())
 
@@ -112,7 +119,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         put(KEY_USER_ACCOUNT, user)
     }
 
-    private suspend fun fetch(key: String): User? {
+    private suspend fun fetchUser(key: String): User? {
         /* Fetch the data from Database */
         var user: User? = null
         withContext(Dispatchers.IO) {

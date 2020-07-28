@@ -16,7 +16,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
+import com.th3pl4gu3.locky_offline.ui.main.main.LockyActivity
 
 
 /*
@@ -106,7 +106,7 @@ fun Fragment.hideSoftKeyboard(rootView: View) {
 * ATTENTION: Need to make sure that requireActivity() is
 * actually returning MainActivity or application will crash
 */
-fun Fragment.requireMainActivity() = requireActivity() as MainActivity
+fun Fragment.requireMainActivity() = requireActivity() as LockyActivity
 
 
 /*

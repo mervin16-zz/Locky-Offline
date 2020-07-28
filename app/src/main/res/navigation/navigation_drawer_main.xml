@@ -4,7 +4,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_drawer_main"
-    app:startDestination="@id/Fragment_Account">
+    app:startDestination="@id/Fragment_Starter">
+
+    <!-- ========================= -->
+    <!-- ====== Entry Point ====== -->
+    <!-- ========================= -->
+    <fragment
+        android:id="@+id/Fragment_Starter"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.StarterFragment"
+        android:label=""
+        tools:layout="@layout/fragment_starter">
+        <action
+            android:id="@+id/action_Fragment_Starter_to_Fragment_Account"
+            app:destination="@id/Fragment_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/navigation_drawer_main"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_Fragment_Starter_to_Fragment_Bottom_Dialog_Password_Auth"
+            app:destination="@id/Fragment_Bottom_Dialog_Password_Auth" />
+    </fragment>
 
     <!-- ============================ -->
     <!-- ====== Global Actions ====== -->
@@ -49,10 +72,6 @@
     <!-- ============================= -->
     <!-- ====== Splash Activity ====== -->
     <!-- ============================= -->
-    <activity
-        android:id="@+id/Activity_Splash"
-        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.SplashActivity"
-        tools:layout="@layout/activity_splash" />
 
 
     <!-- ================================== -->
@@ -134,7 +153,12 @@
         android:id="@+id/Fragment_Profile"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileFragment"
         android:label="@string/menu_drawer_main_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_Fragment_Profile_to_Fragment_Starter"
+            app:destination="@id/Fragment_Starter"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/Fragment_Settings"
@@ -367,6 +391,25 @@
         <argument
             android:name="ICON_CURRENT"
             app:argType="string" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/Fragment_Bottom_Dialog_Password_Auth"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.PasswordAuthenticationBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/fragment_bottom_sheet_authentication_password">
+        <argument
+            android:name="VALUE_SAVEDPASSWORD"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_Fragment_Bottom_Dialog_Password_Auth_to_Fragment_Account"
+            app:destination="@id/Fragment_Account"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/navigation_drawer_main"
+            app:popUpToInclusive="true" />
     </dialog>
 
     <!-- ============================== -->

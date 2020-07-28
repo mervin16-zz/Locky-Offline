@@ -33,7 +33,7 @@ internal class AppMainNavigationTest {
         /*
         * We first launch the activity
         */
-        ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(LockyActivity::class.java)
     }
 
     @Test

@@ -11,7 +11,7 @@ import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
+import com.th3pl4gu3.locky_offline.ui.main.main.LockyActivity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,7 +31,7 @@ internal class BankAccountFragmentTest {
         /*
         * We first launch the activity
         */
-        ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(LockyActivity::class.java)
 
         /*
         * We then navigate to bank account fragment on startup

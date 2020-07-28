@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.others.Statistic
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
@@ -27,7 +28,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         ) {
             Statistic(
                 it,
-                "Accounts"
+                application.getString(R.string.locky_section_main_account)
             )
         }
 
@@ -35,7 +36,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         Transformations.map(CardRepository.getInstance(getApplication()).size(activeUser.email)) {
             Statistic(
                 it,
-                "Cards"
+                application.getString(R.string.locky_section_main_card)
             )
         }
 
@@ -45,7 +46,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         ) {
             Statistic(
                 it,
-                "Bank Accounts"
+                application.getString(R.string.locky_section_main_bank_account)
             )
         }
 
@@ -55,7 +56,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         ) {
             Statistic(
                 it,
-                "Devices"
+                application.getString(R.string.locky_section_main_device)
             )
         }
 

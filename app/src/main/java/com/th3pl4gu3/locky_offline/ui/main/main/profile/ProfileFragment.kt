@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.others.Statistic
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.MainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class ProfileFragment : Fragment() {
@@ -138,12 +140,25 @@ class ProfileFragment : Fragment() {
     private fun observeSignOutEvent() {
         viewModel.signUserOut.observe(viewLifecycleOwner, Observer {
             if (it) {
-                /* Log the user out from firebase and clear session*/
-                (requireActivity() as MainActivity).logout()
-
-                /* Show a toast for the user */
-                toast(getString(R.string.message_user_account_status_signed_out))
+                logout()
             }
         })
+    }
+
+    private fun logout() {
+        /* Log the user out from firebase and clear session*/
+        val mGoogleSignInClient = GoogleSignIn.getClient(
+            requireContext().applicationContext, GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+        )
+
+        mGoogleSignInClient.signOut()
+
+        navigateTo(ProfileFragmentDirections.actionFragmentProfileToFragmentStarter())
+
+        /* Show a toast for the user */
+        toast(getString(R.string.message_user_account_status_signed_out))
     }
 }

@@ -15,15 +15,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 
-class MainActivity : AppCompatActivity() {
+class LockyActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private lateinit var _appBarConfiguration: AppBarConfiguration
@@ -45,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        /* Re set the style to the main theme app */
+        setTheme(R.style.Locky_Theme)
         super.onCreate(savedInstanceState)
         /* Set binding to the xml layout */
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -72,19 +72,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
 
-    internal fun logout() {
-        val mGoogleSignInClient = GoogleSignIn.getClient(
-            this, GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-        )
-
-        mGoogleSignInClient.signOut()
-
-        navigateToSplashScreen()
-    }
-
     private fun navigationUISetup() {
         //Fetch the Nav Controller
         with(findNavController(R.id.Navigation_Host)) {
@@ -93,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
             //Use Navigation UI to setup the app bar config and navigation view
             NavigationUI.setupActionBarWithNavController(
-                this@MainActivity,
+                this@LockyActivity,
                 this,
                 _appBarConfiguration
             )
@@ -112,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             // Update UI according to navigation destination
             when (nd.id) {
-                nc.graph.startDestination,
+                R.id.Fragment_Account,
                 R.id.Fragment_Card,
                 R.id.Fragment_Bank_Account,
                 R.id.Fragment_Device -> {
@@ -189,11 +176,4 @@ class MainActivity : AppCompatActivity() {
             R.id.Fragment_Device -> navigateTo(R.id.action_global_Fragment_Add_Device)
         }
     }
-
-    private fun navigateToSplashScreen() {
-        /* Returns to the Splash Screen */
-        navigateTo(R.id.Activity_Splash)
-        finish()
-    }
-
 }
