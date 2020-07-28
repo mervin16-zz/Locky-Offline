@@ -110,10 +110,10 @@ class ViewCardFragment : Fragment() {
     private fun subscribeUi() {
         val adapter =
             CredentialsViewAdapter(
-                CopyClickListener { data ->
+                copyClickListener = CopyClickListener { data ->
                     copyToClipboardAndToast(data)
                 },
-                ViewClickListener { data ->
+                viewClickListener = ViewClickListener { data ->
                     showPasswordDialog(data)
                 })
 

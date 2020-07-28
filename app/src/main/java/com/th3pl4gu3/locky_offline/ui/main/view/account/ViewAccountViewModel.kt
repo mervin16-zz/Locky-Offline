@@ -43,6 +43,7 @@ class ViewAccountViewModel(application: Application) : AndroidViewModel(applicat
                 CredentialsField(
                     subtitle = getString(R.string.field_account_website),
                     data = if (account.website.isEmpty()) getString(R.string.field_placeholder_empty) else account.website,
+                    isLinkable = true,
                     isCopyable = true
                 )
             )

@@ -15,98 +15,105 @@
             type="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Layout_Fragment_Profile"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorOnSurface">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/Account_Logo"
-            errorResource="@{@drawable/ic_avatar_placeholder}"
-            imageUrl="@{User.photo}"
-            loadingResource="@{@drawable/ic_avatar_placeholder}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_avatar_placeholder" />
-
-        <TextView
-            android:id="@+id/Account_Name"
-            style="@style/Locky.Text.Title5.RunningTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout_Fragment_Profile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:text="@{User.name}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Logo"
-            tools:text="This can be a very very very long title toooooo" />
+            android:layout_height="match_parent"
+            android:background="@color/colorOnSurface">
 
-        <TextView
-            android:id="@+id/Account_Email"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="32dp"
-            android:text="@{User.email}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Name"
-            tools:text="This can be a very very very long title toooooo" />
+            <ImageView
+                android:id="@+id/Account_Logo"
+                errorResource="@{@drawable/ic_avatar_placeholder}"
+                imageUrl="@{User.photo}"
+                loadingResource="@{@drawable/ic_avatar_placeholder}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_avatar_placeholder" />
 
-        <TextView
-            android:id="@+id/Account_Date_Joined"
-            style="@style/Locky.Text.Subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            memberSince="@{User.dateJoined}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Email"
-            tools:text="Member since dd/MM/yyyy" />
+            <TextView
+                android:id="@+id/Account_Name"
+                style="@style/Locky.Text.Title5.RunningTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="@{User.name}"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Logo"
+                tools:text="This can be a very very very long title toooooo" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Logout"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="@{() -> ViewModel.removeUserSession()}"
-            android:text="@string/button_action_logout"
-            app:layout_constraintEnd_toEndOf="@+id/Account_Date_Joined"
-            app:layout_constraintStart_toStartOf="@+id/Account_Date_Joined"
-            app:layout_constraintTop_toBottomOf="@+id/Account_Date_Joined" />
+            <TextView
+                android:id="@+id/Account_Email"
+                style="@style/Locky.Text.Subtitle.Smaller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="32dp"
+                android:text="@{User.email}"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Name"
+                tools:text="This can be a very very very long title toooooo" />
+
+            <TextView
+                android:id="@+id/Account_Date_Joined"
+                style="@style/Locky.Text.Subtitle"
+                memberSince="@{User.dateJoined}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Email"
+                tools:text="Member since dd/MM/yyyy" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Logout"
+                style="@style/Locky.Button.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:onClick="@{() -> ViewModel.removeUserSession()}"
+                android:text="@string/button_action_logout"
+                app:layout_constraintEnd_toEndOf="@+id/Account_Date_Joined"
+                app:layout_constraintStart_toStartOf="@+id/Account_Date_Joined"
+                app:layout_constraintTop_toBottomOf="@+id/Account_Date_Joined" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerView_Statistics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
-            android:layout_marginBottom="16dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Button_Logout"
-            app:layout_constraintVertical_bias="0.0"
-            app:spanCount="2" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerView_Statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="58dp"
+                android:layout_marginBottom="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Button_Logout"
+                app:layout_constraintVertical_bias="0.0"
+                app:spanCount="2" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

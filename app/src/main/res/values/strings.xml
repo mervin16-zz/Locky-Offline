@@ -273,6 +273,7 @@
     <string name="message_credentials_created">"%1$s" has been added successfully.</string>
     <string name="message_credentials_modified">"%1$s" has been modified successfully.</string>
     <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
+    <string name="message_credentials_password_share">Hello, the password for device "%1$s" is "%2$s"</string>
     <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
     <string name="message_loading_logo">Loading your logos…</string>
     <string name="message_loading_logo_none">No logos found</string>
@@ -386,6 +387,16 @@
     <string name="settings_key_data_wipe" translatable="false">settings_key_data_wipe</string>
     <string name="settings_title_data_wipe">Wipe Data</string>
     <string name="settings_summary_data_wipe">Delete all your stored credentials</string>
+
+    <!-- ================= -->
+    <!-- Independent Words -->
+    <!-- ================= -->
+    <string name="word_email" translatable="false">email</string>
+    <string name="word_email_preposition">an email</string>
+
+    <string name="word_browser">browser</string>
+    <string name="word_browser_preposition">a browser</string>
+
 
     <!-- ==================== -->
     <!-- ======= DEV =======  -->

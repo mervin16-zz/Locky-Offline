@@ -28,6 +28,7 @@ class ViewDeviceViewModel(application: Application) : AndroidViewModel(applicati
                     subtitle = getString(R.string.field_device_password),
                     data = if (device.password.isEmpty()) getString(R.string.field_placeholder_empty) else device.password,
                     isViewable = true,
+                    isShareable = true,
                     isCopyable = true
                 )
             )

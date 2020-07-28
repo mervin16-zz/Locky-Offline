@@ -56,17 +56,10 @@ class PasswordAuthenticationBottomSheetFragment(private val savedPassword: Strin
         confirmClickListener()
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
 
-        /*
-        * If user dismiss the bottom sheet
-        * End activity
-        */
-        //FIXME("On Rotating, activity is hitting finish")
-        if (!splashActivity.viewModel.canNavigateToMainScreen.value!!) {
-            toast(getString(R.string.error_biometric_authentication_failed))
-        }
+        toast(getString(R.string.error_biometric_authentication_failed))
 
         requireActivity().finish()
     }

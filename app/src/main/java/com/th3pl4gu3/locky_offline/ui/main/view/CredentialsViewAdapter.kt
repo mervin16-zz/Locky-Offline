@@ -10,13 +10,41 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 
 class CredentialsViewAdapter(
     private val copyClickListener: CopyClickListener,
-    private val viewClickListener: ViewClickListener
+    private val shareClickListener: ShareClickListener? = null,
+    private val linkClickListener: LinkClickListener? = null,
+    private val viewClickListener: ViewClickListener? = null
 ) : ListAdapter<CredentialsField, CredentialsViewAdapter.ViewHolder>(
-    CardDiffCallback()
+    diffCallback
 ) {
 
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<CredentialsField>() {
+
+            override fun areItemsTheSame(
+                oldItem: CredentialsField,
+                newItem: CredentialsField
+            ): Boolean {
+                return oldItem.subtitle == newItem.subtitle
+            }
+
+            override fun areContentsTheSame(
+                oldItem: CredentialsField,
+                newItem: CredentialsField
+            ): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(copyClickListener, viewClickListener, getItem(position))
+        holder.bind(
+            copyClickListener,
+            shareClickListener,
+            linkClickListener,
+            viewClickListener,
+            getItem(position)
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,11 +57,15 @@ class CredentialsViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             copyClickListener: CopyClickListener,
-            viewClickListener: ViewClickListener,
+            shareClickListener: ShareClickListener?,
+            linkClickListener: LinkClickListener?,
+            viewClickListener: ViewClickListener?,
             credentialsField: CredentialsField
         ) {
             binding.credentialsField = credentialsField
             binding.copyClickListener = copyClickListener
+            binding.shareClickListener = shareClickListener
+            binding.linkClickListener = linkClickListener
             binding.viewClickListener = viewClickListener
             binding.executePendingBindings()
         }
@@ -54,20 +86,15 @@ class CredentialsViewAdapter(
     }
 }
 
-class CardDiffCallback: DiffUtil.ItemCallback<CredentialsField>() {
-
-    override fun areItemsTheSame(oldItem: CredentialsField, newItem: CredentialsField): Boolean {
-        return oldItem.subtitle == newItem.subtitle
-    }
-
-
-    override fun areContentsTheSame(oldItem: CredentialsField, newItem: CredentialsField): Boolean {
-        return oldItem == newItem
-    }
-
+class CopyClickListener(val clickListener: (actualData: String) -> Unit) {
+    fun onClick(actualData: String) = clickListener(actualData)
 }
 
-class CopyClickListener(val clickListener: (actualData: String) -> Unit) {
+class ShareClickListener(val clickListener: (actualData: String) -> Unit) {
+    fun onClick(actualData: String) = clickListener(actualData)
+}
+
+class LinkClickListener(val clickListener: (actualData: String) -> Unit) {
     fun onClick(actualData: String) = clickListener(actualData)
 }
 
@@ -78,6 +105,8 @@ class ViewClickListener(val clickListener: (actualData: String) -> Unit) {
 data class CredentialsField(
     var subtitle: String = Constants.VALUE_EMPTY,
     var data: String = Constants.VALUE_EMPTY,
+    var isShareable: Boolean = false,
+    var isLinkable: Boolean = false,
     var isCopyable: Boolean = false,
     var isViewable: Boolean = false
 )

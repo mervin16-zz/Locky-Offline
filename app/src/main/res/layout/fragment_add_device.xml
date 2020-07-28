@@ -13,251 +13,257 @@
             type="com.th3pl4gu3.locky_offline.ui.main.add.device.AddDeviceViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Layout_Parent_Add_Device"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp">
+        android:layout_height="match_parent">
 
-        <!--
-       **************** Logo Part ****************
-       -->
-        <ImageView
-            android:id="@+id/Device_Logo"
-            iconColor="@{ViewModel.accent}"
-            loadCustomIcon="@{ViewModel.icon}"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/Device_Logo_Reset"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="4dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:onClick="@{() -> ViewModel.resetLogo()}"
-            app:layout_constraintBottom_toTopOf="@id/Device_Logo_Edit"
-            app:layout_constraintStart_toEndOf="@+id/Device_Logo"
-            app:layout_constraintTop_toTopOf="@+id/Device_Logo"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/ic_reset" />
-
-        <ImageButton
-            android:id="@+id/Device_Logo_Edit"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="4dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            app:layout_constraintBottom_toBottomOf="@+id/Device_Logo"
-            app:layout_constraintEnd_toEndOf="@+id/Device_Logo_Reset"
-            app:layout_constraintStart_toStartOf="@+id/Device_Logo_Reset"
-            app:layout_constraintTop_toBottomOf="@+id/Device_Logo_Reset"
-            app:srcCompat="@drawable/ic_edit" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Device_Logo,Device_Logo_Reset,Device_Logo_Edit" />
-
-        <!--
-        **************** Require Label ****************
-        -->
-        <TextView
-            android:id="@+id/Label_Required"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_required"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Barrier_Logo" />
-
-        <!--
-        **************** Require Text Fields ****************
-        -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_Entry_Name"
-            style="@style/Locky.TextBox.Default"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout_Parent_Add_Device"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/field_device_name"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Label_Required"
-            app:startIconDrawable="@drawable/ic_profile">
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <!--
+           **************** Logo Part ****************
+           -->
+            <ImageView
+                android:id="@+id/Device_Logo"
+                iconColor="@{ViewModel.accent}"
+                loadCustomIcon="@{ViewModel.icon}"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/Device_Logo_Reset"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:onClick="@{() -> ViewModel.resetLogo()}"
+                app:layout_constraintBottom_toTopOf="@id/Device_Logo_Edit"
+                app:layout_constraintStart_toEndOf="@+id/Device_Logo"
+                app:layout_constraintTop_toTopOf="@+id/Device_Logo"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/ic_reset" />
+
+            <ImageButton
+                android:id="@+id/Device_Logo_Edit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="4dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="@+id/Device_Logo"
+                app:layout_constraintEnd_toEndOf="@+id/Device_Logo_Reset"
+                app:layout_constraintStart_toStartOf="@+id/Device_Logo_Reset"
+                app:layout_constraintTop_toBottomOf="@+id/Device_Logo_Reset"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Device_Logo,Device_Logo_Reset,Device_Logo_Edit" />
+
+            <!--
+            **************** Require Label ****************
+            -->
+            <TextView
+                android:id="@+id/Label_Required"
+                style="@style/Locky.Text.Subtitle.Smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_required"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Barrier_Logo" />
+
+            <!--
+            **************** Require Text Fields ****************
+            -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_Entry_Name"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:maxLength="@integer/restriction_field_entry_name"
-                android:text="@={ViewModel.entryName}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:hint="@string/field_device_name"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Label_Required"
+                app:startIconDrawable="@drawable/ic_profile">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_Username"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_device_username"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Device_Entry_Name"
-            app:startIconDrawable="@drawable/ic_profile">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="@integer/restriction_field_entry_name"
+                    android:text="@={ViewModel.entryName}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_Username"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="@integer/restriction_field_normal"
-                android:text="@={ViewModel.deviceUsername}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_device_username"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Device_Entry_Name"
+                app:startIconDrawable="@drawable/ic_profile">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_Password"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/field_device_password"
-            app:endIconMode="password_toggle"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Device_Username"
-            app:startIconDrawable="@drawable/ic_account">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/restriction_field_normal"
+                    android:text="@={ViewModel.deviceUsername}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_Password"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.devicePassword}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/field_device_password"
+                app:endIconMode="password_toggle"
+                app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Device_Username"
+                app:startIconDrawable="@drawable/ic_account">
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Required"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Device_Entry_Name,Device_Password,Device_Username,Label_Required"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="252dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="@integer/restriction_field_long"
+                    android:text="@={ViewModel.devicePassword}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!--
-        **************** Optional Label ****************
-        -->
-        <TextView
-            android:id="@+id/Label_Optional"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_optional"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Barrier_Required" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Device_Entry_Name,Device_Password,Device_Username,Label_Required"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="252dp" />
 
-        <!--
-       **************** Optional Fields ****************
-       -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_IpAddress"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_device_ip"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Label_Optional"
-            app:startIconDrawable="@drawable/ic_text">
+            <!--
+            **************** Optional Label ****************
+            -->
+            <TextView
+                android:id="@+id/Label_Optional"
+                style="@style/Locky.Text.Subtitle.Smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_optional"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Barrier_Required" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <!--
+           **************** Optional Fields ****************
+           -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_IpAddress"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.ipAddress}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_device_ip"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Label_Optional"
+                app:startIconDrawable="@drawable/ic_text">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_MacAddress"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_device_mac"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Device_IpAddress"
-            app:startIconDrawable="@drawable/ic_text">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/restriction_field_long"
+                    android:text="@={ViewModel.ipAddress}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_MacAddress"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.macAddress}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_device_mac"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Device_IpAddress"
+                app:startIconDrawable="@drawable/ic_text">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Device_Comments"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_device_additional"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Device_MacAddress"
-            app:startIconDrawable="@drawable/ic_text">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="@integer/restriction_field_long"
+                    android:text="@={ViewModel.macAddress}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Device_Comments"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine|textCapSentences"
-                android:maxLength="@integer/restriction_field_extra_long"
-                android:maxLines="@integer/restriction_lines_comments_max"
-                android:minLines="@integer/restriction_lines_comments_min"
-                android:text="@={ViewModel.moreInfo}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_device_additional"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Device_MacAddress"
+                app:startIconDrawable="@drawable/ic_text">
 
-        <!--
-        **************** Save Button ****************
-        -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Save"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:onClick="@{() -> ViewModel.save()}"
-            android:text="@string/button_action_save"
-            android:textAlignment="center"
-            app:icon="@drawable/ic_save"
-            app:iconGravity="textStart"
-            app:layout_constraintTop_toBottomOf="@id/Device_Comments"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="@integer/restriction_field_extra_long"
+                    android:maxLines="@integer/restriction_lines_comments_max"
+                    android:minLines="@integer/restriction_lines_comments_min"
+                    android:text="@={ViewModel.moreInfo}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--
+            **************** Save Button ****************
+            -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Save"
+                style="@style/Locky.Button.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:onClick="@{() -> ViewModel.save()}"
+                android:text="@string/button_action_save"
+                android:textAlignment="center"
+                app:icon="@drawable/ic_save"
+                app:iconGravity="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Device_Comments" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
 

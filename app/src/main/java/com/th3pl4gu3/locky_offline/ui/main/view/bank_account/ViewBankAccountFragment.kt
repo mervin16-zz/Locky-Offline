@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewBankAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
-import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
 
 class ViewBankAccountFragment : Fragment() {
 
@@ -105,9 +107,6 @@ class ViewBankAccountFragment : Fragment() {
         val adapter = CredentialsViewAdapter(
             CopyClickListener {
                 copyToClipboardAndToast(it)
-            },
-            ViewClickListener {
-                snackBarAction(it)
             }
         )
 
@@ -145,12 +144,6 @@ class ViewBankAccountFragment : Fragment() {
             viewModel.delete(id)
             toast(getString(R.string.message_credentials_deleted, entryName))
             findNavController().popBackStack()
-        }
-    }
-
-    private fun snackBarAction(message: String) {
-        binding.LayoutCredentialView.snackBar(message) {
-            action(getString(R.string.button_action_close)) { dismiss() }
         }
     }
 

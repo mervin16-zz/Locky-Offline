@@ -11,285 +11,291 @@
             type="com.th3pl4gu3.locky_offline.ui.main.add.card.AddCardViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Layout_Parent_Add_Card"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp">
+        android:layout_height="match_parent">
 
-        <!--
-        **************** Logo Part ****************
-        -->
-
-        <ImageView
-            android:id="@+id/Card_Logo"
-            setCardLogo="@{ViewModel.cardNumber}"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/image_card_def" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Card_Logo" />
-
-        <!--
-        **************** Require Label ****************
-        -->
-        <TextView
-            android:id="@+id/Label_Required"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_required"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo" />
-
-        <!--
-       **************** Require Text Fields ****************
-       -->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Name"
-            style="@style/Locky.TextBox.Default"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout_Parent_Add_Card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/field_card_name"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Required"
-            app:startIconDrawable="@drawable/ic_profile">
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <!--
+            **************** Logo Part ****************
+            -->
+
+            <ImageView
+                android:id="@+id/Card_Logo"
+                setCardLogo="@{ViewModel.cardNumber}"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@id/Barrier_Logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/image_card_def" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Card_Logo" />
+
+            <!--
+            **************** Require Label ****************
+            -->
+            <TextView
+                android:id="@+id/Label_Required"
+                style="@style/Locky.Text.Subtitle.Smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/label_required"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Barrier_Logo" />
+
+            <!--
+           **************** Require Text Fields ****************
+           -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Name"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:maxLength="@integer/restriction_field_entry_name"
-                android:text="@={ViewModel.entryName}" />
+                android:layout_marginTop="8dp"
+                android:hint="@string/field_card_name"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Label_Required"
+                app:startIconDrawable="@drawable/ic_profile">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="@integer/restriction_field_entry_name"
+                    android:text="@={ViewModel.entryName}" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Number"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_card_number"
-            app:counterEnabled="true"
-            app:counterMaxLength="@integer/restriction_field_card_number"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Name"
-            app:startIconDrawable="@drawable/ic_credit_card">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Number"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="@integer/restriction_field_card_number"
-                android:text="@={ViewModel.cardNumber}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_card_number"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/restriction_field_card_number"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Name"
+                app:startIconDrawable="@drawable/ic_credit_card">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Pin"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/field_card_pin"
-            app:counterEnabled="true"
-            app:counterMaxLength="@integer/restriction_field_pin"
-            app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Number"
-            app:startIconDrawable="@drawable/ic_pin">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="@integer/restriction_field_card_number"
+                    android:text="@={ViewModel.cardNumber}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Pin"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberPassword"
-                android:maxLength="@integer/restriction_field_pin"
-                android:text="@={ViewModel.pin}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:hint="@string/field_card_pin"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/restriction_field_pin"
+                app:endIconMode="password_toggle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Number"
+                app:startIconDrawable="@drawable/ic_pin">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Bank"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/field_card_bank"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Pin"
-            app:startIconDrawable="@drawable/ic_bank">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberPassword"
+                    android:maxLength="@integer/restriction_field_pin"
+                    android:text="@={ViewModel.pin}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Bank"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:maxLength="@integer/restriction_field_normal"
-                android:text="@={ViewModel.bank}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:hint="@string/field_card_bank"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Pin"
+                app:startIconDrawable="@drawable/ic_bank">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Holder"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_card_holder"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Bank"
-            app:startIconDrawable="@drawable/ic_name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="@integer/restriction_field_normal"
+                    android:text="@={ViewModel.bank}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Holder"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:maxLength="@integer/restriction_field_long"
-                android:text="@={ViewModel.cardHolderName}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:hint="@string/field_card_holder"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Bank"
+                app:startIconDrawable="@drawable/ic_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLength="@integer/restriction_field_long"
+                    android:text="@={ViewModel.cardHolderName}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Issued_Date"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/field_card_date_issued"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
-            app:layout_constraintEnd_toStartOf="@+id/Card_Expiry_Date"
-            app:layout_constraintStart_toStartOf="@+id/Card_Holder"
-            app:layout_constraintTop_toBottomOf="@+id/Card_Holder"
-            app:startIconDrawable="@drawable/ic_date">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Issued_Date"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/field_card_date_issued"
+                app:layout_constraintBottom_toTopOf="@id/Barrier_Required"
+                app:layout_constraintEnd_toStartOf="@+id/Card_Expiry_Date"
+                app:layout_constraintStart_toStartOf="@+id/Card_Holder"
+                app:layout_constraintTop_toBottomOf="@+id/Card_Holder"
+                app:startIconDrawable="@drawable/ic_date">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Issued_Date"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Issued_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:text="@={ViewModel.issuedDate}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_Expiry_Date"
+                style="@style/Locky.TextBox.Default"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/field_card_date_expiry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
+                app:layout_constraintTop_toTopOf="@+id/Card_Issued_Date"
+                app:startIconDrawable="@drawable/ic_date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Expiry_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:text="@={ViewModel.expiryDate}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Card_Number,Card_Holder,Card_Pin,Card_Issued_Date,Card_Bank,Card_Name,Label_Required,Card_Expiry_Date" />
+
+
+            <!--
+            **************** Optional Label ****************
+            -->
+            <TextView
+                android:id="@+id/Label_Optional"
+                style="@style/Locky.Text.Subtitle.Smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/label_optional"
+                app:layout_constraintStart_toStartOf="@+id/Label_Required"
+                app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
+
+            <!--
+            **************** Optional Text Fields ****************
+            -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Card_More_Info"
+                style="@style/Locky.TextBox.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:inputType="none"
-                android:text="@={ViewModel.issuedDate}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:hint="@string/field_card_additional"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/restriction_field_extra_long"
+                app:layout_constraintBottom_toTopOf="@id/Barrier_Optional"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Label_Optional"
+                app:startIconDrawable="@drawable/ic_text">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_Expiry_Date"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/field_card_date_expiry"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Card_Issued_Date"
-            app:layout_constraintTop_toTopOf="@+id/Card_Issued_Date"
-            app:startIconDrawable="@drawable/ic_date">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLength="@integer/restriction_field_extra_long"
+                    android:maxLines="@integer/restriction_lines_comments_max"
+                    android:minLines="@integer/restriction_lines_comments_min"
+                    android:text="@={ViewModel.moreInfo}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Expiry_Date"
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/Barrier_Optional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Label_Optional, Card_More_Info" />
+
+
+            <!--
+            **************** Save Button ****************
+            -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Save"
+                style="@style/Locky.Button.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:inputType="none"
-                android:text="@={ViewModel.expiryDate}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:onClick="@{() -> ViewModel.save()}"
+                android:text="@string/button_action_save"
+                android:textAlignment="center"
+                app:icon="@drawable/ic_save"
+                app:iconGravity="textStart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Barrier_Optional" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Required"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Card_Number,Card_Holder,Card_Pin,Card_Issued_Date,Card_Bank,Card_Name,Label_Required,Card_Expiry_Date" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <!--
-        **************** Optional Label ****************
-        -->
-        <TextView
-            android:id="@+id/Label_Optional"
-            style="@style/Locky.Text.Subtitle.Smaller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/label_optional"
-            app:layout_constraintStart_toStartOf="@+id/Label_Required"
-            app:layout_constraintTop_toBottomOf="@+id/Barrier_Required" />
-
-        <!--
-        **************** Optional Text Fields ****************
-        -->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Card_More_Info"
-            style="@style/Locky.TextBox.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
-            android:hint="@string/field_card_additional"
-            app:counterEnabled="true"
-            app:counterMaxLength="@integer/restriction_field_extra_long"
-            app:layout_constraintBottom_toTopOf="@id/Barrier_Optional"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Label_Optional"
-            app:startIconDrawable="@drawable/ic_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine|textCapSentences"
-                android:maxLength="@integer/restriction_field_extra_long"
-                android:maxLines="@integer/restriction_lines_comments_max"
-                android:minLines="@integer/restriction_lines_comments_min"
-                android:text="@={ViewModel.moreInfo}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/Barrier_Optional"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="Label_Optional, Card_More_Info" />
-
-
-        <!--
-        **************** Save Button ****************
-        -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Save"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> ViewModel.save()}"
-            android:text="@string/button_action_save"
-            android:textAlignment="center"
-            app:icon="@drawable/ic_save"
-            app:iconGravity="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Barrier_Optional" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

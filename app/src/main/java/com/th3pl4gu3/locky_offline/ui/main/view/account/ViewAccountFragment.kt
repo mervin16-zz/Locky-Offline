@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.view.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -10,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewAccountBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky_offline.ui.main.view.LinkClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
 
 class ViewAccountFragment : Fragment() {
@@ -104,10 +107,13 @@ class ViewAccountFragment : Fragment() {
     */
     private fun subscribeUi() {
         val adapter = CredentialsViewAdapter(
-            CopyClickListener {
+            copyClickListener = CopyClickListener {
                 copyToClipboardAndToast(it)
             },
-            ViewClickListener {
+            linkClickListener = LinkClickListener {
+                openInBrowser(it)
+            },
+            viewClickListener = ViewClickListener {
                 showPasswordDialog(it)
             }
         )
@@ -174,4 +180,31 @@ class ViewAccountFragment : Fragment() {
         toast(getString(R.string.message_copy_successful))
         return true
     }
+
+    private fun openInBrowser(website: String) {
+        val intent = LockyUtil.openUrl(website)
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog()
+    }
+
+    private fun isIntentSafeToStart(intent: Intent) =
+        intent.resolveActivity(requireActivity().packageManager) != null
+
+    private fun showDialog() =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_intent_none,
+                    getString(R.string.word_browser)
+                )
+            )
+            .setMessage(
+                getString(
+                    R.string.text_message_alert_intent_none,
+                    getString(R.string.word_browser_preposition)
+                )
+            )
+            .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
 }

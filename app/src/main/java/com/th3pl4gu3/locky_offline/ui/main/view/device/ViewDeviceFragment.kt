@@ -1,5 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.view.device
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -10,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewDeviceBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky_offline.ui.main.view.ShareClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
 
 class ViewDeviceFragment : Fragment() {
@@ -106,10 +109,13 @@ class ViewDeviceFragment : Fragment() {
     private fun subscribeUi() {
         val adapter =
             CredentialsViewAdapter(
-                CopyClickListener { data ->
+                copyClickListener = CopyClickListener { data ->
                     copyToClipboardAndToast(data)
                 },
-                ViewClickListener { data ->
+                shareClickListener = ShareClickListener { data ->
+                    sharePassword(data)
+                },
+                viewClickListener = ViewClickListener { data ->
                     showPasswordDialog(data)
                 })
 
@@ -166,4 +172,15 @@ class ViewDeviceFragment : Fragment() {
                 deleteCardAndNavigateBackToDeviceList()
             }
             .show()
+
+    private fun sharePassword(password: String) {
+        val sendIntent: Intent = LockyUtil.share(
+            getString(
+                R.string.message_credentials_password_share,
+                binding.device!!.username,
+                password
+            )
+        )
+        startActivity(Intent.createChooser(sendIntent, null))
+    }
 }

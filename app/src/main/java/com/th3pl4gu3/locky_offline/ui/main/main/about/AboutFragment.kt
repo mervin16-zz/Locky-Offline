@@ -108,12 +108,12 @@ class AboutFragment : Fragment() {
 
     private fun developerRedirection() {
         val intent = openUrl(getString(R.string.app_url_developer_api))
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog(getString(R.string.word_browser))
     }
 
     private fun policyRedirection() {
         val intent = openUrl(getString(R.string.app_url_privacy_policy))
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog(getString(R.string.word_browser))
     }
 
     private fun licensesRedirection() {
@@ -122,7 +122,7 @@ class AboutFragment : Fragment() {
 
     private fun contributorUrlRedirection(url: String) {
         val intent = openUrl(url)
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("Browser")
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog(getString(R.string.word_browser))
     }
 
     private fun shareRedirection() {
@@ -141,7 +141,7 @@ class AboutFragment : Fragment() {
             getString(R.string.app_support_email_subject_bug)
         )
 
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog("email")
+        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog(getString(R.string.word_email))
     }
 
     private fun isIntentSafeToStart(intent: Intent) =
@@ -150,7 +150,12 @@ class AboutFragment : Fragment() {
     private fun showDialog(app: String) =
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.text_title_alert_intent_none, app))
-            .setMessage(getString(R.string.text_message_alert_intent_none, "an email"))
+            .setMessage(
+                getString(
+                    R.string.text_message_alert_intent_none,
+                    getString(R.string.word_email_preposition)
+                )
+            )
             .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
                 dialog.dismiss()
             }

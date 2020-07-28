@@ -366,8 +366,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun showEmailDialog() =
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.text_title_alert_intent_none, "email"))
-            .setMessage(getString(R.string.text_message_alert_intent_none, "an email"))
+            .setTitle(
+                getString(
+                    R.string.text_title_alert_intent_none,
+                    getString(R.string.word_email)
+                )
+            )
+            .setMessage(
+                getString(
+                    R.string.text_message_alert_intent_none,
+                    getString(R.string.word_email_preposition)
+                )
+            )
             .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
                 dialog.dismiss()
             }
