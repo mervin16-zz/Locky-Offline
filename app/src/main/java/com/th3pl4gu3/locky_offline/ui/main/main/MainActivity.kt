@@ -62,9 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         /* Load both FABs */
         listenerForFloatingActionButtons()
-
-        //Scroll changes to adjust toolbar elevation accordingly
-        setUpNestedScrollChangeListener()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -90,26 +87,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigationUISetup() {
         //Fetch the Nav Controller
-        val navController = findNavController(R.id.Navigation_Host)
-        //Setup the App Bar Configuration
-        _appBarConfiguration = AppBarConfiguration(_navigationFragments, binding.DrawerMain)
+        with(findNavController(R.id.Navigation_Host)) {
+            //Setup the App Bar Configuration
+            _appBarConfiguration = AppBarConfiguration(_navigationFragments, binding.DrawerMain)
 
-        //Use Navigation UI to setup the app bar config and navigation view
-        NavigationUI.setupActionBarWithNavController(this, navController, _appBarConfiguration)
-        NavigationUI.setupWithNavController(binding.NavigationView, navController)
+            //Use Navigation UI to setup the app bar config and navigation view
+            NavigationUI.setupActionBarWithNavController(
+                this@MainActivity,
+                this,
+                _appBarConfiguration
+            )
+            NavigationUI.setupWithNavController(binding.NavigationView, this)
 
-        //Add on change destination listener to navigation controller to handle fab visibility
-        navigationDestinationChangeListener(navController)
-    }
-
-    private fun setUpNestedScrollChangeListener() =
-        binding.NestedScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY > 0) {
-                binding.ToolbarMain.elevation = 18F
-            } else {
-                binding.ToolbarMain.elevation = 0F
-            }
+            //Add on change destination listener to navigation controller to handle fab visibility
+            navigationDestinationChangeListener(this)
         }
+    }
 
     private fun navigationDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
