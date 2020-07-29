@@ -11,7 +11,7 @@
     <!-- ========================= -->
     <fragment
         android:id="@+id/Fragment_Starter"
-        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.StarterFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.starter.StarterFragment"
         android:label=""
         tools:layout="@layout/fragment_starter">
         <action
@@ -394,7 +394,7 @@
 
     <dialog
         android:id="@+id/Fragment_Bottom_Dialog_Password_Auth"
-        android:name="com.th3pl4gu3.locky_offline.ui.main.splash.PasswordAuthenticationBottomSheetFragment"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.starter.PasswordAuthenticationBottomSheetFragment"
         android:label=""
         tools:layout="@layout/fragment_bottom_sheet_authentication_password">
         <argument

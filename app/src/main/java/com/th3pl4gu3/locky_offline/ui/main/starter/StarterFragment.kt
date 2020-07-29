@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.splash
+package com.th3pl4gu3.locky_offline.ui.main.starter
 
 import android.content.Intent
 import android.os.Bundle

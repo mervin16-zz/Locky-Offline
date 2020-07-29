@@ -25,6 +25,8 @@
     <color name="colorIconFabMini">@color/colorAccentDark</color>
     <color name="colorIconLauncherBackground">@color/purple_300</color>
 
+    <color name="colorIconMenuBottomSheet">@color/grey_600</color>
+
     <!-- ============= -->
     <!-- Button Colors -->
     <!-- ============= -->
@@ -63,9 +65,11 @@
 
     <color name="colorTextTitleMessage">@color/grey_600</color>
 
+    <color name="colorTextMenuBottomSheet">@color/grey_600</color>
+
     <color name="colorTextSnackBar">@android:color/white</color>
 
-    <color name="colorTextPopup">@color/purple_tint_50</color>
+    <color name="colorTextPopup">@color/colorAccentVariant</color>
 
     <!-- ================== -->
     <!-- Information Colors -->

@@ -4,10 +4,17 @@
     <!-- ========================== -->
 
     <!-- Navigation View Style -->
-    <style name="Locky.Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+    <style name="Locky.Widget.Custom.NavigationView.Drawer" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
         <item name="itemTextColor">?attr/colorNavigationItem</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+    </style>
+
+    <style name="Locky.Widget.Custom.NavigationView.MoreOptions" parent="Widget.Design.NavigationView">
+        <item name="elevation">0dp</item>
+        <item name="itemTextAppearance">@style/Locky.Text.Subtitle.Menu.BottomSheet</item>
+        <item name="itemTextColor">@color/colorTextMenuBottomSheet</item>
+        <item name="itemIconTint">@color/colorIconMenuBottomSheet</item>
     </style>
 
     <!-- Global Icons -->

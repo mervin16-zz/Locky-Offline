@@ -34,6 +34,8 @@
     <color name="colorIconFabMini">@android:color/white</color>
     <color name="colorIconFabNormal">@color/colorAccent</color>
 
+    <color name="colorIconMenuBottomSheet">@color/grey_200</color>
+
     <!-- ===================== -->
     <!-- Material Cards Colors -->
     <!-- ===================== -->
@@ -50,6 +52,8 @@
     <color name="colorButtonTextAccentDark">@color/colorAccent</color>
 
     <color name="colorTextTitleMessage">@color/dark_colorOnSecondary</color>
+
+    <color name="colorTextMenuBottomSheet">@color/grey_200</color>
 
     <color name="colorTextSnackBar">@color/dark_colorOnSecondary</color>
 

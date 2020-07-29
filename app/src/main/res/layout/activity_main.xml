@@ -135,7 +135,7 @@
          -->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/Navigation_View"
-            style="@style/Locky.Widget.Custom.NavigationView"
+            style="@style/Locky.Widget.Custom.NavigationView.Drawer"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"

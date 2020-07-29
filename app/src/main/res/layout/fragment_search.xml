@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -12,114 +13,121 @@
             type="com.th3pl4gu3.locky_offline.ui.main.main.search.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Layout_Parent_Search"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorOnSurface">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/View_List"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ViewModel.starterScreenVisibility? View.GONE : View.VISIBLE}"
-            app:constraint_referenced_ids="Button_Filter,RecyclerView_Lists"
-            tools:visibility="visible" />
-
-        <TextView
-            style="@style/Locky.Text.Subtitle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@{ViewModel.resultSize}"
-            android:textAlignment="viewStart"
-            app:flow_verticalAlign="center"
-            app:layout_constraintBottom_toBottomOf="@id/Button_Filter"
-            app:layout_constraintEnd_toStartOf="@+id/Button_Filter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/Button_Filter"
-            tools:ignore="RtlCompat"
-            tools:text="Search returned N results" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/Button_Filter"
-            style="@style/Locky.Button.Filled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@{ViewModel.filterText}"
-            android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
-            app:icon="@drawable/ic_filter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerView_Lists"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout_Parent_Search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Button_Filter" />
+            android:layout_height="match_parent"
+            android:background="@color/colorOnSurface">
 
-        <!-- ============= -->
-        <!-- Starter View  -->
-        <!-- ============= -->
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/View_Starter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ViewModel.starterScreenVisibility? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="Starter_Illustration,Starter_Subtitle,Starter_Title"
-            tools:visibility="gone" />
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/View_List"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ViewModel.starterScreenVisibility? View.GONE : View.VISIBLE}"
+                app:constraint_referenced_ids="Button_Filter,RecyclerView_Lists"
+                tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/Starter_Illustration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/Starter_Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/il_search" />
+            <TextView
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@{ViewModel.resultSize}"
+                android:textAlignment="viewStart"
+                app:flow_verticalAlign="center"
+                app:layout_constraintBottom_toBottomOf="@id/Button_Filter"
+                app:layout_constraintEnd_toStartOf="@+id/Button_Filter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/Button_Filter"
+                tools:ignore="RtlCompat"
+                tools:text="Search returned N results" />
 
-        <TextView
-            android:id="@+id/Starter_Title"
-            style="@style/Locky.Text.Title6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/text_title_emptyView_item_search"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/Starter_Subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Starter_Illustration" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Button_Filter"
+                style="@style/Locky.Button.Filled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{ViewModel.filterText}"
+                android:theme="@style/Locky.ShapeAppearance.App.SmallComponent"
+                app:icon="@drawable/ic_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Starter_Subtitle"
-            style="@style/Locky.Text.Subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="?attr/actionBarSize"
-            android:text="@string/text_subtitle_emptyView_item_search"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Starter_Title" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerView_Lists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Button_Filter" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- ============= -->
+            <!-- Starter View  -->
+            <!-- ============= -->
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/View_Starter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ViewModel.starterScreenVisibility? View.VISIBLE : View.GONE}"
+                app:constraint_referenced_ids="Starter_Illustration,Starter_Subtitle,Starter_Title"
+                tools:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/Starter_Illustration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/Starter_Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/il_search" />
+
+            <TextView
+                android:id="@+id/Starter_Title"
+                style="@style/Locky.Text.Title6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/text_title_emptyView_item_search"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/Starter_Subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Starter_Illustration" />
+
+            <TextView
+                android:id="@+id/Starter_Subtitle"
+                style="@style/Locky.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:text="@string/text_subtitle_emptyView_item_search"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Starter_Title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

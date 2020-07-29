@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/Navigation_View_More_Options"
+        style="@style/Locky.Widget.Custom.NavigationView.MoreOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
         android:background="@android:color/transparent"
-        app:elevation="0dp" />
+        android:padding="16dp" />
 
 </layout>
 

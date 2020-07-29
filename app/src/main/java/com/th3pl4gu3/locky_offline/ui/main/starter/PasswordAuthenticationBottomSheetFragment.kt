@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.splash
+package com.th3pl4gu3.locky_offline.ui.main.starter
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -9,11 +9,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAuthenticationPasswordBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.SETTINGS_CRYPTO_DIGEST_SCHEME
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hash
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
-import java.security.MessageDigest
 
 class PasswordAuthenticationBottomSheetFragment :
     BottomSheetDialogFragment() {
@@ -89,11 +88,7 @@ class PasswordAuthenticationBottomSheetFragment :
 
     private fun validateMasterPassword() {
         with(binding.MasterPassword) {
-            val enteredPasswordDigest = String(
-                MessageDigest.getInstance(SETTINGS_CRYPTO_DIGEST_SCHEME)
-                    .digest(this.editText?.text.toString().toByteArray())
-            )
-            if (enteredPasswordDigest != _savedPassword) {
+            if (this.editText?.text.toString().hash != _savedPassword) {
                 this.error = getString(R.string.error_field_validation_password_notmatch)
             } else {
                 navigateTo(PasswordAuthenticationBottomSheetFragmentDirections.actionFragmentBottomDialogPasswordAuthToFragmentAccount())

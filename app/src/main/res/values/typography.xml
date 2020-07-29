@@ -119,4 +119,13 @@
         <item name="android:textColor">@color/colorTextPopup</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <!-- ================================ -->
+    <!-- ====== Bottom Sheet Menu  ====== -->
+    <!-- ================================ -->
+    <style name="Locky.Text.Subtitle.Menu.BottomSheet" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
