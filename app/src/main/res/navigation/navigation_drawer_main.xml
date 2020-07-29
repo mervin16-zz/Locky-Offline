@@ -68,10 +68,9 @@
         android:id="@+id/action_global_Fragment_Search"
         app:destination="@id/Fragment_Search" />
 
-
-    <!-- ============================= -->
-    <!-- ====== Splash Activity ====== -->
-    <!-- ============================= -->
+    <action
+        android:id="@+id/action_global_Fragment_Bottom_Dialog_More_Options"
+        app:destination="@id/Fragment_Bottom_Dialog_More_Options" />
 
 
     <!-- ================================== -->
@@ -410,6 +409,33 @@
             app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/navigation_drawer_main"
             app:popUpToInclusive="true" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/Fragment_Bottom_Dialog_More_Options"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.MoreOptionsBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/custom_view_bottom_sheet_moreoptions">
+        <argument
+            android:name="VALUE_ACCOUNT"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Account"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="VALUE_CARD"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Card"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="VALUE_BANK_ACCOUNT"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="VALUE_DEVICE"
+            app:argType="com.th3pl4gu3.locky_offline.core.main.credentials.Device"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </dialog>
 
     <!-- ============================== -->

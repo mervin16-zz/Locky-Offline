@@ -98,10 +98,8 @@
     <string name="message_settings_biometric_enabled">L\'authentification biométrique a été activée</string>
     <string name="menu_moreOptions_copyUsername">Copier le nom d\'utilisateur</string>
     <string name="menu_moreOptions_copyPassword">Copier le mot de passe</string>
-    <string name="menu_moreOptions_viewPassword">Afficher le mot de passe</string>
     <string name="menu_moreOptions_copyNumber">Copiez le numéro de la carte</string>
     <string name="menu_moreOptions_copyPin">Copier le code PIN</string>
-    <string name="menu_moreOptions_viewPin">Afficher le code PIN</string>
     <string name="menu_moreOptions_copyIban">Copier l\'iban</string>
     <string name="menu_moreOptions_copySwift">Copier le code swift</string>
     <string name="menu_device_moreOptions_copyIp">Copiez l\'IP</string>

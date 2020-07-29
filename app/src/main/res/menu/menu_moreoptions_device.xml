@@ -6,20 +6,30 @@
     <item
         android:id="@+id/Menu_CopyUsername"
         android:title="@string/menu_moreOptions_copyUsername"
+        android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopyPass"
         android:title="@string/menu_moreOptions_copyPassword"
+        android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopyIp"
         android:title="@string/menu_device_moreOptions_copyIp"
+        android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/Menu_ShowPass"
-        android:title="@string/menu_moreOptions_viewPassword"
+        android:id="@+id/Menu_SharePassword"
+        android:title="@string/menu_moreOptions_sharePass"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_Delete"
+        android:title="@string/menu_moreOptions_delete"
+        android:icon="@drawable/ic_delete"
         app:showAsAction="ifRoom" />
 </menu>

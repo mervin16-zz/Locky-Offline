@@ -3,7 +3,6 @@ package com.th3pl4gu3.locky_offline.ui.main.main.device
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -17,15 +16,15 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentDeviceBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.setColor
 import kotlinx.coroutines.launch
 
-class DeviceFragment : Fragment() {
+class DeviceFragment : Fragment(), CredentialListener {
 
     /*
     * Private variables
@@ -107,6 +106,29 @@ class DeviceFragment : Fragment() {
         observeBackStackEntryForSortSheet()
     }
 
+    override fun onCredentialClicked(credential: Credentials) {
+        /* The click listener to handle device on clicks */
+        navigateTo(
+            DeviceFragmentDirections.actionFragmentDeviceToFragmentViewDevice(
+                credential as Device
+            )
+        )
+    }
+
+    override fun onViewClicked(credential: Credentials) {
+        /* The click listener to handle password view for each device */
+        showPasswordDialog((credential as Device).password)
+    }
+
+    override fun onCredentialLongPressed(credential: Credentials): Boolean {
+        /* Triggers upon long pressing a device */
+        navigateTo(
+            DeviceFragmentDirections.actionGlobalFragmentBottomDialogMoreOptions()
+                .setVALUEDEVICE(credential as Device)
+        )
+        return true
+    }
+
 
     /*
     * Explicit private functions
@@ -156,21 +178,7 @@ class DeviceFragment : Fragment() {
 
     private fun subscribeDevices() {
         val adapter = CredentialsPagingAdapter(
-            /* The click listener to handle device on clicks */
-            ClickListener {
-                navigateTo(
-                    DeviceFragmentDirections.actionFragmentDeviceToFragmentViewDevice(
-                        it as Device
-                    )
-                )
-            },
-            /* The click listener to handle popup menu for each devices */
-            OptionsClickListener { view, credential ->
-                view.apply {
-                    isEnabled = false
-                }
-                createPopupMenu(view, credential as Device)
-            },
+            this,
             false
         )
 
@@ -203,25 +211,6 @@ class DeviceFragment : Fragment() {
         })
     }
 
-    private fun createPopupMenu(view: View, device: Device) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_device,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyUsername -> copyToClipboardAndToast(device.username)
-                    R.id.Menu_CopyPass -> copyToClipboardAndToast(device.password)
-                    R.id.Menu_CopyIp -> copyToClipboardAndToast(device.ipAddress)
-                    R.id.Menu_ShowPass -> showPasswordDialog(device.password)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
-
     private fun showPasswordDialog(password: String): Boolean {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(
@@ -241,12 +230,6 @@ class DeviceFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
-        return true
-    }
-
-    private fun copyToClipboardAndToast(message: String?): Boolean {
-        copyToClipboard(message ?: Constants.VALUE_EMPTY)
-        toast(getString(R.string.message_copy_successful))
         return true
     }
 

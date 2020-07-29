@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 
 class CredentialsAdapter(
-    private val clickListener: ClickListener,
-    private val optionsClickListener: OptionsClickListener?,
+    private val credentialListener: CredentialListener,
     private val isSimplified: Boolean
 ) : ListAdapter<Credentials, CredentialsViewHolder>(
     diffCallback
@@ -26,8 +25,7 @@ class CredentialsAdapter(
 
     override fun onBindViewHolder(holder: CredentialsViewHolder, position: Int) {
         holder.bind(
-            clickListener,
-            optionsClickListener,
+            credentialListener,
             getItem(position),
             isSimplified
         )

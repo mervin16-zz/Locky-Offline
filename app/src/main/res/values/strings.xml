@@ -172,14 +172,17 @@
 
     <!-- Menu for More Options -->
     <string name="menu_moreOptions_copyUsername">Copy Username</string>
+    <string name="menu_moreOptions_copyEmail">Copy Email</string>
     <string name="menu_moreOptions_copyPassword">Copy Password</string>
-    <string name="menu_moreOptions_viewPassword">View Password</string>
     <string name="menu_moreOptions_copyNumber">Copy Number</string>
     <string name="menu_moreOptions_copyPin">Copy Pin</string>
-    <string name="menu_moreOptions_viewPin">View Pin</string>
     <string name="menu_moreOptions_copyIban">Copy Iban</string>
     <string name="menu_moreOptions_copySwift">Copy Swift</string>
+    <string name="menu_moreOptions_copyBank">Copy Bank</string>
     <string name="menu_device_moreOptions_copyIp">Copy IP</string>
+    <string name="menu_moreOptions_visitWebsite">Visit Website</string>
+    <string name="menu_moreOptions_sharePass">Share Password</string>
+    <string name="menu_moreOptions_delete">Delete</string>
 
     <!-- Menu for search filters-->
     <string name="menu_search_filters_account">@string/locky_section_main_account</string>

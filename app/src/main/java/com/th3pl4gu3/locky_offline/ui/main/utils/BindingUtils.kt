@@ -2,6 +2,8 @@ package com.th3pl4gu3.locky_offline.ui.main.utils
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -371,3 +373,15 @@ fun ImageView.loadCustomIcon(icon: String) {
         )
     )
 }
+
+/*
+* Determines if the show password
+* icon should be visible or not
+*/
+@BindingAdapter("isSimplified", "credential")
+fun ImageButton.determineViewSecretVisibility(isSimplified: Boolean, credential: Credentials) =
+    if (isSimplified || credential is BankAccount) {
+        this.visibility = View.GONE
+    } else {
+        this.visibility = View.VISIBLE
+    }

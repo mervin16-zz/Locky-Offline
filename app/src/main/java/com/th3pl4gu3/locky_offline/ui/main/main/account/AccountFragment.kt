@@ -3,7 +3,6 @@ package com.th3pl4gu3.locky_offline.ui.main.main.account
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -17,14 +16,15 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Account
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.setColor
 import kotlinx.coroutines.launch
 
-class AccountFragment : Fragment() {
+class AccountFragment : Fragment(), CredentialListener {
 
     /*
     * Private variables
@@ -75,6 +75,7 @@ class AccountFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
+        /* Transition animation on startup */
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
     }
@@ -105,6 +106,29 @@ class AccountFragment : Fragment() {
 
         /* Observe back stack entry for sort changes */
         observeBackStackEntryForSortSheet()
+    }
+
+    override fun onCredentialClicked(credential: Credentials) {
+        /* The click listener to handle account on clicks */
+        navigateTo(
+            AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
+                credential as Account
+            )
+        )
+    }
+
+    override fun onViewClicked(credential: Credentials) {
+        /* The click listener to handle password viewing for each accounts */
+        showPasswordDialog((credential as Account).password)
+    }
+
+    override fun onCredentialLongPressed(credential: Credentials): Boolean {
+        /* Triggers upon long pressing an account */
+        navigateTo(
+            AccountFragmentDirections.actionGlobalFragmentBottomDialogMoreOptions()
+                .setVALUEACCOUNT(credential as Account)
+        )
+        return true
     }
 
     /*
@@ -146,21 +170,7 @@ class AccountFragment : Fragment() {
 
     private fun subscribeAccounts() {
         val adapter = CredentialsPagingAdapter(
-            /* The click listener to handle account on clicks */
-            ClickListener {
-                navigateTo(
-                    AccountFragmentDirections.actionFragmentAccountToFragmentViewAccount(
-                        it as Account
-                    )
-                )
-            },
-            /* The click listener to handle popup menu for each accounts */
-            OptionsClickListener { view, credential ->
-                view.apply {
-                    isEnabled = false
-                }
-                createPopupMenu(view, credential as Account)
-            },
+            this,
             false
         )
 
@@ -202,24 +212,6 @@ class AccountFragment : Fragment() {
         viewModel.doneLoading(listSize)
     }
 
-    private fun createPopupMenu(view: View, account: Account) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_account,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyUsername -> copyToClipboardAndToast(account.username)
-                    R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
-                    R.id.Menu_ShowPass -> showPasswordDialog(account.password)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
-
     private fun navigateToSort() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
@@ -246,12 +238,6 @@ class AccountFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
-        return true
-    }
-
-    private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
         return true
     }
 }

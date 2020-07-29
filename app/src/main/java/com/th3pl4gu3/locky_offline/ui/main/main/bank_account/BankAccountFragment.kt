@@ -3,7 +3,6 @@ package com.th3pl4gu3.locky_offline.ui.main.main.bank_account
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
-import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
@@ -15,15 +14,14 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.VALUE_EMPTY
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import kotlinx.coroutines.launch
 
-class BankAccountFragment : Fragment() {
+class BankAccountFragment : Fragment(), CredentialListener {
 
     /*
     * Private variables
@@ -106,6 +104,24 @@ class BankAccountFragment : Fragment() {
         observeBackStackEntryForSortSheet()
     }
 
+    override fun onCredentialClicked(credential: Credentials) {
+        /* The click listener to handle bank account on clicks */
+        navigateTo(
+            BankAccountFragmentDirections.actionFragmentBankAccountToFragmentViewBankAccount(
+                credential as BankAccount
+            )
+        )
+    }
+
+    override fun onCredentialLongPressed(credential: Credentials): Boolean {
+        /* Triggers upon long pressing a bank account */
+        navigateTo(
+            BankAccountFragmentDirections.actionGlobalFragmentBottomDialogMoreOptions()
+                .setVALUEBANKACCOUNT(credential as BankAccount)
+        )
+        return true
+    }
+
     /*
     * Explicit private functions
     */
@@ -145,21 +161,7 @@ class BankAccountFragment : Fragment() {
 
     private fun subscribeBankAccounts() {
         val adapter = CredentialsPagingAdapter(
-            /* The click listener to handle account on clicks */
-            ClickListener {
-                navigateTo(
-                    BankAccountFragmentDirections.actionFragmentBankAccountToFragmentViewBankAccount(
-                        it as BankAccount
-                    )
-                )
-            },
-            /* The click listener to handle popup menu for each accounts */
-            OptionsClickListener { view, credential ->
-                view.apply {
-                    isEnabled = false
-                }
-                createPopupMenu(view, credential as BankAccount)
-            },
+            this,
             false
         )
 
@@ -201,34 +203,10 @@ class BankAccountFragment : Fragment() {
         viewModel.doneLoading(listSize)
     }
 
-    private fun createPopupMenu(view: View, account: BankAccount) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_bankaccount,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyNumber -> copyToClipboardAndToast(account.accountNumber)
-                    R.id.Menu_CopyIban -> copyToClipboardAndToast(account.iban)
-                    R.id.Menu_CopySwift -> copyToClipboardAndToast(account.swiftCode)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
-
     private fun navigateToSort() {
         if (SystemClock.elapsedRealtime() - _lastClickTime >= 800) {
             _lastClickTime = SystemClock.elapsedRealtime()
             navigateTo(BankAccountFragmentDirections.actionFragmentBankAccountToFragmentBottomDialogFilterBankAccount())
         }
-    }
-
-    private fun copyToClipboardAndToast(message: String?): Boolean {
-        copyToClipboard(message ?: VALUE_EMPTY)
-        toast(getString(R.string.message_copy_successful))
-        return true
     }
 }

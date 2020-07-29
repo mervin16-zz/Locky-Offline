@@ -6,15 +6,30 @@
     <item
         android:id="@+id/Menu_CopyNumber"
         android:title="@string/menu_moreOptions_copyNumber"
+        android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopyIban"
         android:title="@string/menu_moreOptions_copyIban"
+        android:icon="@drawable/ic_copy"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Menu_CopySwift"
         android:title="@string/menu_moreOptions_copySwift"
+        android:icon="@drawable/ic_copy"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_CopyBank"
+        android:title="@string/menu_moreOptions_copyBank"
+        android:icon="@drawable/ic_copy"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/Menu_Delete"
+        android:title="@string/menu_moreOptions_delete"
+        android:icon="@drawable/ic_delete"
         app:showAsAction="ifRoom" />
 </menu>

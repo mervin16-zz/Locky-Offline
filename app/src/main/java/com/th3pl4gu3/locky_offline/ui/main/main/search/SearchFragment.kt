@@ -19,7 +19,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.*
 import com.th3pl4gu3.locky_offline.databinding.FragmentSearchBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsAdapter
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.createPopUpMenu
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
@@ -27,7 +27,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import kotlinx.coroutines.launch
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), CredentialListener {
 
     private var _binding: FragmentSearchBinding? = null
     private var _viewModel: SearchViewModel? = null
@@ -129,6 +129,33 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
+    override fun onCredentialClicked(credential: Credentials) {
+        /* The click listener to handle credentials on clicks */
+        when (credential) {
+            is Account -> navigateTo(
+                SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
+                    credential
+                )
+            )
+            is Card -> navigateTo(
+                SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(
+                    credential
+                )
+            )
+            is BankAccount -> navigateTo(
+                SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(
+                    credential
+                )
+            )
+            is Device -> navigateTo(
+                SearchFragmentDirections.actionFragmentSearchToFragmentViewDevice(
+                    credential
+                )
+            )
+            else -> toast(getString(R.string.error_internal_code_3))
+        }
+    }
+
     private fun observeAccounts() {
         viewModel.accounts.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -210,33 +237,7 @@ class SearchFragment : Fragment() {
 
     private fun subscribeUi(list: List<Credentials>) {
         val adapter = CredentialsAdapter(
-            /* The click listener to handle credentials on clicks */
-            ClickListener {
-                when (it) {
-                    is Account -> navigateTo(
-                        SearchFragmentDirections.actionFragmentSearchToFragmentViewAccount(
-                            it
-                        )
-                    )
-                    is Card -> navigateTo(
-                        SearchFragmentDirections.actionFragmentSearchToFragmentViewCard(
-                            it
-                        )
-                    )
-                    is BankAccount -> navigateTo(
-                        SearchFragmentDirections.actionFragmentSearchToFragmentViewBankAccount(
-                            it
-                        )
-                    )
-                    is Device -> navigateTo(
-                        SearchFragmentDirections.actionFragmentSearchToFragmentViewDevice(
-                            it
-                        )
-                    )
-                    else -> toast(getString(R.string.error_internal_code_3))
-                }
-            },
-            null,
+            this,
             true
         )
 

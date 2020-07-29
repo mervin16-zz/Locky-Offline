@@ -3,7 +3,6 @@ package com.th3pl4gu3.locky_offline.ui.main.main.card
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -17,14 +16,15 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
 import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
-import com.th3pl4gu3.locky_offline.ui.main.main.ClickListener
+import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
-import com.th3pl4gu3.locky_offline.ui.main.main.OptionsClickListener
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.setColor
 import kotlinx.coroutines.launch
 
-class CardFragment : Fragment() {
+class CardFragment : Fragment(), CredentialListener {
 
     private var _binding: FragmentCardBinding? = null
     private var _viewModel: CardViewModel? = null
@@ -89,6 +89,29 @@ class CardFragment : Fragment() {
         _binding = null
     }
 
+    override fun onCredentialClicked(credential: Credentials) {
+        /* The click listener to handle card on clicks */
+        navigateTo(
+            CardFragmentDirections.actionFragmentCardToFragmentViewCard(
+                credential as Card
+            )
+        )
+    }
+
+    override fun onViewClicked(credential: Credentials) {
+        /* The click listener to handle pin viewing for each card */
+        showPasswordDialog((credential as Card).pin)
+    }
+
+    override fun onCredentialLongPressed(credential: Credentials): Boolean {
+        /* Triggers upon long pressing a card */
+        navigateTo(
+            CardFragmentDirections.actionGlobalFragmentBottomDialogMoreOptions()
+                .setVALUECARD(credential as Card)
+        )
+        return true
+    }
+
     private fun updateUI(listSize: Int) {
         /*
         * Hide the loading animation
@@ -130,16 +153,7 @@ class CardFragment : Fragment() {
 
     private fun subscribeUi() {
         val adapter = CredentialsPagingAdapter(
-            ClickListener {
-                navigateTo(CardFragmentDirections.actionFragmentCardToFragmentViewCard(it as Card))
-            },
-            OptionsClickListener { view, credential ->
-                //Prevents double click and creating a double instance
-                view.apply {
-                    isEnabled = false
-                }
-                createPopupMenu(view, credential as Card)
-            },
+            this,
             false
         )
 
@@ -175,24 +189,6 @@ class CardFragment : Fragment() {
         }
     }
 
-    private fun createPopupMenu(view: View, card: Card) {
-        createPopUpMenu(
-            view,
-            R.menu.menu_moreoptions_card,
-            PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.Menu_CopyNumber -> copyToClipboardAndToast(card.number.toCreditCardFormat())
-                    R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin)
-                    R.id.Menu_ShowPin -> showPasswordDialog(card.pin)
-                    else -> false
-                }
-            }, PopupMenu.OnDismissListener {
-                view.apply {
-                    isEnabled = true
-                }
-            })
-    }
-
     private fun showPasswordDialog(password: String): Boolean {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(
@@ -212,12 +208,6 @@ class CardFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
-        return true
-    }
-
-    private fun copyToClipboardAndToast(message: String): Boolean {
-        copyToClipboard(message)
-        toast(getString(R.string.message_copy_successful))
         return true
     }
 }
