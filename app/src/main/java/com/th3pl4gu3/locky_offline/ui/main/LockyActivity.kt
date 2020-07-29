@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.main
+package com.th3pl4gu3.locky_offline.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem

@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.TestUtil
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
-import com.th3pl4gu3.locky_offline.ui.main.main.LockyActivity
+import com.th3pl4gu3.locky_offline.ui.main.LockyActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.not
@@ -31,7 +31,9 @@ import org.junit.runner.RunWith
 internal class AddAccountFragmentTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<LockyActivity> = ActivityTestRule(LockyActivity::class.java)
+    var activityRule: ActivityTestRule<LockyActivity> = ActivityTestRule(
+        LockyActivity::class.java
+    )
     private var resources: Resources =
         InstrumentationRegistry.getInstrumentation().targetContext.resources
 

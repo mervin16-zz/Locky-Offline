@@ -11,7 +11,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
-        android:name=".LockyApplication"
+        android:name=".ui.main.LockyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/xml_backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Locky.Theme">
         <activity
-            android:name=".ui.main.main.LockyActivity"
+            android:name=".ui.main.LockyActivity"
             android:theme="@style/Locky.Theme.Launcher"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

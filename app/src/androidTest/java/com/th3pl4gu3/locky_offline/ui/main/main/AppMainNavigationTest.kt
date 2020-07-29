@@ -12,6 +12,7 @@ import androidx.test.espresso.contrib.NavigationViewActions.navigateTo
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.ui.main.LockyActivity
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

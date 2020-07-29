@@ -16,7 +16,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.ui.main.main.LockyActivity
+import com.th3pl4gu3.locky_offline.ui.main.LockyActivity
 
 
 /*

@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline
+package com.th3pl4gu3.locky_offline.ui.main
 
 import android.app.Application
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
