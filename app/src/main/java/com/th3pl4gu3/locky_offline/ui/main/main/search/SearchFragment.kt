@@ -35,6 +35,8 @@ class SearchFragment : Fragment(), CredentialListener {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
+    private var _isNavigatingToACredential = false
+
     /*
     * Extension properties to fetch views from main activity
     * Views consists of search functionality
@@ -116,8 +118,6 @@ class SearchFragment : Fragment(), CredentialListener {
 
     override fun onPause() {
         super.onPause()
-        //Clear text box
-        searchBox.text.clear()
         /*
         * Hide text box and show title
         */
@@ -126,10 +126,34 @@ class SearchFragment : Fragment(), CredentialListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        if (_isNavigatingToACredential) {
+            /*
+            * If we are navigating to a credential
+            * We don't need to clear the textbox.
+            * Therefore we just reset the flag
+            */
+            _isNavigatingToACredential = false
+        } else {
+            /*
+            * If we are not navigating to a credential
+            * We are therefore leaving the search screen
+            * We then clear text box
+            */
+            searchBox.setText("")
+        }
+
         _binding = null
     }
 
     override fun onCredentialClicked(credential: Credentials) {
+        /*
+        * We set a flag in order for when
+        * the user comes back, he can
+        * have his previous search on screen
+        */
+        _isNavigatingToACredential = true
+
         /* The click listener to handle credentials on clicks */
         when (credential) {
             is Account -> navigateTo(
