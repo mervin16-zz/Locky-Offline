@@ -28,12 +28,10 @@ fun ImageView.loadImageUrl(uri: Uri?, loadingResource: Drawable?, errorResource:
 */
 inline fun View.snack(
     message: String,
-    anchorView: View? = null,
     length: Int = Snackbar.LENGTH_SHORT,
     f: Snackbar.() -> Unit
 ) {
     val snack = Snackbar.make(this, message, length)
-    anchorView?.let { snack.setAnchorView(anchorView) }
     snack.f()
     snack.show()
 }

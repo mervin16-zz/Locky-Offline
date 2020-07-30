@@ -2,4 +2,6 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="list_credentials_padding_bottom">120dp</dimen>
 </resources>

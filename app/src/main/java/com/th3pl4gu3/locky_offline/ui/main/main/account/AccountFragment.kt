@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
@@ -124,9 +123,6 @@ class AccountFragment : Fragment(), CredentialListener {
     }
 
     override fun onCredentialLongPressed(credential: Credentials): Boolean {
-        /* We force the FABs to appear */
-        requireMainActivity().forceFABToAppear()
-
         /* Triggers upon long pressing an account */
         navigateTo(
             AccountFragmentDirections.actionGlobalFragmentBottomDialogMoreOptions()
@@ -161,8 +157,7 @@ class AccountFragment : Fragment(), CredentialListener {
                                 getString(
                                     R.string.message_credentials_deleted,
                                     this.entryName
-                                ),
-                                requireMainActivity().findViewById<FloatingActionButton>(R.id.FAB_Search)
+                                )
                             ) {
                                 action(getString(R.string.button_action_undo)) {
                                     viewModel.add(this@with)

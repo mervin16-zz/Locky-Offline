@@ -2,10 +2,7 @@ package com.th3pl4gu3.locky_offline.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -15,8 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
@@ -71,14 +66,6 @@ class LockyActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
-
-    /*
-    * Internal functions made available to
-    * child fragments of Locky Activity
-    */
-    internal fun forceFABToAppear() {
-        showFABs()
-    }
 
     /*
     * Private functions that are
@@ -143,23 +130,6 @@ class LockyActivity : AppCompatActivity() {
     private fun showFABs() {
         binding.FABSearch.show()
         binding.FABAdd.show()
-
-        showFABFromSlidingBehavior(binding.FABSearch, binding.FABSearch.isVisible)
-        showFABFromSlidingBehavior(binding.FABAdd, binding.FABAdd.isVisible)
-    }
-
-    private fun showFABFromSlidingBehavior(fab: FloatingActionButton, isVisible: Boolean) {
-        val layoutParams: ViewGroup.LayoutParams = fab.layoutParams
-        if (layoutParams is CoordinatorLayout.LayoutParams) {
-            val behavior = layoutParams.behavior
-            if (behavior is HideBottomViewOnScrollBehavior) {
-                if (isVisible) {
-                    behavior.slideUp(fab)
-                } else {
-                    behavior.slideDown(fab)
-                }
-            }
-        }
     }
 
     private fun listenerForFloatingActionButtons() {
