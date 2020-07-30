@@ -1,10 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.device
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
@@ -16,6 +13,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
+import kotlinx.coroutines.launch
 import java.util.*
 
 class DeviceViewModel(application: Application) : AndroidViewModel(application) {
@@ -94,6 +92,9 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
             _sort.value = sort
         }
     }
+
+    internal fun add(device: Device) =
+        viewModelScope.launch { DeviceRepository.getInstance(getApplication()).insert(device) }
 
     /*
     * Non-accessible functions

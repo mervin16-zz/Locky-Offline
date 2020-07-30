@@ -24,6 +24,7 @@ object Constants {
     const val KEY_BANK_ACCOUNTS_SORT = "KEY_BANK_ACCOUNT_SORT"
     const val KEY_DEVICE_SORT = "KEY_DEVICE_SORT"
     const val KEY_USER_ACCOUNT = "KEY_USER_ACCOUNT"
+    const val KEY_CREDENTIAL_RESTORE = "KEY_CREDENTIAL_RESTORE"
 
     /*
         ****    Regexes    ****

@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.main.credentials.Account
@@ -16,6 +16,7 @@ import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.main.credentials.Card
 import com.th3pl4gu3.locky_offline.core.main.credentials.Device
 import com.th3pl4gu3.locky_offline.databinding.CustomViewBottomSheetMoreoptionsBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CREDENTIAL_RESTORE
 import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
@@ -109,8 +110,16 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
                     R.id.Menu_CopyPass -> copyToClipboardAndToast(account.password)
                     R.id.Menu_VisitSite -> openInBrowser(account.website)
                     R.id.Menu_Delete -> {
+                        /* Delete the account */
                         viewModel.delete(account)
-                        toast(getString(R.string.message_credentials_deleted, account.entryName))
+                        /*
+                        * Send a copy of deleted version back to
+                        * main fragment in case user wants to undo
+                        */
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                            KEY_CREDENTIAL_RESTORE,
+                            account
+                        )
                     }
                 }
                 dismiss()
@@ -127,8 +136,16 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
                     R.id.Menu_CopyPin -> copyToClipboardAndToast(card.pin)
                     R.id.Menu_CopyBank -> copyToClipboardAndToast(card.bank)
                     R.id.Menu_Delete -> {
+                        /* Delete the account */
                         viewModel.delete(card)
-                        toast(getString(R.string.message_credentials_deleted, card.entryName))
+                        /*
+                        * Send a copy of deleted version back to
+                        * main fragment in case user wants to undo
+                        */
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                            KEY_CREDENTIAL_RESTORE,
+                            card
+                        )
                     }
                 }
                 dismiss()
@@ -146,12 +163,15 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
                     R.id.Menu_CopyIban -> copyToClipboardAndToast(bankAccount.iban)
                     R.id.Menu_CopyBank -> copyToClipboardAndToast(bankAccount.bank)
                     R.id.Menu_Delete -> {
+                        /* Delete the account */
                         viewModel.delete(bankAccount)
-                        toast(
-                            getString(
-                                R.string.message_credentials_deleted,
-                                bankAccount.entryName
-                            )
+                        /*
+                        * Send a copy of deleted version back to
+                        * main fragment in case user wants to undo
+                        */
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                            KEY_CREDENTIAL_RESTORE,
+                            bankAccount
                         )
                     }
                 }
@@ -170,8 +190,16 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
                     R.id.Menu_CopyIp -> copyToClipboardAndToast(device.ipAddress)
                     R.id.Menu_SharePassword -> sharePassword(device)
                     R.id.Menu_Delete -> {
+                        /* Delete the account */
                         viewModel.delete(device)
-                        toast(getString(R.string.message_credentials_deleted, device.entryName))
+                        /*
+                        * Send a copy of deleted version back to
+                        * main fragment in case user wants to undo
+                        */
+                        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                            KEY_CREDENTIAL_RESTORE,
+                            device
+                        )
                     }
                 }
                 dismiss()
@@ -181,30 +209,16 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun openInBrowser(website: String) {
         val intent = LockyUtil.openUrl(website)
-        if (isIntentSafeToStart(intent)) startActivity(intent) else showDialog()
+        if (isIntentSafeToStart(intent)) startActivity(intent) else toast(
+            getString(
+                R.string.text_message_alert_intent_none,
+                getString(R.string.word_browser_preposition)
+            )
+        )
     }
 
     private fun isIntentSafeToStart(intent: Intent) =
         intent.resolveActivity(requireActivity().packageManager) != null
-
-    private fun showDialog() =
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(
-                getString(
-                    R.string.text_title_alert_intent_none,
-                    getString(R.string.word_browser)
-                )
-            )
-            .setMessage(
-                getString(
-                    R.string.text_message_alert_intent_none,
-                    getString(R.string.word_browser_preposition)
-                )
-            )
-            .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
 
     private fun sharePassword(device: Device) {
         val sendIntent: Intent = LockyUtil.share(

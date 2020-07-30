@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -163,11 +162,9 @@ class AddAccountFragment : Fragment() {
     }
 
     private fun scrollToTop() {
-        getParentScrollView().fling(0)
-        getParentScrollView().smoothScrollTo(0, 0)
+        binding.LayoutParentAddAccount.fling(0)
+        binding.LayoutParentAddAccount.smoothScrollTo(0, 0)
     }
-
-    private fun getParentScrollView() = binding.root.parent.parent as NestedScrollView
 
     private fun showToastAndNavigateToAccountList(toastMessage: String) {
         toast(toastMessage)

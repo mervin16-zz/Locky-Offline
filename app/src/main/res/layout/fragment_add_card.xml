@@ -12,11 +12,11 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/Layout_Parent_Add_Card"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/Layout_Parent_Add_Card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="16dp"

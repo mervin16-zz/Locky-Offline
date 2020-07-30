@@ -36,6 +36,8 @@
     <color name="colorChipDefault">@color/grey_50</color>
     <color name="colorChipChecked">@color/colorAccentLight</color>
 
+    <color name="colorSnackBarButton">@color/colorAccentLight</color>
+
     <!-- ===================== -->
     <!-- Material Cards Colors -->
     <!-- ===================== -->

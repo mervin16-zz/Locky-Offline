@@ -211,7 +211,7 @@
     </style>
 
     <style name="Locky.SnackBar.Button" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorSnackBarButton</item>
     </style>
 
     <style name="Locky.SnackBar.ThemeOverlay" parent="">

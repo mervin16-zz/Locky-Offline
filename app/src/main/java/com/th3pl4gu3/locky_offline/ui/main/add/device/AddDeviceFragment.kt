@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -103,15 +102,15 @@ class AddDeviceFragment : Fragment() {
     private fun observeFormValidationErrorMessagesEvents() {
         with(viewModel) {
             nameErrorMessage.observe(viewLifecycleOwner, Observer {
-                //binding.DeviceEntryName.error = it
+                binding.DeviceEntryName.error = it
             })
 
             usernameErrorMessage.observe(viewLifecycleOwner, Observer {
-                //binding.DeviceUsername.error = it
+                binding.DeviceUsername.error = it
             })
 
             passwordErrorMessage.observe(viewLifecycleOwner, Observer {
-                //binding.DevicePassword.error = it
+                binding.DevicePassword.error = it
             })
         }
     }
@@ -188,9 +187,7 @@ class AddDeviceFragment : Fragment() {
     }
 
     private fun scrollToTop() {
-        getParentScrollView().fling(0)
-        getParentScrollView().smoothScrollTo(0, 0)
+        binding.LayoutParentAddDevice.fling(0)
+        binding.LayoutParentAddDevice.smoothScrollTo(0, 0)
     }
-
-    private fun getParentScrollView() = binding.root.parent.parent as NestedScrollView
 }

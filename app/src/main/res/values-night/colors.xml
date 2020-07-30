@@ -20,6 +20,8 @@
     <color name="colorFabNormal">@color/dark_colorOnSecondary</color>
     <color name="colorFabMini">@color/dark_colorOnSecondary</color>
 
+    <color name="colorSnackBarButton">@color/colorAccent</color>
+
     <!-- ================= -->
     <!-- Text Field Colors -->
     <!-- ================= -->

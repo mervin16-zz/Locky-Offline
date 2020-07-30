@@ -277,10 +277,10 @@ class StarterFragment : Fragment() {
             .Builder()
             .setTitle(getString(R.string.text_title_alert_biometric_authentication))
             .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
-            .setDeviceCredentialAllowed(true)
+            .setDeviceCredentialAllowed(false)
+            .setNegativeButtonText(getString(R.string.button_action_cancel))
             .setConfirmationRequired(false)
             .build()
-
 
         /* Prompts the user for biometric authentication */
         _biometricPrompt.authenticate(_promptInfo)

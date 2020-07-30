@@ -3,6 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.main.bank_account
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.*
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,8 @@ import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CREDENTIAL_RESTORE
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import kotlinx.coroutines.launch
 
 class BankAccountFragment : Fragment(), CredentialListener {
@@ -135,17 +136,46 @@ class BankAccountFragment : Fragment(), CredentialListener {
 
         // Create our observer and add it to the NavBackStackEntry's lifecycle
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains(KEY_BANK_ACCOUNTS_SORT)
-            ) {
+            if (event == Lifecycle.Event.ON_RESUME) {
 
-                viewModel.sortChange(
-                    navBackStackEntry.savedStateHandle.get<BankAccountSort>(
+                if (navBackStackEntry.savedStateHandle.contains(KEY_CREDENTIAL_RESTORE)) {
+                    with(
+                        navBackStackEntry.savedStateHandle.get<BankAccount>(
+                            KEY_CREDENTIAL_RESTORE
+                        )!!
+                    ) {
+
+                        requireMainActivity().findViewById<CoordinatorLayout>(R.id.Layout_Coordinator_Main)
+                            .snack(
+                                getString(
+                                    R.string.message_credentials_deleted,
+                                    this.entryName
+                                )
+                            ) {
+                                action(getString(R.string.button_action_undo)) {
+                                    viewModel.add(this@with)
+                                }
+                            }
+
+                        navBackStackEntry.savedStateHandle.remove<BankAccount>(
+                            KEY_CREDENTIAL_RESTORE
+                        )
+                    }
+
+                }
+
+                if (navBackStackEntry.savedStateHandle.contains(KEY_BANK_ACCOUNTS_SORT)) {
+
+                    viewModel.sortChange(
+                        navBackStackEntry.savedStateHandle.get<BankAccountSort>(
+                            KEY_BANK_ACCOUNTS_SORT
+                        )!!
+                    )
+
+                    navBackStackEntry.savedStateHandle.remove<BankAccountSort>(
                         KEY_BANK_ACCOUNTS_SORT
-                    )!!
-                )
-
-                navBackStackEntry.savedStateHandle.remove<BankAccountSort>(KEY_BANK_ACCOUNTS_SORT)
+                    )
+                }
             }
         }
         navBackStackEntry.lifecycle.addObserver(observer)

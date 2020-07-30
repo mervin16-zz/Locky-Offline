@@ -1,10 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.main.card
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
@@ -17,6 +14,7 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getCardType
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CardViewModel(application: Application) : AndroidViewModel(application) {
@@ -109,6 +107,8 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    internal fun add(card: Card) =
+        viewModelScope.launch { CardRepository.getInstance(getApplication()).insert(card) }
 
     /*
     * In-accessible functions

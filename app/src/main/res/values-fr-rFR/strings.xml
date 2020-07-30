@@ -232,4 +232,5 @@
     <string name="menu_moreOptions_visitWebsite">Visitez le site Web</string>
     <string name="menu_moreOptions_sharePass">Partager le mot de passe</string>
     <string name="menu_moreOptions_delete">Supprimer</string>
+    <string name="button_action_undo">Annuler</string>
 </resources>
