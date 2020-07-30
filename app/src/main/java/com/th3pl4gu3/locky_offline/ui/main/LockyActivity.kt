@@ -72,6 +72,19 @@ class LockyActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() =
         findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
 
+    /*
+    * Internal functions made available to
+    * child fragments of Locky Activity
+    */
+    internal fun forceFABToAppear() {
+        showFABs()
+    }
+
+    /*
+    * Private functions that are
+    * called within the Locky Activity
+    * Itself.
+    */
     private fun navigationUISetup() {
         //Fetch the Nav Controller
         with(findNavController(R.id.Navigation_Host)) {

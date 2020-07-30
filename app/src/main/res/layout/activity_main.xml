@@ -108,7 +108,7 @@
                 style="@style/Locky.FloatingActionButton.Mini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="@dimen/fab_margin"
                 android:layout_marginBottom="85dp"
                 app:layout_anchor="@id/FAB_Add"
                 app:layout_anchorGravity="top|center_horizontal"

@@ -33,7 +33,7 @@
 
     <!-- Locky User details -->
     <string name="app_user_member_since">Member since "%1$s"</string>
-    <string name="app_user_login" translatable="false">Login: "%1$s"</string>
+    <string name="app_user_login">Login: "%1$s"</string>
 
     <!-- Locky API used and privacy policy -->
     <string name="app_url_privacy_policy" translatable="false">https://lockyapplication.wixsite.com/overview/terms-privacy-policy</string>
@@ -79,35 +79,21 @@
     <string name="text_title_alert_delete_message">Are you sure you want to delete \'"%1$s"\'</string>
 
     <string name="text_title_alert_biometric">No biometric enrolments</string>
-    <string name="text_title_alert_biometric_message">
-        You currently don\'t have any biometric entries. Do you want to add a biometric entry?
-    </string>
+    <string name="text_title_alert_biometric_message">"You currently don't have any biometric entries. Do you want to add a biometric entry?     "</string>
 
     <string name="text_title_alert_backup">Backup Locky</string>
-    <string name="text_title_alert_backup_message">
-        Locky performs backup automatically on its users\' app data and settings preferences.
-        If you don\'t have backup option enabled on your phone, please turn it on so that your app data and
-        settings can be automatically backup on your Google Drive.
-    </string>
+    <string name="text_title_alert_backup_message">Locky performs backup automatically on its users\' app data and settings preferences. If you don\'t have backup option enabled on your phone, please turn it on so that your app data and settings can be automatically backup on your Google Drive.</string>
 
     <string name="text_title_alert_data_wipe">Delete all data</string>
-    <string name="text_message_alert_data_wipe">
-        Are you sure you want to delete all your data ? (This includes all accounts, cards, devices and bank accounts inserted)
-    </string>
+    <string name="text_message_alert_data_wipe">Are you sure you want to delete all your data ? (This includes all accounts, cards, devices and bank accounts inserted)</string>
 
-    <string name="text_title_alert_biometric_enrolments_message">
-        You no longer have biometric enrolments configured which was available upon activating the biometric authentication in Locky. P
-        lease re-configure your biometrics to be able to access Locky.
-    </string>
+    <string name="text_title_alert_biometric_enrolments_message">You no longer have biometric enrolments configured which was available upon activating the biometric authentication in Locky. Please re-configure your biometrics to be able to access Locky.</string>
 
     <string name="text_title_alert_biometric_authentication">Unlock to proceed</string>
-    <string name="text_title_alert_biometric_authentication_message">
-        Please authenticate yourself with your biometric or screen lock credentials to access Locky
-    </string>
+    <string name="text_title_alert_biometric_authentication_message">Please authenticate yourself with your biometric or screen lock credentials to access Locky</string>
 
     <string name="text_title_alert_intent_none">Unable to open "%1$s" app</string>
-    <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing "%1$s"
-        application to continue</string>
+    <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing %1$s application to continue</string>
 
     <string name="text_title_alert_showPassword">Your password is</string>
     <string name="text_title_alert_showPin">Your pin is</string>
@@ -199,7 +185,7 @@
 
     <string name="field_account_name">Entry Name</string>
     <string name="field_account_username">Username</string>
-    <string name="field_account_email" translatable="false">Email</string>
+    <string name="field_account_email">Email</string>
     <string name="field_account_password">Password</string>
     <string name="field_account_website">Website</string>
     <string name="field_account_authentication_type">Authentication Type</string>
@@ -219,12 +205,12 @@
     <string name="field_device_username">Username / SSID / Login</string>
     <string name="field_device_password">Password / Pin / Security Code</string>
     <string name="field_device_ip">Ip Address</string>
-    <string name="field_device_mac">Mac Address</string>
+    <string name="field_device_mac">MAC Address</string>
     <string name="field_device_additional">Additional Comments</string>
 
     <string name="field_bank_account_name">Entry Name</string>
     <string name="field_bank_account_number">Number</string>
-    <string name="field_bank_account_owner">Owner</string>
+    <string name="field_bank_account_owner">Bank Account Owner</string>
     <string name="field_bank_account_bank">Bank</string>
     <string name="field_bank_account_iban">Iban</string>
     <string name="field_bank_account_swift">Swift Code</string>
@@ -240,7 +226,7 @@
     <string name="field_device_blank_ip"><i>No ip address entered</i></string>
 
     <string name="field_placeholder_empty">none</string>
-    <string name="field_placeholder_na" translatable="false">n/a</string>
+    <string name="field_placeholder_na">n/a</string>
     <string name="field_placeholder_hidden" translatable="false">******</string>
 
     <string name="field_helper_account_authentication_type" translatable="false">i.e Google, Facebook, etc…</string>
@@ -248,7 +234,7 @@
 
     <string name="field_account_sort_name">@string/field_account_name</string>
     <string name="field_account_sort_username">@string/field_account_username</string>
-    <string name="field_account_sort_email" translatable="false">@string/field_account_email</string>
+    <string name="field_account_sort_email">@string/field_account_email</string>
     <string name="field_account_sort_website">@string/field_account_website</string>
     <string name="field_account_sort_authentication_type">@string/field_account_authentication_type</string>
 
@@ -272,10 +258,10 @@
     <!-- Notify Messages -->
     <!-- =============== -->
     <string name="message_internet_connection_unavailable">Please check your internet connection</string>
-    <string name="message_copy_successful">Copied successfully.</string>
-    <string name="message_credentials_created">"%1$s" has been added successfully.</string>
-    <string name="message_credentials_modified">"%1$s" has been modified successfully.</string>
-    <string name="message_credentials_deleted">"%1$s" has been deleted.</string>
+    <string name="message_copy_successful">Copied successfully</string>
+    <string name="message_credentials_created">%1$s has been added successfully</string>
+    <string name="message_credentials_modified">%1$s has been modified successfully</string>
+    <string name="message_credentials_deleted">%1$s has been deleted</string>
     <string name="message_credentials_password_share">Hello, the password for device "%1$s" is "%2$s"</string>
     <string name="message_user_signin_cancelled">Sign-in has been cancelled</string>
     <string name="message_loading_logo">Loading your logos…</string>
@@ -289,9 +275,7 @@
     <string name="message_about_donations_billing_unavailable">Billing is unavailable. Please try again</string>
     <string name="message_about_donations_billing_pending">Payment pending</string>
     <string name="message_about_donations_billing_declined">Payment declined.</string>
-    <string name="message_about_donations_billing_disconnected">
-        Billing service has been disconnected
-    </string>
+    <string name="message_about_donations_billing_disconnected">Billing service has been disconnected</string>
     <string name="message_about_donations_billing_completed">Thank you for contributing</string>
 
     <string name="message_card_warning_willExpire">This card will expire within 30 days</string>
@@ -323,9 +307,7 @@
     <string name="error_biometric_authentication_failed">Biometric authentication failed</string>
     <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>
 
-    <string name="error_about_donations_querying_products">
-        Error while querying the donations
-    </string>
+    <string name="error_about_donations_querying_products">Error while querying the donations</string>
 
     <string name="error_internal_code_1">An internal error occurred. Error Code 1: %1$s</string>
     <string name="error_internal_code_2">An internal error occurred. Error Code 2</string>
@@ -340,7 +322,7 @@
     <string name="button_action_undo">Undo</string>
     <string name="button_action_delete">Delete</string>
     <string name="button_action_logout">Logout</string>
-    <string name="button_action_okay" translatable="false">OK</string>
+    <string name="button_action_okay">OK</string>
     <string name="button_action_confirm">Confirm</string>
     <string name="button_action_retry">RETRY</string>
     <string name="button_action_backup_proceed">Open Backup</string>
@@ -374,7 +356,7 @@
     <string name="settings_summary_security_password_create">Setup a master password which will be prompted every time you enter Locky</string>
     <string name="settings_key_security_password_change" translatable="false">settings_key_security_password_change</string>
     <string name="settings_title_security_password_change">Change Master Password</string>
-    <string name="settings_summary_security_password_change">"Change your master password\n    "</string>
+    <string name="settings_summary_security_password_change">Change your master password</string>
 
     <string name="settings_key_security_biometric" translatable="false">settings_key_security_fingerprint</string>
     <string name="settings_title_security_biometric">Biometric Authentication</string>
@@ -395,7 +377,7 @@
     <!-- ================= -->
     <!-- Independent Words -->
     <!-- ================= -->
-    <string name="word_email" translatable="false">email</string>
+    <string name="word_email">email</string>
     <string name="word_email_preposition">an email</string>
 
     <string name="word_browser">browser</string>

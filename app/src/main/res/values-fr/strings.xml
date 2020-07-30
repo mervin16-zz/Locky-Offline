@@ -151,15 +151,15 @@
     <string name="field_device_sort_username">@string/field_device_username</string>
     <string name="field_device_sort_ip">@string/field_device_ip</string>
     <string name="message_internet_connection_unavailable">Veuillez vérifier votre connexion Internet</string>
-    <string name="message_copy_successful">Copié avec succès.</string>
+    <string name="message_copy_successful">Copié avec succès</string>
     <string name="message_user_signin_cancelled">La connexion a été annulée</string>
     <string name="message_loading_logo">Chargement de vos logos…</string>
     <string name="message_loading_logo_none">Aucun logo trouvé</string>
     <string name="message_user_account_status_signed_out">Vous avez été déconnecté</string>
     <string name="error_internal_code_2">Une erreur interne a eu lieu. Code d\'erreur 2</string>
-    <string name="message_credentials_created">"%1$s" a été ajouté avec succès.</string>
-    <string name="message_credentials_modified">"%1$s" a été modifié avec succès.</string>
-    <string name="message_credentials_deleted">"%1$s" a été supprimé.</string>
+    <string name="message_credentials_created">%1$s a été ajouté avec succès</string>
+    <string name="message_credentials_modified">%1$s a été modifié avec succès</string>
+    <string name="message_credentials_deleted">%1$s a été supprimé</string>
     <string name="error_field_validation_blank">Ce champ ne peut pas être vide</string>
     <string name="error_field_validation_email_format">Veuillez insérer un email valide</string>
     <string name="error_biometric_authentication_failed">Échec de l\'authentification biométrique</string>
@@ -206,7 +206,7 @@
     <string name="error_internal_code_3">Une erreur interne a eu lieu. Code d\'erreur 3</string>
     <string name="field_device_blank_ip"><i>Aucune adresse IP saisie</i></string>
     <string name="settings_summary_security_biometric">Authentifiez-vous avec vos données biométriques chaque fois que vous entrez dans Locky</string>
-    <string name="settings_title_security_password_change">"        entre Locky"</string>
+    <string name="settings_title_security_password_change">Changer le mot de passe principal</string>
     <string name="settings_title_security_password_create">Créer un mot de passe principal</string>
     <string name="settings_summary_security_password_create">Configurez un mot de passe principal qui vous sera demandé chaque fois que vous entrerez dans Locky</string>
     <string name="settings_summary_security_password_change">Changez votre mot de passe principal</string>
@@ -233,4 +233,10 @@
     <string name="menu_moreOptions_sharePass">Partager le mot de passe</string>
     <string name="menu_moreOptions_delete">Supprimer</string>
     <string name="button_action_undo">Annuler</string>
+    <string name="app_user_login">Login: %1$s</string>
+    <string name="field_account_email">Email</string>
+    <string name="field_placeholder_na" translatable="false">n/a</string>
+    <string name="field_account_sort_email">\@string/field_account_email</string>
+    <string name="button_action_okay" translatable="false">OK</string>
+    <string name="word_email">email</string>
 </resources>
