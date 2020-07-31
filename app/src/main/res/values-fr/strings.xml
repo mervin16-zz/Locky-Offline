@@ -10,7 +10,6 @@
     <string name="app_description_short">Gérez toutes vos données sensibles et informations d\'identification sur un seul endroit sécurisé.</string>
     <string name="app_developer_signature">Développé avec \u2764\uFE0F à 🇲🇺</string>
     <string name="app_user_member_since">Membre depuis "%1$s"</string>
-    <string name="dev_feature_implementation_soon">Bientôt disponible!</string>
     <string name="settings_title_backup_backup">Sauvegarde</string>
     <string name="settings_title_security_biometric">Authentification Biométrique</string>
     <string name="menu_drawer_main_profile">Profil</string>
@@ -47,7 +46,7 @@
     <string name="text_title_alert_backup_message">Locky effectue automatiquement une sauvegarde des données d\'application et des préférences des paramètres de ses utilisateurs. Si l\'option de sauvegarde n\'est pas activée sur votre téléphone, veuillez l\'activer pour que les données et les paramètres de votre application puissent être automatiquement sauvegardés sur votre Google Drive.</string>
     <string name="text_title_alert_biometric_enrolments_message">Vous n\'avez plus configuré les inscriptions biométriques qui étaient disponibles lors de l\'activation de l\'authentification biométrique dans Locky. Veuillez reconfigurer vos données biométriques pour pouvoir accéder à Locky.</string>
     <string name="text_title_alert_biometric_authentication">Déverrouillez pour continuer</string>
-    <string name="text_title_alert_biometric_authentication_message">Veuillez vous authentifier avec vos identifiants de verrouillage biométrique ou d\'écran pour accéder à Locky</string>
+    <string name="text_title_alert_biometric_authentication_message">Veuillez vous authentifier avec vos identifiants de verrouillage biométrique pour accéder à Locky</string>
     <string name="text_title_alert_intent_none">Impossible d\'ouvrir l\'application "%1$s"</string>
     <string name="text_message_alert_intent_none">Aucune application n\'est installée pour traiter cette demande. Veuillez envisager d\'installer l\'application "%1$s" pour continuer</string>
     <string name="text_subtitle_about_sections_app">À propos de Locky</string>
@@ -162,7 +161,6 @@
     <string name="message_credentials_deleted">%1$s a été supprimé</string>
     <string name="error_field_validation_blank">Ce champ ne peut pas être vide</string>
     <string name="error_field_validation_email_format">Veuillez insérer un email valide</string>
-    <string name="error_biometric_authentication_failed">Échec de l\'authentification biométrique</string>
     <string name="error_biometric_authentication_error">Erreur d\'authentification biométrique: "%1$s"</string>
     <plurals name="message_search_results">
         <item quantity="one">La recherche a retourné %d résultats</item>
@@ -175,7 +173,7 @@
     <string name="text_title_about_dev_rate">Noter l\'application</string>
     <string name="settings_title_help_feedback">Envoyer des commentaires</string>
     <string name="text_title_bank_account_logo_accent_screen">Choisissez une couleur</string>
-    <string name="text_title_bank_account_logo_accent_current">Couleur Actuelle</string>
+    <string name="text_title_bank_account_logo_accent_current">Actuelle</string>
     <string name="field_hint_item_search">Chercher</string>
     <string name="message_card_warning_willExpire">Cette carte expirera dans les 30 jours</string>
     <string name="message_card_error_expired">Cette carte a déjà expiré</string>
@@ -200,7 +198,7 @@
     <string name="locky_section_main_device">Appareils</string>
     <string name="text_title_device_logo_customize_screen">Personnaliser le logo</string>
     <string name="field_device_name">Nom de l\'entrée</string>
-    <string name="text_title_device_logo_customize_current">Logo Actuel</string>
+    <string name="text_title_device_logo_customize_current">Actuelle</string>
     <string name="text_title_device_logo_customize_icon">Choisissez un icône</string>
     <string name="text_title_device_logo_customize_accent">Choisir une couleur</string>
     <string name="error_internal_code_3">Une erreur interne a eu lieu. Code d\'erreur 3</string>
@@ -239,4 +237,7 @@
     <string name="field_account_sort_email">\@string/field_account_email</string>
     <string name="button_action_okay" translatable="false">OK</string>
     <string name="word_email">email</string>
+    <string name="error_biometric_authentication_cancelled">Authentification annulée</string>
+    <string name="error_biometric_authentication_lockout_permanent">Veuillez utiliser une authentification forte (PIN / mot de passe) pour déverrouiller l\'application</string>
+    <string name="error_biometric_authentication_lockout">Trop d\'essais. Veuillez réessayer plus tard</string>
 </resources>

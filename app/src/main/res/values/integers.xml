@@ -21,5 +21,4 @@
     <!-- Paging Size -->
     <!-- =========== -->
     <integer name="size_paging_list_default">30</integer>
-    <integer name="size_paging_list_search">15</integer>
 </resources>

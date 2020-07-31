@@ -90,7 +90,7 @@
     <string name="text_title_alert_biometric_enrolments_message">You no longer have biometric enrolments configured which was available upon activating the biometric authentication in Locky. Please re-configure your biometrics to be able to access Locky.</string>
 
     <string name="text_title_alert_biometric_authentication">Unlock to proceed</string>
-    <string name="text_title_alert_biometric_authentication_message">Please authenticate yourself with your biometric or screen lock credentials to access Locky</string>
+    <string name="text_title_alert_biometric_authentication_message">Please authenticate yourself with your biometric credentials to access Locky</string>
 
     <string name="text_title_alert_intent_none">Unable to open "%1$s" app</string>
     <string name="text_message_alert_intent_none">There are no application installed to process this request. Please consider installing %1$s application to continue</string>
@@ -304,7 +304,9 @@
     <string name="error_field_validation_id_after">Issued date cannot be after than expiry date</string>
     <string name="error_field_validation_ed_before">Expiry date cannot be before than issued date.</string>
 
-    <string name="error_biometric_authentication_failed">Biometric authentication failed</string>
+    <string name="error_biometric_authentication_lockout">Too many attempts. Please try again later</string>
+    <string name="error_biometric_authentication_lockout_permanent">Please use strong authentication (PIN/Password) to unlock the app</string>
+    <string name="error_biometric_authentication_cancelled">Authentication cancelled</string>
     <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>
 
     <string name="error_about_donations_querying_products">Error while querying the donations</string>
@@ -388,6 +390,5 @@
     <!-- ======= DEV =======  -->
     <!-- ==================== -->
     <string name="dev_color_hex_accent_bank_logo_default" translatable="false">#D35C4B6C</string>
-    <string name="dev_feature_implementation_soon">Coming Soon!</string>
 
 </resources>

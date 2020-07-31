@@ -62,7 +62,7 @@ class PasswordAuthenticationBottomSheetFragment :
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
 
-        toast(getString(R.string.error_biometric_authentication_failed))
+        toast(getString(R.string.error_biometric_authentication_cancelled))
 
         requireActivity().finish()
     }

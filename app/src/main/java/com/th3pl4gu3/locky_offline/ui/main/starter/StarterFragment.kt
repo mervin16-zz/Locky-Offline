@@ -250,9 +250,20 @@ class StarterFragment : Fragment() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    /* Error occurred while authenticating */
-                    toast(getString(R.string.error_biometric_authentication_error, errString))
-                    /* Close the app */
+
+                    when (errorCode) {
+                        BiometricPrompt.ERROR_LOCKOUT -> toast(getString(R.string.error_biometric_authentication_lockout))
+                        BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> toast(getString(R.string.error_biometric_authentication_lockout_permanent))
+                        BiometricPrompt.ERROR_USER_CANCELED -> toast(getString(R.string.error_biometric_authentication_cancelled))
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> toast(getString(R.string.error_biometric_authentication_cancelled))
+                        else -> toast(
+                            getString(
+                                R.string.error_biometric_authentication_error,
+                                errString
+                            )
+                        )
+                    }
+
                     requireActivity().finish()
                 }
 
@@ -263,23 +274,14 @@ class StarterFragment : Fragment() {
                     /* Biometric has succeeded */
                     viewModel.canNavigateToMainScreen.value = true
                 }
-
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    /* Biometric has failed */
-                    toast(getString(R.string.error_biometric_authentication_failed))
-                    /* Close the app */
-                    requireActivity().finish()
-                }
             })
 
         _promptInfo = BiometricPrompt.PromptInfo
             .Builder()
             .setTitle(getString(R.string.text_title_alert_biometric_authentication))
             .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
-            .setDeviceCredentialAllowed(false)
             .setNegativeButtonText(getString(R.string.button_action_cancel))
-            .setConfirmationRequired(false)
+            .setConfirmationRequired(true)
             .build()
 
         /* Prompts the user for biometric authentication */

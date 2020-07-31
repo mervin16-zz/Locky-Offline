@@ -39,7 +39,7 @@
     <string name="text_message_alert_data_wipe">Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα δεδομένα σας; (Αυτό περιλαμβάνει όλους τους λογαριασμούς, κάρτες, συσκευές και τραπεζικούς λογαριασμούς που έχουν εισαχθεί)</string>
     <string name="text_title_alert_biometric_enrolments_message">Δεν έχετε ρυθμίσει πλέον τις βιομετρικές εγγραφές που ήταν διαθέσιμες κατά την ενεργοποίηση του βιομετρικού ελέγχου ταυτότητας στο Locky. Ρυθμίστε εκ νέου τα βιομετρικά στοιχεία σας για να έχετε πρόσβαση στο Locky.</string>
     <string name="text_title_alert_biometric_authentication">Ξεκλειδώστε για να συνεχίσετε</string>
-    <string name="text_title_alert_biometric_authentication_message">Επαληθεύστε τον εαυτό σας με τα βιομετρικά διαπιστευτήρια ή τα στοιχεία κλειδώματος οθόνης για πρόσβαση στο Locky</string>
+    <string name="text_title_alert_biometric_authentication_message">Επαληθεύστε τον εαυτό σας με τα βιομετρικά διαπιστευτήριά σας για πρόσβαση στο Locky</string>
     <string name="text_title_alert_intent_none">Δεν είναι δυνατό το άνοιγμα %1$s της εφαρμογής</string>
     <string name="text_title_alert_showPassword">Ο κωδικός πρόσβασής σας είναι</string>
     <string name="text_title_alert_showPin">Η καρφίτσα σας είναι</string>
@@ -128,7 +128,6 @@
     <string name="field_bank_account_owner">Κάτοχος τραπεζικού λογαριασμού</string>
     <string name="field_bank_account_bank">Τράπεζα</string>
     <string name="field_bank_account_iban">Τράπεζα Ιμπάν</string>
-    <string name="dev_feature_implementation_soon">Τράπεζα Ιμπάν</string>
     <string name="field_bank_account_swift">Κωδικός Swift</string>
     <string name="field_bank_account_additional">Πρόσθετα σχόλια</string>
     <string name="field_password_old">Old Password</string>
@@ -186,7 +185,6 @@
     <string name="error_field_validation_email_format">Please enter a valid email</string>
     <string name="error_field_validation_id_after">Η ημερομηνία έκδοσης δεν μπορεί να είναι μετά την ημερομηνία λήξης</string>
     <string name="error_field_validation_ed_before">Η ημερομηνία λήξης δεν μπορεί να είναι πριν από την ημερομηνία έκδοσης.</string>
-    <string name="error_biometric_authentication_failed">Η βιομετρική πιστοποίηση απέτυχε</string>
     <string name="error_biometric_authentication_error">Σφάλμα βιομετρικού ελέγχου ταυτότητας: %1$s</string>
     <string name="error_about_donations_querying_products">Σφάλμα κατά την ερώτηση των δωρεών</string>
     <string name="button_action_close">Κλείσε</string>
@@ -235,4 +233,7 @@
     <string name="error_internal_code_3">Παρουσιάστηκε εσωτερικό σφάλμα. Κωδικός σφάλματος 3</string>
     <string name="error_internal_code_2">Παρουσιάστηκε εσωτερικό σφάλμα. Κωδικός σφάλματος 2</string>
     <string name="error_internal_code_1">Παρουσιάστηκε εσωτερικό σφάλμα. Κωδικός σφάλματος 1: %1$s</string>
+    <string name="error_biometric_authentication_lockout">Πάρα πολλές προσπάθειες. Παρακαλώ δοκιμάστε ξανά αργότερα</string>
+    <string name="error_biometric_authentication_lockout_permanent">Χρησιμοποιήστε ισχυρό έλεγχο ταυτότητας (PIN / Κωδικός πρόσβασης) για να ξεκλειδώσετε την εφαρμογή</string>
+    <string name="error_biometric_authentication_cancelled">Ο έλεγχος ταυτότητας ακυρώθηκε</string>
 </resources>

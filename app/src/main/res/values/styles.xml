@@ -208,6 +208,8 @@
     <style name="Locky.SnackBar" parent="Widget.MaterialComponents.Snackbar">
         <item name="materialThemeOverlay">@style/Locky.SnackBar.ThemeOverlay</item>
         <item name="actionTextColorAlpha">1</item>
+        <item name="backgroundTint">@color/colorOnSurfaceSnackBar</item>
+        <item name="animationMode">slide</item>
     </style>
 
     <style name="Locky.SnackBar.Button" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
@@ -216,6 +218,5 @@
 
     <style name="Locky.SnackBar.ThemeOverlay" parent="">
         <item name="colorPrimary">@color/colorTextSnackBar</item>
-        <item name="colorOnSurface">@color/colorOnSurfaceSnackBar</item>
     </style>
 </resources>

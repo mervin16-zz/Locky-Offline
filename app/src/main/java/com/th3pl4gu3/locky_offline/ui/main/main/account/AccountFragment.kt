@@ -117,9 +117,21 @@ class AccountFragment : Fragment(), CredentialListener {
         )
     }
 
-    override fun onViewClicked(credential: Credentials) {
-        /* The click listener to handle password viewing for each accounts */
-        showPasswordDialog((credential as Account).password)
+    override fun onViewClicked(view: View, credential: Credentials) {
+        /*
+        * We disable view to prevent
+        * rapid double clicking
+        */
+        view.apply {
+            isEnabled = false
+        }
+
+        /*
+        * The click listener to handle password viewing for each accounts
+        * We also pass a reference of the view to enable it
+        * after the user dismisses the dialog
+        */
+        showPasswordDialog(view, (credential as Account).password)
     }
 
     override fun onCredentialLongPressed(credential: Credentials): Boolean {
@@ -242,7 +254,7 @@ class AccountFragment : Fragment(), CredentialListener {
         }
     }
 
-    private fun showPasswordDialog(password: String): Boolean {
+    private fun showPasswordDialog(clickedView: View, password: String): Boolean {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(
                 getString(
@@ -259,6 +271,14 @@ class AccountFragment : Fragment(), CredentialListener {
             )
             .setPositiveButton(R.string.button_action_close) { dialog, _ ->
                 dialog.dismiss()
+            }
+            .setOnDismissListener {
+                /*
+                * We enable the view to allow further clicking
+                */
+                clickedView.apply {
+                    isEnabled = true
+                }
             }
             .show()
         return true
