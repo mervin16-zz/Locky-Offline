@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
-import com.th3pl4gu3.locky_offline.core.main.others.User
+import com.th3pl4gu3.locky_offline.core.others.User
 import com.th3pl4gu3.locky_offline.repository.database.daos.UserDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo

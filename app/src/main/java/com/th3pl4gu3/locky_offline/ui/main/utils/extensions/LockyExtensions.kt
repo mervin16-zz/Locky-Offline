@@ -1,7 +1,7 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils.extensions
 
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
-import com.th3pl4gu3.locky_offline.core.main.others.User
+import com.th3pl4gu3.locky_offline.core.credentials.Card
+import com.th3pl4gu3.locky_offline.core.others.User
 import java.util.*
 
 /*

@@ -3,7 +3,6 @@ package com.th3pl4gu3.locky_offline.ui.main
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -14,14 +13,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.contentView
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 
 class LockyActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
     private lateinit var _appBarConfiguration: AppBarConfiguration
-
-    private val binding get() = _binding!!
+    private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
 
     /*
     * Fragments listed here are
@@ -41,8 +39,7 @@ class LockyActivity : AppCompatActivity() {
         /* Re set the style to the main theme app */
         setTheme(R.style.Locky_Theme)
         super.onCreate(savedInstanceState)
-        /* Set binding to the xml layout */
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         /* Set the default action bar to our custom material toolbar */
         setSupportActionBar(binding.ToolbarMain)
 

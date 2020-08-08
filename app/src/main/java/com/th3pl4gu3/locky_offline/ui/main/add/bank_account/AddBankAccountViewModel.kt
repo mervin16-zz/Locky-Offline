@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.others.Validation
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser

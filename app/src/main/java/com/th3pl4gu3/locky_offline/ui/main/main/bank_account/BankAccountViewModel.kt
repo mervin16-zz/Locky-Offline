@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT

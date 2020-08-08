@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
+import com.th3pl4gu3.locky_offline.core.credentials.Credentials
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsBinding
 
 class CredentialsViewHolder private constructor(val binding: CustomViewRecyclerviewCredentialsBinding) :

@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.Device
-import com.th3pl4gu3.locky_offline.core.main.tuning.DeviceSort
+import com.th3pl4gu3.locky_offline.core.credentials.Device
+import com.th3pl4gu3.locky_offline.core.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT

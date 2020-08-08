@@ -16,7 +16,7 @@
 
         <variable
             name="Card"
-            type="com.th3pl4gu3.locky_offline.core.main.credentials.Card" />
+            type="com.th3pl4gu3.locky_offline.core.credentials.Card" />
     </data>
 
     <androidx.core.widget.NestedScrollView

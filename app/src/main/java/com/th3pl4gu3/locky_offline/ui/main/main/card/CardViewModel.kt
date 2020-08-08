@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import androidx.paging.DataSource
 import androidx.paging.toLiveData
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
-import com.th3pl4gu3.locky_offline.core.main.tuning.CardSort
+import com.th3pl4gu3.locky_offline.core.credentials.Card
+import com.th3pl4gu3.locky_offline.core.tuning.CardSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT

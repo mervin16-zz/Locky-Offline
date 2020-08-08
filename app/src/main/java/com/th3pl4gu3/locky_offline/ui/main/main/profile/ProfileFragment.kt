@@ -11,7 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.others.Statistic
+import com.th3pl4gu3.locky_offline.core.others.Statistic
 import com.th3pl4gu3.locky_offline.databinding.FragmentProfileBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo

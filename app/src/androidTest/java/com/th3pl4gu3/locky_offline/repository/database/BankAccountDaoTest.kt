@@ -7,8 +7,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.th3pl4gu3.locky_offline.TestUtil
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.getValue
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.repository.database.daos.BankAccountDao
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo

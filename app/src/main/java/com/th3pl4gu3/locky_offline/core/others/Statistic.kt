@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.core.main.others
+package com.th3pl4gu3.locky_offline.core.others
 
 data class Statistic(
     val size: Int,

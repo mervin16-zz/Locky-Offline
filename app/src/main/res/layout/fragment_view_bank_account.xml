@@ -8,7 +8,7 @@
 
         <variable
             name="BankAccount"
-            type="com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount" />
+            type="com.th3pl4gu3.locky_offline.core.credentials.BankAccount" />
     </data>
 
     <androidx.core.widget.NestedScrollView

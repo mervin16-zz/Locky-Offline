@@ -1,6 +1,6 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.credentials.Card
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

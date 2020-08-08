@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.Account
-import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
-import com.th3pl4gu3.locky_offline.core.main.tuning.AccountSort
+import com.th3pl4gu3.locky_offline.core.credentials.Account
+import com.th3pl4gu3.locky_offline.core.credentials.Credentials
+import com.th3pl4gu3.locky_offline.core.tuning.AccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter

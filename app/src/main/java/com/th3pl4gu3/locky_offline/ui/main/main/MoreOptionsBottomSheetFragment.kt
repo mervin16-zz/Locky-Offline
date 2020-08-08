@@ -11,10 +11,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.Account
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
-import com.th3pl4gu3.locky_offline.core.main.credentials.Device
+import com.th3pl4gu3.locky_offline.core.credentials.Account
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.credentials.Card
+import com.th3pl4gu3.locky_offline.core.credentials.Device
 import com.th3pl4gu3.locky_offline.databinding.CustomViewBottomSheetMoreoptionsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CREDENTIAL_RESTORE
 import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil

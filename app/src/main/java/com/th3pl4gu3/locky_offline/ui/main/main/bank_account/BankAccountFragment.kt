@@ -11,9 +11,9 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.credentials.Credentials
-import com.th3pl4gu3.locky_offline.core.main.tuning.BankAccountSort
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.credentials.Credentials
+import com.th3pl4gu3.locky_offline.core.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBankAccountBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter

@@ -1,9 +1,9 @@
 package com.th3pl4gu3.locky_offline.ui.main.utils
 
-import com.th3pl4gu3.locky_offline.core.main.credentials.Account
-import com.th3pl4gu3.locky_offline.core.main.credentials.BankAccount
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
-import com.th3pl4gu3.locky_offline.core.main.others.User
+import com.th3pl4gu3.locky_offline.core.credentials.Account
+import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
+import com.th3pl4gu3.locky_offline.core.credentials.Card
+import com.th3pl4gu3.locky_offline.core.others.User
 import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 
 object TestUtil {

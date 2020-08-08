@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.th3pl4gu3.locky_offline.core.main.others.Statistic
+import com.th3pl4gu3.locky_offline.core.others.Statistic
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewStatisticsBinding
 
 

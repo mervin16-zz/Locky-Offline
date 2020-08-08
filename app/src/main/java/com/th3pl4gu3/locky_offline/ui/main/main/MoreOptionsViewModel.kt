@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.main
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.th3pl4gu3.locky_offline.core.main.credentials.*
+import com.th3pl4gu3.locky_offline.core.credentials.*
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository

@@ -12,7 +12,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.google.android.material.card.MaterialCardView
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.main.credentials.*
+import com.th3pl4gu3.locky_offline.core.credentials.*
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel

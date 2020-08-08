@@ -8,7 +8,7 @@
 
         <variable
             name="Device"
-            type="com.th3pl4gu3.locky_offline.core.main.credentials.Device" />
+            type="com.th3pl4gu3.locky_offline.core.credentials.Device" />
     </data>
 
     <androidx.core.widget.NestedScrollView

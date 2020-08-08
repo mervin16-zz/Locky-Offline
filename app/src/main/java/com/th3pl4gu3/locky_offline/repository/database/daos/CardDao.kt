@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.repository.database.daos
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import com.th3pl4gu3.locky_offline.core.main.credentials.Card
+import com.th3pl4gu3.locky_offline.core.credentials.Card
 
 /*
 * CRUD for the Card object

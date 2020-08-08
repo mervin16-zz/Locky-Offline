@@ -3,7 +3,7 @@ package com.th3pl4gu3.locky_offline.ui.main.utils.extensions
 import android.app.Application
 import android.content.res.Resources
 import androidx.lifecycle.AndroidViewModel
-import com.th3pl4gu3.locky_offline.core.main.others.User
+import com.th3pl4gu3.locky_offline.core.others.User
 
 
 /*
