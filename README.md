@@ -46,11 +46,12 @@ Reach out to us at the following:
 ## Donations
 If you love this project, you can donate in-app or also by Liberapay:
 
-<script src="https://liberapay.com/th3pl4gu3/widgets/button.js"></script>
+<script src="https://liberapay.com/th3pl4gu3/widgets/button.js">
+</script>
 <noscript><a href="https://liberapay.com/th3pl4gu3/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
 
-> Badge:
->> <img src="https://img.shields.io/liberapay/receives/th3pl4gu3.svg?logo=liberapay">
+<sub>Badge</sub>
+<img src="https://img.shields.io/liberapay/receives/th3pl4gu3.svg?logo=liberapay">
 
 <a href="license"></a>
 ## License
