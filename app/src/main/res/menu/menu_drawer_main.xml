@@ -21,6 +21,15 @@
             android:title="@string/menu_drawer_main_device" />
     </group>
 
+    <item android:title="@string/menu_drawer_subtitle_tools">
+        <menu>
+            <item
+                android:id="@+id/Fragment_Password_Generator"
+                android:icon="@drawable/ic_password"
+                android:title="@string/menu_drawer_main_password_generator" />
+        </menu>
+    </item>
+
     <item android:title="@string/menu_drawer_subtitle_user">
         <menu>
             <item

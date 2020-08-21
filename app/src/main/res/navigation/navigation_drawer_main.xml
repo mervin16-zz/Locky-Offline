@@ -149,6 +149,12 @@
     <!-- ====== Sub Fragments ====== -->
     <!-- =========================== -->
     <fragment
+        android:id="@+id/Fragment_Password_Generator"
+        android:name="com.th3pl4gu3.locky_offline.ui.main.main.password_generator.PasswordGeneratorFragment"
+        android:label=""
+        tools:layout="@layout/fragment_password_generator" />
+
+    <fragment
         android:id="@+id/Fragment_Profile"
         android:name="com.th3pl4gu3.locky_offline.ui.main.main.profile.ProfileFragment"
         android:label="@string/menu_drawer_main_profile"

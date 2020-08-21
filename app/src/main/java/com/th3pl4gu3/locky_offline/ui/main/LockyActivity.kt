@@ -12,14 +12,14 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.databinding.ActivityMainBinding
+import com.th3pl4gu3.locky_offline.databinding.ActivityLockyBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.contentView
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 
 class LockyActivity : AppCompatActivity() {
 
     private lateinit var _appBarConfiguration: AppBarConfiguration
-    private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
+    private val binding: ActivityLockyBinding by contentView(R.layout.activity_locky)
 
     /*
     * Fragments listed here are
@@ -40,6 +40,17 @@ class LockyActivity : AppCompatActivity() {
         setTheme(R.style.Locky_Theme)
         super.onCreate(savedInstanceState)
 
+        /* Changes for the support action bar */
+        supportActionBarConfiguration()
+
+        /* Setup the JetPack Navigation UI */
+        navigationUISetup()
+
+        /* Load both FABs */
+        listenerForFloatingActionButtons()
+    }
+
+    private fun supportActionBarConfiguration() {
         /* Set the default action bar to our custom material toolbar */
         setSupportActionBar(binding.ToolbarMain)
 
@@ -48,12 +59,6 @@ class LockyActivity : AppCompatActivity() {
         * We will provide our own title centered in the middle
         */
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        /* Setup the JetPack Navigation UI */
-        navigationUISetup()
-
-        /* Load both FABs */
-        listenerForFloatingActionButtons()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =

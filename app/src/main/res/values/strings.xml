@@ -134,16 +134,20 @@
 
     <string name="text_title_settings_master_password">Master Password</string>
 
+    <string name="text_subtitle_screen_password_gen">Generate a password by choosing the criteria you want to include</string>
+
     <!-- ==================== -->
     <!-- ======= Menu =======  -->
     <!-- ==================== -->
     <!-- Drawer Menu Items-->
     <string name="menu_drawer_subtitle_others">OTHERS</string>
     <string name="menu_drawer_subtitle_user">USER</string>
+    <string name="menu_drawer_subtitle_tools">TOOLS</string>
     <string name="menu_drawer_main_account">@string/locky_section_main_account</string>
     <string name="menu_drawer_main_card">@string/locky_section_main_card</string>
     <string name="menu_drawer_main_device">@string/locky_section_main_device</string>
     <string name="menu_drawer_main_bank_account">@string/locky_section_main_bank_account</string>
+    <string name="menu_drawer_main_password_generator">Password Generator</string>
     <string name="menu_drawer_main_profile">Profile</string>
     <string name="menu_drawer_main_settings">Settings</string>
     <string name="menu_drawer_main_about">About</string>
@@ -254,6 +258,8 @@
     <string name="field_hint_logo_search" translatable="false">i.e facebook.com</string>
     <string name="field_hint_item_search">Search</string>
 
+    <string name="field_hint_password_generator">Your password will generate here</string>
+
     <!-- =============== -->
     <!-- Notify Messages -->
     <!-- =============== -->
@@ -318,6 +324,7 @@
     <!-- =============== -->
     <!-- Button Actions -->
     <!-- =============== -->
+    <!--Regular Buttons-->
     <string name="button_action_close">Close</string>
     <string name="button_action_save">Save</string>
     <string name="button_action_cancel">Cancel</string>
@@ -331,6 +338,15 @@
     <string name="button_action_backup_cancel">I\'ll do it later</string>
     <string name="button_action_google_sign_in">Sign in with Google</string>
     <string name="button_action_get_started">get started</string>
+    <string name="button_action_copy_password">Copy Password</string>
+
+    <!-- Chips -->
+    <string name="chips_action_lowercase">lowercases</string>
+    <string name="chips_action_capital">capitals</string>
+    <string name="chips_action_number">numbers</string>
+    <string name="chips_action_dash">1 dash</string>
+    <string name="chips_action_special_char_1">1 special character</string>
+    <string name="chips_action_special_char_2">2 special characters</string>
 
     <!-- ========= -->
     <!-- Settings -->
