@@ -10,7 +10,6 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.*
@@ -117,7 +116,7 @@ class StarterFragment : Fragment() {
     }
 
     private fun observeIfCanNavigateToMainScreen() {
-        viewModel.canNavigateToMainScreen.observe(viewLifecycleOwner, Observer {
+        viewModel.canNavigateToMainScreen.observe(viewLifecycleOwner, {
             if (it) {
                 navigateToMainScreen()
             }
@@ -125,7 +124,7 @@ class StarterFragment : Fragment() {
     }
 
     private fun observeSignInState() =
-        viewModel.isSignInComplete.observe(viewLifecycleOwner, Observer {
+        viewModel.isSignInComplete.observe(viewLifecycleOwner, {
             if (it) {
                 prepareToNavigateToMainScreen()
             }
@@ -255,7 +254,24 @@ class StarterFragment : Fragment() {
                         BiometricPrompt.ERROR_LOCKOUT -> toast(getString(R.string.error_biometric_authentication_lockout))
                         BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> toast(getString(R.string.error_biometric_authentication_lockout_permanent))
                         BiometricPrompt.ERROR_USER_CANCELED -> toast(getString(R.string.error_biometric_authentication_cancelled))
-                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> toast(getString(R.string.error_biometric_authentication_cancelled))
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
+                            /*
+                            * If the user clicks on the negative button
+                            * we need to check if master password has been enabled
+                            * if yes, we need to prompt the user with master password
+                            */
+                            if (viewModel.isMasterPasswordEnabled()) {
+                                toast(getString(R.string.message_biometrics_use_masterpassword))
+
+                                /* Start master password dialog */
+                                masterPasswordVerification()
+
+                                return
+                            }
+
+                            /* If code reached this, it means master password was not enabled */
+                            toast(getString(R.string.error_biometric_authentication_cancelled))
+                        }
                         else -> toast(
                             getString(
                                 R.string.error_biometric_authentication_error,
@@ -280,7 +296,16 @@ class StarterFragment : Fragment() {
             .Builder()
             .setTitle(getString(R.string.text_title_alert_biometric_authentication))
             .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
-            .setNegativeButtonText(getString(R.string.button_action_cancel))
+            .setNegativeButtonText(
+                /*
+                * We determine which text to show as the negative button
+                * If master password was not enabled, negative text will be cancel
+                * else negative text will be to use master password instead
+                */
+                if (viewModel.isMasterPasswordEnabled()) getString(
+                    R.string.button_action_use_masterpassword
+                ) else getString(R.string.button_action_cancel)
+            )
             .setConfirmationRequired(true)
             .build()
 

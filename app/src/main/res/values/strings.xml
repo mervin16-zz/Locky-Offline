@@ -300,6 +300,8 @@
     <string name="message_settings_masterpassword_enable">Master password has been enabled</string>
     <string name="message_settings_masterpassword_changed">Master password has been changed</string>
 
+    <string name="message_biometrics_use_masterpassword">Switching to master password</string>
+
     <!-- =============== -->
     <!-- Error Messages -->
     <!-- =============== -->
@@ -341,6 +343,7 @@
     <string name="button_action_google_sign_in">Sign in with Google</string>
     <string name="button_action_get_started">get started</string>
     <string name="button_action_copy_password">Copy Password</string>
+    <string name="button_action_use_masterpassword">Use Master Password</string>
 
     <!-- Chips -->
     <string name="chips_action_lowercase">lowercases</string>
