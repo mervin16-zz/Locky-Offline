@@ -93,6 +93,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         /* Preference config for app theme */
         appThemePreference()
 
+        /* Preference settings for Card expiration */
+        cardExpirationPreference()
+
         /* Preference settings for backup */
         backupPreference()
 
@@ -151,6 +154,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun appThemePreference() {
         findPreference<ListPreference>(getString(R.string.settings_key_display_theme))?.setOnPreferenceChangeListener { preference, newValue ->
             viewModel.updateAppTheme(preference.key, newValue as String)
+            true
+        }
+    }
+
+    private fun cardExpirationPreference() {
+        findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_features_card_expiration))?.setOnPreferenceChangeListener { preference, newValue ->
+
+            viewModel.save(preference.key, newValue)
+
             true
         }
     }

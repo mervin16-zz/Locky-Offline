@@ -14,6 +14,7 @@ import com.google.android.material.card.MaterialCardView
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.credentials.*
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
+import com.th3pl4gu3.locky_offline.ui.main.LockyApplication
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel
 import java.util.*
@@ -201,19 +202,27 @@ fun TextView.setCredentialOtherSubtitle(credential: Credentials) {
 
 @BindingAdapter("listTitleMessageCardEligibility")
 fun TextView.listTitleMessageCardEligibility(credential: Credentials) {
-    if (credential is Card) {
+    /*
+    * We check if the credential is a Card
+    * and if this setting has been enabled
+    */
+    if (credential is Card && SettingsManager(LockyApplication.getInstance()).isCardExpirationEnabled()) {
         if (credential.hasExpired() || credential.expiringWithin30Days()) {
             this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitleMessage))
             return
         }
-
-        this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitle))
     }
+
+    this.setTextColor(ContextCompat.getColor(context, R.color.colorTextTitle))
 }
 
 @BindingAdapter("credentialCardConfiguration")
 fun MaterialCardView.credentialCardConfiguration(credential: Credentials) {
-    if (credential is Card) {
+    /*
+    * We check if the credential is a Card
+    * and if this setting has been enabled
+    */
+    if (credential is Card && SettingsManager(LockyApplication.getInstance()).isCardExpirationEnabled()) {
         if (credential.hasExpired()) {
             this.setCardBackgroundColor(
                 ContextCompat.getColor(
@@ -234,10 +243,9 @@ fun MaterialCardView.credentialCardConfiguration(credential: Credentials) {
             return
         }
 
-        this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-    } else {
-        this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
     }
+
+    this.setCardBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
 }
 
 /*

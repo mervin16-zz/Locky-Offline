@@ -13,6 +13,7 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.SettingsManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hash
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
@@ -112,8 +113,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         confirmPass: String
     ): Boolean {
         with(Validation(getApplication())) {
-            val savedMasterPassword =
-                getMasterPassword(application.getString(R.string.settings_key_security_thepassword))
+            val savedMasterPassword = SettingsManager(getApplication()).getMasterPassword()
 
             if (isNewMaterPasswordValid(
                     savedMasterPassword,
@@ -168,15 +168,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     /*
-    * In-accessible functions
+    * Inaccessible functions
     */
-    private fun getMasterPassword(key: String) = with(
-        LocalStorageManager
-    ) {
-        withSettings(getApplication())
-        get<String>(key)
-    }
-
     private suspend fun wipeAccounts() =
         AccountRepository.getInstance(getApplication()).wipe(activeUser.email)
 

@@ -354,11 +354,13 @@
     <!-- Settings -->
     <!-- ========= -->
     <string name="settings_key_category_display" translatable="false">settings_key_category_display</string>
+    <string name="settings_key_category_features" translatable="false">settings_key_category_features</string>
     <string name="settings_key_category_security" translatable="false">settings_key_category_security</string>
     <string name="settings_key_category_backup" translatable="false">settings_key_category_backup</string>
     <string name="settings_key_category_help" translatable="false">settings_key_category_help</string>
 
     <string name="settings_title_category_display">Display</string>
+    <string name="settings_title_category_features">Features</string>
     <string name="settings_title_category_security">Security</string>
     <string name="settings_title_category_backup">Backup</string>
     <string name="settings_title_category_data">Data</string>
@@ -370,6 +372,7 @@
     <string name="settings_value_display_light">Light</string>
     <string name="settings_value_display_dark">Dark</string>
 
+    <string name="settings_key_features_card_expiration" translatable="false">settings_key_features_card_expiration</string>
     <string name="settings_key_security_thepassword" translatable="false">settings_key_security_thepassword</string>
     <string name="settings_key_security_password" translatable="false">settings_key_security_password</string>
     <string name="settings_title_security_password_create">Create Master Password</string>
@@ -377,6 +380,8 @@
     <string name="settings_key_security_password_change" translatable="false">settings_key_security_password_change</string>
     <string name="settings_title_security_password_change">Change Master Password</string>
     <string name="settings_summary_security_password_change">Change your master password</string>
+    <string name="settings_title_features_card_expiration">Notify for card expiration</string>
+    <string name="settings_summary_features_card_expiration">Locky will highlight the card when it is about to expire or has already expired</string>
 
     <string name="settings_key_security_biometric" translatable="false">settings_key_security_fingerprint</string>
     <string name="settings_title_security_biometric">Biometric Authentication</string>

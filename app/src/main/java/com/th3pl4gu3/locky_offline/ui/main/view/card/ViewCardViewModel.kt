@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.credentials.Card
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.SettingsManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.expiringWithin30Days
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hasExpired
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsField
@@ -89,20 +90,25 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
             )
         }
 
-    internal fun updateMessageType(card: Card) =
-        with(card) {
-            if (hasExpired()) {
-                _messageType.value = MessageType.ERROR
-                return@with
-            }
+    internal fun updateMessageType(card: Card) {
+        /* First check if this setting has been enabled */
+        if (SettingsManager(getApplication()).isCardExpirationEnabled()) {
+            with(card) {
+                if (hasExpired()) {
+                    _messageType.value = MessageType.ERROR
+                    return@with
+                }
 
-            if (expiringWithin30Days()) {
-                _messageType.value = MessageType.WARNING
-                return@with
-            }
+                if (expiringWithin30Days()) {
+                    _messageType.value = MessageType.WARNING
+                    return@with
+                }
 
-            _messageType.value = MessageType.NONE
+                _messageType.value = MessageType.NONE
+            }
         }
+    }
+
 
     internal fun delete(key: Int) {
         viewModelScope.launch {

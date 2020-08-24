@@ -5,13 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.others.User
 import com.th3pl4gu3.locky_offline.repository.database.repositories.UserRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
 import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.SettingsManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.merge
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -90,26 +89,13 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
         return exists(KEY_USER_ACCOUNT)
     }
 
-    internal fun isMasterPasswordEnabled(): Boolean = with(LocalStorageManager) {
-        withSettings(getApplication())
-        return exists(getApplication<Application>().getString(R.string.settings_key_security_thepassword))
-    }
+    internal fun isMasterPasswordEnabled(): Boolean =
+        SettingsManager(getApplication()).isMasterPasswordEnabled()
 
-    internal fun fetchMasterPassword() = with(LocalStorageManager) {
-        withSettings(getApplication())
-        get<String>(resources.getString(R.string.settings_key_security_thepassword))!!
+    internal fun fetchMasterPassword() = SettingsManager(getApplication()).getMasterPassword()
 
-    }
-
-    internal fun isBiometricsEnabled(): Boolean = with(LocalStorageManager) {
-        withSettings(getApplication())
-
-        return if (exists(getApplication<Application>().getString(R.string.settings_key_security_biometric))) {
-            get<Boolean>(getApplication<Application>().getString(R.string.settings_key_security_biometric))!!
-        } else {
-            false
-        }
-    }
+    internal fun isBiometricsEnabled(): Boolean =
+        SettingsManager(getApplication()).isBiometricsEnabled()
 
     /*
     * In-Accessible Functions

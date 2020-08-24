@@ -20,6 +20,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="@string/settings_key_category_features"
+        app:title="@string/settings_title_category_features"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false">
+
+        <SwitchPreferenceCompat
+            app:key="@string/settings_key_features_card_expiration"
+            app:summary="@string/settings_summary_features_card_expiration"
+            app:title="@string/settings_title_features_card_expiration"
+            app:icon="@drawable/ic_credit_card" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="@string/settings_key_category_security"
         app:title="@string/settings_title_category_security">
 
