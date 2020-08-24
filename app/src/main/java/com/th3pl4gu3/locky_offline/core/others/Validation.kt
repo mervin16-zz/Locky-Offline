@@ -18,7 +18,7 @@ import kotlin.collections.HashMap
 */
 class Validation(val application: Application) {
 
-    enum class ErrorField { NAME, PASSWORD, CONFIRM_PASSWORD, CURRENT_PASSWORD, EMAIL, USERNAME, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
+    enum class ErrorField { NAME, PASSWORD, CONFIRM_PASSWORD, CURRENT_PASSWORD, EMAIL, CVC, USERNAME, NUMBER, PIN, BANK, OWNER, ISSUED_DATE, EXPIRY_DATE }
 
     var errorList = HashMap<ErrorField, String>()
         private set
@@ -142,6 +142,10 @@ class Validation(val application: Application) {
                 ErrorField.PIN
             )
             emptyValueCheck(
+                cvc,
+                ErrorField.CVC
+            )
+            emptyValueCheck(
                 bank,
                 ErrorField.BANK
             )
@@ -153,6 +157,7 @@ class Validation(val application: Application) {
                 card.issuedDate.toFormattedCalendarForCard(),
                 card.expiryDate.toFormattedCalendarForCard()
             )
+            validateCvc(cvc)
         }
 
         return errorList.isEmpty()
@@ -194,6 +199,11 @@ class Validation(val application: Application) {
     private fun emptyValueCheck(data: String, field: ErrorField) {
         if (data.isEmpty()) errorList[field] =
             application.getString(R.string.error_field_validation_blank)
+    }
+
+    private fun validateCvc(data: String) {
+        if (data.isNotEmpty() && data.length != 3) errorList[ErrorField.CVC] =
+            application.getString(R.string.error_field_validation_cvc_format)
     }
 
     private fun validateEmail(email: String) {

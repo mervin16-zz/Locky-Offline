@@ -30,6 +30,7 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
     private val _nameErrorMessage = MutableLiveData<String>()
     private val _numberErrorMessage = MutableLiveData<String>()
     private val _pinErrorMessage = MutableLiveData<String>()
+    private val _cvcErrorMessage = MutableLiveData<String>()
     private val _bankErrorMessage = MutableLiveData<String>()
     private val _cardHolderErrorMessage = MutableLiveData<String>()
     private val _issuedDateErrorMessage = MutableLiveData<String>()
@@ -65,6 +66,15 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
         set(value) {
             _card.pin = value
             notifyPropertyChanged(BR.pin)
+        }
+
+    var cvc: String
+        @Bindable get() {
+            return _card.cvc
+        }
+        set(value) {
+            _card.cvc = value
+            notifyPropertyChanged(BR.cvc)
         }
 
     var bank: String
@@ -129,6 +139,9 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
     val pinErrorMessage: LiveData<String>
         get() = _pinErrorMessage
+
+    val cvcErrorMessage: LiveData<String>
+        get() = _cvcErrorMessage
 
     val bankErrorMessage: LiveData<String>
         get() = _bankErrorMessage
@@ -294,6 +307,8 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
             if (errorList.containsKey(Validation.ErrorField.NUMBER)) errorList[Validation.ErrorField.NUMBER] else null
         _pinErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.PIN)) errorList[Validation.ErrorField.PIN] else null
+        _cvcErrorMessage.value =
+            if (errorList.containsKey(Validation.ErrorField.CVC)) errorList[Validation.ErrorField.CVC] else null
         _bankErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.BANK)) errorList[Validation.ErrorField.BANK] else null
         _cardHolderErrorMessage.value =

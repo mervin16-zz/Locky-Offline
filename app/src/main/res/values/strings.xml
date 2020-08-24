@@ -201,6 +201,7 @@
     <string name="field_card_holder">Name on Card</string>
     <string name="field_card_bank">Bank</string>
     <string name="field_card_pin">Pin</string>
+    <string name="field_card_cvc">Cvc</string>
     <string name="field_card_date_issued">Date Issued</string>
     <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
@@ -303,6 +304,7 @@
     <!-- Error Messages -->
     <!-- =============== -->
     <string name="error_field_validation_blank">This field cannot be empty</string>
+    <string name="error_field_validation_cvc_format">Incorrect cvc entered</string>
     <string name="error_field_validation_password_notmatch">Passwords do not match</string>
     <string name="error_field_validation_password_criteria">Password length should be greater than 6</string>
     <string name="error_field_validation_password_notsame">Your current password is not correct</string>

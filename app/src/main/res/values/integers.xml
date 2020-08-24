@@ -11,6 +11,7 @@
     <integer name="restriction_field_entry_name">50</integer>
     <integer name="restriction_field_card_number">20</integer>
     <integer name="restriction_field_pin">5</integer>
+    <integer name="restriction_field_cvc">3</integer>
 
 
     <integer name="restriction_lines_comments_min">2</integer>

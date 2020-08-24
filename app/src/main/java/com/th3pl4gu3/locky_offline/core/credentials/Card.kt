@@ -16,6 +16,7 @@ data class Card(
     @ColumnInfo(name = "number") var number: String = "",
     @ColumnInfo(name = "pin") var pin: String = "",
     @ColumnInfo(name = "bank") var bank: String = "",
+    @ColumnInfo(name = "cvc") var cvc: String = "",
     @ColumnInfo(name = "cardHolderName") var cardHolderName: String = "",
     @ColumnInfo(name = "issuedDate") var issuedDate: String = "01/10",
     @ColumnInfo(name = "expiryDate") var expiryDate: String = "01/12"

@@ -8,7 +8,7 @@
 ##################################
 ########## Locky Models ##########
 ##################################
--keep class com.th3pl4gu3.locky_offline.core.main.** {*;}
+-keep class com.th3pl4gu3.locky_offline.core.** {*;}
 -keep class com.th3pl4gu3.locky_offline.repository.network.** {*;}
 
 ###############################

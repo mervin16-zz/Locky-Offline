@@ -21,7 +21,7 @@ import com.th3pl4gu3.locky_offline.repository.database.daos.*
 */
 @Database(
     entities = [Account::class, Card::class, BankAccount::class, Device::class, User::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class LockyDatabase : RoomDatabase() {
@@ -54,7 +54,7 @@ abstract class LockyDatabase : RoomDatabase() {
                     LockyDatabase::class.java,
                     "locky_database"
                 )
-                    .addMigrations(LockyMigration.MIGRATION_1_2)
+                    .addMigrations(LockyMigration.MIGRATION_1_2, LockyMigration.MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 return instance

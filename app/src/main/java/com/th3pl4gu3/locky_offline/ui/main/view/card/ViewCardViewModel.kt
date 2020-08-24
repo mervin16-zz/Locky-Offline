@@ -54,6 +54,14 @@ class ViewCardViewModel(application: Application) : AndroidViewModel(application
             )
             add(
                 CredentialsField(
+                    subtitle = getString(R.string.field_card_cvc),
+                    data = card.cvc.toString(),
+                    isCopyable = true,
+                    isViewable = true
+                )
+            )
+            add(
+                CredentialsField(
                     subtitle = getString(R.string.field_card_holder),
                     data = card.cardHolderName,
                     isCopyable = true

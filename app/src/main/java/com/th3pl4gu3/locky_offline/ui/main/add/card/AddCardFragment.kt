@@ -114,6 +114,10 @@ class AddCardFragment : Fragment() {
                 binding.CardPin.error = it
             })
 
+            cvcErrorMessage.observe(viewLifecycleOwner, Observer {
+                binding.CardCvc.error = it
+            })
+
             bankErrorMessage.observe(viewLifecycleOwner, Observer {
                 binding.CardBank.error = it
             })
