@@ -26,7 +26,7 @@ With the Locky app you get:
 
 <a href="official_website"></a>
 ## Official Website
-Locky can be found on its [official website](https://lockyapplication.wixsite.com/overview) or via the [playstore](https://play.google.com/store/apps/details?id=com.th3pl4gu3.locky_offline)
+Locky can be found on its [official website](https://th3pl4gu3.wixsite.com/locky) or via the [playstore](https://play.google.com/store/apps/details?id=com.th3pl4gu3.locky_offline)
 
 <a href="screenshots"></a>
 ## Screenshots
@@ -38,7 +38,7 @@ Locky can be found on its [official website](https://lockyapplication.wixsite.co
 ## Support
 Reach out to us at the following:
 
-* Website: [lockyapplication.wixsite.com](https://lockyapplication.wixsite.com/overview)
+* Website: [th3pl4gu3.wixsite.com/locky](https://th3pl4gu3.wixsite.com/locky)
 * Play Store: [Locky](https://play.google.com/store/apps/details?id=com.th3pl4gu3.locky_offline)
 * Support Email: locky.application@gmail.com
 
