@@ -9,10 +9,10 @@ import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_BANK_ACCOUNTS_SORT
 import kotlinx.coroutines.launch
 import java.util.*
 

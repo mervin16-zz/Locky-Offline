@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.utils
+package com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers
 
 import android.app.SearchManager
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.utils
+package com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -16,6 +16,7 @@ import com.th3pl4gu3.locky_offline.core.credentials.*
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
 import com.th3pl4gu3.locky_offline.ui.main.LockyApplication
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.SettingsManager
 import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel
 import java.util.*
 

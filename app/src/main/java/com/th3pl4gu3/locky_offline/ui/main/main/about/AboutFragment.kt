@@ -13,10 +13,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAboutBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openMail
-import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openUrl
-import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.share
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil.openMail
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil.openUrl
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil.share
 
 class AboutFragment : Fragment() {
 

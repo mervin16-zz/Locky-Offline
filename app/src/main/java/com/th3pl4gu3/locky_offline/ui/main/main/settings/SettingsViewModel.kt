@@ -12,11 +12,11 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepos
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
-import com.th3pl4gu3.locky_offline.ui.main.utils.SettingsManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hash
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.updateAppTheme
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.SettingsManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

@@ -10341,7 +10341,7 @@ io.reactivex.internal.operators.mixed.ObservableConcatMapMaybe$ConcatMapMaybeMai
 androidx.loader.R$string
 io.reactivex.internal.operators.flowable.FlowableDelay$DelaySubscriber
 kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$$inlined$combineTransform$3
-com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager:
+com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager:
     public final void setPreferences(android.content.SharedPreferences)
     public final synthetic java.lang.Object get(java.lang.String)
     private static final java.lang.String PREFERENCES_FILE_LOGIN
@@ -10962,7 +10962,7 @@ com.th3pl4gu3.locky_offline.ui.main.add.AddCategoryBottomSheetFragmentDirections
 com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountViewModel:
     public static final synthetic void access$set_account$p(com.th3pl4gu3.locky_offline.ui.main.add.account.AddAccountViewModel,com.th3pl4gu3.locky_offline.core.credentials.Account)
 io.reactivex.internal.operators.flowable.FlowableConcatMap$ConcatMapImmediate
-com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel:
+com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel:
     public final void notifyChange()
 androidx.annotation.ContentView
 androidx.room.IMultiInstanceInvalidationCallback$Stub$Proxy:

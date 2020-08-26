@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentAddDeviceBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_LOGO_HEX
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_LOGO_ICON
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_DEVICE_LOGO_HEX
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_DEVICE_LOGO_ICON
 
 
 class AddDeviceFragment : Fragment() {

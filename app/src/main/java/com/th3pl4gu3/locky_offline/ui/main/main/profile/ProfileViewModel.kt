@@ -11,9 +11,9 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepos
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_USER_ACCOUNT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_USER_ACCOUNT
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 

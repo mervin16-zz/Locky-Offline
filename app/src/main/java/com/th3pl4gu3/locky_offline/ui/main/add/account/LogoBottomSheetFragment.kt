@@ -18,10 +18,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetAccountLogoBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_ACCOUNT_LOGO
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isOnline
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_ACCOUNT_LOGO
 import java.util.*
 
 

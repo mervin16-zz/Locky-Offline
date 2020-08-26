@@ -9,9 +9,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.th3pl4gu3.locky_offline.core.tuning.BankAccountSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentBottomSheetBankAccountTuningBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_BANK_ACCOUNTS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_BANK_ACCOUNTS_SORT
 
 class TuningBankAccountBottomSheetFragment : BottomSheetDialogFragment() {
 

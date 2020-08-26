@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentialsFieldBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.VALUE_EMPTY
 
 class CredentialsViewAdapter(
     private val copyClickListener: CopyClickListener,
@@ -103,8 +103,8 @@ class ViewClickListener(val clickListener: (actualData: String) -> Unit) {
 }
 
 data class CredentialsField(
-    var subtitle: String = Constants.VALUE_EMPTY,
-    var data: String = Constants.VALUE_EMPTY,
+    var subtitle: String = VALUE_EMPTY,
+    var data: String = VALUE_EMPTY,
     var isShareable: Boolean = false,
     var isLinkable: Boolean = false,
     var isCopyable: Boolean = false,

@@ -5,8 +5,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.others.User
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_USER_ACCOUNT
 
 /*
 * Updates the application's theme
@@ -43,6 +43,6 @@ val Application.activeUser: User
             this
         )
         return LocalStorageManager.get<User>(
-            Constants.KEY_USER_ACCOUNT
+            KEY_USER_ACCOUNT
         )!!
     }

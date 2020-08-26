@@ -21,9 +21,9 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.CustomViewDialogMasterpasswordBinding
 import com.th3pl4gu3.locky_offline.repository.Loading
-import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil.openMail
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snack
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil.openMail
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

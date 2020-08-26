@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="com.th3pl4gu3.locky_offline.ui.main.utils.Constants" />
+        <import type="com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants" />
 
         <variable
             name="ViewModel"

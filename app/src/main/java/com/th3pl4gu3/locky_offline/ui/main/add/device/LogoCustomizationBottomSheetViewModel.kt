@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.databinding.Bindable
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.ui.main.utils.ObservableViewModel
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 
 class LogoCustomizationBottomSheetViewModel(application: Application) :
     ObservableViewModel(application) {

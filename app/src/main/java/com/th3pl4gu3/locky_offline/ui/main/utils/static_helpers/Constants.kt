@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.utils
+package com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers
 
 object Constants {
 
@@ -11,6 +11,11 @@ object Constants {
         ****    Values    ****
      */
     const val VALUE_EMPTY = ""
+    const val VALUE_LETTERS_CAPITAL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const val VALUE_LETTERS_LOWER = "abcdefghijklmnopqrstuvwxyz"
+    const val VALUE_NUMBERS = "0123456789"
+    const val VALUE_DASH = '-'
+    const val VALUE_SPECIALS = "!@#$%^*()+=?/|`~"
 
     /*
         ****    Key & Value Pairs    ****

@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.FragmentPasswordGeneratorBinding
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 
 class PasswordGeneratorFragment : Fragment() {
 
@@ -41,9 +44,25 @@ class PasswordGeneratorFragment : Fragment() {
         _binding = FragmentPasswordGeneratorBinding.inflate(inflater, container, false)
         /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(PasswordGeneratorViewModel::class.java)
+        /* Bind view model to layout */
+        binding.viewModel = _viewModel
         /* Bind lifecycle owner to this */
         binding.lifecycleOwner = this
         /* Returns the root view */
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        copyClickListener()
+    }
+
+    private fun copyClickListener() {
+        binding.ButtonCopy.setOnClickListener {
+            /* Copies the password to clipboard */
+            copyToClipboard(viewModel.password)
+            toast(getString(R.string.message_copy_successful))
+        }
     }
 }

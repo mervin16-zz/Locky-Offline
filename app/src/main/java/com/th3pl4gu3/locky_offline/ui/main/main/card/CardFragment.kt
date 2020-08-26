@@ -19,9 +19,9 @@ import com.th3pl4gu3.locky_offline.core.tuning.CardSort
 import com.th3pl4gu3.locky_offline.databinding.FragmentCardBinding
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialListener
 import com.th3pl4gu3.locky_offline.ui.main.main.CredentialsPagingAdapter
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CARDS_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CREDENTIAL_RESTORE
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_CARDS_SORT
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_CREDENTIAL_RESTORE
 import kotlinx.coroutines.launch
 
 class CardFragment : Fragment(), CredentialListener {

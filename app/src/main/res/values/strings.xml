@@ -351,7 +351,6 @@
     <string name="chips_action_number">numbers</string>
     <string name="chips_action_dash">1 dash</string>
     <string name="chips_action_special_char_1">1 special character</string>
-    <string name="chips_action_special_char_2">2 special characters</string>
 
     <!-- ========= -->
     <!-- Settings -->
@@ -401,6 +400,12 @@
     <string name="settings_key_data_wipe" translatable="false">settings_key_data_wipe</string>
     <string name="settings_title_data_wipe">Wipe Data</string>
     <string name="settings_summary_data_wipe">Delete all your stored credentials</string>
+
+    <string name="settings_key_passwordgen_haslower" translatable="false">settings_key_passwordgen_haslower</string>
+    <string name="settings_key_passwordgen_hasupper" translatable="false">settings_key_passwordgen_hasupper</string>
+    <string name="settings_key_passwordgen_hasnumbers" translatable="false">settings_key_passwordgen_hasnumbers</string>
+    <string name="settings_key_passwordgen_hasdash" translatable="false">settings_key_passwordgen_hasdash</string>
+    <string name="settings_key_passwordgen_hasspecials" translatable="false">settings_key_passwordgen_hasspecials</string>
 
     <!-- ================= -->
     <!-- Independent Words -->

@@ -1,4 +1,4 @@
-package com.th3pl4gu3.locky_offline.ui.main.utils
+package com.th3pl4gu3.locky_offline.ui.main.utils.helpers
 
 import android.app.Application
 import com.th3pl4gu3.locky_offline.R

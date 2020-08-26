@@ -16,11 +16,11 @@ import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.credentials.Card
 import com.th3pl4gu3.locky_offline.core.credentials.Device
 import com.th3pl4gu3.locky_offline.databinding.CustomViewBottomSheetMoreoptionsBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_CREDENTIAL_RESTORE
-import com.th3pl4gu3.locky_offline.ui.main.utils.LockyUtil
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.isNotInPortrait
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_CREDENTIAL_RESTORE
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil
 
 class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 

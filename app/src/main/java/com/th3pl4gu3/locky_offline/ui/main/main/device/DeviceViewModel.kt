@@ -9,10 +9,10 @@ import com.th3pl4gu3.locky_offline.core.credentials.Device
 import com.th3pl4gu3.locky_offline.core.tuning.DeviceSort
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
-import com.th3pl4gu3.locky_offline.ui.main.utils.Constants.KEY_DEVICE_SORT
-import com.th3pl4gu3.locky_offline.ui.main.utils.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
+import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.KEY_DEVICE_SORT
 import kotlinx.coroutines.launch
 import java.util.*
 
