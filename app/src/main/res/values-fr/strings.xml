@@ -103,11 +103,11 @@
     <string name="menu_moreOptions_copySwift">Copier le code swift</string>
     <string name="menu_device_moreOptions_copyIp">Copiez l\'IP</string>
     <string name="label_required">*Champs requis</string>
-    <string name="label_optional">*Champ facultatif</string>
-    <string name="label_others">*Champs supplémentaires</string>
-    <string name="field_account_name">Nom</string>
+    <string name="label_optional">Champ facultatif</string>
+    <string name="label_others">Champs supplémentaires</string>
+    <string name="field_account_name">* Nom</string>
     <string name="field_account_username">Nom d\'utilisateur</string>
-    <string name="field_account_password">Mot de passe</string>
+    <string name="field_account_password">* Mot de passe</string>
     <string name="field_account_website">Site Internet</string>
     <string name="field_account_authentication_type">Type d\'identification</string>
     <string name="field_account_2fakeys">Codes de sauvegarde à deux facteurs</string>
@@ -135,7 +135,7 @@
     <string name="field_device_mac">Adresse MAC</string>
     <string name="field_device_additional">Commentaires supplémentaires</string>
     <string name="field_placeholder_empty">Aucun</string>
-    <string name="field_account_sort_name">@string/field_account_name</string>
+    <string name="field_account_sort_name">Nom</string>
     <string name="field_account_sort_username">@string/field_account_username</string>
     <string name="field_account_sort_website">@string/field_account_website</string>
     <string name="field_account_sort_authentication_type">@string/field_account_authentication_type</string>

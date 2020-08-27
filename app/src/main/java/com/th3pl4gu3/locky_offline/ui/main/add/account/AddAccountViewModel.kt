@@ -10,7 +10,9 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.credentials.Account
 import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
+import com.th3pl4gu3.locky_offline.ui.main.main.password_generator.PasswordGenerator
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -162,6 +164,17 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
         }
     }
 
+    fun generatePassword() = with(PasswordGenerator) {
+        withOptions(
+            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_haslower)),
+            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasupper)),
+            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasnumbers)),
+            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasdash)),
+            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasspecials))
+        )
+        password = generate()
+    }
+
     internal fun resetErrorsFlag() {
         _hasErrors.value = false
     }
@@ -252,5 +265,10 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             if (errorList.containsKey(Validation.ErrorField.PASSWORD)) errorList[Validation.ErrorField.PASSWORD] else null
         _emailErrorMessage.value =
             if (errorList.containsKey(Validation.ErrorField.EMAIL)) errorList[Validation.ErrorField.EMAIL] else null
+    }
+
+    private fun get(key: String) = with(LocalStorageManager) {
+        withSettings(getApplication())
+        get<Boolean>(key) ?: false
     }
 }

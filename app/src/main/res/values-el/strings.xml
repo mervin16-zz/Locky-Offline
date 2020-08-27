@@ -99,12 +99,12 @@
     <string name="menu_search_filters_bank_account">@string/locky_section_main_bank_account</string>
     <string name="menu_search_filters_device">@string/locky_section_main_device</string>
     <string name="label_required">*Υποχρεωτικό πεδίο</string>
-    <string name="label_optional">* Προαιρετικό πεδίο</string>
-    <string name="label_others">* Επιπλέον πεδία</string>
-    <string name="field_account_name">Όνομα συμμετοχής</string>
+    <string name="label_optional">Προαιρετικό πεδίο</string>
+    <string name="label_others">Επιπλέον πεδία</string>
+    <string name="field_account_name">* Όνομα συμμετοχής</string>
     <string name="field_account_username">Username</string>
     <string name="field_account_email">ΗΛΕΚΤΡΟΝΙΚΗ ΔΙΕΥΘΥΝΣΗ</string>
-    <string name="field_account_password">Κωδικός πρόσβασης</string>
+    <string name="field_account_password">* Κωδικός πρόσβασης</string>
     <string name="field_account_website">Δικτυακός τόπος</string>
     <string name="field_account_authentication_type">Τύπος ελέγχου ταυτότητας</string>
     <string name="field_account_2fakeys">Εφεδρικοί κωδικοί δύο παραγόντων</string>
@@ -140,7 +140,7 @@
     <string name="field_placeholder_empty">κανένας</string>
     <string name="field_placeholder_na" translatable="false">α / α</string>
     <string name="field_helper_account_2fakeys">Αποθηκεύστε εδώ τους εφεδρικούς κωδικούς</string>
-    <string name="field_account_sort_name">@string/field_account_name</string>
+    <string name="field_account_sort_name">Όνομα συμμετοχής</string>
     <string name="field_account_sort_username">@string/field_account_username</string>
     <string name="field_account_sort_email">@string/field_account_email</string>
     <string name="field_account_sort_website">@string/field_account_website</string>

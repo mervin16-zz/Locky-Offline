@@ -175,6 +175,8 @@
         <item name="rippleColor">@color/colorRipple</item>
     </style>
 
+    <style name="Locky.Button.Icon" parent="Widget.MaterialComponents.Button.Icon" />
+
     <style name="Locky.Button.TextButton.Positive">
         <item name="android:textColor">@color/colorAccent</item>
     </style>
@@ -188,6 +190,15 @@
         <item name="chipBackgroundColor">@color/color_state_chip_item_background</item>
         <item name="rippleColor">@color/colorRipple</item>
         <item name="chipCornerRadius">5dp</item>
+    </style>
+
+    <style name="Locky.Button.Icon.PasswordGenerator">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:backgroundTint">@color/colorOnSurface</item>
+        <item name="iconTint">@color/colorAccentVariant</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
 

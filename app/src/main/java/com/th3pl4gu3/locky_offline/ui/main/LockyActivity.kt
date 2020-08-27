@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -14,7 +13,9 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityLockyBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.contentView
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.lockyToolBarConfiguration
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateToAddScreenAccordingToCurrentFragment
 
 class LockyActivity : AppCompatActivity() {
 
@@ -41,24 +42,13 @@ class LockyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         /* Changes for the support action bar */
-        supportActionBarConfiguration()
+        lockyToolBarConfiguration(binding.ToolbarMain)
 
         /* Setup the JetPack Navigation UI */
         navigationUISetup()
 
         /* Load both FABs */
         listenerForFloatingActionButtons()
-    }
-
-    private fun supportActionBarConfiguration() {
-        /* Set the default action bar to our custom material toolbar */
-        setSupportActionBar(binding.ToolbarMain)
-
-        /*
-        * Remove the default left title on the toolbar
-        * We will provide our own title centered in the middle
-        */
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -72,8 +62,9 @@ class LockyActivity : AppCompatActivity() {
     /*
     * Private functions that are
     * called within the Locky Activity
-    * Itself.
+    * itself.
     */
+
     private fun navigationUISetup() {
         //Fetch the Nav Controller
         with(findNavController(R.id.Navigation_Host)) {
@@ -97,7 +88,7 @@ class LockyActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { nc, nd, _ ->
 
             // Update the toolbar title
-            updateToolBarTitle(nd)
+            binding.ToolbarMainTitle.text = nd.label
 
             // Update UI according to navigation destination
             when (nd.id) {
@@ -120,10 +111,6 @@ class LockyActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateToolBarTitle(navigationDestination: NavDestination) {
-        binding.ToolbarMainTitle.text = navigationDestination.label
-    }
-
     private fun hideFABs() {
         binding.FABSearch.hide()
         binding.FABAdd.hide()
@@ -143,22 +130,6 @@ class LockyActivity : AppCompatActivity() {
         /* Listener for FAB Search */
         binding.FABSearch.setOnClickListener {
             navigateTo(R.id.action_global_Fragment_Search)
-        }
-    }
-
-    private fun navigateToAddScreenAccordingToCurrentFragment() {
-        /*
-        * Navigates to the corresponding add screen
-        * according to the current fragment
-        * the user is situated
-        * i.e a user in card fragment clicking on the add fab button
-        * will be redirected to the add card fragment
-        */
-        when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
-            R.id.Fragment_Account -> navigateTo(R.id.action_global_Fragment_Add_Account)
-            R.id.Fragment_Card -> navigateTo(R.id.action_global_Fragment_Add_Card)
-            R.id.Fragment_Bank_Account -> navigateTo(R.id.action_global_Fragment_Add_BankAccount)
-            R.id.Fragment_Device -> navigateTo(R.id.action_global_Fragment_Add_Device)
         }
     }
 }

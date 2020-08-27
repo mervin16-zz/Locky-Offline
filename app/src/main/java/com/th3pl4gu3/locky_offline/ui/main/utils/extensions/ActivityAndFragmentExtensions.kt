@@ -10,14 +10,44 @@ import android.net.NetworkCapabilities
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.ui.main.LockyActivity
 
+/*
+* Locky Toolbar configuration
+*/
+fun AppCompatActivity.lockyToolBarConfiguration(toolbar: MaterialToolbar) {
+    /* Set the default action bar to our custom material toolbar */
+    setSupportActionBar(toolbar)
+
+    /*
+    * Remove the default left title on the toolbar
+    * We will provide our own title centered in the middle
+    */
+    supportActionBar?.setDisplayShowTitleEnabled(false)
+}
+
+/*
+* Navigates to the corresponding add screen
+* according to the current fragment the user is situated
+* i.e a user in card fragment clicking on the add fab button
+* will be redirected to the add card fragment
+*/
+fun Activity.navigateToAddScreenAccordingToCurrentFragment() {
+    when (findNavController(R.id.Navigation_Host).currentDestination?.id) {
+        R.id.Fragment_Account -> navigateTo(R.id.action_global_Fragment_Add_Account)
+        R.id.Fragment_Card -> navigateTo(R.id.action_global_Fragment_Add_Card)
+        R.id.Fragment_Bank_Account -> navigateTo(R.id.action_global_Fragment_Add_BankAccount)
+        R.id.Fragment_Device -> navigateTo(R.id.action_global_Fragment_Add_Device)
+    }
+}
 
 /*
 * Checks if connected to the internet
