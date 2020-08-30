@@ -5,17 +5,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.ActivityLockyBinding
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.contentView
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.lockyToolBarConfiguration
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
-import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateToAddScreenAccordingToCurrentFragment
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 
 class LockyActivity : AppCompatActivity() {
 
@@ -52,12 +48,11 @@ class LockyActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-        item.onNavDestinationSelected(findNavController(R.id.Navigation_Host)) || super.onOptionsItemSelected(
+        item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(
             item
         )
 
-    override fun onSupportNavigateUp() =
-        findNavController(R.id.Navigation_Host).navigateUp(_appBarConfiguration)
+    override fun onSupportNavigateUp() = navController.navigateUp(_appBarConfiguration)
 
     /*
     * Private functions that are
@@ -67,7 +62,7 @@ class LockyActivity : AppCompatActivity() {
 
     private fun navigationUISetup() {
         //Fetch the Nav Controller
-        with(findNavController(R.id.Navigation_Host)) {
+        with(navController) {
             //Setup the App Bar Configuration
             _appBarConfiguration = AppBarConfiguration(_navigationFragments, binding.DrawerMain)
 
@@ -85,7 +80,7 @@ class LockyActivity : AppCompatActivity() {
     }
 
     private fun navigationDestinationChangeListener(navController: NavController) {
-        navController.addOnDestinationChangedListener { nc, nd, _ ->
+        navController.addOnDestinationChangedListener { _, nd, _ ->
 
             // Update the toolbar title
             binding.ToolbarMainTitle.text = nd.label

@@ -31,7 +31,7 @@ class StarterFragment : Fragment() {
     private var _viewModel: StarterViewModel? = null
 
     private val binding get() = _binding!!
-    internal val viewModel get() = _viewModel!!
+    private val viewModel get() = _viewModel!!
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var _executor: Executor
@@ -42,8 +42,8 @@ class StarterFragment : Fragment() {
         get() = requireMainActivity().findViewById(R.id.Toolbar_Main)
 
     companion object {
-        const val RC_SIGN_IN = 1001
-        const val TAG = "Splash_Activity_Debug"
+        private const val RC_SIGN_IN = 1001
+        //private const val TAG = "Splash_Activity_Debug"
     }
 
     override fun onCreateView(

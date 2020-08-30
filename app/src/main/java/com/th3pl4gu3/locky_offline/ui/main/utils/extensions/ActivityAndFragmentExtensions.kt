@@ -35,6 +35,13 @@ fun AppCompatActivity.lockyToolBarConfiguration(toolbar: MaterialToolbar) {
 }
 
 /*
+* Returns the correct nav controller
+* for the activity by automatically
+* attaching the correct nav host
+*/
+inline val Activity.navController get() = findNavController(R.id.Navigation_Host)
+
+/*
 * Navigates to the corresponding add screen
 * according to the current fragment the user is situated
 * i.e a user in card fragment clicking on the add fab button

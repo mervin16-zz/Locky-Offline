@@ -47,12 +47,13 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/Barrier_Header"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Card_Logo_Type"
+                app:layout_constraintStart_toStartOf="@+id/Card_Logo_Type"
                 app:layout_constraintTop_toBottomOf="@+id/Card_Logo_Type"
-                tools:text="This can be a very very very long title toooooo" />
+                tools:text="This can be a very very very long title too" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/Barrier_Header"
@@ -67,32 +68,33 @@
                 lockyMessageParams="@{ViewModel.messageType}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
+                android:layout_margin="16dp"
                 android:visibility="@{ViewModel.messageType==MessageType.NONE ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/Barrier_Messages"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Barrier_Header" />
+                app:layout_constraintTop_toBottomOf="@id/Barrier_Header"
+                tools:text="Your card has expired"
+                tools:visibility="gone" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/Barrier_Messages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:barrierDirection="bottom" />
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="Message" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerView_Credentials_Field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Barrier_Messages" />
+                app:layout_constraintTop_toBottomOf="@id/Barrier_Messages" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
