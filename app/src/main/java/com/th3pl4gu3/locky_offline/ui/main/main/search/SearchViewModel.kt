@@ -12,6 +12,8 @@ import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountR
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 
 class SearchViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -85,7 +87,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     val resultSize = Transformations.map(_resultSize) {
-        getApplication<Application>().resources.getQuantityString(
+        resources.getQuantityString(
             R.plurals.message_search_results,
             it,
             it
@@ -94,11 +96,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     val filterText = Transformations.map(_filter) {
         when (it) {
-            CredentialIdentifier.ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_account)
-            CredentialIdentifier.BANK_ACCOUNTS -> getApplication<Application>().getString(R.string.menu_search_filters_bank_account)
-            CredentialIdentifier.CARDS -> getApplication<Application>().getString(R.string.menu_search_filters_card)
-            CredentialIdentifier.DEVICES -> getApplication<Application>().getString(R.string.menu_search_filters_device)
-            else -> getApplication<Application>().getString(R.string.menu_search_filters_account)
+            CredentialIdentifier.ACCOUNTS -> getString(R.string.menu_search_filters_account)
+            CredentialIdentifier.BANK_ACCOUNTS -> getString(R.string.menu_search_filters_bank_account)
+            CredentialIdentifier.CARDS -> getString(R.string.menu_search_filters_card)
+            CredentialIdentifier.DEVICES -> getString(R.string.menu_search_filters_device)
+            else -> getString(R.string.menu_search_filters_account)
         }
     }
 

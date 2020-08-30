@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.databinding.Bindable
 import com.th3pl4gu3.locky_offline.BR
 import com.th3pl4gu3.locky_offline.R
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 
@@ -35,7 +36,7 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
 
             /* Saves the criteria value */
             save(
-                getApplication<Application>().getString(R.string.settings_key_passwordgen_haslower),
+                getString(R.string.settings_key_passwordgen_haslower),
                 value
             )
             /* Automatically regenerates password */
@@ -52,7 +53,7 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
 
             /* Saves the criteria value */
             save(
-                getApplication<Application>().getString(R.string.settings_key_passwordgen_hasupper),
+                getString(R.string.settings_key_passwordgen_hasupper),
                 value
             )
             /* Automatically regenerates password */
@@ -69,7 +70,7 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
 
             /* Saves the criteria value */
             save(
-                getApplication<Application>().getString(R.string.settings_key_passwordgen_hasnumbers),
+                getString(R.string.settings_key_passwordgen_hasnumbers),
                 value
             )
             /* Automatically regenerates password */
@@ -86,7 +87,7 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
 
             /* Saves the criteria value */
             save(
-                getApplication<Application>().getString(R.string.settings_key_passwordgen_hasdash),
+                getString(R.string.settings_key_passwordgen_hasdash),
                 value
             )
             /* Automatically regenerates password */
@@ -103,7 +104,7 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
 
             /* Saves the criteria value */
             save(
-                getApplication<Application>().getString(R.string.settings_key_passwordgen_hasspecials),
+                getString(R.string.settings_key_passwordgen_hasspecials),
                 value
             )
             /* Automatically regenerates password */
@@ -131,15 +132,15 @@ class PasswordGeneratorViewModel(application: Application) : ObservableViewModel
     */
     private fun preloadCriterias() {
         hasLowercase =
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_haslower))
+            get(getString(R.string.settings_key_passwordgen_haslower))
         hasUppercase =
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasupper))
+            get(getString(R.string.settings_key_passwordgen_hasupper))
         hasNumbers =
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasnumbers))
+            get(getString(R.string.settings_key_passwordgen_hasnumbers))
         hasDash =
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasdash))
+            get(getString(R.string.settings_key_passwordgen_hasdash))
         hasSpecials =
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasspecials))
+            get(getString(R.string.settings_key_passwordgen_hasspecials))
     }
 
     private fun save(key: String, value: Boolean) = with(LocalStorageManager) {

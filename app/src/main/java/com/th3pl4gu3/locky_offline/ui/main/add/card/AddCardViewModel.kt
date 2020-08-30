@@ -11,6 +11,7 @@ import com.th3pl4gu3.locky_offline.core.credentials.Card
 import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.CardRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedCalendarForCard
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedStringForCard
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
@@ -271,13 +272,13 @@ class AddCardViewModel(application: Application) : ObservableViewModel(applicati
 
         withContext(Dispatchers.IO) {
             if (_isNewCard) {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_created,
                     card.entryName
                 )
                 saveCardToDatabase(card)
             } else {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_modified,
                     card.entryName
                 )

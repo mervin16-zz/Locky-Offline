@@ -6,22 +6,22 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.databinding.FragmentViewDeviceBinding
+import com.th3pl4gu3.locky_offline.core.credentials.Device
+import com.th3pl4gu3.locky_offline.databinding.FragmentViewCredentialsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil
-import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
-import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
-import com.th3pl4gu3.locky_offline.ui.main.view.ShareClickListener
-import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
+import com.th3pl4gu3.locky_offline.ui.main.view.*
+import kotlinx.coroutines.launch
 
 class ViewDeviceFragment : Fragment() {
 
-    private var _binding: FragmentViewDeviceBinding? = null
-    private var _viewModel: ViewDeviceViewModel? = null
+    private var _binding: FragmentViewCredentialsBinding? = null
+    private var _viewModel: CredentialViewModel? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -31,17 +31,19 @@ class ViewDeviceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*Fetch the layout and do the binding*/
-        _binding = FragmentViewDeviceBinding.inflate(inflater, container, false)
-        /*Instantiate view model*/
-        _viewModel = ViewModelProvider(this).get(ViewDeviceViewModel::class.java)
-        /*Bind lifecycle owner to this*/
+        // Binds the UI
+        _binding = FragmentViewCredentialsBinding.inflate(inflater, container, false)
+        // Instantiate the View model
+        _viewModel = ViewModelProvider(this).get(CredentialViewModel::class.java)
+        // Bind view model to layout
+        binding.viewModel = viewModel
+        // Bind lifecycle owner to this
         binding.lifecycleOwner = this
-        /*Fetch the device clicked on the previous screen*/
-        val device = ViewDeviceFragmentArgs.fromBundle(requireArguments()).deviceToVIEW
-        /* Assign device to binding */
-        binding.device = device
-        /* Return root view */
+        // Fetch the bank account object from argument and to layout
+        binding.credential = ViewDeviceFragmentArgs.fromBundle(requireArguments()).deviceToVIEW
+        // Pass the credential object to view model to update messages
+        viewModel.updateMessageType(binding.credential!!)
+        // Return the root view
         return binding.root
     }
 
@@ -75,7 +77,7 @@ class ViewDeviceFragment : Fragment() {
             R.id.Action_Duplicate -> {
                 navigateTo(
                     ViewDeviceFragmentDirections.actionGlobalFragmentAddDevice()
-                        .setKEYDEVICE(0).setKEYDEVICEPREVIOUS(binding.device!!.id)
+                        .setKEYDEVICE(0).setKEYDEVICEPREVIOUS(binding.credential!!.id)
                 )
                 true
             }
@@ -84,14 +86,14 @@ class ViewDeviceFragment : Fragment() {
                 navigateTo(
                     ViewDeviceFragmentDirections.actionGlobalFragmentAddDevice()
                         .setKEYDEVICE(
-                            binding.device!!.id
+                            binding.credential!!.id
                         )
                 )
                 true
             }
 
             R.id.Action_Delete -> {
-                deleteConfirmationDialog(binding.device!!.entryName)
+                deleteConfirmationDialog(binding.credential!!.entryName)
                 true
             }
             else -> false
@@ -99,8 +101,8 @@ class ViewDeviceFragment : Fragment() {
     }
 
     private fun deleteCardAndNavigateBackToDeviceList() {
-        with(binding.device!!) {
-            viewModel.delete(id)
+        with(binding.credential!!) {
+            viewModel.delete(this)
             toast(getString(R.string.message_credentials_deleted, entryName))
             findNavController().popBackStack()
         }
@@ -132,7 +134,9 @@ class ViewDeviceFragment : Fragment() {
             this.adapter = adapter
         }
 
-        adapter.submitList(viewModel.fieldList(binding.device!!))
+        lifecycleScope.launch {
+            adapter.submitList(viewModel.deviceFields(binding.credential!! as Device))
+        }
     }
 
     private fun showPasswordDialog(password: String) =
@@ -177,7 +181,7 @@ class ViewDeviceFragment : Fragment() {
         val sendIntent: Intent = LockyUtil.share(
             getString(
                 R.string.message_credentials_password_share,
-                binding.device!!.username,
+                (binding.credential!! as Device).username,
                 password
             )
         )

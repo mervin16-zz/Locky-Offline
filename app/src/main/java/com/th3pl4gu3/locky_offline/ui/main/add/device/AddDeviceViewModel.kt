@@ -11,6 +11,8 @@ import com.th3pl4gu3.locky_offline.core.credentials.Device
 import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.DeviceRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.resources
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -157,8 +159,8 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
 
     fun resetLogo() {
         accent =
-            getApplication<Application>().getString(R.string.dev_color_hex_accent_bank_logo_default)
-        icon = getApplication<Application>().resources.getResourceEntryName(R.drawable.ic_device)
+            getString(R.string.dev_color_hex_accent_bank_logo_default)
+        icon = resources.getResourceEntryName(R.drawable.ic_device)
     }
 
     internal fun doneWithToastEvent() {
@@ -212,13 +214,13 @@ class AddDeviceViewModel(application: Application) : ObservableViewModel(applica
 
         withContext(Dispatchers.IO) {
             if (_isNewDevice) {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_created,
                     device.entryName
                 )
                 saveCardToDatabase(device)
             } else {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_modified,
                     device.entryName
                 )

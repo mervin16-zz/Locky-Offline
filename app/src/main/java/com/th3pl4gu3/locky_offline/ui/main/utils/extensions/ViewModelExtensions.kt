@@ -13,8 +13,19 @@ inline val AndroidViewModel.activeUser: User
     get() = getApplication<Application>().activeUser
 
 /*
-* Access resources directly fro within
+* Access resources directly from within
 * a view model
 */
 inline val AndroidViewModel.resources: Resources
     get() = getApplication<Application>().resources
+
+/*
+* Get string resources directly from within
+* a view model
+*/
+inline val AndroidViewModel.applicationContext get() = getApplication<Application>().applicationContext
+
+fun AndroidViewModel.getString(res: Int) = getApplication<Application>().getString(res)
+
+fun AndroidViewModel.getString(res: Int, placeholder: String) =
+    getApplication<Application>().getString(res, placeholder)

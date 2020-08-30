@@ -12,6 +12,7 @@ import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.AccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.main.password_generator.PasswordGenerator
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.LocalStorageManager
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
@@ -166,11 +167,11 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
 
     fun generatePassword() = with(PasswordGenerator) {
         withOptions(
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_haslower)),
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasupper)),
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasnumbers)),
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasdash)),
-            get(getApplication<Application>().getString(R.string.settings_key_passwordgen_hasspecials))
+            get(getString(R.string.settings_key_passwordgen_haslower)),
+            get(getString(R.string.settings_key_passwordgen_hasupper)),
+            get(getString(R.string.settings_key_passwordgen_hasnumbers)),
+            get(getString(R.string.settings_key_passwordgen_hasdash)),
+            get(getString(R.string.settings_key_passwordgen_hasspecials))
         )
         password = generate()
     }
@@ -229,13 +230,13 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             * Else, it means it is an addition
             */
             if (_isNewAccount) {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_created,
                     account.entryName
                 )
                 saveAccountToDatabase(account)
             } else {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_modified,
                     account.entryName
                 )

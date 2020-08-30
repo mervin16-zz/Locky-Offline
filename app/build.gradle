@@ -9,15 +9,15 @@ android {
     signingConfigs {
         release
     }
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.th3pl4gu3.locky_offline"
-        minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 34
-        versionName "1.1.1-alpha03"
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

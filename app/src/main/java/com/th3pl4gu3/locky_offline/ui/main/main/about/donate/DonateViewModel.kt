@@ -10,6 +10,7 @@ import com.android.billingclient.api.BillingClient
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.repository.billing.AugmentedSkuDetails
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 
 class DonateViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -34,30 +35,30 @@ class DonateViewModel(application: Application) : AndroidViewModel(application) 
 
     val purchases = Transformations.map(_isPurchaseCompleted) {
         if (it) {
-            getApplication<Application>().getString(R.string.message_about_donations_billing_completed)
+            getString(R.string.message_about_donations_billing_completed)
         } else {
-            getApplication<Application>().getString(R.string.message_about_donations_billing_pending)
+            getString(R.string.message_about_donations_billing_pending)
         }
     }
 
     val responseCode: LiveData<String> = Transformations.map(_responseCode) { responseCode ->
         when (responseCode) {
-            BillingClient.BillingResponseCode.USER_CANCELED -> getApplication<Application>().getString(
+            BillingClient.BillingResponseCode.USER_CANCELED -> getString(
                 R.string.message_about_donations_cancelled
             )
-            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> getApplication<Application>().getString(
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> getString(
                 R.string.message_about_donations_item_owned
             )
-            BillingClient.BillingResponseCode.ITEM_UNAVAILABLE -> getApplication<Application>().getString(
+            BillingClient.BillingResponseCode.ITEM_UNAVAILABLE -> getString(
                 R.string.message_about_donations_unavailable
             )
-            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE -> getApplication<Application>().getString(
+            BillingClient.BillingResponseCode.BILLING_UNAVAILABLE -> getString(
                 R.string.message_about_donations_billing_unavailable
             )
-            BillingClient.BillingResponseCode.ERROR -> getApplication<Application>().getString(
+            BillingClient.BillingResponseCode.ERROR -> getString(
                 R.string.message_about_donations_billing_declined
             )
-            else -> getApplication<Application>().getString(
+            else -> getString(
                 R.string.error_internal_code_2
             )
         }

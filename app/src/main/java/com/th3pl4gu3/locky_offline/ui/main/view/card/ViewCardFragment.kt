@@ -5,20 +5,24 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.databinding.FragmentViewCardBinding
+import com.th3pl4gu3.locky_offline.core.credentials.Card
+import com.th3pl4gu3.locky_offline.databinding.FragmentViewCredentialsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
+import com.th3pl4gu3.locky_offline.ui.main.view.CredentialViewModel
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
 import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
+import kotlinx.coroutines.launch
 
 class ViewCardFragment : Fragment() {
 
-    private var _binding: FragmentViewCardBinding? = null
-    private var _viewModel: ViewCardViewModel? = null
+    private var _binding: FragmentViewCredentialsBinding? = null
+    private var _viewModel: CredentialViewModel? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -28,21 +32,19 @@ class ViewCardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*Fetch the layout and do the binding*/
-        _binding = FragmentViewCardBinding.inflate(inflater, container, false)
-        /*Instantiate view model*/
-        _viewModel = ViewModelProvider(this).get(ViewCardViewModel::class.java)
-        /* Bind view model to layout */
+        // Binds the UI
+        _binding = FragmentViewCredentialsBinding.inflate(inflater, container, false)
+        // Instantiate the View model
+        _viewModel = ViewModelProvider(this).get(CredentialViewModel::class.java)
+        // Bind view model to layout
         binding.viewModel = viewModel
-        /*Bind lifecycle owner to this*/
+        // Bind lifecycle owner to this
         binding.lifecycleOwner = this
-        /*Fetch the card clicked on the previous screen*/
-        val card = ViewCardFragmentArgs.fromBundle(requireArguments()).cardToVIEW
-        /* Assign card to binding */
-        binding.card = card
-        /* We pass the card object to view model to update messages */
-        viewModel.updateMessageType(binding.card!!)
-        /* Return root view */
+        // Fetch the bank account object from argument and to layout
+        binding.credential = ViewCardFragmentArgs.fromBundle(requireArguments()).cardToVIEW
+        // Pass the credential object to view model to update messages
+        viewModel.updateMessageType(binding.credential!!)
+        // Return the root view
         return binding.root
     }
 
@@ -76,7 +78,7 @@ class ViewCardFragment : Fragment() {
             R.id.Action_Duplicate -> {
                 navigateTo(
                     ViewCardFragmentDirections.actionGlobalFragmentAddCard()
-                        .setKEYCARD(0).setKEYCARDPREVIOUS(binding.card!!.id)
+                        .setKEYCARD(0).setKEYCARDPREVIOUS(binding.credential!!.id)
                 )
                 true
             }
@@ -85,14 +87,14 @@ class ViewCardFragment : Fragment() {
                 navigateTo(
                     ViewCardFragmentDirections.actionGlobalFragmentAddCard()
                         .setKEYCARD(
-                            binding.card!!.id
+                            binding.credential!!.id
                         )
                 )
                 true
             }
 
             R.id.Action_Delete -> {
-                deleteConfirmationDialog(binding.card!!.entryName)
+                deleteConfirmationDialog(binding.credential!!.entryName)
                 true
             }
             else -> false
@@ -100,8 +102,8 @@ class ViewCardFragment : Fragment() {
     }
 
     private fun deleteCardAndNavigateBackToCardList() {
-        with(binding.card!!) {
-            viewModel.delete(id)
+        with(binding.credential!!) {
+            viewModel.delete(this)
             toast(getString(R.string.message_credentials_deleted, entryName))
             findNavController().popBackStack()
         }
@@ -130,7 +132,9 @@ class ViewCardFragment : Fragment() {
             this.adapter = adapter
         }
 
-        adapter.submitList(viewModel.fieldList(binding.card!!))
+        lifecycleScope.launch {
+            adapter.submitList(viewModel.cardFields(binding.credential!! as Card))
+        }
     }
 
     private fun showPasswordDialog(password: String) =

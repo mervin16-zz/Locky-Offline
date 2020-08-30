@@ -6,6 +6,7 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.repository.Loading
 import com.th3pl4gu3.locky_offline.repository.network.NetworkRepository
 import com.th3pl4gu3.locky_offline.repository.network.WebsiteLogo
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 import kotlinx.coroutines.launch
 
 class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(application) {
@@ -82,6 +83,4 @@ class LogoBottomSheetViewModel(application: Application) : AndroidViewModel(appl
         setErrorLoadingStatus()
         _websites.value = ArrayList()
     }
-
-    private fun getString(message: Int) = getApplication<Application>().getString(message)
 }

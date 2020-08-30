@@ -11,6 +11,7 @@ import com.th3pl4gu3.locky_offline.core.credentials.BankAccount
 import com.th3pl4gu3.locky_offline.core.others.Validation
 import com.th3pl4gu3.locky_offline.repository.database.repositories.BankAccountRepository
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.activeUser
+import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.getString
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -210,13 +211,13 @@ class AddBankAccountViewModel(application: Application) : ObservableViewModel(ap
 
         withContext(Dispatchers.IO) {
             if (_isNewAccount) {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_created,
                     account.entryName
                 )
                 saveAccountToDatabase(account)
             } else {
-                message = getApplication<Application>().getString(
+                message = getString(
                     R.string.message_credentials_modified,
                     account.entryName
                 )

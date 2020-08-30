@@ -6,22 +6,22 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.databinding.FragmentViewAccountBinding
+import com.th3pl4gu3.locky_offline.core.credentials.Account
+import com.th3pl4gu3.locky_offline.databinding.FragmentViewCredentialsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil
-import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
-import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
-import com.th3pl4gu3.locky_offline.ui.main.view.LinkClickListener
-import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
+import com.th3pl4gu3.locky_offline.ui.main.view.*
+import kotlinx.coroutines.launch
 
 class ViewAccountFragment : Fragment() {
 
-    private var _binding: FragmentViewAccountBinding? = null
-    private var _viewModel: ViewAccountViewModel? = null
+    private var _binding: FragmentViewCredentialsBinding? = null
+    private var _viewModel: CredentialViewModel? = null
 
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
@@ -31,20 +31,19 @@ class ViewAccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /* Binds the UI */
-        _binding = FragmentViewAccountBinding.inflate(inflater, container, false)
-        /* Instantiate the view model */
-        _viewModel = ViewModelProvider(this).get(ViewAccountViewModel::class.java)
-        /* Bind lifecycle owner to this */
+        // Binds the UI
+        _binding = FragmentViewCredentialsBinding.inflate(inflater, container, false)
+        // Instantiate the View model
+        _viewModel = ViewModelProvider(this).get(CredentialViewModel::class.java)
+        // Bind view model to layout
+        binding.viewModel = viewModel
+        // Bind lifecycle owner to this
         binding.lifecycleOwner = this
-
-        /*
-        * Fetch the account object from argument
-        * Then bind account object to layout
-        */
-        binding.account = ViewAccountFragmentArgs.fromBundle(requireArguments()).accountToVIEW
-
-        /* Returns the root view */
+        // Fetch the account object from argument and to layout
+        binding.credential = ViewAccountFragmentArgs.fromBundle(requireArguments()).accountToVIEW
+        // Pass the credential object to view model to update messages
+        viewModel.updateMessageType(binding.credential!!)
+        // Return the root view
         return binding.root
     }
 
@@ -81,7 +80,7 @@ class ViewAccountFragment : Fragment() {
             R.id.Action_Duplicate -> {
                 navigateTo(
                     ViewAccountFragmentDirections.actionGlobalFragmentAddAccount()
-                        .setKEYACCOUNT(0).setKEYACCOUNTPREVIOUS(binding.account!!.id)
+                        .setKEYACCOUNT(0).setKEYACCOUNTPREVIOUS(binding.credential!!.id)
                 )
                 true
             }
@@ -89,13 +88,13 @@ class ViewAccountFragment : Fragment() {
                 navigateTo(
                     ViewAccountFragmentDirections.actionGlobalFragmentAddAccount()
                         .setKEYACCOUNT(
-                            binding.account!!.id
+                            binding.credential!!.id
                         )
                 )
                 true
             }
             R.id.Action_Delete -> {
-                deleteConfirmationDialog(binding.account!!.entryName)
+                deleteConfirmationDialog(binding.credential!!.entryName)
                 true
             }
             else -> false
@@ -131,8 +130,10 @@ class ViewAccountFragment : Fragment() {
             this.adapter = adapter
         }
 
-        /* Submits the list for displaying */
-        adapter.submitList(viewModel.fieldList(binding.account!!))
+        lifecycleScope.launch {
+            /* Submits the list for displaying */
+            adapter.submitList(viewModel.accountFields(binding.credential!! as Account))
+        }
     }
 
     private fun deleteConfirmationDialog(name: String) =
@@ -148,8 +149,8 @@ class ViewAccountFragment : Fragment() {
             .show()
 
     private fun deleteAndNavigateBackToAccountList() {
-        with(binding.account!!) {
-            viewModel.delete(id)
+        with(binding.credential!!) {
+            viewModel.delete(this)
             toast(getString(R.string.message_credentials_deleted, entryName))
             findNavController().popBackStack()
         }

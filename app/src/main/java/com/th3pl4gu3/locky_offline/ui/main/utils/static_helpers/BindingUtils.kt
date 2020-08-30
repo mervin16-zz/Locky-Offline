@@ -15,9 +15,9 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.credentials.*
 import com.th3pl4gu3.locky_offline.repository.billing.BillingRepository
 import com.th3pl4gu3.locky_offline.ui.main.LockyApplication
+import com.th3pl4gu3.locky_offline.ui.main.utils.enums.MessageType
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.helpers.SettingsManager
-import com.th3pl4gu3.locky_offline.ui.main.view.card.ViewCardViewModel
 import java.util.*
 
 /*
@@ -337,13 +337,13 @@ fun ImageView.setCardLogo(number: String) {
 * about to expired. Styles the message accordingly
 */
 @BindingAdapter("lockyMessageParams")
-fun TextView.lockyMessageParams(messageType: ViewCardViewModel.MessageType) {
+fun TextView.lockyMessageParams(messageType: MessageType) {
     when (messageType) {
-        ViewCardViewModel.MessageType.WARNING -> {
+        MessageType.WARNING -> {
             this.text = resources.getString(R.string.message_card_warning_willExpire)
             this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoWarning_Light))
         }
-        ViewCardViewModel.MessageType.ERROR -> {
+        MessageType.ERROR -> {
             this.text = resources.getString(R.string.message_card_error_expired)
             this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorInfoError_Light))
         }
