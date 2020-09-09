@@ -10,8 +10,8 @@ buildscript {
         targetSdkVersion = 30
 
         // Deploying Configurations
-        versionCode = 35
-        versionName = "1.1.1-alpha04"
+        versionCode = 36
+        versionName = "1.1.1-alpha05"
 
         // Build tools
         buildToolsVersion = "29.0.3"

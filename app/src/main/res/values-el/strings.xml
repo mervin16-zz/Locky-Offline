@@ -236,4 +236,21 @@
     <string name="error_biometric_authentication_lockout">Πάρα πολλές προσπάθειες. Παρακαλώ δοκιμάστε ξανά αργότερα</string>
     <string name="error_biometric_authentication_lockout_permanent">Χρησιμοποιήστε ισχυρό έλεγχο ταυτότητας (PIN / Κωδικός πρόσβασης) για να ξεκλειδώσετε την εφαρμογή</string>
     <string name="error_biometric_authentication_cancelled">Ο έλεγχος ταυτότητας ακυρώθηκε</string>
+    <string name="menu_drawer_subtitle_tools">ΕΡΓΑΛΕΙΑ</string>
+    <string name="text_subtitle_screen_password_gen">Δημιουργήστε έναν κωδικό πρόσβασης επιλέγοντας τα κριτήρια που θέλετε να συμπεριλάβετε</string>
+    <string name="menu_drawer_main_password_generator">Δημιουργία κωδικού πρόσβασης</string>
+    <string name="field_account_password_wr">Κωδικός πρόσβασης</string>
+    <string name="field_hint_password_generator">Ο κωδικός πρόσβασής σας θα δημιουργηθεί εδώ</string>
+    <string name="message_biometrics_use_masterpassword">Μετάβαση στον κύριο κωδικό πρόσβασης</string>
+    <string name="error_field_validation_cvc_format">Καταχωρίστηκε λανθασμένο CVC</string>
+    <string name="settings_title_features_card_expiration">Ειδοποίηση για τη λήξη της κάρτας</string>
+    <string name="settings_summary_features_card_expiration">Ο Locky θα επισημάνει την κάρτα όταν πρόκειται να λήξει ή έχει ήδη λήξει</string>
+    <string name="settings_title_category_features">Features</string>
+    <string name="button_action_copy_password">Αντιγραφή κωδικού πρόσβασης</string>
+    <string name="button_action_use_masterpassword">Χρησιμοποιήστε τον κύριο κωδικό πρόσβασης</string>
+    <string name="chips_action_lowercase">πεζά γράμματα</string>
+    <string name="chips_action_capital">πρωτεύουσες</string>
+    <string name="chips_action_number">αριθμοί</string>
+    <string name="chips_action_dash">1 παύλα</string>
+    <string name="chips_action_special_char_1">1 ειδικός χαρακτήρας</string>
 </resources>

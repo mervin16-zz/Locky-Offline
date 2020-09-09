@@ -13,13 +13,12 @@ import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.core.credentials.Card
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewCredentialsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
-import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialViewModel
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
-import com.th3pl4gu3.locky_offline.ui.main.view.ViewClickListener
+import com.th3pl4gu3.locky_offline.ui.main.view.ViewCredentialListener
 import kotlinx.coroutines.launch
 
-class ViewCardFragment : Fragment() {
+class ViewCardFragment : Fragment(), ViewCredentialListener {
 
     private var _binding: FragmentViewCredentialsBinding? = null
     private var _viewModel: CredentialViewModel? = null
@@ -101,6 +100,17 @@ class ViewCardFragment : Fragment() {
         }
     }
 
+    override fun onCopyClicked(data: String) {
+        copyToClipboardAndToast(data)
+    }
+
+    override fun onViewClicked(data: String) {
+        showPasswordDialog(data)
+    }
+
+    /*
+    * Private Functions
+    */
     private fun deleteCardAndNavigateBackToCardList() {
         with(binding.credential!!) {
             viewModel.delete(this)
@@ -110,14 +120,7 @@ class ViewCardFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        val adapter =
-            CredentialsViewAdapter(
-                copyClickListener = CopyClickListener { data ->
-                    copyToClipboardAndToast(data)
-                },
-                viewClickListener = ViewClickListener { data ->
-                    showPasswordDialog(data)
-                })
+        val adapter = CredentialsViewAdapter(this)
 
         binding.RecyclerViewCredentialsField.apply {
             /*

@@ -81,7 +81,7 @@ class CredentialViewModel(application: Application) : AndroidViewModel(applicati
                 )
                 add(
                     CredentialsField(
-                        subtitle = getString(R.string.field_account_password),
+                        subtitle = getString(R.string.field_account_password_wr),
                         data = if (password.isEmpty()) getString(R.string.field_placeholder_empty) else password,
                         isViewable = true,
                         isCopyable = true

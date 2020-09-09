@@ -15,12 +15,12 @@ import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.copyToClipboard
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.hideSoftKeyboard
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
-import com.th3pl4gu3.locky_offline.ui.main.view.CopyClickListener
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialViewModel
 import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky_offline.ui.main.view.ViewCredentialListener
 import kotlinx.coroutines.launch
 
-class ViewBankAccountFragment : Fragment() {
+class ViewBankAccountFragment : Fragment(), ViewCredentialListener {
 
     private var _binding: FragmentViewCredentialsBinding? = null
     private var _viewModel: CredentialViewModel? = null
@@ -103,16 +103,15 @@ class ViewBankAccountFragment : Fragment() {
             else -> false
         }
 
+    override fun onCopyClicked(data: String) {
+        copyToClipboardAndToast(data)
+    }
 
     /*
     * Private functions
     */
     private fun subscribeUi() {
-        val adapter = CredentialsViewAdapter(
-            CopyClickListener {
-                copyToClipboardAndToast(it)
-            }
-        )
+        val adapter = CredentialsViewAdapter(this)
 
         binding.RecyclerViewCredentialsField.apply {
             /*

@@ -191,6 +191,7 @@
     <string name="field_account_username">Username</string>
     <string name="field_account_email">Email</string>
     <string name="field_account_password">* Password</string>
+    <string name="field_account_password_wr">Password</string>
     <string name="field_account_website">Website</string>
     <string name="field_account_authentication_type">Authentication Type</string>
     <string name="field_account_2fakeys">Two-Factor Backup Codes</string>
@@ -201,7 +202,7 @@
     <string name="field_card_holder">Name on Card</string>
     <string name="field_card_bank">Bank</string>
     <string name="field_card_pin">PIN</string>
-    <string name="field_card_cvc">CVC</string>
+    <string name="field_card_cvc" translatable="false">CVC</string>
     <string name="field_card_date_issued">Date Issued</string>
     <string name="field_card_date_expiry">Expiry Date</string>
     <string name="field_card_additional">Additional Comments</string>
@@ -346,7 +347,7 @@
     <string name="button_action_use_masterpassword">Use Master Password</string>
 
     <!-- Chips -->
-    <string name="chips_action_lowercase">lowercases</string>
+    <string name="chips_action_lowercase">lowercase</string>
     <string name="chips_action_capital">capitals</string>
     <string name="chips_action_number">numbers</string>
     <string name="chips_action_dash">1 dash</string>

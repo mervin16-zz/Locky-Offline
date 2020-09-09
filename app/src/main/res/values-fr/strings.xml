@@ -240,4 +240,21 @@
     <string name="error_biometric_authentication_cancelled">Authentification annulée</string>
     <string name="error_biometric_authentication_lockout_permanent">Veuillez utiliser une authentification forte (PIN / mot de passe) pour déverrouiller l\'application</string>
     <string name="error_biometric_authentication_lockout">Trop d\'essais. Veuillez réessayer plus tard</string>
+    <string name="menu_drawer_subtitle_tools">OUTILS</string>
+    <string name="text_subtitle_screen_password_gen">Générez un mot de passe en choisissant les critères que vous souhaitez inclure</string>
+    <string name="menu_drawer_main_password_generator">Générateur de mot de passe</string>
+    <string name="field_account_password_wr">Mot de passe</string>
+    <string name="field_hint_password_generator">Votre mot de passe sera généré ici</string>
+    <string name="message_biometrics_use_masterpassword">Passer au mot de passe principal</string>
+    <string name="error_field_validation_cvc_format">CVC incorrect saisi</string>
+    <string name="settings_title_features_card_expiration">Notifier l\'expiration de la carte</string>
+    <string name="settings_summary_features_card_expiration">Locky mettra en évidence la carte lorsqu\'elle est sur le point d\'expirer ou a déjà expiré</string>
+    <string name="settings_title_category_features">Caractéristiques</string>
+    <string name="button_action_copy_password">Copier le mot de passe</string>
+    <string name="button_action_use_masterpassword">Utiliser le mot de passe principal</string>
+    <string name="chips_action_lowercase">minuscule</string>
+    <string name="chips_action_capital">majuscule</string>
+    <string name="chips_action_number">nombres</string>
+    <string name="chips_action_dash">1 tiret</string>
+    <string name="chips_action_special_char_1">1 caractère spécial</string>
 </resources>

@@ -9,10 +9,7 @@ import com.th3pl4gu3.locky_offline.databinding.CustomViewRecyclerviewCredentials
 import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.Constants.VALUE_EMPTY
 
 class CredentialsViewAdapter(
-    private val copyClickListener: CopyClickListener,
-    private val shareClickListener: ShareClickListener? = null,
-    private val linkClickListener: LinkClickListener? = null,
-    private val viewClickListener: ViewClickListener? = null
+    private val viewCredentialListener: ViewCredentialListener
 ) : ListAdapter<CredentialsField, CredentialsViewAdapter.ViewHolder>(
     diffCallback
 ) {
@@ -39,10 +36,7 @@ class CredentialsViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            copyClickListener,
-            shareClickListener,
-            linkClickListener,
-            viewClickListener,
+            viewCredentialListener,
             getItem(position)
         )
     }
@@ -56,17 +50,11 @@ class CredentialsViewAdapter(
     class ViewHolder private constructor(val binding: CustomViewRecyclerviewCredentialsFieldBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            copyClickListener: CopyClickListener,
-            shareClickListener: ShareClickListener?,
-            linkClickListener: LinkClickListener?,
-            viewClickListener: ViewClickListener?,
+            viewCredentialListener: ViewCredentialListener,
             credentialsField: CredentialsField
         ) {
             binding.credentialsField = credentialsField
-            binding.copyClickListener = copyClickListener
-            binding.shareClickListener = shareClickListener
-            binding.linkClickListener = linkClickListener
-            binding.viewClickListener = viewClickListener
+            binding.listener = viewCredentialListener
             binding.executePendingBindings()
         }
 
@@ -84,22 +72,6 @@ class CredentialsViewAdapter(
             }
         }
     }
-}
-
-class CopyClickListener(val clickListener: (actualData: String) -> Unit) {
-    fun onClick(actualData: String) = clickListener(actualData)
-}
-
-class ShareClickListener(val clickListener: (actualData: String) -> Unit) {
-    fun onClick(actualData: String) = clickListener(actualData)
-}
-
-class LinkClickListener(val clickListener: (actualData: String) -> Unit) {
-    fun onClick(actualData: String) = clickListener(actualData)
-}
-
-class ViewClickListener(val clickListener: (actualData: String) -> Unit) {
-    fun onClick(actualData: String) = clickListener(actualData)
 }
 
 data class CredentialsField(

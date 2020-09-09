@@ -15,10 +15,12 @@ import com.th3pl4gu3.locky_offline.core.credentials.Account
 import com.th3pl4gu3.locky_offline.databinding.FragmentViewCredentialsBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.*
 import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil
-import com.th3pl4gu3.locky_offline.ui.main.view.*
+import com.th3pl4gu3.locky_offline.ui.main.view.CredentialViewModel
+import com.th3pl4gu3.locky_offline.ui.main.view.CredentialsViewAdapter
+import com.th3pl4gu3.locky_offline.ui.main.view.ViewCredentialListener
 import kotlinx.coroutines.launch
 
-class ViewAccountFragment : Fragment() {
+class ViewAccountFragment : Fragment(), ViewCredentialListener {
 
     private var _binding: FragmentViewCredentialsBinding? = null
     private var _viewModel: CredentialViewModel? = null
@@ -100,22 +102,23 @@ class ViewAccountFragment : Fragment() {
             else -> false
         }
 
+    override fun onCopyClicked(data: String) {
+        copyToClipboardAndToast(data)
+    }
+
+    override fun onViewClicked(data: String) {
+        showPasswordDialog(data)
+    }
+
+    override fun onLinkClicked(data: String) {
+        openInBrowser(data)
+    }
 
     /*
     * Private functions
     */
     private fun subscribeUi() {
-        val adapter = CredentialsViewAdapter(
-            copyClickListener = CopyClickListener {
-                copyToClipboardAndToast(it)
-            },
-            linkClickListener = LinkClickListener {
-                openInBrowser(it)
-            },
-            viewClickListener = ViewClickListener {
-                showPasswordDialog(it)
-            }
-        )
+        val adapter = CredentialsViewAdapter(this)
 
         binding.RecyclerViewCredentialsField.apply {
             /*

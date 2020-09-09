@@ -236,4 +236,21 @@
     <string name="word_email_preposition">en e-mail</string>
     <string name="word_browser">browser</string>
     <string name="word_browser_preposition">en browser</string>
+    <string name="menu_drawer_subtitle_tools">VÆRKTØJ</string>
+    <string name="text_subtitle_screen_password_gen">Generer en adgangskode ved at vælge de kriterier, du vil medtage</string>
+    <string name="menu_drawer_main_password_generator">Adgangskodegenerator</string>
+    <string name="field_account_password_wr">Adgangskode</string>
+    <string name="field_hint_password_generator">Din adgangskode genereres her</string>
+    <string name="message_biometrics_use_masterpassword">Skifter til hovedadgangskode</string>
+    <string name="error_field_validation_cvc_format">Forkert CVC indtastet</string>
+    <string name="settings_title_features_card_expiration">Giv besked om kortets udløb</string>
+    <string name="settings_summary_features_card_expiration">Locky fremhæver kortet, når det er ved at udløbe eller allerede er udløbet</string>
+    <string name="settings_title_category_features">Funktioner</string>
+    <string name="chips_action_special_char_1">1 specialtegn</string>
+    <string name="chips_action_dash">1 bindestreg</string>
+    <string name="chips_action_number">numre</string>
+    <string name="chips_action_capital">hovedstæder</string>
+    <string name="chips_action_lowercase">mindre sager</string>
+    <string name="button_action_use_masterpassword">Brug hovedadgangskode</string>
+    <string name="button_action_copy_password">Kopier adgangskode</string>
 </resources>
