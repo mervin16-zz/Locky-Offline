@@ -24,6 +24,9 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
     /* Public Variables */
     val canNavigateToMainScreen = MutableLiveData(false)
 
+
+    var test = MutableLiveData<String>()
+
     /* Properties */
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
@@ -107,7 +110,7 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
 
     private suspend fun fetchUser(key: String): User? {
         /* Fetch the data from Database */
-        var user: User? = null
+        var user: User?
         withContext(Dispatchers.IO) {
             user = UserRepository.getInstance(getApplication()).get(key)
         }

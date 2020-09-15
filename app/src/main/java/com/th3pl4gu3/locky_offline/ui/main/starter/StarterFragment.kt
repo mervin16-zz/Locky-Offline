@@ -6,9 +6,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,7 +20,6 @@ import com.th3pl4gu3.locky_offline.databinding.FragmentStarterBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
-import java.util.concurrent.Executor
 
 class StarterFragment : Fragment() {
 
@@ -34,16 +30,12 @@ class StarterFragment : Fragment() {
     private val viewModel get() = _viewModel!!
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var _executor: Executor
-    private lateinit var _biometricPrompt: BiometricPrompt
-    private lateinit var _promptInfo: BiometricPrompt.PromptInfo
 
     private val mainToolBar: MaterialToolbar
         get() = requireMainActivity().findViewById(R.id.Toolbar_Main)
 
     companion object {
         private const val RC_SIGN_IN = 1001
-        //private const val TAG = "Splash_Activity_Debug"
     }
 
     override fun onCreateView(
@@ -143,7 +135,18 @@ class StarterFragment : Fragment() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            viewModel.login(User.getInstance(completedTask.getResult(ApiException::class.java)!!))
+            val account = completedTask.getResult(ApiException::class.java)!!
+            if (isAccountValid(account)) {
+                viewModel.login(
+                    User.getInstance(
+                        account.displayName!!,
+                        account.email!!,
+                        account.photoUrl.toString()
+                    )
+                )
+            } else {
+                googleSignOut()
+            }
         } catch (e: ApiException) {
             when (e.statusCode) {
                 GoogleSignInStatusCodes.NETWORK_ERROR -> toast(getString(R.string.message_internet_connection_unavailable))
@@ -169,7 +172,17 @@ class StarterFragment : Fragment() {
                 prepareToNavigateToMainScreen()
             }
             account != null -> {
-                viewModel.login(User.getInstance(account))
+                if (isAccountValid(account)) {
+                    viewModel.login(
+                        User.getInstance(
+                            account.displayName!!,
+                            account.email!!,
+                            account.photoUrl.toString()
+                        )
+                    )
+                } else {
+                    googleSignOut()
+                }
             }
             else -> {
                 viewModel.showGetStartedButton()
@@ -190,6 +203,13 @@ class StarterFragment : Fragment() {
                 .requestEmail()
                 .build()
         )
+    }
+
+    private fun googleSignOut() {
+        /* Log the user out and clear session*/
+        mGoogleSignInClient.signOut()
+
+        viewModel.showGetStartedButton()
     }
 
     private fun prepareToNavigateToMainScreen() {
@@ -228,14 +248,14 @@ class StarterFragment : Fragment() {
     }
 
     private fun promptBiometric() {
-        if (!hasEnrollments()) {
+        if (!LockyBiometrics.hasEnrollments(requireActivity().application)) {
 
             /*
              * This means that a user that previously has enrolled
              * biometrics, no longer have them
              * we hence cannot let the user proceed until
              * new enrolments are configured.
-             * We then show a dialog to the user explaining the situation
+      à       * We then show a dialog to the user explaining the situation
             */
 
             biometricEnrolmentDialog()
@@ -243,85 +263,51 @@ class StarterFragment : Fragment() {
             return
         }
 
-        _executor = ContextCompat.getMainExecutor(requireContext().applicationContext)
-        _biometricPrompt = BiometricPrompt(
-            this, _executor,
-            object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
+        val biometrics = LockyBiometrics(requireActivity().application)
+        val prompt = biometrics.prompt(this)
+        biometrics.errMessage.observe(viewLifecycleOwner, {
+            if (it != null) {
+                when (it) {
+                    getString(R.string.message_biometrics_use_masterpassword) -> {
+                        /*
+                        * If the user clicks on the negative button
+                        * we need to check if master password has been enabled
+                        * if yes, we need to prompt the user with master password
+                        */
+                        if (viewModel.isMasterPasswordEnabled()) {
+                            toast(it)
 
-                    when (errorCode) {
-                        BiometricPrompt.ERROR_LOCKOUT -> toast(getString(R.string.error_biometric_authentication_lockout))
-                        BiometricPrompt.ERROR_LOCKOUT_PERMANENT -> toast(getString(R.string.error_biometric_authentication_lockout_permanent))
-                        BiometricPrompt.ERROR_USER_CANCELED -> toast(getString(R.string.error_biometric_authentication_cancelled))
-                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
-                            /*
-                            * If the user clicks on the negative button
-                            * we need to check if master password has been enabled
-                            * if yes, we need to prompt the user with master password
-                            */
-                            if (viewModel.isMasterPasswordEnabled()) {
-                                toast(getString(R.string.message_biometrics_use_masterpassword))
+                            /* Start master password dialog */
+                            masterPasswordVerification()
 
-                                /* Start master password dialog */
-                                masterPasswordVerification()
-
-                                return
-                            }
-
-                            /* If code reached this, it means master password was not enabled */
-                            toast(getString(R.string.error_biometric_authentication_cancelled))
+                            return@observe
                         }
-                        else -> toast(
-                            getString(
-                                R.string.error_biometric_authentication_error,
-                                errString
-                            )
-                        )
+
+                        /* If code reached this, it means master password was not enabled */
+                        toast(getString(R.string.error_biometric_authentication_cancelled))
                     }
-
-                    requireActivity().finish()
+                    else -> toast(it)
                 }
 
-                override fun onAuthenticationSucceeded(
-                    result: BiometricPrompt.AuthenticationResult
-                ) {
-                    super.onAuthenticationSucceeded(result)
-                    /* Biometric has succeeded */
-                    viewModel.canNavigateToMainScreen.value = true
-                }
-            })
+                requireActivity().finish()
+            }
+        })
 
-        _promptInfo = BiometricPrompt.PromptInfo
-            .Builder()
-            .setTitle(getString(R.string.text_title_alert_biometric_authentication))
-            .setSubtitle(getString(R.string.text_title_alert_biometric_authentication_message))
-            .setNegativeButtonText(
-                /*
-                * We determine which text to show as the negative button
-                * If master password was not enabled, negative text will be cancel
-                * else negative text will be to use master password instead
-                */
-                if (viewModel.isMasterPasswordEnabled()) getString(
-                    R.string.button_action_use_masterpassword
-                ) else getString(R.string.button_action_cancel)
-            )
-            .setConfirmationRequired(true)
-            .build()
+        biometrics.isSuccess.observe(viewLifecycleOwner, {
+            if (it) {
+                viewModel.canNavigateToMainScreen.value = it
+            }
+        })
 
-        /* Prompts the user for biometric authentication */
-        _biometricPrompt.authenticate(_promptInfo)
+        biometrics.authenticate(prompt, viewModel.isMasterPasswordEnabled())
     }
-
-    private fun hasEnrollments() = (BiometricManager.from(requireContext().applicationContext)
-        .canAuthenticate()) != BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
     private fun navigateToMainScreen() {
         navigateTo(StarterFragmentDirections.actionFragmentStarterToFragmentAccount())
     }
 
     private fun biometricEnrolmentDialog() =
-        MaterialAlertDialogBuilder(requireContext().applicationContext)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.text_title_alert_biometric))
             .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
             .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
@@ -337,4 +323,7 @@ class StarterFragment : Fragment() {
     private fun toggleMainToolbarVisibility(visibility: Int) {
         mainToolBar.visibility = visibility
     }
+
+    private fun isAccountValid(account: GoogleSignInAccount) =
+        account.displayName != null && account.email != null
 }

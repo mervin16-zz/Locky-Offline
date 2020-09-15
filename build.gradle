@@ -34,7 +34,7 @@ buildscript {
         version_security = "1.0.0-rc02"
         version_arch_core = "2.1.0"
         version_gms_services = "18.1.0"
-        version_biometric = "1.0.1"
+        version_biometric = "1.1.0-alpha02"
         version_play_billing = "2.2.1"
         version_paging = "2.1.2"
         version_gradle = '4.0.1'

@@ -5,7 +5,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toFormattedStringDefault
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -35,19 +34,19 @@ data class User constructor(
     companion object {
         private var instance: User? = null
 
-        fun getInstance(account: GoogleSignInAccount): User {
+        fun getInstance(displayName: String, email: String, photoUrl: String): User {
             return if (instance != null) {
                 instance?.apply {
-                    name = account.displayName!!
-                    email = account.email!!
-                    photo = account.photoUrl.toString()
+                    this.name = displayName
+                    this.email = email
+                    this.photo = photoUrl
                 }!!
             } else {
                 instance =
                     User(
-                        name = account.displayName!!,
-                        email = account.email!!,
-                        photo = account.photoUrl.toString()
+                        name = displayName,
+                        email = email,
+                        photo = photoUrl
                     )
                 instance!!
             }

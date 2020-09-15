@@ -146,7 +146,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
-        /* Log the user out from firebase and clear session*/
+        /* Log the user out and clear session*/
         val mGoogleSignInClient = GoogleSignIn.getClient(
             requireContext().applicationContext, GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

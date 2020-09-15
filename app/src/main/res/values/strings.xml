@@ -318,13 +318,13 @@
     <string name="error_biometric_authentication_lockout">Too many attempts. Please try again later</string>
     <string name="error_biometric_authentication_lockout_permanent">Please use strong authentication (PIN/Password) to unlock the app</string>
     <string name="error_biometric_authentication_cancelled">Authentication cancelled</string>
-    <string name="error_biometric_authentication_error">Biometric authentication error: "%1$s"</string>
 
     <string name="error_about_donations_querying_products">Error while querying the donations</string>
 
     <string name="error_internal_code_1">An internal error occurred. Error Code 1: %1$s</string>
     <string name="error_internal_code_2">An internal error occurred. Error Code 2</string>
     <string name="error_internal_code_3">An internal error occurred. Error Code 3</string>
+    <string name="error_internal_code_4">An internal error occurred. Error Code 4</string>
 
     <!-- =============== -->
     <!-- Button Actions -->

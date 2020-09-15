@@ -161,7 +161,6 @@
     <string name="message_credentials_deleted">%1$s a été supprimé</string>
     <string name="error_field_validation_blank">Ce champ ne peut pas être vide</string>
     <string name="error_field_validation_email_format">Veuillez insérer un email valide</string>
-    <string name="error_biometric_authentication_error">Erreur d\'authentification biométrique: "%1$s"</string>
     <plurals name="message_search_results">
         <item quantity="one">La recherche a retourné %d résultats</item>
         <item quantity="other">La recherche a retourné %d résultats</item>

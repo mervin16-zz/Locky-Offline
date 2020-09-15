@@ -193,7 +193,6 @@
     <string name="error_biometric_authentication_lockout">For mange forsøg. Prøv igen senere</string>
     <string name="error_biometric_authentication_lockout_permanent">Brug venligst stærk autentificering (PIN / Password) til at låse appen op</string>
     <string name="error_biometric_authentication_cancelled">Autentificering annulleret</string>
-    <string name="error_biometric_authentication_error">Biometrisk godkendelsesfejl: %1$s</string>
     <string name="error_about_donations_querying_products">Fejl under forespørgsel om donationerne</string>
     <string name="error_internal_code_1">Der opstod en intern fejl. Fejlkode 1: %1$s</string>
     <string name="error_internal_code_2">Der opstod en intern fejl. Fejlkode 2</string>

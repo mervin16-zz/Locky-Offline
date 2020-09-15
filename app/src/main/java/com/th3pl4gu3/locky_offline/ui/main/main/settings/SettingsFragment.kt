@@ -21,6 +21,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.th3pl4gu3.locky_offline.R
 import com.th3pl4gu3.locky_offline.databinding.CustomViewDialogMasterpasswordBinding
 import com.th3pl4gu3.locky_offline.repository.Loading
+import com.th3pl4gu3.locky_offline.ui.main.starter.LockyBiometrics
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.snack
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.toast
 import com.th3pl4gu3.locky_offline.ui.main.utils.static_helpers.LockyUtil.openMail
@@ -29,7 +30,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private var _viewModel: SettingsViewModel? = null
     private var _dialogBinding: CustomViewDialogMasterpasswordBinding? = null
-    private lateinit var _biometricManager: BiometricManager
 
     private val viewModel get() = _viewModel!!
     private val dialogBinding get() = _dialogBinding!!
@@ -173,7 +173,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             * Here we perform another check to see if biometric has bee a success
             * or if any biometric has been enrolled
             */
-            when (_biometricManager.canAuthenticate()) {
+            when (LockyBiometrics.getValidAuthenticators(requireActivity().application)) {
                 BiometricManager.BIOMETRIC_SUCCESS -> {
                     viewModel.save(preference.key, newValue)
 
@@ -230,15 +230,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
     \***********************************************/
     private fun observeMasterPasswordErrorMessageEvents() {
         with(viewModel) {
-            currentPasswordErrorMessage.observe(viewLifecycleOwner, Observer {
+            currentPasswordErrorMessage.observe(viewLifecycleOwner, {
                 dialogBinding.MasterPasswordCurrent.error = it
             })
 
-            newPasswordErrorMessage.observe(viewLifecycleOwner, Observer {
+            newPasswordErrorMessage.observe(viewLifecycleOwner, {
                 dialogBinding.MasterPasswordNew.error = it
             })
 
-            confirmPasswordErrorMessage.observe(viewLifecycleOwner, Observer {
+            confirmPasswordErrorMessage.observe(viewLifecycleOwner, {
                 dialogBinding.MasterPasswordConfirm.error = it
             })
         }
@@ -258,14 +258,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun observeMasterPasswordChange() {
-        viewModel.canChangeMasterPassword.observe(viewLifecycleOwner, Observer {
+        viewModel.canChangeMasterPassword.observe(viewLifecycleOwner, {
             findPreference<Preference>(getString(R.string.settings_key_security_password_change))?.isEnabled =
                 it
         })
     }
 
     private fun observeMasterPasswordValidity() {
-        viewModel.isMasterPasswordValid.observe(viewLifecycleOwner, Observer {
+        viewModel.isMasterPasswordValid.observe(viewLifecycleOwner, {
             if (it) {
                 findPreference<SwitchPreferenceCompat>(getString(R.string.settings_key_security_password))?.isChecked =
                     true
@@ -419,9 +419,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     \************ Operations ************\
     \************************************/
     private fun biometricInitialCheck() {
-        _biometricManager = BiometricManager.from(requireContext())
-
-        when (_biometricManager.canAuthenticate()) {
+        when (LockyBiometrics.getValidAuthenticators(requireActivity().application)) {
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
                 preferenceScreen.removePreference(findPreference<ListPreference>(getString(R.string.settings_key_display_theme)))
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->

@@ -185,7 +185,6 @@
     <string name="error_field_validation_email_format">Please enter a valid email</string>
     <string name="error_field_validation_id_after">Η ημερομηνία έκδοσης δεν μπορεί να είναι μετά την ημερομηνία λήξης</string>
     <string name="error_field_validation_ed_before">Η ημερομηνία λήξης δεν μπορεί να είναι πριν από την ημερομηνία έκδοσης.</string>
-    <string name="error_biometric_authentication_error">Σφάλμα βιομετρικού ελέγχου ταυτότητας: %1$s</string>
     <string name="error_about_donations_querying_products">Σφάλμα κατά την ερώτηση των δωρεών</string>
     <string name="button_action_close">Κλείσε</string>
     <string name="button_action_save">Αποθηκεύσετε</string>
