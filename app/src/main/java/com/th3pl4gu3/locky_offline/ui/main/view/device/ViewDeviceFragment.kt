@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
@@ -111,7 +110,7 @@ class ViewDeviceFragment : Fragment(), ViewCredentialListener {
     }
 
     override fun onShareClicked(data: String) {
-        showPasswordDialog(data)
+        sharePassword(data)
     }
 
 
