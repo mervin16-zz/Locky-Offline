@@ -25,8 +25,6 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
     val canNavigateToMainScreen = MutableLiveData(false)
 
 
-    var test = MutableLiveData<String>()
-
     /* Properties */
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
@@ -96,9 +94,6 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
         SettingsManager(getApplication()).isMasterPasswordEnabled()
 
     internal fun fetchMasterPassword() = SettingsManager(getApplication()).getMasterPassword()
-
-    internal fun isBiometricsEnabled(): Boolean =
-        SettingsManager(getApplication()).isBiometricsEnabled()
 
     /*
     * In-Accessible Functions

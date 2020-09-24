@@ -223,18 +223,34 @@ class StarterFragment : Fragment() {
         * NOTE: If both has been enabled, we prioritize biometrics over password.
         */
 
-        when {
-            viewModel.isBiometricsEnabled() -> {
-                promptBiometric()
-            }
-            viewModel.isMasterPasswordEnabled() -> {
-                masterPasswordVerification()
-            }
-            else -> {
-                viewModel.canNavigateToMainScreen.value = true
-            }
-        }
+        with(LockyLoginSecurity(requireActivity().application), {
 
+            launchBiometrics.observe(viewLifecycleOwner, {
+                if (it) {
+                    promptBiometric()
+                }
+            })
+
+            launchMasterPassword.observe(viewLifecycleOwner, {
+                if (it) {
+                    masterPasswordVerification()
+                }
+            })
+
+            launchBiometricsDialog.observe(viewLifecycleOwner, {
+                if (it) {
+                    biometricEnrolmentDialog()
+                }
+            })
+
+            hasNoSecurityEnabled.observe(viewLifecycleOwner, {
+                if (it) {
+                    viewModel.canNavigateToMainScreen.value = true
+                }
+            })
+
+            launchVerification()
+        })
     }
 
     private fun masterPasswordVerification() {
@@ -248,21 +264,6 @@ class StarterFragment : Fragment() {
     }
 
     private fun promptBiometric() {
-        if (!LockyBiometrics.hasEnrollments(requireActivity().application)) {
-
-            /*
-             * This means that a user that previously has enrolled
-             * biometrics, no longer have them
-             * we hence cannot let the user proceed until
-             * new enrolments are configured.
-      à       * We then show a dialog to the user explaining the situation
-            */
-
-            biometricEnrolmentDialog()
-
-            return
-        }
-
         val biometrics = LockyBiometrics(requireActivity().application)
         val prompt = biometrics.prompt(this)
         biometrics.errMessage.observe(viewLifecycleOwner, {

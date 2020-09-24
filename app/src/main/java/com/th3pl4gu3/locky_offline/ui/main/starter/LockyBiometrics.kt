@@ -27,14 +27,16 @@ class LockyBiometrics(private val application: Application) :
             }
         }
 
-        internal fun getValidAuthenticators(application: Application) =
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                BiometricManager.from(application.applicationContext)
-                    .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-            } else {
-                BiometricManager.from(application.applicationContext)
-                    .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-            }
+        internal fun getValidAuthenticators(application: Application): Int {
+            return BiometricManager.from(application.applicationContext)
+                .canAuthenticate(
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        BiometricManager.Authenticators.BIOMETRIC_STRONG
+                    } else {
+                        BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+                    }
+                )
+        }
 
         private fun hasEnrolledDeviceCredentials(application: Application) =
             BiometricManager.from(application.applicationContext).canAuthenticate(

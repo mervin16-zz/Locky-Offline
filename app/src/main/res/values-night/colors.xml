@@ -10,7 +10,7 @@
     <color name="colorPrimaryDark">@color/dark_colorPrimaryDark</color>
     <color name="colorAccent">@color/dark_colorAccent</color>
     <color name="colorOnSurface">@color/dark_colorOnSurface</color>
-    <color name="colorShadowColor">@color/grey_100</color>
+    <color name="colorShadowColor">@color/colorAccent</color>
     <color name="dark_colorOnSecondary">@color/grey_dark_100</color>
     <color name="colorOnSurfaceSnackBar">@android:color/white</color>
 
@@ -65,5 +65,5 @@
     <!-- Information Colors -->
     <!-- ================== -->
     <color name="colorInfoWarning_Light">@color/yellow_50_alpha</color>
-    <color name="colorInfoError_Light">@color/red_50_alpha</color>
+    <color name="colorInfoError_Light">@color/red_50</color>
 </resources>
