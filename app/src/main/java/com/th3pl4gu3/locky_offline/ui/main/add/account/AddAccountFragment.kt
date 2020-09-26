@@ -27,12 +27,13 @@ class AddAccountFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         /* Binds the UI */
         _binding = FragmentAddAccountBinding.inflate(inflater, container, false)
         /* Instantiate the view model */
         _viewModel = ViewModelProvider(this).get(AddAccountViewModel::class.java)
+
         /* Bind view model to layout */
         binding.viewModel = viewModel
         /* Bind lifecycle owner to this */
@@ -111,59 +112,50 @@ class AddAccountFragment : Fragment() {
         })
     }
 
-    private fun observeIfHasErrors() {
-        viewModel.hasErrors.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                scrollToTop()
-                viewModel.resetErrorsFlag()
-            }
+    private fun observeIfHasErrors() = viewModel.hasErrors.observe(viewLifecycleOwner, Observer {
+        if (it) {
+            scrollToTop()
+            viewModel.resetErrorsFlag()
+        }
+    })
+
+    private fun observeFormErrorMessageEvents() = with(viewModel) {
+        nameErrorMessage.observe(viewLifecycleOwner, Observer {
+            binding.AccountName.error = it
+        })
+
+        passwordErrorMessage.observe(viewLifecycleOwner, Observer {
+            binding.AccountPassword.error = it
+        })
+
+        emailErrorMessage.observe(viewLifecycleOwner, Observer {
+            binding.AccountEmail.error = it
         })
     }
 
-    private fun observeFormErrorMessageEvents() {
-        with(viewModel) {
-            nameErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.AccountName.error = it
-            })
-
-            passwordErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.AccountPassword.error = it
-            })
-
-            emailErrorMessage.observe(viewLifecycleOwner, Observer {
-                binding.AccountEmail.error = it
-            })
-        }
-    }
-
-    private fun observeFormValidity() {
+    private fun observeFormValidity() =
         viewModel.formValidity.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 showToastAndNavigateToAccountList(it)
             }
         })
+
+    private fun observeToastEvent() = with(viewModel) {
+        toastEvent.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                toast(it)
+                doneWithToastEvent()
+            }
+        })
     }
 
-    private fun observeToastEvent() {
-        with(viewModel) {
-            toastEvent.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    toast(it)
-                    doneWithToastEvent()
-                }
-            })
-        }
+    private fun listenerLogoClick() = binding.AccountLogoEdit.setOnClickListener {
+        navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentBottomDialogLogoAccount())
     }
 
-    private fun listenerLogoClick() {
-        binding.AccountLogoEdit.setOnClickListener {
-            navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentBottomDialogLogoAccount())
-        }
-    }
-
-    private fun scrollToTop() {
-        binding.LayoutParentAddAccount.fling(0)
-        binding.LayoutParentAddAccount.smoothScrollTo(0, 0)
+    private fun scrollToTop() = with(binding) {
+        LayoutParentAddAccount.fling(0)
+        LayoutParentAddAccount.smoothScrollTo(0, 0)
     }
 
     private fun showToastAndNavigateToAccountList(toastMessage: String) {

@@ -173,7 +173,15 @@ class AddAccountViewModel(application: Application) : ObservableViewModel(applic
             get(getString(R.string.settings_key_passwordgen_hasdash)),
             get(getString(R.string.settings_key_passwordgen_hasspecials))
         )
-        password = generate()
+
+        with(generate()) {
+            if (this.isEmpty()) {
+                _toastEvent.value =
+                    getString(R.string.message_passwordgenerator_configuration_notdone)
+                return
+            }
+            password = this
+        }
     }
 
     internal fun resetErrorsFlag() {

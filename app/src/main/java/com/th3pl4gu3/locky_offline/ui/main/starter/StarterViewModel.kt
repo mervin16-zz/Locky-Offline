@@ -24,7 +24,6 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
     /* Public Variables */
     val canNavigateToMainScreen = MutableLiveData(false)
 
-
     /* Properties */
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
@@ -82,12 +81,6 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
             */
             _signInCompletion.value = true
         }
-    }
-
-    internal fun isUserSavedInSession(): Boolean = with(LocalStorageManager) {
-        /* Returns boolean on whether user already exists or not.*/
-        withLogin(getApplication())
-        return exists(KEY_USER_ACCOUNT)
     }
 
     internal fun isMasterPasswordEnabled(): Boolean =

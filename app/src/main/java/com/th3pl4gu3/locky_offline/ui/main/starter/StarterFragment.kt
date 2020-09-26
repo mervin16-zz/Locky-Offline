@@ -9,13 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.signin.*
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.th3pl4gu3.locky_offline.R
-import com.th3pl4gu3.locky_offline.core.others.User
 import com.th3pl4gu3.locky_offline.databinding.FragmentStarterBinding
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.navigateTo
 import com.th3pl4gu3.locky_offline.ui.main.utils.extensions.requireMainActivity
@@ -29,7 +25,7 @@ class StarterFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var _lockySignIn: LockySignIn
 
     private val mainToolBar: MaterialToolbar
         get() = requireMainActivity().findViewById(R.id.Toolbar_Main)
@@ -41,7 +37,7 @@ class StarterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         super.onCreate(savedInstanceState)
         /*
@@ -54,13 +50,15 @@ class StarterFragment : Fragment() {
         binding.lifecycleOwner = this
 
         /* Loads google sign in */
-        googleSignInLoading()
+        _lockySignIn = LockySignIn(requireActivity().application)
+        _lockySignIn.buildGoogleSignInClient(requireActivity())
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         /* Hide Main Toolbar on startup */
         toggleMainToolbarVisibility(View.GONE)
 
@@ -83,7 +81,39 @@ class StarterFragment : Fragment() {
         /*
         * This function checks if the user is signed in or not
         */
-        checkIfUserSignedIn()
+        with(_lockySignIn) {
+            showGetStartedButton.observe(viewLifecycleOwner, {
+                if (it) {
+                    viewModel.showGetStartedButton()
+                }
+            })
+
+            showGoogleButton.observe(viewLifecycleOwner, {
+                if (it) {
+                    viewModel.showGoogleButton()
+                }
+            })
+
+            proceedToLogin.observe(viewLifecycleOwner, {
+                if (it != null) {
+                    viewModel.login(it)
+                }
+            })
+
+            navigateToMainScreen.observe(viewLifecycleOwner, {
+                if (it) {
+                    prepareToNavigateToMainScreen()
+                }
+            })
+
+            message.observe(viewLifecycleOwner, {
+                if (it != null) {
+                    toast(it)
+                }
+            })
+
+            isUserSignedIn()
+        }
     }
 
     override fun onDestroyView() {
@@ -103,7 +133,7 @@ class StarterFragment : Fragment() {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data))
+            _lockySignIn.handleSignInResult(data)
         }
     }
 
@@ -131,86 +161,8 @@ class StarterFragment : Fragment() {
         launchOAuth()
     }
 
-    private fun launchOAuth() = startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGN_IN)
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)!!
-            if (isAccountValid(account)) {
-                viewModel.login(
-                    User.getInstance(
-                        account.displayName!!,
-                        account.email!!,
-                        account.photoUrl.toString()
-                    )
-                )
-            } else {
-                googleSignOut()
-            }
-        } catch (e: ApiException) {
-            when (e.statusCode) {
-                GoogleSignInStatusCodes.NETWORK_ERROR -> toast(getString(R.string.message_internet_connection_unavailable))
-                GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> toast(getString(R.string.message_user_signin_cancelled))
-                GoogleSignInStatusCodes.INTERNAL_ERROR -> toast(e.message.toString())
-                else -> toast(getString(R.string.error_internal_code_1, e.message.toString()))
-            }
-        }
-
-        viewModel.showGoogleButton()
-    }
-
-    private fun checkIfUserSignedIn() {
-        /*
-        * We get the account from Google.
-        * If it returns null, it means the user was not signed in
-        * Else, the user has already been signed in and we can redirect the user to main
-        */
-        val account = GoogleSignIn.getLastSignedInAccount(requireContext().applicationContext)
-
-        when {
-            account != null && viewModel.isUserSavedInSession() -> {
-                prepareToNavigateToMainScreen()
-            }
-            account != null -> {
-                if (isAccountValid(account)) {
-                    viewModel.login(
-                        User.getInstance(
-                            account.displayName!!,
-                            account.email!!,
-                            account.photoUrl.toString()
-                        )
-                    )
-                } else {
-                    googleSignOut()
-                }
-            }
-            else -> {
-                viewModel.showGetStartedButton()
-            }
-        }
-    }
-
-    private fun googleSignInLoading() {
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(
-            requireActivity(), GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-        )
-    }
-
-    private fun googleSignOut() {
-        /* Log the user out and clear session*/
-        mGoogleSignInClient.signOut()
-
-        viewModel.showGetStartedButton()
-    }
+    private fun launchOAuth() =
+        startActivityForResult(_lockySignIn.googleSignInClient.signInIntent, RC_SIGN_IN)
 
     private fun prepareToNavigateToMainScreen() {
         /*
@@ -324,7 +276,4 @@ class StarterFragment : Fragment() {
     private fun toggleMainToolbarVisibility(visibility: Int) {
         mainToolBar.visibility = visibility
     }
-
-    private fun isAccountValid(account: GoogleSignInAccount) =
-        account.displayName != null && account.email != null
 }
