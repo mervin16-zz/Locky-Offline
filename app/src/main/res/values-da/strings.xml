@@ -252,4 +252,6 @@
     <string name="chips_action_lowercase">mindre sager</string>
     <string name="button_action_use_masterpassword">Brug hovedadgangskode</string>
     <string name="button_action_copy_password">Kopier adgangskode</string>
+    <string name="message_passwordgenerator_configuration_notdone">Konfigurer adgangskodegenerator inden generering</string>
+    <string name="error_internal_code_4">Der opstod en intern fejl. Fejlkode 4</string>
 </resources>

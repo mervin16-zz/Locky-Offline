@@ -186,8 +186,8 @@ class AddDeviceFragment : Fragment() {
         navigateTo(AddDeviceFragmentDirections.actionFragmentAddDeviceToFragmentDevice())
     }
 
-    private fun scrollToTop() {
-        binding.LayoutParentAddDevice.fling(0)
-        binding.LayoutParentAddDevice.smoothScrollTo(0, 0)
+    private fun scrollToTop() = with(binding.LayoutParentAddDevice) {
+        fling(0)
+        smoothScrollTo(0, 0)
     }
 }

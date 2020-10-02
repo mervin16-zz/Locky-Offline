@@ -153,9 +153,9 @@ class AddAccountFragment : Fragment() {
         navigateTo(AddAccountFragmentDirections.actionFragmentAddAccountToFragmentBottomDialogLogoAccount())
     }
 
-    private fun scrollToTop() = with(binding) {
-        LayoutParentAddAccount.fling(0)
-        LayoutParentAddAccount.smoothScrollTo(0, 0)
+    private fun scrollToTop() = with(binding.LayoutParentAddAccount) {
+        fling(0)
+        smoothScrollTo(0, 0)
     }
 
     private fun showToastAndNavigateToAccountList(toastMessage: String) {

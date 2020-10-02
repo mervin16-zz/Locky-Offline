@@ -172,8 +172,9 @@ class AddBankAccountFragment : Fragment() {
     }
 
     private fun logoAccentClickListener() {
-        binding.AccountLogoEdit.setOnClickListener{
-            navigateTo(AddBankAccountFragmentDirections.actionFragmentAddBankAccountToFragmentBottomDialogLogoBankAccount().setHEXCURRENT(viewModel.accent))
+        binding.AccountLogoEdit.setOnClickListener {
+            navigateTo(AddBankAccountFragmentDirections.actionFragmentAddBankAccountToFragmentBottomDialogLogoBankAccount()
+                .setHEXCURRENT(viewModel.accent))
         }
     }
 
@@ -182,8 +183,8 @@ class AddBankAccountFragment : Fragment() {
         navigateTo(AddBankAccountFragmentDirections.actionFragmentAddBankAccountToFragmentBankAccount())
     }
 
-    private fun scrollToTop() {
-        binding.LayoutParentAddBankAccount.fling(0)
-        binding.LayoutParentAddBankAccount.smoothScrollTo(0, 0)
+    private fun scrollToTop() = with(binding.LayoutParentAddBankAccount) {
+        fling(0)
+        smoothScrollTo(0, 0)
     }
 }

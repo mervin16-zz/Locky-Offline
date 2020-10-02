@@ -256,4 +256,6 @@
     <string name="chips_action_number">nombres</string>
     <string name="chips_action_dash">1 tiret</string>
     <string name="chips_action_special_char_1">1 caractère spécial</string>
+    <string name="message_passwordgenerator_configuration_notdone">Veuillez configurer le générateur de mot de passe avant de générer</string>
+    <string name="error_internal_code_4">Une erreur interne a eu lieu. Code d\'erreur 4</string>
 </resources>

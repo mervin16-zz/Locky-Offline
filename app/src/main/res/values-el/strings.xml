@@ -252,4 +252,6 @@
     <string name="chips_action_number">αριθμοί</string>
     <string name="chips_action_dash">1 παύλα</string>
     <string name="chips_action_special_char_1">1 ειδικός χαρακτήρας</string>
+    <string name="message_passwordgenerator_configuration_notdone">Διαμορφώστε τη γεννήτρια κωδικών πρόσβασης πριν τη δημιουργία</string>
+    <string name="error_internal_code_4">Παρουσιάστηκε εσωτερικό σφάλμα. Κωδικός σφάλματος 4</string>
 </resources>

@@ -182,8 +182,8 @@ class AddCardFragment : Fragment() {
         picker.show(requireActivity().supportFragmentManager, picker.toString())
     }
 
-    private fun scrollToTop() {
-        binding.LayoutParentAddCard.fling(0)
-        binding.LayoutParentAddCard.smoothScrollTo(0, 0)
+    private fun scrollToTop() = with(binding.LayoutParentAddCard) {
+        fling(0)
+        smoothScrollTo(0, 0)
     }
 }
