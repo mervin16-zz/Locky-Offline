@@ -1,6 +1,8 @@
 package com.th3pl4gu3.locky_offline.ui.main.starter
 
 import android.app.Application
+import android.content.Intent
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,20 +22,55 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
     /* Private Variables */
     private val _buttonVisibility = MutableLiveData(0)
     private val _signInCompletion = MutableLiveData(false)
+    private val _lockySignIn = LockySignIn(application)
+    private val _lockyLoginSecurity = LockyLoginSecurity(application)
 
-    /* Public Variables */
-    val canNavigateToMainScreen = MutableLiveData(false)
+    /* Public Properties */
+    val buttonVisibility: LiveData<Int> get() = _buttonVisibility
 
-    /* Properties */
-    val buttonVisibility: LiveData<Int>
-        get() = _buttonVisibility
+    val isSignInComplete: LiveData<Boolean> get() = _signInCompletion
 
-    val isSignInComplete: LiveData<Boolean>
-        get() = _signInCompletion
+    /* Locky Sign In Live Data */
+    val showGetStartedButton = _lockySignIn.showGetStartedButton
+
+    val showGoogleButton = _lockySignIn.showGoogleButton
+
+    val launchSignInSecurityChecks = _lockySignIn.launchSignInSecurityChecks
+
+    val proceedToLogin = _lockySignIn.proceedToLogin
+
+    val message = _lockySignIn.message
+
+    /* Locky Login Security Live Data */
+    val launchBiometrics = _lockyLoginSecurity.launchBiometrics
+
+    val launchBiometricsDialog = _lockyLoginSecurity.launchBiometricsDialog
+
+    val launchMasterPassword = _lockyLoginSecurity.launchMasterPassword
+
+    val hasNoSecurityEnabled = _lockyLoginSecurity.hasNoSecurityEnabled
 
     /*
     * Accessible Functions
     */
+    internal fun launchLoginSecurityCheck() {
+        _lockyLoginSecurity.launchVerification()
+    }
+
+    internal fun requireGoogleSignInClient() = _lockySignIn.googleSignInClient
+
+    internal fun setupSignIn(activity: FragmentActivity) {
+        _lockySignIn.buildGoogleSignInClient(activity)
+    }
+
+    internal fun isUserSignedIn() {
+        _lockySignIn.isUserSignedIn()
+    }
+
+    internal fun handleSignInResult(data: Intent?) {
+        _lockySignIn.handleSignInResult(data)
+    }
+
     internal fun showLoading() {
         _buttonVisibility.value = 0
     }
@@ -105,7 +142,6 @@ class StarterViewModel(application: Application) : AndroidViewModel(application)
         return user
     }
 
-    /* Saves the user in database */
     private suspend fun save(user: User) = withContext(Dispatchers.IO) {
         UserRepository.getInstance(getApplication()).insert(user)
     }

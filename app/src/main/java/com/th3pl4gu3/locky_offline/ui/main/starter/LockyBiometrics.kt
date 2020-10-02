@@ -38,11 +38,6 @@ class LockyBiometrics(private val application: Application) :
                 )
         }
 
-        private fun hasEnrolledDeviceCredentials(application: Application) =
-            BiometricManager.from(application.applicationContext).canAuthenticate(
-                BiometricManager.Authenticators.DEVICE_CREDENTIAL
-            ) == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
-
         private fun hasEnrolledBiometrics(application: Application) =
             BiometricManager.from(application.applicationContext).canAuthenticate(
                 BiometricManager.Authenticators.BIOMETRIC_STRONG

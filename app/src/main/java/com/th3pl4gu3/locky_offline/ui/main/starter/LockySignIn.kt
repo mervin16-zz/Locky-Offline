@@ -17,14 +17,14 @@ class LockySignIn(private val application: Application) {
     private lateinit var _googleSignInClient: GoogleSignInClient
 
     /* Mutable Live data */
-    private val _navigateToMainScreen = MutableLiveData(false)
+    private val _launchSignInSecurityChecks = MutableLiveData(false)
     private val _proceedToLogin = MutableLiveData<User>()
     private val _showGetStartedButton = MutableLiveData(false)
     private val _showGoogleButton = MutableLiveData(false)
     private val _message = MutableLiveData<String>()
 
     /* Live Data */
-    internal val navigateToMainScreen: LiveData<Boolean> get() = _navigateToMainScreen
+    internal val launchSignInSecurityChecks: LiveData<Boolean> get() = _launchSignInSecurityChecks
     internal val proceedToLogin: LiveData<User> get() = _proceedToLogin
     internal val showGetStartedButton: LiveData<Boolean> get() = _showGetStartedButton
     internal val showGoogleButton: LiveData<Boolean> get() = _showGoogleButton
@@ -54,7 +54,7 @@ class LockySignIn(private val application: Application) {
         with(GoogleSignIn.getLastSignedInAccount(application.applicationContext)) {
             when {
                 this != null && isUserSavedInSession() -> {
-                    _navigateToMainScreen.value = true
+                    _launchSignInSecurityChecks.value = true
                 }
                 this != null -> {
                     if (isAccountValid(this)) {

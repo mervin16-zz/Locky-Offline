@@ -25,8 +25,6 @@ class StarterFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel get() = _viewModel!!
 
-    private lateinit var _lockySignIn: LockySignIn
-
     private val mainToolBar: MaterialToolbar
         get() = requireMainActivity().findViewById(R.id.Toolbar_Main)
 
@@ -50,8 +48,7 @@ class StarterFragment : Fragment() {
         binding.lifecycleOwner = this
 
         /* Loads google sign in */
-        _lockySignIn = LockySignIn(requireActivity().application)
-        _lockySignIn.buildGoogleSignInClient(requireActivity())
+        viewModel.setupSignIn(requireActivity())
 
         return binding.root
     }
@@ -68,11 +65,8 @@ class StarterFragment : Fragment() {
         /*Listener for Google Button*/
         listenerForGoogleButton()
 
-        /* Observe sign in state */
-        observeSignInState()
-
-        /* Observe if can navigate to main screen */
-        observeIfCanNavigateToMainScreen()
+        /* Sign In Observers */
+        viewModel.startObservingSignInData()
     }
 
     override fun onStart() {
@@ -81,39 +75,7 @@ class StarterFragment : Fragment() {
         /*
         * This function checks if the user is signed in or not
         */
-        with(_lockySignIn) {
-            showGetStartedButton.observe(viewLifecycleOwner, {
-                if (it) {
-                    viewModel.showGetStartedButton()
-                }
-            })
-
-            showGoogleButton.observe(viewLifecycleOwner, {
-                if (it) {
-                    viewModel.showGoogleButton()
-                }
-            })
-
-            proceedToLogin.observe(viewLifecycleOwner, {
-                if (it != null) {
-                    viewModel.login(it)
-                }
-            })
-
-            navigateToMainScreen.observe(viewLifecycleOwner, {
-                if (it) {
-                    prepareToNavigateToMainScreen()
-                }
-            })
-
-            message.observe(viewLifecycleOwner, {
-                if (it != null) {
-                    toast(it)
-                }
-            })
-
-            isUserSignedIn()
-        }
+        viewModel.isUserSignedIn()
     }
 
     override fun onDestroyView() {
@@ -128,41 +90,19 @@ class StarterFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...)
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            _lockySignIn.handleSignInResult(data)
+            viewModel.handleSignInResult(data)
         }
     }
 
-    private fun observeIfCanNavigateToMainScreen() {
-        viewModel.canNavigateToMainScreen.observe(viewLifecycleOwner, {
-            if (it) {
-                navigateToMainScreen()
-            }
-        })
-    }
-
-    private fun observeSignInState() =
-        viewModel.isSignInComplete.observe(viewLifecycleOwner, {
-            if (it) {
-                prepareToNavigateToMainScreen()
-            }
-        })
-
-    private fun listenerForGetStartedButton() = binding.ButtonGetStarted.setOnClickListener {
-        viewModel.showGoogleButton()
-    }
-
-    private fun listenerForGoogleButton() = binding.ButtonGoogle.setOnClickListener {
-        viewModel.showLoading()
-        launchOAuth()
-    }
-
+    /*
+    * Login Flow
+    */
     private fun launchOAuth() =
-        startActivityForResult(_lockySignIn.googleSignInClient.signInIntent, RC_SIGN_IN)
+        startActivityForResult(viewModel.requireGoogleSignInClient().signInIntent, RC_SIGN_IN)
 
     private fun prepareToNavigateToMainScreen() {
         /*
@@ -175,45 +115,34 @@ class StarterFragment : Fragment() {
         * NOTE: If both has been enabled, we prioritize biometrics over password.
         */
 
-        with(LockyLoginSecurity(requireActivity().application), {
+        with(viewModel) {
 
-            launchBiometrics.observe(viewLifecycleOwner, {
-                if (it) {
-                    promptBiometric()
-                }
-            })
+            startObservingLoginSecurityData()
 
-            launchMasterPassword.observe(viewLifecycleOwner, {
-                if (it) {
-                    masterPasswordVerification()
-                }
-            })
-
-            launchBiometricsDialog.observe(viewLifecycleOwner, {
-                if (it) {
-                    biometricEnrolmentDialog()
-                }
-            })
-
-            hasNoSecurityEnabled.observe(viewLifecycleOwner, {
-                if (it) {
-                    viewModel.canNavigateToMainScreen.value = true
-                }
-            })
-
-            launchVerification()
-        })
-    }
-
-    private fun masterPasswordVerification() {
-        if (findNavController().currentDestination?.id == R.id.Fragment_Starter) {
-            navigateTo(
-                StarterFragmentDirections.actionFragmentStarterToFragmentBottomDialogPasswordAuth(
-                    viewModel.fetchMasterPassword()
-                )
-            )
+            launchLoginSecurityCheck()
         }
     }
+
+    private fun navigateToMainScreen() {
+        navigateTo(StarterFragmentDirections.actionFragmentStarterToFragmentAccount())
+    }
+
+    /*
+    * Biometrics & Password Authentication Functions
+    */
+    private fun biometricEnrolmentDialog() =
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.text_title_alert_biometric))
+            .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
+            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
+                dialog.dismiss()
+                requireActivity().finish()
+            }
+            .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
+                startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
+                dialog.dismiss()
+            }
+            .show()
 
     private fun promptBiometric() {
         val biometrics = LockyBiometrics(requireActivity().application)
@@ -248,31 +177,108 @@ class StarterFragment : Fragment() {
 
         biometrics.isSuccess.observe(viewLifecycleOwner, {
             if (it) {
-                viewModel.canNavigateToMainScreen.value = it
+                this@StarterFragment.navigateToMainScreen()
             }
         })
 
         biometrics.authenticate(prompt, viewModel.isMasterPasswordEnabled())
     }
 
-    private fun navigateToMainScreen() {
-        navigateTo(StarterFragmentDirections.actionFragmentStarterToFragmentAccount())
+    private fun masterPasswordVerification() {
+        if (findNavController().currentDestination?.id == R.id.Fragment_Starter) {
+            navigateTo(
+                StarterFragmentDirections.actionFragmentStarterToFragmentBottomDialogPasswordAuth(
+                    viewModel.fetchMasterPassword()
+                )
+            )
+        }
     }
 
-    private fun biometricEnrolmentDialog() =
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.text_title_alert_biometric))
-            .setMessage(getString(R.string.text_title_alert_biometric_enrolments_message))
-            .setNegativeButton(R.string.button_action_cancel) { dialog, _ ->
-                dialog.dismiss()
-                requireActivity().finish()
-            }
-            .setPositiveButton(R.string.button_action_okay) { dialog, _ ->
-                startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
-                dialog.dismiss()
-            }
-            .show()
+    /*
+    * Observers & Listeners
+    */
+    private fun listenerForGetStartedButton() = binding.ButtonGetStarted.setOnClickListener {
+        viewModel.showGoogleButton()
+    }
 
+    private fun listenerForGoogleButton() = binding.ButtonGoogle.setOnClickListener {
+        viewModel.showLoading()
+        launchOAuth()
+    }
+
+    private fun StarterViewModel.startObservingSignInData() {
+        /* Observe if we can show get started button */
+        showGetStartedButton.observe(viewLifecycleOwner, {
+            if (it) {
+                viewModel.showGetStartedButton()
+            }
+        })
+
+        /* Observe if we can how google sign in button */
+        showGoogleButton.observe(viewLifecycleOwner, {
+            if (it) {
+                viewModel.showGoogleButton()
+            }
+        })
+
+        /* Observe if we can proceed with login */
+        proceedToLogin.observe(viewLifecycleOwner, {
+            if (it != null) {
+                viewModel.login(it)
+            }
+        })
+
+        /* Observe if we can start sign in security checks */
+        launchSignInSecurityChecks.observe(viewLifecycleOwner, {
+            if (it) {
+                prepareToNavigateToMainScreen()
+            }
+        })
+
+        /* Observe if there are messages to display on screen */
+        message.observe(viewLifecycleOwner, {
+            if (it != null) {
+                toast(it)
+            }
+        })
+
+        /* Observe sign in state */
+        isSignInComplete.observe(viewLifecycleOwner, {
+            if (it) {
+                prepareToNavigateToMainScreen()
+            }
+        })
+    }
+
+    private fun StarterViewModel.startObservingLoginSecurityData() {
+        launchBiometrics.observe(viewLifecycleOwner, {
+            if (it) {
+                promptBiometric()
+            }
+        })
+
+        launchMasterPassword.observe(viewLifecycleOwner, {
+            if (it) {
+                masterPasswordVerification()
+            }
+        })
+
+        launchBiometricsDialog.observe(viewLifecycleOwner, {
+            if (it) {
+                biometricEnrolmentDialog()
+            }
+        })
+
+        hasNoSecurityEnabled.observe(viewLifecycleOwner, {
+            if (it) {
+                this@StarterFragment.navigateToMainScreen()
+            }
+        })
+    }
+
+    /*
+    * Others
+    */
     private fun toggleMainToolbarVisibility(visibility: Int) {
         mainToolBar.visibility = visibility
     }
